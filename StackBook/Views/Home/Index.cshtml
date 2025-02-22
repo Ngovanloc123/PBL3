@@ -2,7 +2,150 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid">
+
+    <div class="row">
+        @* =========== SUBNAV ========= *@
+        <div class="col-2">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="nav flex-column p-2">
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="fw-bold link-primary text-dark text-decoration-none">Note Book</a></li>
+                            <li class="ms-2"><a href="#" class="link-primary text-dark text-decoration-none">Arts & Photography</a></li>
+                            <li class="ms-2"><a href="#" class="link-primary text-dark text-decoration-none">Biographies</a></li>
+                            <li class="ms-2"><a href="#" class="link-primary text-dark text-decoration-none">Calendars</a></li>
+                            <li class="ms-2"><a href="#" class="link-primary text-dark text-decoration-none">Law</a></li>
+                            <li class="ms-2"><a href="#" class="link-primary text-dark text-decoration-none">History</a></li>
+                            <li class="ms-2"><a href="#" class="link-primary text-dark text-decoration-none">Self-Help</a></li>
+                        </ul>
+
+                        <a href="#" class="fw-bold link-primary text-dark text-decoration-none">Note Book</a>
+                        <a href="#" class="fw-bold link-primary text-dark text-decoration-none">Sticky Note</a>
+                        <a href="#" class="fw-bold link-primary text-dark text-decoration-none">Highlighter Pen</a>
+                        <a href="#" class="fw-bold link-primary text-dark text-decoration-none">Bookmark</a>
+                        <a href="#" class="fw-bold link-primary text-dark text-decoration-none">Book Cover </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        @* ========= SLIDER AND CONTENT ========== *@
+        <div class="col-10">
+            @* ========== SLIDER =========== *@
+            <div class="row">
+                <div class="col-lg-3 col-sm-6 py-2">
+                    <a href="#"><img class="img-fluid" src="~/images/sliders/slider1.jpg" alt="slider image" /></a>
+                </div>
+                <div class="col-lg-3 col-sm-6 py-2">
+                    <a href="#"><img class="img-fluid" src="~/images/sliders/slider2.jpg" alt="slider image" /></a>
+                </div>
+                <div class="col-lg-3 col-sm-6 py-2">
+                    <a href="#"><img class="img-fluid" src="~/images/sliders/slider3.jpg" alt="slider image" /></a>
+                </div>
+                <div class="col-lg-3 col-sm-6 py-2">
+                    <a href="#"><img class="img-fluid" src="~/images/sliders/slider4.jpg" alt="slider image" /></a>
+                </div>
+            </div>
+
+            <h2 class="text-primary py-4">Best Sellers</h2>
+
+            @* ============ CONTENT ========= *@
+            <div class="row">
+                @* ======= ITEM ====== *@
+                <div class="card border-0 text-center col-lg-3 col-md-4 col-sm-6">
+                    <a href="#">
+                        <img src="~/images/sliders/slider1.jpg" class="card-img-top img-fluid" alt="The Let Them Theory">
+                    </a>
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <a href="#" class="text-decoration-none text-dark">
+                                The Let Them Theory: A Life-Changing Tool That Millions of People Can't Stop Talking About
+                            </a>
+                        </h6>
+                        <div class="rating">
+                            <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="text-muted">5,412</span>
+                        </div>
+                        <h5 class="text-danger mt-2">$15.18</h5>
+                    </div>
+                </div>
+
+                <div class="card border-0 text-center col-lg-3 col-md-4 col-sm-6">
+                    <a href="#">
+                        <img src="~/images/sliders/slider1.jpg" class="card-img-top img-fluid" alt="The Let Them Theory">
+                    </a>
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <a href="#" class="text-decoration-none text-dark">
+                                The Let Them Theory: A Life-Changing Tool That Millions of People Can't Stop Talking About
+                            </a>
+                        </h6>
+                        <div class="rating">
+                            <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="text-muted">5,412</span>
+                        </div>
+                        <h5 class="text-danger mt-2">$15.18</h5>
+                    </div>
+                </div>
+
+                <div class="card border-0 text-center col-lg-3 col-md-4 col-sm-6">
+                    <a href="#">
+                        <img src="~/images/sliders/slider1.jpg" class="card-img-top img-fluid" alt="The Let Them Theory">
+                    </a>
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <a href="#" class="text-decoration-none text-dark">
+                                The Let Them Theory: A Life-Changing Tool That Millions of People Can't Stop Talking About
+                            </a>
+                        </h6>
+                        <div class="rating">
+                            <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="text-muted">5,412</span>
+                        </div>
+                        <h5 class="text-danger mt-2">$15.18</h5>
+                    </div>
+                </div>
+
+                <div class="card border-0 text-center col-lg-3 col-md-4 col-sm-6">
+                    <a href="#">
+                        <img src="~/images/sliders/slider1.jpg" class="card-img-top img-fluid" alt="The Let Them Theory">
+                    </a>
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <a href="#" class="text-decoration-none text-dark">
+                                The Let Them Theory: A Life-Changing Tool That Millions of People Can't Stop Talking About
+                            </a>
+                        </h6>
+                        <div class="rating">
+                            <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="text-muted">5,412</span>
+                        </div>
+                        <h5 class="text-danger mt-2">$15.18</h5>
+                    </div>
+                </div>
+
+                <div class="card border-0 text-center col-lg-3 col-md-4 col-sm-6">
+                    <a href="#">
+                        <img src="~/images/sliders/slider1.jpg" class="card-img-top img-fluid" alt="The Let Them Theory">
+                    </a>
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <a href="#" class="text-decoration-none text-dark">
+                                The Let Them Theory: A Life-Changing Tool That Millions of People Can't Stop Talking About
+                            </a>
+                        </h6>
+                        <div class="rating">
+                            <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="text-muted">5,412</span>
+                        </div>
+                        <h5 class="text-danger mt-2">$15.18</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
 </div>

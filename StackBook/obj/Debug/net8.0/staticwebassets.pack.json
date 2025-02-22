@@ -13,6 +13,42 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Project PBL3\\StackBook\\wwwroot\\images\\Books\\Atomic_Habits- Self-help.webp",
+      "PackagePath": "staticwebassets\\images\\Books\\Atomic_Habits- Self-help.webp"
+    },
+    {
+      "Id": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Project PBL3\\StackBook\\wwwroot\\images\\Books\\Murmurations - Arts_Photography.webp",
+      "PackagePath": "staticwebassets\\images\\Books\\Murmurations - Arts_Photography.webp"
+    },
+    {
+      "Id": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Project PBL3\\StackBook\\wwwroot\\images\\Books\\Rich Dad Poor Dad - Business and Money.webp",
+      "PackagePath": "staticwebassets\\images\\Books\\Rich Dad Poor Dad - Business and Money.webp"
+    },
+    {
+      "Id": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Project PBL3\\StackBook\\wwwroot\\images\\Books\\Sapiens - History.webp",
+      "PackagePath": "staticwebassets\\images\\Books\\Sapiens - History.webp"
+    },
+    {
+      "Id": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Project PBL3\\StackBook\\wwwroot\\images\\Books\\The Teacher - Education and Teaching.webp",
+      "PackagePath": "staticwebassets\\images\\Books\\The Teacher - Education and Teaching.webp"
+    },
+    {
+      "Id": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Project PBL3\\StackBook\\wwwroot\\images\\sliders\\slider1.jpg",
+      "PackagePath": "staticwebassets\\images\\sliders\\slider1.jpg"
+    },
+    {
+      "Id": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Project PBL3\\StackBook\\wwwroot\\images\\sliders\\slider2.jpg",
+      "PackagePath": "staticwebassets\\images\\sliders\\slider2.jpg"
+    },
+    {
+      "Id": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Project PBL3\\StackBook\\wwwroot\\images\\sliders\\slider3.jpg",
+      "PackagePath": "staticwebassets\\images\\sliders\\slider3.jpg"
+    },
+    {
+      "Id": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Project PBL3\\StackBook\\wwwroot\\images\\sliders\\slider4.jpg",
+      "PackagePath": "staticwebassets\\images\\sliders\\slider4.jpg"
+    },
+    {
       "Id": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Project PBL3\\StackBook\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

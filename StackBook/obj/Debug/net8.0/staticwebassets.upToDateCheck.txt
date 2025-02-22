@@ -1,5 +1,14 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\images\Books\Atomic_Habits- Self-help.webp
+wwwroot\images\Books\Murmurations - Arts_Photography.webp
+wwwroot\images\Books\Rich Dad Poor Dad - Business and Money.webp
+wwwroot\images\Books\Sapiens - History.webp
+wwwroot\images\Books\The Teacher - Education and Teaching.webp
+wwwroot\images\sliders\slider1.jpg
+wwwroot\images\sliders\slider2.jpg
+wwwroot\images\sliders\slider3.jpg
+wwwroot\images\sliders\slider4.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

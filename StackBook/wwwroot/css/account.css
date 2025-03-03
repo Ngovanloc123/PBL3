@@ -1,0 +1,133 @@
+﻿:root {
+    --primary-color: #ff6a00;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 90vh;
+    background: url(https://wallpapercave.com/wp/wp2036897.jpg);
+    background-size: cover;
+    background-position: center;
+    margin-top: -4px;
+}
+
+.account-box {
+    position: relative;
+    width: 400px;
+    height: unset;
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(15px);
+}
+
+h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-top: 1.2rem;
+}
+
+.input-box {
+    position: relative;
+    width: 310px;
+    margin: 30px 0;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: var(--primary-color);
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box input:valid~label,
+.input-box input:focus~label {
+    top: -5px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: var(--primary-color);
+    padding: 0 35px 0 5px;
+}
+
+.input-box .icon {
+    position: absolute;
+    right: 8px;
+    color: var(--primary-color);
+    font-size: 1.2em;
+    line-height: 57px;
+}
+
+.remember-forgot {
+    margin: -15px 0 15px;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember-forgot label input {
+    margin-right: 3px;
+}
+
+    .remember-forgot a {
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+button {
+    width: 100%;
+    height: 40px;
+    background: var(--primary-color);
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #000;
+    font-weight: 500;
+}
+.register-link {
+    font-size: .9em;
+    color: var(--primary-color);
+    text-align: center;
+    margin: 25px 0 10px;
+}
+
+.register-link p a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}

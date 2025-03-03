@@ -1,0 +1,534 @@
+﻿@* ================= MẶC ĐỊNH KHI NHẤN VÀO SHOP ================ *@
+<div class="container-fluid">
+    <h1 class="text-center my-4 py-2 border-bottom bg-body-tertiary"><span class="fw-light">Explore</span> Category</h1>
+
+    <h2 class="pb-2">Featured Books</h2>
+    @* ================== SLIDER BOOKS ======================== *@
+    <div class="container swiper">
+        <div class="card-wrapper">
+            <ul class="card-list swiper-wrapper">
+                <li class="card-item swiper-slide">
+                    <a href="" class="card-link">
+                        <img src="~/images/books/Atomic_Habits- Self-help.webp" alt="Cart Image" class="card-image" />
+                        <p class="category">Self-help</p>
+                        <h2 class="card-title mt-4">Tiny Changes, Remarkable Results</h2>
+                        <button class="card-button fa-solid fa-arrow-right"></button>
+                    </a>
+                </li>
+                <li class="card-item swiper-slide">
+                    <a href="" class="card-link">
+                        <img src="~/images/books/Sapiens - History.webp" alt="Cart Image" class="card-image" />
+                        <p class="category">History</p>
+                        <h2 class="card-title mt-4">Tiny Changes, Remarkable Results</h2>
+                        <button class="card-button fa-solid fa-arrow-right"></button>
+                    </a>
+                </li>
+                <li class="card-item swiper-slide">
+                    <a href="" class="card-link">
+                        <img src="~/images/books/Rich Dad Poor Dad - Business and Money.webp" alt="Cart Image" class="card-image" />
+                        <p class="category">Business & Money</p>
+                        <h2 class="card-title mt-4">Tiny Changes, Remarkable Results</h2>
+                        <button class="card-button fa-solid fa-arrow-right"></button>
+                    </a>
+                </li>
+                <li class="card-item swiper-slide">
+                    <a href="" class="card-link">
+                        <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="Cart Image" class="card-image" />
+                        <p class="category">Arts & Photography</p>
+                        <h2 class="card-title mt-4">Tiny Changes, Remarkable Results</h2>
+                        <button class="card-button fa-solid fa-arrow-right"></button>
+                    </a>
+                </li>
+                <li class="card-item swiper-slide">
+                    <a href="" class="card-link">
+                        <img src="~/images/books/The Teacher - Education and Teaching.webp" alt="Cart Image" class="card-image" />
+                        <p class="category">Education & Teaching</p>
+                        <h2 class="card-title mt-4">Tiny Changes, Remarkable Results</h2>
+                        <button class="card-button fa-solid fa-arrow-right"></button>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="swiper-pagination"></div>
+
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+
+    @* ===============  CONTENT ============== *@
+    <div class="content">
+        @* =============== Literature & Fiction =============== *@
+        <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
+            <h2 class="">Literature & Fiction</h2>
+            <a asp-controller="Category" asp-action="Books" class="text-decoration-none">See more</a>
+        </div>
+        <div class="container-books category1">
+            <button id="prev-card" class="fa-solid fa-arrow-left card-button"></button>
+            <div class="book-list">
+                <a asp-controller="Category" asp-action="ProductDetail" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Atomic_Habits- Self-help.webp" alt="Mozart's Starling">
+                    <div class="book-title">Atomic Habits</div>
+                    <div class="book-rating">⭐ 4.4 (619)</div>
+                    <div>James Clear</div>
+                    <div class="book-price">$1.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Rich Dad Poor Dad - Business and Money.webp" alt="How to Draw Everything">
+                    <div class="book-title">How to Draw Everything</div>
+                    <div class="book-rating">⭐ 4.7 (2,993)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$10.90</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="Simple Art">
+                    <div class="book-title">Simple Art</div>
+                    <div class="book-rating">⭐ 4.8 (682)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$7.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/The Teacher - Education and Teaching.webp" alt="The Creative Act">
+                    <div class="book-title">The Creative Act</div>
+                    <div class="book-rating">⭐ 4.7 (9,103)</div>
+                    <div>Hardcover</div>
+                    <div class="book-price">$19.25</div>
+                </a>
+            </div>
+            <button id="next-card" class="fa-solid fa-arrow-right card-button"></button>
+        </div>
+
+
+        @* =============== Science & Math =============== *@
+        <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
+            <h2 class="">Science & Math</h2>
+            <a href="" class="text-decoration-none">See more</a>
+        </div>
+        <div class="container-books category2">
+            <button id="prev-card" class="fa-solid fa-arrow-left card-button"></button>
+            <div class="book-list">
+                <a asp-controller="Category" asp-action="ProductDetail" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Atomic_Habits- Self-help.webp" alt="Mozart's Starling">
+                    <div class="book-title">Atomic Habits</div>
+                    <div class="book-rating">⭐ 4.4 (619)</div>
+                    <div>James Clear</div>
+                    <div class="book-price">$1.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Rich Dad Poor Dad - Business and Money.webp" alt="How to Draw Everything">
+                    <div class="book-title">How to Draw Everything</div>
+                    <div class="book-rating">⭐ 4.7 (2,993)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$10.90</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="Simple Art">
+                    <div class="book-title">Simple Art</div>
+                    <div class="book-rating">⭐ 4.8 (682)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$7.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/The Teacher - Education and Teaching.webp" alt="The Creative Act">
+                    <div class="book-title">The Creative Act</div>
+                    <div class="book-rating">⭐ 4.7 (9,103)</div>
+                    <div>Hardcover</div>
+                    <div class="book-price">$19.25</div>
+                </a>
+            </div>
+            <button id="next-card" class="fa-solid fa-arrow-right card-button"></button>
+        </div>
+
+        @* =============== Mystery, Thriller & Suspense =============== *@
+        <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
+            <h2 class="">Mystery, Thriller & Suspense</h2>
+            <a href="" class="text-decoration-none">See more</a>
+        </div>
+        <div class="container-books category3">
+            <button id="prev-card" class="fa-solid fa-arrow-left card-button"></button>
+            <div class="book-list">
+                <a asp-controller="Category" asp-action="ProductDetail" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Atomic_Habits- Self-help.webp" alt="Mozart's Starling">
+                    <div class="book-title">Atomic Habits</div>
+                    <div class="book-rating">⭐ 4.4 (619)</div>
+                    <div>James Clear</div>
+                    <div class="book-price">$1.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Rich Dad Poor Dad - Business and Money.webp" alt="How to Draw Everything">
+                    <div class="book-title">How to Draw Everything</div>
+                    <div class="book-rating">⭐ 4.7 (2,993)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$10.90</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="Simple Art">
+                    <div class="book-title">Simple Art</div>
+                    <div class="book-rating">⭐ 4.8 (682)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$7.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/The Teacher - Education and Teaching.webp" alt="The Creative Act">
+                    <div class="book-title">The Creative Act</div>
+                    <div class="book-rating">⭐ 4.7 (9,103)</div>
+                    <div>Hardcover</div>
+                    <div class="book-price">$19.25</div>
+                </a>
+            </div>
+            <button id="next-card" class="fa-solid fa-arrow-right card-button"></button>
+        </div>
+
+        @* =============== Business & Money =============== *@
+        <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
+            <h2 class="">Business & Money</h2>
+            <a href="" class="text-decoration-none">See more</a>
+        </div>
+        <div class="container-books category4">
+            <button id="prev-card" class="fa-solid fa-arrow-left card-button"></button>
+            <div class="book-list">
+                <a asp-controller="Category" asp-action="ProductDetail" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Atomic_Habits- Self-help.webp" alt="Mozart's Starling">
+                    <div class="book-title">Atomic Habits</div>
+                    <div class="book-rating">⭐ 4.4 (619)</div>
+                    <div>James Clear</div>
+                    <div class="book-price">$1.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Rich Dad Poor Dad - Business and Money.webp" alt="How to Draw Everything">
+                    <div class="book-title">How to Draw Everything</div>
+                    <div class="book-rating">⭐ 4.7 (2,993)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$10.90</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="Simple Art">
+                    <div class="book-title">Simple Art</div>
+                    <div class="book-rating">⭐ 4.8 (682)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$7.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/The Teacher - Education and Teaching.webp" alt="The Creative Act">
+                    <div class="book-title">The Creative Act</div>
+                    <div class="book-rating">⭐ 4.7 (9,103)</div>
+                    <div>Hardcover</div>
+                    <div class="book-price">$19.25</div>
+                </a>
+            </div>
+            <button id="next-card" class="fa-solid fa-arrow-right card-button"></button>
+        </div>
+
+        @* =============== Computers & Technology =============== *@
+        <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
+            <h2 class="">Computers & Technology</h2>
+            <a href="" class="text-decoration-none">See more</a>
+        </div>
+        <div class="container-books category5">
+            <button id="prev-card" class="fa-solid fa-arrow-left card-button"></button>
+            <div class="book-list">
+                <a asp-controller="Category" asp-action="ProductDetail" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Atomic_Habits- Self-help.webp" alt="Mozart's Starling">
+                    <div class="book-title">Atomic Habits</div>
+                    <div class="book-rating">⭐ 4.4 (619)</div>
+                    <div>James Clear</div>
+                    <div class="book-price">$1.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Rich Dad Poor Dad - Business and Money.webp" alt="How to Draw Everything">
+                    <div class="book-title">How to Draw Everything</div>
+                    <div class="book-rating">⭐ 4.7 (2,993)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$10.90</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="Simple Art">
+                    <div class="book-title">Simple Art</div>
+                    <div class="book-rating">⭐ 4.8 (682)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$7.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/The Teacher - Education and Teaching.webp" alt="The Creative Act">
+                    <div class="book-title">The Creative Act</div>
+                    <div class="book-rating">⭐ 4.7 (9,103)</div>
+                    <div>Hardcover</div>
+                    <div class="book-price">$19.25</div>
+                </a>
+            </div>
+            <button id="next-card" class="fa-solid fa-arrow-right card-button"></button>
+        </div>
+
+        @* =============== Self-Help =============== *@
+        <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
+            <h2 class="">Self-Help</h2>
+            <a href="" class="text-decoration-none">See more</a>
+        </div>
+        <div class="container-books category6">
+            <button id="prev-card" class="fa-solid fa-arrow-left card-button"></button>
+            <div class="book-list">
+                <a asp-controller="Category" asp-action="ProductDetail" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Atomic_Habits- Self-help.webp" alt="Mozart's Starling">
+                    <div class="book-title">Atomic Habits</div>
+                    <div class="book-rating">⭐ 4.4 (619)</div>
+                    <div>James Clear</div>
+                    <div class="book-price">$1.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Rich Dad Poor Dad - Business and Money.webp" alt="How to Draw Everything">
+                    <div class="book-title">How to Draw Everything</div>
+                    <div class="book-rating">⭐ 4.7 (2,993)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$10.90</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="Simple Art">
+                    <div class="book-title">Simple Art</div>
+                    <div class="book-rating">⭐ 4.8 (682)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$7.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/The Teacher - Education and Teaching.webp" alt="The Creative Act">
+                    <div class="book-title">The Creative Act</div>
+                    <div class="book-rating">⭐ 4.7 (9,103)</div>
+                    <div>Hardcover</div>
+                    <div class="book-price">$19.25</div>
+                </a>
+            </div>
+            <button id="next-card" class="fa-solid fa-arrow-right card-button"></button>
+        </div>
+
+        @* =============== Health, Fitness & Dieting =============== *@
+        <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
+            <h2 class="">Health, Fitness & Dieting</h2>
+            <a href="" class="text-decoration-none">See more</a>
+        </div>
+        <div class="container-books category7">
+            <button id="prev-card" class="fa-solid fa-arrow-left card-button"></button>
+            <div class="book-list">
+                <a asp-controller="Category" asp-action="ProductDetail" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Atomic_Habits- Self-help.webp" alt="Mozart's Starling">
+                    <div class="book-title">Atomic Habits</div>
+                    <div class="book-rating">⭐ 4.4 (619)</div>
+                    <div>James Clear</div>
+                    <div class="book-price">$1.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Rich Dad Poor Dad - Business and Money.webp" alt="How to Draw Everything">
+                    <div class="book-title">How to Draw Everything</div>
+                    <div class="book-rating">⭐ 4.7 (2,993)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$10.90</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="Simple Art">
+                    <div class="book-title">Simple Art</div>
+                    <div class="book-rating">⭐ 4.8 (682)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$7.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/The Teacher - Education and Teaching.webp" alt="The Creative Act">
+                    <div class="book-title">The Creative Act</div>
+                    <div class="book-rating">⭐ 4.7 (9,103)</div>
+                    <div>Hardcover</div>
+                    <div class="book-price">$19.25</div>
+                </a>
+            </div>
+            <button id="next-card" class="fa-solid fa-arrow-right card-button"></button>
+        </div>
+
+        @* =============== Science Fiction & Fantasy =============== *@
+        <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
+            <h2 class="">Science Fiction & Fantasy</h2>
+            <a href="" class="text-decoration-none">See more</a>
+        </div>
+        <div class="container-books category8">
+            <button id="prev-card" class="fa-solid fa-arrow-left card-button"></button>
+            <div class="book-list">
+                <a asp-controller="Category" asp-action="ProductDetail" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Atomic_Habits- Self-help.webp" alt="Mozart's Starling">
+                    <div class="book-title">Atomic Habits</div>
+                    <div class="book-rating">⭐ 4.4 (619)</div>
+                    <div>James Clear</div>
+                    <div class="book-price">$1.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="The Artist's Way">
+                    <div class="book-title">Name Book</div>
+                    <div class="book-rating">Rating</div>
+                    <div>Author</div>
+                    <div class="book-price">Price</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Rich Dad Poor Dad - Business and Money.webp" alt="How to Draw Everything">
+                    <div class="book-title">How to Draw Everything</div>
+                    <div class="book-rating">⭐ 4.7 (2,993)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$10.90</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/Murmurations - Arts_Photography.webp" alt="Simple Art">
+                    <div class="book-title">Simple Art</div>
+                    <div class="book-rating">⭐ 4.8 (682)</div>
+                    <div>Paperback</div>
+                    <div class="book-price">$7.99</div>
+                </a>
+
+                <a href="" class="book-card text-decoration-none text-black">
+                    <img src="~/images/books/The Teacher - Education and Teaching.webp" alt="The Creative Act">
+                    <div class="book-title">The Creative Act</div>
+                    <div class="book-rating">⭐ 4.7 (9,103)</div>
+                    <div>Hardcover</div>
+                    <div class="book-price">$19.25</div>
+                </a>
+            </div>
+            <button id="next-card" class="fa-solid fa-arrow-right card-button"></button>
+        </div>
+    </div>
+</div>

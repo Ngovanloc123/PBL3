@@ -1,0 +1,159 @@
+﻿@model List<StackBook.Models.Book>
+
+<div class="container-fluid">
+
+    <div class="row">
+        @* =========== SIDEBAR ========= *@
+        <div class="col-2">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="nav flex-column p-2">
+                        <ul class="list-unstyled">
+                            <li class="my-4"><a href="#" class="fw-bold link-primary text-dark text-decoration-none">Literature & Fiction</a></li>
+                            <li class="my-4"><a href="#" class="fw-bold link-primary text-dark text-decoration-none">Science & Math</a></li>
+                            <li class="my-4"><a href="#" class="fw-bold link-primary text-dark text-decoration-none">Mystery, Thriller & Suspense</a></li>
+                            <li class="my-4"><a href="#" class="fw-bold link-primary text-dark text-decoration-none">Business & Money</a></li>
+                            <li class="my-4"><a href="#" class="fw-bold link-primary text-dark text-decoration-none">Computers & Technology</a></li>
+                            <li class="my-4"><a href="#" class="fw-bold link-primary text-dark text-decoration-none">Self-Help</a></li>
+                            <li class="my-4"><a href="#" class="fw-bold link-primary text-dark text-decoration-none">Health, Fitness & Dieting</a></li>
+                            <li class="my-4"><a href="#" class="fw-bold link-primary text-dark text-decoration-none">Science Fiction & Fantasy</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        @* ========= SLIDER AND CONTENT ========== *@
+        <div class="col-10">
+            @* ========== SLIDER =========== *@
+            <div class="row">
+                <div class="col-lg-3 col-sm-6 py-2">
+                    <a href="#"><img class="img-fluid" src="~/images/sliders/slider1.jpg" alt="slider image" /></a>
+                </div>
+                <div class="col-lg-3 col-sm-6 py-2">
+                    <a href="#"><img class="img-fluid" src="~/images/sliders/slider2.jpg" alt="slider image" /></a>
+                </div>
+                <div class="col-lg-3 col-sm-6 py-2">
+                    <a href="#"><img class="img-fluid" src="~/images/sliders/slider3.jpg" alt="slider image" /></a>
+                </div>
+                <div class="col-lg-3 col-sm-6 py-2">
+                    <a href="#"><img class="img-fluid" src="~/images/sliders/slider4.jpg" alt="slider image" /></a>
+                </div>
+            </div>
+
+            <h2 class="text-primary py-4">Best Sellers</h2>
+
+            @* ============ CONTENT ========= *@
+            <div class="row">
+                @* ======= ITEM ====== *@
+                @foreach (var book in Model) {
+                    <div class="card border-0 text-center col-lg-3 col-md-4 col-sm-6 pb-3">
+                        <a href="#" class="text-decoration-none">
+                            <img src="@book.ImageURL" class="card-img-top img-fluid" alt="@book.BookTitle">
+                            <div class="card-body">
+                                <h6 class="card-title text-dark">
+                                    @book.BookTitle
+                                </h6>
+                                <div class="rating">
+                                    <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                                    <span class="text-muted">5,412</span>
+                                </div>
+                                <h5 class="text-danger mt-2">$@book.Price</h5>
+                            </div>
+                        </a>
+                    </div>
+                }
+                @* <div class="card border-0 text-center col-lg-3 col-md-4 col-sm-6 pb-3"> *@
+                @*     <a href="#" class="text-decoration-none"> *@
+                @*         <img src="~/images/sliders/slider1.jpg" class="card-img-top img-fluid" alt="The Let Them Theory"> *@
+                @*         <div class="card-body"> *@
+                @*             <h6 class="card-title text-dark"> *@
+                @*                     The Let Them Theory: A Life-Changing Tool That Millions of People Can't Stop Talking About *@
+                @*             </h6> *@
+                @*             <div class="rating"> *@
+                @*                 <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span> *@
+                @*                 <span class="text-muted">5,412</span> *@
+                @*             </div> *@
+                @*             <h5 class="text-danger mt-2">$15.18</h5> *@
+                @*         </div> *@
+                @*     </a> *@
+                @* </div> *@
+
+                @* <div class="card border-0 text-center col-lg-3 col-md-4 col-sm-6 pb-3"> *@
+                @*     <a href="#" class="text-decoration-none"> *@
+                @*         <img src="~/images/sliders/slider1.jpg" class="card-img-top img-fluid" alt="The Let Them Theory"> *@
+                @*         <div class="card-body"> *@
+                @*             <h6 class="card-title text-dark"> *@
+
+                @*                 The Let Them Theory: A Life-Changing Tool That Millions of People Can't Stop Talking About *@
+
+                @*             </h6> *@
+                @*             <div class="rating"> *@
+                @*                 <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span> *@
+                @*                 <span class="text-muted">5,412</span> *@
+                @*             </div> *@
+                @*             <h5 class="text-danger mt-2">$15.18</h5> *@
+                @*         </div> *@
+                @*     </a> *@
+                @* </div> *@
+
+                @* <div class="card border-0 text-center col-lg-3 col-md-4 col-sm-6 pb-3"> *@
+                @*     <a href="#" class="text-decoration-none"> *@
+                @*         <img src="~/images/sliders/slider1.jpg" class="card-img-top img-fluid" alt="The Let Them Theory"> *@
+                @*         <div class="card-body"> *@
+                @*             <h6 class="card-title text-dark"> *@
+
+                @*                 The Let Them Theory: A Life-Changing Tool That Millions of People Can't Stop Talking About *@
+
+                @*             </h6> *@
+                @*             <div class="rating"> *@
+                @*                 <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span> *@
+                @*                 <span class="text-muted">5,412</span> *@
+                @*             </div> *@
+                @*             <h5 class="text-danger mt-2">$15.18</h5> *@
+                @*         </div> *@
+                @*     </a> *@
+                @* </div> *@
+
+                @* <div class="card border-0 text-center col-lg-3 col-md-4 col-sm-6 pb-3"> *@
+                @*     <a href="#" class="text-decoration-none"> *@
+                @*         <img src="~/images/sliders/slider1.jpg" class="card-img-top img-fluid" alt="The Let Them Theory"> *@
+                @*         <div class="card-body"> *@
+                @*             <h6 class="card-title text-dark"> *@
+
+                @*                 The Let Them Theory: A Life-Changing Tool That Millions of People Can't Stop Talking About *@
+
+                @*             </h6> *@
+                @*             <div class="rating"> *@
+                @*                 <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span> *@
+                @*                 <span class="text-muted">5,412</span> *@
+                @*             </div> *@
+                @*             <h5 class="text-danger mt-2">$15.18</h5> *@
+                @*         </div> *@
+                @*     </a> *@
+                @* </div> *@
+
+                @* <div class="card border-0 text-center col-lg-3 col-md-4 col-sm-6 pb-3"> *@
+                @*     <a href="#" class="text-decoration-none"> *@
+                @*         <img src="~/images/sliders/slider1.jpg" class="card-img-top img-fluid" alt="The Let Them Theory"> *@
+                @*         <div class="card-body"> *@
+                @*             <h6 class="card-title text-dark"> *@
+
+                @*                 The Let Them Theory: A Life-Changing Tool That Millions of People Can't Stop Talking About *@
+
+                @*             </h6> *@
+                @*             <div class="rating"> *@
+                @*                 <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span> *@
+                @*                 <span class="text-muted">5,412</span> *@
+                @*             </div> *@
+                @*             <h5 class="text-danger mt-2">$15.18</h5> *@
+                @*         </div> *@
+                @*     </a> *@
+                @* </div> *@
+            </div>
+        </div>
+    </div>
+    
+    
+    
+</div>

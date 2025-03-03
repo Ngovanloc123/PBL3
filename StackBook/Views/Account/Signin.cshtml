@@ -1,0 +1,33 @@
+﻿<head>
+	<link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
+</head>
+
+<body>
+	<section>
+	<div class="account-box">
+		<form action="">
+			<h2>Sign in</h2>
+			
+			<div class="input-box">
+					<span class="icon"><i class="fa-solid fa-envelope"></i></span>
+				<input type="email" required />
+				<label>Email</label>
+			</div>
+
+			<div class="input-box">
+					<span class="icon"><i class="fa-solid fa-lock"></i></span>
+					<input type="password" required />
+				<label>Password</label>
+			</div>
+			<div class="remember-forgot">
+				<label><input type="checkbox" />Remember me</label>
+				<a href="#">Forgot Password?</a>
+			</div>
+			<button type="submit">Login</button>
+			<div class="register-link">
+				<p>Don't have an account?<a asp-controller="Account" asp-action="Register">Register</a></p>
+			</div>
+		</form>
+	</div>
+	</section>
+</body>

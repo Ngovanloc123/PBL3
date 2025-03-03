@@ -1,0 +1,209 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+/*=========== ACTIVE NAVBAR ==========*/
+.btn-nav {
+    color: #1c6ec2 !important;
+}
+
+    .btn-nav:hover {
+        color: #c6cfcc !important;
+    }
+
+/* ========== ICON FOOTER ==========*/
+footer a .bi-facebook {
+    color: #1877F2;
+}
+
+footer a .bi-instagram {
+    background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+footer a .bi-youtube {
+    color: #FF0000;
+}
+
+footer a .bi-linkedin {
+    color: #0A66C2;
+}
+
+footer a .bi-tiktok {
+    color: #000;
+}
+
+footer a i:hover {
+    opacity: 0.7;
+}
+
+footer .icon-footer {
+    font-size: 2rem;
+}
+
+
+.preserve-line {
+    white-space: pre-line;
+}
+
+
+/*============== SLIDER BOOKS ===============*/
+.card-list {
+  
+}
+
+.card-list .card-item {
+    list-style: none;
+   
+}
+
+
+.card-list .card-item .card-link {
+    user-select: none;
+    display: block;
+    background: linear-gradient(#ffe4b3, rgb(255, 228, 179));
+    padding: 50px;
+    border-radius: 12px;
+    text-decoration: none;
+    border: 2px solid transparent;
+    box-shadow: -4px 10px 10px rgba(69, 130, 236, 0.3);
+    transition: 0.2s ease;
+}
+
+.card-list .card-item .card-link:hover {
+    border-color: #4582ec;
+}
+
+.card-list .card-link .card-image {
+    width: 100%;
+}
+
+.card-list .card-link .category {
+    color: #5372F0;
+    padding: 8px 16px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 16px 0 18px;
+    background: #DDE4FF;
+    width: fit-content;
+    border-radius: 50px;
+}
+
+.card-list .card-link .card-title {
+    font-size: 1.2rem;
+    color: #000;
+}
+
+.card-list .card-link .card-button {
+    color: #4582ec;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    margin-top: 30px;
+    border: 2px solid #4582ec;
+    transform: rotate(-45deg);
+    transition: 0.2s ease;
+}
+
+.card-list .card-link:hover .card-button {
+    color: #fff;
+    background: #4582ec;
+}
+
+
+/*================= BOOK LIST =============*/
+.container-books {
+    position: relative;
+}
+
+.container-books .card-button {
+    position: absolute;
+    top: 50%;
+    height: 50px;
+    width: 50px;
+    color: #808080;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 2.2rem;
+    cursor: pointer;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    transition: .3s ease;
+}
+
+.container-books .card-button:hover {
+    background: #ffe4b3;
+}
+
+.card-button#prev-card{
+    left: -20px;
+
+}
+
+.card-button#next-card {
+    right: -20px;
+}
+
+.book-list {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 20px;
+}
+.book-list::-webkit-scrollbar {
+    display: none;
+}
+
+.book-card {
+    flex: 0 0 auto;
+    text-align: center;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+}
+
+.book-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.book-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.book-rating {
+    color: orange;
+    font-size: 14px;
+}
+
+.book-price {
+    font-size: 14px;
+    font-weight: bold;
+    color: #007600;
+}
+

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\PBL3\\Project PBL3\\StackBook\\StackBook.csproj": {}
+    "D:\\Studying\\Source\\PBL3\\StackBook\\StackBook.csproj": {}
   },
   "projects": {
-    "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\PBL3\\Project PBL3\\StackBook\\StackBook.csproj": {
+    "D:\\Studying\\Source\\PBL3\\StackBook\\StackBook.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\PBL3\\Project PBL3\\StackBook\\StackBook.csproj",
+        "projectUniqueName": "D:\\Studying\\Source\\PBL3\\StackBook\\StackBook.csproj",
         "projectName": "StackBook",
-        "projectPath": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\PBL3\\Project PBL3\\StackBook\\StackBook.csproj",
-        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\PBL3\\Project PBL3\\StackBook\\obj\\",
+        "projectPath": "D:\\Studying\\Source\\PBL3\\StackBook\\StackBook.csproj",
+        "packagesPath": "C:\\Users\\haduc\\.nuget\\packages\\",
+        "outputPath": "D:\\Studying\\Source\\PBL3\\StackBook\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\haduc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -43,14 +43,18 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.2, )"
@@ -64,6 +68,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.2, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Portable.BouncyCastle": {
+              "target": "Package",
+              "version": "[1.9.0, )"
             }
           },
           "imports": [
@@ -85,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

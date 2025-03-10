@@ -74,6 +74,16 @@ h2 {
     padding: 0 35px 0 5px;
 }
 
+.input-box input:-webkit-autofill,
+.input-box input:-webkit-autofill:focus,
+.input-box input:-webkit-autofill:hover {
+    background-color: transparent !important;
+    -webkit-text-fill-color: white !important;
+    box-shadow: transparent !important;
+    transition: background-color 5000s ease-in-out 0s; /* Giữ màu nền không đổi */
+}
+
+
 .input-box .icon {
     position: absolute;
     right: 8px;

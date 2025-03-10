@@ -1,6 +1,7 @@
 ﻿using Microsoft.Identity.Client;
 using StackBook.Data;
 using StackBook.Models;
+using StackBook.ViewModels;
 
 namespace StackBook.Services
 {
@@ -8,9 +9,12 @@ namespace StackBook.Services
     {
         private readonly ApplicationDbContext _context;
 
-        public BookService(ApplicationDbContext context)
+        private readonly AuthorService _authorService;
+
+        public BookService(ApplicationDbContext context, AuthorService authorService)
         {
             _context = context;
+            _authorService = authorService;
         }
 
         public List<Book> GetAllBooks()
@@ -18,16 +22,18 @@ namespace StackBook.Services
             return _context.Books.ToList();
         }
 
-        public List<Book> GetBooksByCategoryName(string categoryName)
+        public List<BookWithAuthors> GetListBookAuthorsByCategoryId(int categoryId)
         {
             return _context.BookCategories
-                .Where(bc => bc.Category.CategoryName == categoryName) // Lọc theo tên danh mục
-                .Join(_context.Books,
-                      bc => bc.BookId,
-                      b => b.BookId,
-                      (bc, b) => b)
+                .Where(cb => cb.CategoryId == categoryId)
+                .Select(cb => new BookWithAuthors
+                {
+                    Book = cb.Book,
+                    Authors = _authorService.GetAuthorsByBookId(cb.BookId)
+                })
                 .ToList();
         }
+
 
     }
 }

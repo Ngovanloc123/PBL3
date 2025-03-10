@@ -99,7 +99,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2558"
+          "Value": "2915"
         },
         {
           "Name": "Content-Type",
@@ -107,22 +107,22 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"wIMZ+0I+RAvz5HXS7UHQN82yL76aHdxQ18k3e3yYFTI=\""
+          "Value": "\"gad0yAN+rDHJ/JVBKJqF05pt/A3lz6sdx7TPUqcwW5I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 03 Mar 2025 11:04:49 GMT"
+          "Value": "Sun, 09 Mar 2025 11:45:22 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-wIMZ+0I+RAvz5HXS7UHQN82yL76aHdxQ18k3e3yYFTI="
+          "Value": "sha256-gad0yAN+rDHJ/JVBKJqF05pt/A3lz6sdx7TPUqcwW5I="
         }
       ]
     },
     {
-      "Route": "css/account.kzo3bs4bn0.css",
+      "Route": "css/account.nago0gzamf.css",
       "AssetFile": "css/account.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -136,7 +136,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2558"
+          "Value": "2915"
         },
         {
           "Name": "Content-Type",
@@ -144,21 +144,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"wIMZ+0I+RAvz5HXS7UHQN82yL76aHdxQ18k3e3yYFTI=\""
+          "Value": "\"gad0yAN+rDHJ/JVBKJqF05pt/A3lz6sdx7TPUqcwW5I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 03 Mar 2025 11:04:49 GMT"
+          "Value": "Sun, 09 Mar 2025 11:45:22 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "kzo3bs4bn0"
+          "Value": "nago0gzamf"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-wIMZ+0I+RAvz5HXS7UHQN82yL76aHdxQ18k3e3yYFTI="
+          "Value": "sha256-gad0yAN+rDHJ/JVBKJqF05pt/A3lz6sdx7TPUqcwW5I="
         },
         {
           "Name": "label",
@@ -181,7 +181,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3651"
+          "Value": "3945"
         },
         {
           "Name": "Content-Type",
@@ -189,22 +189,22 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"rqDbNsfvLB7OhWhML3HRGplx7nHAqSa3kpwZpCTa2e4=\""
+          "Value": "\"SwD8uGM7pvTrjTOHVzCp/QkVHS82giqd2GcvRu1o014=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 28 Feb 2025 08:12:19 GMT"
+          "Value": "Mon, 10 Mar 2025 10:15:44 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-rqDbNsfvLB7OhWhML3HRGplx7nHAqSa3kpwZpCTa2e4="
+          "Value": "sha256-SwD8uGM7pvTrjTOHVzCp/QkVHS82giqd2GcvRu1o014="
         }
       ]
     },
     {
-      "Route": "css/site.edva63rdnr.css",
+      "Route": "css/site.pbh4fsfayh.css",
       "AssetFile": "css/site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -218,7 +218,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3651"
+          "Value": "3945"
         },
         {
           "Name": "Content-Type",
@@ -226,21 +226,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"rqDbNsfvLB7OhWhML3HRGplx7nHAqSa3kpwZpCTa2e4=\""
+          "Value": "\"SwD8uGM7pvTrjTOHVzCp/QkVHS82giqd2GcvRu1o014=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 28 Feb 2025 08:12:19 GMT"
+          "Value": "Mon, 10 Mar 2025 10:15:44 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "edva63rdnr"
+          "Value": "pbh4fsfayh"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-rqDbNsfvLB7OhWhML3HRGplx7nHAqSa3kpwZpCTa2e4="
+          "Value": "sha256-SwD8uGM7pvTrjTOHVzCp/QkVHS82giqd2GcvRu1o014="
         },
         {
           "Name": "label",
@@ -331,7 +331,7 @@
       ]
     },
     {
-      "Route": "images/Books/Atomic_Habits- Self-help.u14jk7jzwo.webp",
+      "Route": "images/Books/Atomic_Habits- Self-help.fijc094557.webp",
       "AssetFile": "images/Books/Atomic_Habits- Self-help.webp",
       "Selectors": [],
       "ResponseHeaders": [
@@ -345,7 +345,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "15316"
+          "Value": "8560"
         },
         {
           "Name": "Content-Type",
@@ -353,21 +353,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"vmQGHApxtnKqKCjrhz2HZ0Qp2PZkCn1EnJYyLrCzbH4=\""
+          "Value": "\"xzHN/T/vopUf7D6kw2J1vgdlFlTSOyMW24XjWhi8Pho=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 18 Feb 2025 07:12:48 GMT"
+          "Value": "Mon, 10 Mar 2025 01:42:43 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "u14jk7jzwo"
+          "Value": "fijc094557"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-vmQGHApxtnKqKCjrhz2HZ0Qp2PZkCn1EnJYyLrCzbH4="
+          "Value": "sha256-xzHN/T/vopUf7D6kw2J1vgdlFlTSOyMW24XjWhi8Pho="
         },
         {
           "Name": "label",
@@ -390,7 +390,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "15316"
+          "Value": "8560"
         },
         {
           "Name": "Content-Type",
@@ -398,60 +398,23 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"vmQGHApxtnKqKCjrhz2HZ0Qp2PZkCn1EnJYyLrCzbH4=\""
+          "Value": "\"xzHN/T/vopUf7D6kw2J1vgdlFlTSOyMW24XjWhi8Pho=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 18 Feb 2025 07:12:48 GMT"
+          "Value": "Mon, 10 Mar 2025 01:42:43 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-vmQGHApxtnKqKCjrhz2HZ0Qp2PZkCn1EnJYyLrCzbH4="
+          "Value": "sha256-xzHN/T/vopUf7D6kw2J1vgdlFlTSOyMW24XjWhi8Pho="
         }
       ]
     },
     {
-      "Route": "images/Books/Murmurations - Arts_Photography.webp",
-      "AssetFile": "images/Books/Murmurations - Arts_Photography.webp",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "16958"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/webp"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"t0izg5/oEOcIKwjSBnC+tRRqlbWM4d1Hk6sRpT27MSc=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 18 Feb 2025 11:00:16 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-t0izg5/oEOcIKwjSBnC+tRRqlbWM4d1Hk6sRpT27MSc="
-        }
-      ]
-    },
-    {
-      "Route": "images/Books/Murmurations - Arts_Photography.z9pvnst6f3.webp",
-      "AssetFile": "images/Books/Murmurations - Arts_Photography.webp",
+      "Route": "images/Books/Computers and Technology.0dggtghckq.webp",
+      "AssetFile": "images/Books/Computers and Technology.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -464,7 +427,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "16958"
+          "Value": "10044"
         },
         {
           "Name": "Content-Type",
@@ -472,25 +435,308 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"t0izg5/oEOcIKwjSBnC+tRRqlbWM4d1Hk6sRpT27MSc=\""
+          "Value": "\"LLyb8MctnNq1C7U8yn6zbaeQgEPrg8B0MlIfac9zv8M=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 18 Feb 2025 11:00:16 GMT"
+          "Value": "Mon, 10 Mar 2025 02:04:16 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "z9pvnst6f3"
+          "Value": "0dggtghckq"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-t0izg5/oEOcIKwjSBnC+tRRqlbWM4d1Hk6sRpT27MSc="
+          "Value": "sha256-LLyb8MctnNq1C7U8yn6zbaeQgEPrg8B0MlIfac9zv8M="
         },
         {
           "Name": "label",
-          "Value": "images/Books/Murmurations - Arts_Photography.webp"
+          "Value": "images/Books/Computers and Technology.webp"
+        }
+      ]
+    },
+    {
+      "Route": "images/Books/Computers and Technology.webp",
+      "AssetFile": "images/Books/Computers and Technology.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10044"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LLyb8MctnNq1C7U8yn6zbaeQgEPrg8B0MlIfac9zv8M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 10 Mar 2025 02:04:16 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-LLyb8MctnNq1C7U8yn6zbaeQgEPrg8B0MlIfac9zv8M="
+        }
+      ]
+    },
+    {
+      "Route": "images/Books/Health, Fitness and Dieting.jfk4clauvy.webp",
+      "AssetFile": "images/Books/Health, Fitness and Dieting.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22990"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"b2DviYPWqB9Nb4V43SGBKW4UFm0O4FV5iO+NBAqdaG8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 10 Mar 2025 02:05:01 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jfk4clauvy"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-b2DviYPWqB9Nb4V43SGBKW4UFm0O4FV5iO+NBAqdaG8="
+        },
+        {
+          "Name": "label",
+          "Value": "images/Books/Health, Fitness and Dieting.webp"
+        }
+      ]
+    },
+    {
+      "Route": "images/Books/Health, Fitness and Dieting.webp",
+      "AssetFile": "images/Books/Health, Fitness and Dieting.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22990"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"b2DviYPWqB9Nb4V43SGBKW4UFm0O4FV5iO+NBAqdaG8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 10 Mar 2025 02:05:01 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-b2DviYPWqB9Nb4V43SGBKW4UFm0O4FV5iO+NBAqdaG8="
+        }
+      ]
+    },
+    {
+      "Route": "images/Books/Literature and Fiction.rrgwurhrrg.webp",
+      "AssetFile": "images/Books/Literature and Fiction.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "27568"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Gek8lu0D1c/T/Cq9fCwCvJndIoCXrAzlb8KOwxeyrcc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 10 Mar 2025 01:46:05 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "rrgwurhrrg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Gek8lu0D1c/T/Cq9fCwCvJndIoCXrAzlb8KOwxeyrcc="
+        },
+        {
+          "Name": "label",
+          "Value": "images/Books/Literature and Fiction.webp"
+        }
+      ]
+    },
+    {
+      "Route": "images/Books/Literature and Fiction.webp",
+      "AssetFile": "images/Books/Literature and Fiction.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "27568"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Gek8lu0D1c/T/Cq9fCwCvJndIoCXrAzlb8KOwxeyrcc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 10 Mar 2025 01:46:05 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Gek8lu0D1c/T/Cq9fCwCvJndIoCXrAzlb8KOwxeyrcc="
+        }
+      ]
+    },
+    {
+      "Route": "images/Books/Mystery, Thriller and Suspense.8dlkm2qvly.webp",
+      "AssetFile": "images/Books/Mystery, Thriller and Suspense.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13572"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1NiZj+b7f6vXKCb1CRIOuxcyu+a/WcK0MwwqXEOqYd8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 10 Mar 2025 02:18:48 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8dlkm2qvly"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1NiZj+b7f6vXKCb1CRIOuxcyu+a/WcK0MwwqXEOqYd8="
+        },
+        {
+          "Name": "label",
+          "Value": "images/Books/Mystery, Thriller and Suspense.webp"
+        }
+      ]
+    },
+    {
+      "Route": "images/Books/Mystery, Thriller and Suspense.webp",
+      "AssetFile": "images/Books/Mystery, Thriller and Suspense.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13572"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1NiZj+b7f6vXKCb1CRIOuxcyu+a/WcK0MwwqXEOqYd8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 10 Mar 2025 02:18:48 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-1NiZj+b7f6vXKCb1CRIOuxcyu+a/WcK0MwwqXEOqYd8="
         }
       ]
     },
@@ -659,53 +905,8 @@
       ]
     },
     {
-      "Route": "images/Books/The Teacher - Education and Teaching.9wfg3i4vmg.webp",
-      "AssetFile": "images/Books/The Teacher - Education and Teaching.webp",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "14704"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/webp"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"h+B768EYiUOBMRN7zCMcDFRBRMyRuq51gBbvjK9VNKg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 18 Feb 2025 11:00:51 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "9wfg3i4vmg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-h+B768EYiUOBMRN7zCMcDFRBRMyRuq51gBbvjK9VNKg="
-        },
-        {
-          "Name": "label",
-          "Value": "images/Books/The Teacher - Education and Teaching.webp"
-        }
-      ]
-    },
-    {
-      "Route": "images/Books/The Teacher - Education and Teaching.webp",
-      "AssetFile": "images/Books/The Teacher - Education and Teaching.webp",
+      "Route": "images/Books/Science Fiction and Fantasy.webp",
+      "AssetFile": "images/Books/Science Fiction and Fantasy.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -718,7 +919,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "14704"
+          "Value": "17468"
         },
         {
           "Name": "Content-Type",
@@ -726,17 +927,144 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"h+B768EYiUOBMRN7zCMcDFRBRMyRuq51gBbvjK9VNKg=\""
+          "Value": "\"y0WLAfTGv5QAQ16242jCKZTXC4VecJugtaRkveBNU40=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 18 Feb 2025 11:00:51 GMT"
+          "Value": "Mon, 10 Mar 2025 02:05:54 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-h+B768EYiUOBMRN7zCMcDFRBRMyRuq51gBbvjK9VNKg="
+          "Value": "sha256-y0WLAfTGv5QAQ16242jCKZTXC4VecJugtaRkveBNU40="
+        }
+      ]
+    },
+    {
+      "Route": "images/Books/Science Fiction and Fantasy.zyibpq7pom.webp",
+      "AssetFile": "images/Books/Science Fiction and Fantasy.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "17468"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"y0WLAfTGv5QAQ16242jCKZTXC4VecJugtaRkveBNU40=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 10 Mar 2025 02:05:54 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zyibpq7pom"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-y0WLAfTGv5QAQ16242jCKZTXC4VecJugtaRkveBNU40="
+        },
+        {
+          "Name": "label",
+          "Value": "images/Books/Science Fiction and Fantasy.webp"
+        }
+      ]
+    },
+    {
+      "Route": "images/Books/Science and Math.nhrov08fbv.webp",
+      "AssetFile": "images/Books/Science and Math.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10506"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"K2AhYcgV/RtvvHGNrO7a/e2KkmkWZNh875akpI2lc9A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 10 Mar 2025 02:02:21 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "nhrov08fbv"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-K2AhYcgV/RtvvHGNrO7a/e2KkmkWZNh875akpI2lc9A="
+        },
+        {
+          "Name": "label",
+          "Value": "images/Books/Science and Math.webp"
+        }
+      ]
+    },
+    {
+      "Route": "images/Books/Science and Math.webp",
+      "AssetFile": "images/Books/Science and Math.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10506"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"K2AhYcgV/RtvvHGNrO7a/e2KkmkWZNh875akpI2lc9A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 10 Mar 2025 02:02:21 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-K2AhYcgV/RtvvHGNrO7a/e2KkmkWZNh875akpI2lc9A="
         }
       ]
     },

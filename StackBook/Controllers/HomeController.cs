@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StackBook.Data;
 using StackBook.Models;
 using StackBook.Services;
+using StackBook.ViewModels;
 
 namespace StackBook.Controllers
 {
@@ -10,23 +11,24 @@ namespace StackBook.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly BookService _bookService;
+        private readonly CategoryService _categoryService;
 
-        public HomeController(ILogger<HomeController> logger, BookService bookService)
+        public HomeController(ILogger<HomeController> logger, BookService bookService, CategoryService categoryService)
         {
             _logger = logger;
             _bookService = bookService;
+            _categoryService = categoryService;
         }
 
         public IActionResult Index()
         {
-            List<Book> books = _bookService.GetAllBooks();
-            return View(books);
-        }
+            var dataHome = new DataHomeViewModel
+            {
+                Books = _bookService.GetAllBooks(),
+                MenuCategories = _categoryService.GetMenuCategories()
+            };
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(dataHome);
         }
     }
 }

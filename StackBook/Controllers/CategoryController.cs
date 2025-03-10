@@ -1,21 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StackBook.Services;
+using StackBook.ViewModels;
 
 namespace StackBook.Controllers
 {
     public class CategoryController : Controller
     {
+        private readonly CategoryService _categoryService;
 
-        private readonly BookService _bookService;
-        public CategoryController(BookService bookService)
+        public CategoryController(BookService bookService, CategoryService categoryService)
         {
-            _bookService = bookService;
+            _categoryService = categoryService;
         }
 
         public IActionResult Index()
         {
-            //var listCategories = new 
-            return View();
+            var viewModel = _categoryService.GetCategoriesWithBooks();
+
+            return View(viewModel);
         }
 
         public IActionResult Books()

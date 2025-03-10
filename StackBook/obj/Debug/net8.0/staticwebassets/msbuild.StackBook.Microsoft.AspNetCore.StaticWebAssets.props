@@ -12,8 +12,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>kzo3bs4bn0</Fingerprint>
-      <Integrity>wIMZ+0I+RAvz5HXS7UHQN82yL76aHdxQ18k3e3yYFTI=</Integrity>
+      <Fingerprint>nago0gzamf</Fingerprint>
+      <Integrity>gad0yAN+rDHJ/JVBKJqF05pt/A3lz6sdx7TPUqcwW5I=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\account.css'))</OriginalItemSpec>
@@ -30,8 +30,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>edva63rdnr</Fingerprint>
-      <Integrity>rqDbNsfvLB7OhWhML3HRGplx7nHAqSa3kpwZpCTa2e4=</Integrity>
+      <Fingerprint>pbh4fsfayh</Fingerprint>
+      <Integrity>SwD8uGM7pvTrjTOHVzCp/QkVHS82giqd2GcvRu1o014=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</OriginalItemSpec>
@@ -66,29 +66,83 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>u14jk7jzwo</Fingerprint>
-      <Integrity>vmQGHApxtnKqKCjrhz2HZ0Qp2PZkCn1EnJYyLrCzbH4=</Integrity>
+      <Fingerprint>fijc094557</Fingerprint>
+      <Integrity>xzHN/T/vopUf7D6kw2J1vgdlFlTSOyMW24XjWhi8Pho=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Atomic_Habits- Self-help.webp'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Murmurations - Arts_Photography.webp'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Computers and Technology.webp'))">
       <SourceType>Package</SourceType>
       <SourceId>StackBook</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/StackBook</BasePath>
-      <RelativePath>images/Books/Murmurations - Arts_Photography.webp</RelativePath>
+      <RelativePath>images/Books/Computers and Technology.webp</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>z9pvnst6f3</Fingerprint>
-      <Integrity>t0izg5/oEOcIKwjSBnC+tRRqlbWM4d1Hk6sRpT27MSc=</Integrity>
+      <Fingerprint>0dggtghckq</Fingerprint>
+      <Integrity>LLyb8MctnNq1C7U8yn6zbaeQgEPrg8B0MlIfac9zv8M=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Murmurations - Arts_Photography.webp'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Computers and Technology.webp'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Health, Fitness and Dieting.webp'))">
+      <SourceType>Package</SourceType>
+      <SourceId>StackBook</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/StackBook</BasePath>
+      <RelativePath>images/Books/Health, Fitness and Dieting.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>jfk4clauvy</Fingerprint>
+      <Integrity>b2DviYPWqB9Nb4V43SGBKW4UFm0O4FV5iO+NBAqdaG8=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Health, Fitness and Dieting.webp'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Literature and Fiction.webp'))">
+      <SourceType>Package</SourceType>
+      <SourceId>StackBook</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/StackBook</BasePath>
+      <RelativePath>images/Books/Literature and Fiction.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>rrgwurhrrg</Fingerprint>
+      <Integrity>Gek8lu0D1c/T/Cq9fCwCvJndIoCXrAzlb8KOwxeyrcc=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Literature and Fiction.webp'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Mystery, Thriller and Suspense.webp'))">
+      <SourceType>Package</SourceType>
+      <SourceId>StackBook</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/StackBook</BasePath>
+      <RelativePath>images/Books/Mystery, Thriller and Suspense.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>8dlkm2qvly</Fingerprint>
+      <Integrity>1NiZj+b7f6vXKCb1CRIOuxcyu+a/WcK0MwwqXEOqYd8=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Mystery, Thriller and Suspense.webp'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Rich Dad Poor Dad - Business and Money.webp'))">
       <SourceType>Package</SourceType>
@@ -126,23 +180,41 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Sapiens - History.webp'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\The Teacher - Education and Teaching.webp'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Science and Math.webp'))">
       <SourceType>Package</SourceType>
       <SourceId>StackBook</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/StackBook</BasePath>
-      <RelativePath>images/Books/The Teacher - Education and Teaching.webp</RelativePath>
+      <RelativePath>images/Books/Science and Math.webp</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>9wfg3i4vmg</Fingerprint>
-      <Integrity>h+B768EYiUOBMRN7zCMcDFRBRMyRuq51gBbvjK9VNKg=</Integrity>
+      <Fingerprint>nhrov08fbv</Fingerprint>
+      <Integrity>K2AhYcgV/RtvvHGNrO7a/e2KkmkWZNh875akpI2lc9A=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\The Teacher - Education and Teaching.webp'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Science and Math.webp'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Science Fiction and Fantasy.webp'))">
+      <SourceType>Package</SourceType>
+      <SourceId>StackBook</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/StackBook</BasePath>
+      <RelativePath>images/Books/Science Fiction and Fantasy.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>zyibpq7pom</Fingerprint>
+      <Integrity>y0WLAfTGv5QAQ16242jCKZTXC4VecJugtaRkveBNU40=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\Books\Science Fiction and Fantasy.webp'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\sliders\slider1.jpg'))">
       <SourceType>Package</SourceType>

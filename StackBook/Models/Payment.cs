@@ -6,16 +6,17 @@ namespace StackBook.Models
     public class Payment
     {
         [Key]
-        public int PaymentId { get; set; }
+        public Guid PaymentId { get; set; }
         [Required]
-        public int OrderId { get; set; }
+        public Guid OrderId { get; set; }
         [ForeignKey("OrderId")]
-        public virtual Order Order { get; set; }
-        public string PaymentMethod { get; set; }
+        public virtual Order? Order { get; set; }
         [Required]
-        public string PaymentStatus { get; set; }
-
-        public string Transaction { get; set; }
+        public string? PaymentMethod { get; set; }
+        [Required]
+        public string? PaymentStatus { get; set; }
+        [Required]
+        public string? Transaction { get; set; }
         public DateTime CreatedPayment { get; set; }
     }
 }

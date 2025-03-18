@@ -25,13 +25,14 @@ namespace StackBook.Data
         public DbSet<ReturnOrder> ReturnOrders { get; set; }
         public DbSet<BookAuthor> BookAuthors { get; set; }
         public DbSet<BookCategory> BookCategories { get; set; }
-
+        public DbSet<ReturnOrderDetail> ReturnOrderDetails { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             // Thiết lập quan hệ 1-n giữa User và Order
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.User)
@@ -52,14 +53,6 @@ namespace StackBook.Data
                 .WithOne(ro => ro.Order)
                 .HasForeignKey<ReturnOrder>(ro => ro.OrderId);
 
-
-            //Thiết lập quan hệ giữa ReturnOrder và ShippingAddress 
-            modelBuilder.Entity<ReturnOrder>()
-                .HasOne(ro => ro.ShippingAddress)
-                .WithMany(sa => sa.ReturnOrders)
-                .HasForeignKey(ro => ro.ShippingAddressId)
-                .OnDelete(DeleteBehavior.NoAction); // Không xóa ShippingAddress khi xóa ReturnOrder
-
             // Thiết lập quan hệ 1-n giữa User và Review
             modelBuilder.Entity<Review>()
                 .HasOne(r => r.User)
@@ -72,7 +65,6 @@ namespace StackBook.Data
                 .WithMany(u => u.ShippingAddresses)
                 .HasForeignKey(sa => sa.UserId);
 
-
             // Thiết lập quan hệ n-n giữa Book và Author
             modelBuilder.Entity<BookAuthor>()
                 .HasKey(ba => new { ba.BookId, ba.AuthorId });
@@ -81,13 +73,13 @@ namespace StackBook.Data
                 .HasOne(ba => ba.Book)
                 .WithMany(b => b.BookAuthors)
                 .HasForeignKey(ba => ba.BookId);
-            
+
             modelBuilder.Entity<BookAuthor>()
                 .HasOne(ba => ba.Author)
                 .WithMany(a => a.BookAuthors)
                 .HasForeignKey(ba => ba.AuthorId);
 
-            //// Thiết lập quan hệ n-n giữa Book và Category
+            // Thiết lập quan hệ n-n giữa Book và Category
             modelBuilder.Entity<BookCategory>()
                 .HasKey(bc => new { bc.BookId, bc.CategoryId });
 

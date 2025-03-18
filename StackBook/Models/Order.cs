@@ -5,22 +5,22 @@ namespace StackBook.Models
     public class Order
     {
         [Key]
-        public int OrderId { get; set; }
-        public virtual ReturnOrder ReturnOrder { get; set; }
-        public virtual OrderDetail OrderDetail { get; set; }
-        public virtual Payment Payment { get; set; }
+        public Guid OrderId { get; set; } = Guid.NewGuid();
+        public virtual ReturnOrder? ReturnOrder { get; set; }
+        public virtual OrderDetail? OrderDetail { get; set; }
+        public virtual Payment? Payment { get; set; }
 
         [Required]
-        public int UserId { get; set; }
-        public virtual User User { get; set; }
+        public Guid UserId { get; set; }
+        public virtual User? User { get; set; }
 
         [Required]
-        public int DiscountId { get; set; }
-        public virtual Discount Discount { get; set; }
+        public Guid DiscountId { get; set; }
+        public virtual Discount? Discount { get; set; }
 
         [Required]
-        public int ShippingAddressId { get; set; }
-        public virtual ShippingAddress ShippingAddress { get; set; }
+        public Guid ShippingAddressId { get; set; }
+        public virtual ShippingAddress? ShippingAddress { get; set; }
 
         [Required]
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0.")]

@@ -5,11 +5,11 @@ namespace StackBook.Models
     public class Discount
     {
         [Key]
-        public int DiscountId { get; set; }
-        public virtual Order Order { get; set; }
+        public Guid DiscountId { get; set; } =Guid.NewGuid();
+        public virtual Order? Order { get; set; }
 
         [Required]
-        public string DiscountName { get; set; }
+        public string? DiscountName { get; set; }
         
         [Required]
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0.")]

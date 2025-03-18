@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ClosedXML.Excel;
+using Microsoft.EntityFrameworkCore;
 using StackBook.Data;
 using StackBook.Models;
 using StackBook.Services;
-
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +42,8 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+
 
     if (!dbContext.Categories.Any()) // Kiểm tra nếu bảng rỗng
     {
@@ -161,19 +161,19 @@ using (var scope = app.Services.CreateScope())
         dbContext.Books.AddRange(new List<Book>
         {
             // Thể loại Literature & Fiction
-            new Book 
-            { 
-                BookTitle = "Give Me a Ticket to Childhood", 
-                Price = 4.00, 
-                Stock = 100, 
+            new Book
+            {
+                BookTitle = "Give Me a Ticket to Childhood",
+                Price = 4.00,
+                Stock = 100,
                 CreatedBook = new DateTime(2008, 2, 1),
-                ImageURL = "https://res.cloudinary.com/dhik9tniv/image/upload/v1740818425/uploaded_images/cddwg4theevsfzyawf8n.jpg", 
+                ImageURL = "https://res.cloudinary.com/dhik9tniv/image/upload/v1740818425/uploaded_images/cddwg4theevsfzyawf8n.jpg",
                 Description = "\"\"\"Give Me a Ticket to Childhood\"\" (Cho tôi xin một vé đi tuổi thơ) is a famous novel by Nguyễn Nhật Ánh, telling a nostalgic story of childhood filled with innocence, mischief, and life lessons.                                                                                                                                                                                                      1. Summary\r\nThe novel follows the story of Mùi, an adult reminiscing about his childhood with his close friends Tí, Hải, Tủn, and their dog Liêm. Through their innocent yet imaginative pranks and adventures, Mùi gradually realizes the differences between childhood and adulthood, as well as the inevitable changes brought by time The story not only captures the joy and purity of childhood but also raises deep questions about the meaning of life, growing up, and nostalgia.\r\n2. Chapters and Main Content\r\nAlthough the book does not follow a traditional chapter structure, it can be divided into key sections:\r\nPart 1: Introducing the Group of Friends and Their Innocent Childhood\r\nThe protagonist Mùi recalls his childhood with Tí, Hải, Tủn, and their dog Liêm.\r\nThey engage in creative and mischievous games, such as establishing a \"\"children’s government\"\" or experimenting with their own ideas about life.\r\nPart 2: Naïve Yet Profound Thoughts\r\nThe characters begin to notice the differences between children and adults.\r\nChildren are curious and carefree, while adults are bound by responsibilities and societal expectations.\r\nMùi wonders: \"\"Why don’t adults play like children?\"\"\r\nPart 3: Loss and the Lessons of Growing Up\r\nAs they grow older, Mùi and his friends drift apart, and their childhood games lose their charm.\r\nThey realize that childhood is something that cannot be revisited—only remembered.\r\nThe story concludes with a lingering sense of nostalgia and longing for the past.\r\n3. Character Thoughts and Psychology\r\nMùi (Main Character and Narrator)\r\nAs a child: Curious, imaginative, and free-spirited, always engaging in mischief.\r\nAs an adult: Nostalgic about childhood, realizing how adulthood often strips people of their innocence and creativity.\r\nTí, Hải, Tủn (Mùi’s Childhood Friends)\r\nEach friend has their own personality but collectively represent the carefree and playful nature of children.\r\nThey share beautiful memories with Mùi but eventually change as they grow up.\r\nAdults (Parents, Teachers, and Society)\r\nRepresent the stark contrast between childhood and adulthood: children are full of wonder, while adults are weighed down by responsibilities.\r\nChildren see adults as serious, unimaginative, and distant from the joy of life.\r\n4. Themes and Messages\r\nChildhood is a beautiful but irretrievable part of life.\r\nAdults can learn from children how to see the world with simplicity and joy.\r\nGrowing up involves inevitable loss, but memories remain a vital part of our lives.\""
             },
             new Book
             {
                 BookTitle = "Yellow Flowers on the Green Grass",
-                Price = 5.00, 
+                Price = 5.00,
                 Stock = 100,
                 CreatedBook = new DateTime(2010, 12, 9),
                 ImageURL = "https://res.cloudinary.com/dhik9tniv/image/upload/v1740818437/uploaded_images/rtx7mrm3pkb5mqqepdla.jpg",
@@ -623,15 +623,15 @@ using (var scope = app.Services.CreateScope())
             },
 
             // Thể loại Self-Help
-            new Book
-            {
-                BookTitle = "Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones",
-                Price = 13.99,
-                Stock = 100,
-                CreatedBook = new DateTime(2018, 10, 16),
-                ImageURL = "https://res.cloudinary.com/drqi2jgr5/image/upload/v1740834441/Atomic_Habits_casgub.jpg",
-                Description = "\"The number one New York Times best seller. Over one million copies sold!\r\n\r\nTiny Changes, Remarkable Results\r\n\r\nNo matter your goals, Atomic Habits offers a proven framework for improving - every day. James Clear, one of the world's leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.\r\n\r\nIf you're having trouble changing your habits, the problem isn't you. The problem is your system. Bad habits repeat themselves again and again not because you don't want to change, but because you have the wrong system for change. You do not rise to the level of your goals. You fall to the level of your systems. Here, you'll get a proven system that can take you to new heights.\r\n\r\nClear is known for his ability to distill complex topics into simple behaviors that can be easily applied to daily life and work. Here, he draws on the most proven ideas from biology, psychology, and neuroscience to create an easy-to-understand guide for making good habits inevitable and bad habits impossible. Along the way, listeners will be inspired and entertained with true stories from Olympic gold medalists, award-winning artists, business leaders, life-saving physicians, and star comedians who have used the science of small habits to master their craft and vault to the top of their field.\r\n\r\nLearn how to:\r\n\r\nMake time for new habits (even when life gets crazy)\r\nOvercome a lack of motivation and willpower\r\nDesign your environment to make success easier\r\nGet back on track when you fall off course\r\nAnd much more\r\nAtomic Habits will reshape the way you think about progress and success, and give you the tools and strategies you need to transform your habits - whether you are a team looking to win a championship, an organization hoping to redefine an industry, or simply an individual who wishes to quit smoking, lose weight, reduce stress, or achieve any other goal.\"",
-            },
+            //new Book
+            //{
+            //    BookTitle = "Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones",
+            //    Price = 13.99,
+            //    Stock = 100,
+            //    CreatedBook = new DateTime(2018, 10, 16),
+            //    ImageURL = "https://res.cloudinary.com/drqi2jgr5/image/upload/v1740834441/Atomic_Habits_casgub.jpg",
+            //    Description = "\"The number one New York Times best seller. Over one million copies sold!\r\n\r\nTiny Changes, Remarkable Results\r\n\r\nNo matter your goals, Atomic Habits offers a proven framework for improving - every day. James Clear, one of the world's leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.\r\n\r\nIf you're having trouble changing your habits, the problem isn't you. The problem is your system. Bad habits repeat themselves again and again not because you don't want to change, but because you have the wrong system for change. You do not rise to the level of your goals. You fall to the level of your systems. Here, you'll get a proven system that can take you to new heights.\r\n\r\nClear is known for his ability to distill complex topics into simple behaviors that can be easily applied to daily life and work. Here, he draws on the most proven ideas from biology, psychology, and neuroscience to create an easy-to-understand guide for making good habits inevitable and bad habits impossible. Along the way, listeners will be inspired and entertained with true stories from Olympic gold medalists, award-winning artists, business leaders, life-saving physicians, and star comedians who have used the science of small habits to master their craft and vault to the top of their field.\r\n\r\nLearn how to:\r\n\r\nMake time for new habits (even when life gets crazy)\r\nOvercome a lack of motivation and willpower\r\nDesign your environment to make success easier\r\nGet back on track when you fall off course\r\nAnd much more\r\nAtomic Habits will reshape the way you think about progress and success, and give you the tools and strategies you need to transform your habits - whether you are a team looking to win a championship, an organization hoping to redefine an industry, or simply an individual who wishes to quit smoking, lose weight, reduce stress, or achieve any other goal.\"",
+            //},
             new Book
             {
                 BookTitle = "The Let Them Theory: A Life-Changing Tool That Millions of People Can’t Stop Talking About",
@@ -650,15 +650,15 @@ using (var scope = app.Services.CreateScope())
                 ImageURL = "https://res.cloudinary.com/drqi2jgr5/image/upload/v1740834482/Self-Love_Workbook_for_Women_z1ogzv.jpg",
                 Description = "\"Start the new year feeling amazing with this bestselling workbook. And then keep your journey going with the official companion, the Self-Love Journal for Women.\r\n\r\nEmbrace who you are with this guided self-love book for women of any age and any background. This year, you'll embark on your journey of self-discovery by learning what self-love is, and then immersing yourself in activities that help you build your self-esteem and improve your relationships. This book includes a variety of exercises to engage with your sense of self-love, and the companion journal encourages you to go even deeper with writing and reflection.\r\n\r\nProven techniques―Fall in love with yourself using a variety of compassionate exercises rooted in mindfulness, self-care, gratitude, and positive psychology.\r\n\r\nInspiring activities―This self-esteem workbook features prompts like quizzing yourself on what matters to you, making a happy playlist, and writing a message to your younger self to help you tap into your emotions and let go of limiting beliefs.\r\n\r\nEmpowering affirmations―Boost your positivity and nurture yourself with the uplifting affirmations interspersed throughout the book.\r\n\r\nNew year, new you―This book makes an amazing gift for yourself―or any woman in your life who deserves to put herself first and explore how awesome she is!\r\n\r\nMeet your new year's resolutions and create a life filled with purpose and pleasure!\"",
             },
-            new Book
-            {
-                BookTitle = "INNER EXCELLENCE: Train Your Mind for Extraordinary Performance and the Best Possible life",
-                Price = 17.97,
-                Stock = 100,
-                CreatedBook = new DateTime(2009, 1, 1),
-                ImageURL = "https://res.cloudinary.com/drqi2jgr5/image/upload/v1740834493/Inner_Excellence_oysw5x.jpg",
-                Description = "\"The #1 New York Times bestseller. 200,000+ copies sold in three weeks.\r\n\r\nDiscover the life guide that has developed world champions, empowered athletes to become world #1, and most importantly, transformed their hearts and minds. This step-by-step training manual from one of the world's top mental skills coaches will teach you how to train your mind like the very best.\r\n\r\nMy #1 tip for success: Read Inner Excellence by Jim Murphy. - Stewart Cink, British Open Champion, 8-time PGA Tour Winner\r\n\r\nWhether you’re an athlete or entrepreneur, single mother or father of five, you’ll find exercises, techniques and tools in this book that will improve every area of your life. Your life will take on new meaning as you move beyond the pursuit of happiness to a life of purpose and fulfillment.\r\n\r\nJim Murphy's complete program of proven mental techniques is based on the powerful principles of love, wisdom, and courage, that came from over six years of full-time research and writing (after his masters degree in Coaching Science).\r\n\r\n“I read the first version of Inner Excellence six times. I recommend all my clients read it.” – Matt Killen, PGA Tour coach to Justin Thomas, Tiger Woods and many others\r\n\r\nINNER EXCELLENCE WILL SHOW YOU HOW TO:\r\n\r\nDEVELOP SELF-MASTERY—and let go of what you can’t control\r\nOVERCOME ANXIETY—and build powerful mental habits\r\nREMOVE MENTAL BLOCKS—and get out of your own way\r\nTRAIN YOUR SUBCONSCIOUS MIND—and release limiting beliefs\r\n\r\nAs a professional baseball player in the Chicago Cubs organization, Jim’s sense of worth and identity revolved around his performance. He was obsessed with fame but also afraid of failure, and that fear made him struggle under the pressure to perform.\r\n\r\nWhen he started coaching professional and Olympic athletes, he saw the same pattern over and over again: athletes had lost their joy and passion for life as the fear of failure engulfed their lives. This book will share with you how some of the best athletes in the world transformed their careers through Inner Excellence.\r\n\r\nYou'll learn how Inner Excellence propelled them to extraordinary performance even when they were filled with doubt and uncertainty, and how you can excel in the same way in your life.\r\n\r\n“Inner Excellence changed how I see the world, how I think, and how I play golf.” - Vaughn Taylor, three-time PGA Tour winner\r\n\r\nJim Murphy is a Performance Coach (mental skills) to some of the best athletes and leaders in the world. The majority of his clients achieve the best year of their career their first year working with Jim (or their best year in the previous five years).\"",
-            },
+            //new Book
+            //{
+            //    BookTitle = "INNER EXCELLENCE: Train Your Mind for Extraordinary Performance and the Best Possible life",
+            //    Price = 17.97,
+            //    Stock = 100,
+            //    CreatedBook = new DateTime(2009, 1, 1),
+            //    ImageURL = "https://res.cloudinary.com/drqi2jgr5/image/upload/v1740834493/Inner_Excellence_oysw5x.jpg",
+            //    Description = "\"The #1 New York Times bestseller. 200,000+ copies sold in three weeks.\r\n\r\nDiscover the life guide that has developed world champions, empowered athletes to become world #1, and most importantly, transformed their hearts and minds. This step-by-step training manual from one of the world's top mental skills coaches will teach you how to train your mind like the very best.\r\n\r\nMy #1 tip for success: Read Inner Excellence by Jim Murphy. - Stewart Cink, British Open Champion, 8-time PGA Tour Winner\r\n\r\nWhether you’re an athlete or entrepreneur, single mother or father of five, you’ll find exercises, techniques and tools in this book that will improve every area of your life. Your life will take on new meaning as you move beyond the pursuit of happiness to a life of purpose and fulfillment.\r\n\r\nJim Murphy's complete program of proven mental techniques is based on the powerful principles of love, wisdom, and courage, that came from over six years of full-time research and writing (after his masters degree in Coaching Science).\r\n\r\n“I read the first version of Inner Excellence six times. I recommend all my clients read it.” – Matt Killen, PGA Tour coach to Justin Thomas, Tiger Woods and many others\r\n\r\nINNER EXCELLENCE WILL SHOW YOU HOW TO:\r\n\r\nDEVELOP SELF-MASTERY—and let go of what you can’t control\r\nOVERCOME ANXIETY—and build powerful mental habits\r\nREMOVE MENTAL BLOCKS—and get out of your own way\r\nTRAIN YOUR SUBCONSCIOUS MIND—and release limiting beliefs\r\n\r\nAs a professional baseball player in the Chicago Cubs organization, Jim’s sense of worth and identity revolved around his performance. He was obsessed with fame but also afraid of failure, and that fear made him struggle under the pressure to perform.\r\n\r\nWhen he started coaching professional and Olympic athletes, he saw the same pattern over and over again: athletes had lost their joy and passion for life as the fear of failure engulfed their lives. This book will share with you how some of the best athletes in the world transformed their careers through Inner Excellence.\r\n\r\nYou'll learn how Inner Excellence propelled them to extraordinary performance even when they were filled with doubt and uncertainty, and how you can excel in the same way in your life.\r\n\r\n“Inner Excellence changed how I see the world, how I think, and how I play golf.” - Vaughn Taylor, three-time PGA Tour winner\r\n\r\nJim Murphy is a Performance Coach (mental skills) to some of the best athletes and leaders in the world. The majority of his clients achieve the best year of their career their first year working with Jim (or their best year in the previous five years).\"",
+            //},
             new Book
             {
                 BookTitle = "Negative Thinking - From Fear to Freedom: An Interactive Self-Help Guide to Overcoming Anxiety and Stress Through Visual Tools, Positive Thinking, and Personal Growth",
@@ -695,15 +695,15 @@ using (var scope = app.Services.CreateScope())
                 ImageURL = "https://res.cloudinary.com/drqi2jgr5/image/upload/v1740834617/The_7_Habits_of_Highly_Effective_People_m1qic4.jpg",
                 Description = "\"*New York Times bestseller—over 40 million copies sold*\r\n*The #1 Most Influential Business Book of the Twentieth Century*\r\n\r\nOne of the most inspiring and impactful books ever written, The 7 Habits of Highly Effective People has captivated readers for nearly three decades. It has transformed the lives of presidents and CEOs, educators and parents—millions of people of all ages and occupations. Now, this 30th anniversary edition of the timeless classic commemorates the wisdom of the 7 Habits with modern additions from Sean Covey.\r\n\r\nThe 7 Habits have become famous and are integrated into everyday thinking by millions and millions of people. Why? Because they work!\r\n\r\nWith Sean Covey’s added takeaways on how the habits can be used in our modern age, the wisdom of the 7 Habits will be refreshed for a new generation of leaders.\r\n\r\nThey include:\r\nHabit 1: Be Proactive\r\nHabit 2: Begin with the End in Mind\r\nHabit 3: Put First Things First\r\nHabit 4: Think Win/Win\r\nHabit 5: Seek First to Understand, Then to Be Understood\r\nHabit 6: Synergize\r\nHabit 7: Sharpen the Saw\r\n\r\nThis beloved classic presents a principle-centered approach for solving both personal and professional problems. With penetrating insights and practical anecdotes, Stephen R. Covey reveals a step-by-step pathway for living with fairness, integrity, honesty, and human dignity—principles that give us the security to adapt to change and the wisdom and power to take advantage of the opportunities that change creates.\"",
             },
-            new Book
-            {
-                BookTitle = "The Body Keeps the Score: Brain, Mind, and Body in the Healing of Trauma",
-                Price = 19.0,
-                Stock = 100,
-                CreatedBook = new DateTime(2014, 6, 12),
-                ImageURL = "https://res.cloudinary.com/drqi2jgr5/image/upload/v1740834628/The_Body_Keeps_the_Score_bknqav.jpg",
-                Description = "\"#1 New York Times bestseller\r\n\r\n“Essential reading for anyone interested in understanding and treating traumatic stress and the scope of its impact on society.” —Alexander McFarlane, Director of the Centre for Traumatic Stress Studies\r\n\r\nA pioneering researcher transforms our understanding of trauma and offers a bold new paradigm for healing in this New York Times bestseller\r\n \r\nTrauma is a fact of life. Veterans and their families deal with the painful aftermath of combat; one in five Americans has been molested; one in four grew up with alcoholics; one in three couples have engaged in physical violence. Dr. Bessel van der Kolk, one of the world’s foremost experts on trauma, has spent over three decades working with survivors. In The Body Keeps the Score, he uses recent scientific advances to show how trauma literally reshapes both body and brain, compromising sufferers’ capacities for pleasure, engagement, self-control, and trust. He explores innovative treatments—from neurofeedback and meditation to sports, drama, and yoga—that offer new paths to recovery by activating the brain’s natural neuroplasticity. Based on Dr. van der Kolk’s own research and that of other leading specialists, The Body Keeps the Score exposes the tremendous power of our relationships both to hurt and to heal—and offers new hope for reclaiming lives.\"",
-            },
+            //new Book
+            //{
+            //    BookTitle = "The Body Keeps the Score: Brain, Mind, and Body in the Healing of Trauma",
+            //    Price = 19.0,
+            //    Stock = 100,
+            //    CreatedBook = new DateTime(2014, 6, 12),
+            //    ImageURL = "https://res.cloudinary.com/drqi2jgr5/image/upload/v1740834628/The_Body_Keeps_the_Score_bknqav.jpg",
+            //    Description = "\"#1 New York Times bestseller\r\n\r\n“Essential reading for anyone interested in understanding and treating traumatic stress and the scope of its impact on society.” —Alexander McFarlane, Director of the Centre for Traumatic Stress Studies\r\n\r\nA pioneering researcher transforms our understanding of trauma and offers a bold new paradigm for healing in this New York Times bestseller\r\n \r\nTrauma is a fact of life. Veterans and their families deal with the painful aftermath of combat; one in five Americans has been molested; one in four grew up with alcoholics; one in three couples have engaged in physical violence. Dr. Bessel van der Kolk, one of the world’s foremost experts on trauma, has spent over three decades working with survivors. In The Body Keeps the Score, he uses recent scientific advances to show how trauma literally reshapes both body and brain, compromising sufferers’ capacities for pleasure, engagement, self-control, and trust. He explores innovative treatments—from neurofeedback and meditation to sports, drama, and yoga—that offer new paths to recovery by activating the brain’s natural neuroplasticity. Based on Dr. van der Kolk’s own research and that of other leading specialists, The Body Keeps the Score exposes the tremendous power of our relationships both to hurt and to heal—and offers new hope for reclaiming lives.\"",
+            //},
             new Book
             {
                 BookTitle = "The Subtle Art of Not Giving a F*ck: A Counterintuitive Approach to Living a Good Life",
@@ -904,216 +904,82 @@ using (var scope = app.Services.CreateScope())
     }
 
 
-    if (!dbContext.BookCategories.Any()) // Kiểm tra nếu bảng rỗng
+    bool open = true;
+    if (open == false)
     {
-        dbContext.BookCategories.AddRange(new List<BookCategory>
+        string filePath = "D:\\Book-data.xlsx";
+        if (!File.Exists(filePath))
         {
-            new BookCategory {BookId = 1, CategoryId = 1},
-            new BookCategory {BookId = 2, CategoryId = 1},
-            new BookCategory {BookId = 3, CategoryId = 1},
-            new BookCategory {BookId = 4, CategoryId = 1},
-            new BookCategory {BookId = 5, CategoryId = 1},
-            new BookCategory {BookId = 6, CategoryId = 1},
-            new BookCategory {BookId = 7, CategoryId = 1},
-            new BookCategory {BookId = 8, CategoryId = 1},
-            new BookCategory {BookId = 9, CategoryId = 1},
-            new BookCategory {BookId = 10, CategoryId = 1},
+            Console.WriteLine("❌ File Excel không tồn tại!");
+            return;
+        }
+        using var workbook = new XLWorkbook(filePath);
+        var worksheet = workbook.Worksheet(1); // Lấy sheet đầu tiên
+        var rows = worksheet.RowsUsed(); // Lấy tất cả các dòng có dữ liệu
+        var books = new List<SBook>();
+        foreach (var row in rows.Skip(0)) // Lấy dòng tiêu đề
+        {
+            var title = row.Cell(1).GetString();
+            var author = row.Cell(2).GetString();
+            var category = row.Cell(3).GetString();
+            if (title == null || author == null || category == null)
+            {
+                break;
+            }
+            var BID = await dbContext.Books.Where(b => b.BookTitle == title).Select(b => b.BookId).FirstOrDefaultAsync();
+            var AID = await dbContext.Authors.Where(a => a.AuthorName == author).Select(a => a.AuthorId).FirstOrDefaultAsync();
+            var CID = await dbContext.Categories.Where(c => c.CategoryName == category).Select(c => c.CategoryId).FirstOrDefaultAsync();
+            books.Add(new SBook
+            {
+                TitleBook = BID,
+                Author = AID,
+                Category = CID,
+            });
+        }
 
-            new BookCategory {BookId = 11, CategoryId = 2},
-            new BookCategory {BookId = 12, CategoryId = 2},
-            new BookCategory {BookId = 13, CategoryId = 2},
-            new BookCategory {BookId = 14, CategoryId = 2},
-            new BookCategory {BookId = 15, CategoryId = 2},
-            new BookCategory {BookId = 16, CategoryId = 2},
-            new BookCategory {BookId = 17, CategoryId = 2},
-            new BookCategory {BookId = 18, CategoryId = 2},
-            new BookCategory {BookId = 19, CategoryId = 2},
-            new BookCategory {BookId = 20, CategoryId = 2},
+        //string excelFilePath = @"D:\\2024-2025\\PBL3\\StackBook\\BookAuthorCategory--.xlsx";
+        //using (var workBook = new XLWorkbook())
+        //{
+        //    for (int i = 0; i < books.Count; i++)
+        //    {
+        //        worksheet.Cell(i + 1, 1).Value = books[i].TitleBook.ToString();
+        //        worksheet.Cell(i + 1, 2).Value = books[i].Author.ToString();
+        //        worksheet.Cell(i + 1, 3).Value = books[i].Category.ToString();
+        //    }
+        //    // Lưu file Excel
+        //    workbook.SaveAs(excelFilePath);
+        //}
 
-            new BookCategory {BookId = 21, CategoryId = 3},
-            new BookCategory {BookId = 22, CategoryId = 3},
-            new BookCategory {BookId = 23, CategoryId = 3},
-            new BookCategory {BookId = 24, CategoryId = 3},
-            new BookCategory {BookId = 25, CategoryId = 3},
-            new BookCategory {BookId = 26, CategoryId = 3},
-            new BookCategory {BookId = 27, CategoryId = 3},
-            new BookCategory {BookId = 28, CategoryId = 3},
-            new BookCategory {BookId = 29, CategoryId = 3},
-            new BookCategory {BookId = 30, CategoryId = 3},
+        if (!dbContext.BookCategories.Any())
+        {
+            foreach (var book in books)
+            {
+                var existingEntry = dbContext.BookCategories.Local.FirstOrDefault(ba => ba.BookId == book.TitleBook && ba.CategoryId == book.Category);
 
-            new BookCategory {BookId = 31, CategoryId = 4},
-            new BookCategory {BookId = 32, CategoryId = 4},
-            new BookCategory {BookId = 33, CategoryId = 4},
-            new BookCategory {BookId = 34, CategoryId = 4},
-            new BookCategory {BookId = 35, CategoryId = 4},
-            new BookCategory {BookId = 36, CategoryId = 4},
-            new BookCategory {BookId = 37, CategoryId = 4},
-            new BookCategory {BookId = 38, CategoryId = 4},
-            new BookCategory {BookId = 39, CategoryId = 4},
-            new BookCategory {BookId = 40, CategoryId = 4},
+                if (existingEntry == null)
+                {
+                    dbContext.BookCategories.Add(new BookCategory { BookId = book.TitleBook, CategoryId = book.Category });
+                }
+            }
+            dbContext.SaveChanges();
+            Console.WriteLine("✅ Đã thêm dữ liệu vào database!");
+        }
+        if (!dbContext.BookAuthors.Any())
+        {
+            foreach (var book in books)
+            {
+                var existingEntry = dbContext.BookAuthors.Local.FirstOrDefault(ba => ba.BookId == book.TitleBook && ba.AuthorId == book.Author);
 
-            new BookCategory {BookId = 41, CategoryId = 5},
-            new BookCategory {BookId = 42, CategoryId = 5},
-            new BookCategory {BookId = 43, CategoryId = 5},
-            new BookCategory {BookId = 44, CategoryId = 5},
-            new BookCategory {BookId = 45, CategoryId = 5},
-            new BookCategory {BookId = 46, CategoryId = 5},
-            new BookCategory {BookId = 47, CategoryId = 5},
-            new BookCategory {BookId = 48, CategoryId = 5},
-            new BookCategory {BookId = 49, CategoryId = 5},
-            new BookCategory {BookId = 50, CategoryId = 5},
-
-            new BookCategory {BookId = 51, CategoryId = 6},
-            new BookCategory {BookId = 52, CategoryId = 6},
-            new BookCategory {BookId = 53, CategoryId = 6},
-            new BookCategory {BookId = 54, CategoryId = 6},
-            new BookCategory {BookId = 55, CategoryId = 6},
-            new BookCategory {BookId = 56, CategoryId = 6},
-            new BookCategory {BookId = 57, CategoryId = 6},
-            new BookCategory {BookId = 58, CategoryId = 6},
-            new BookCategory {BookId = 59, CategoryId = 6},
-            new BookCategory {BookId = 60, CategoryId = 6},
-
-            new BookCategory {BookId = 61, CategoryId = 7},
-            new BookCategory {BookId = 62, CategoryId = 7},
-            new BookCategory {BookId = 63, CategoryId = 7},
-            new BookCategory {BookId = 64, CategoryId = 7},
-            new BookCategory {BookId = 65, CategoryId = 7},
-            new BookCategory {BookId = 66, CategoryId = 7},
-            new BookCategory {BookId = 67, CategoryId = 7},
-            new BookCategory {BookId = 68, CategoryId = 7},
-            new BookCategory {BookId = 69, CategoryId = 7},
-            new BookCategory {BookId = 70, CategoryId = 7},
-
-            new BookCategory {BookId = 71, CategoryId = 8},
-            new BookCategory {BookId = 72, CategoryId = 8},
-            new BookCategory {BookId = 73, CategoryId = 8},
-            new BookCategory {BookId = 74, CategoryId = 8},
-            new BookCategory {BookId = 75, CategoryId = 8},
-            new BookCategory {BookId = 76, CategoryId = 8},
-            new BookCategory {BookId = 77, CategoryId = 8},
-            new BookCategory {BookId = 78, CategoryId = 8},
-            new BookCategory {BookId = 79, CategoryId = 8},
-            new BookCategory {BookId = 80, CategoryId = 8},
-        });
-
-        dbContext.SaveChanges();
-        Console.WriteLine("✅ Đã thêm dữ liệu vào database!");
+                if (existingEntry == null)
+                {
+                    dbContext.BookAuthors.Add(new BookAuthor { BookId = book.TitleBook, AuthorId = book.Author });
+                }
+            }
+            dbContext.SaveChanges();
+            Console.WriteLine("✅ Đã thêm dữ liệu vào database!");
+        }
     }
 
-    if (!dbContext.BookAuthors.Any()) // Kiểm tra nếu bảng rỗng
-    {
-        dbContext.BookAuthors.AddRange(new List<BookAuthor>
-        {
-            new BookAuthor {BookId = 1, AuthorId = 63},
-            new BookAuthor {BookId = 2, AuthorId = 63},
-            new BookAuthor {BookId = 3, AuthorId = 63},
-            new BookAuthor {BookId = 4, AuthorId = 61},
-            new BookAuthor {BookId = 5, AuthorId = 82},
-            new BookAuthor {BookId = 6, AuthorId = 62},
-            new BookAuthor {BookId = 7, AuthorId = 27},
-            new BookAuthor {BookId = 8, AuthorId = 48},
-            new BookAuthor {BookId = 9, AuthorId = 22},
-            new BookAuthor {BookId = 10, AuthorId = 30},
-
-            new BookAuthor {BookId = 11, AuthorId = 58},
-            new BookAuthor {BookId = 12, AuthorId = 42},
-            new BookAuthor {BookId = 12, AuthorId = 84},
-            new BookAuthor {BookId = 13, AuthorId = 46},
-            new BookAuthor {BookId = 14, AuthorId = 23},
-            new BookAuthor {BookId = 14, AuthorId = 3},
-            new BookAuthor {BookId = 14, AuthorId = 20},
-            new BookAuthor {BookId = 15, AuthorId = 73},
-            new BookAuthor {BookId = 16, AuthorId = 85},
-            new BookAuthor {BookId = 16, AuthorId = 16},
-            new BookAuthor {BookId = 16, AuthorId = 18},
-            new BookAuthor {BookId = 17, AuthorId = 75},
-            new BookAuthor {BookId = 17, AuthorId = 57},
-            new BookAuthor {BookId = 17, AuthorId = 66},
-            new BookAuthor {BookId = 18, AuthorId = 83},
-            new BookAuthor {BookId = 19, AuthorId = 12},
-            new BookAuthor {BookId = 20, AuthorId = 81},
-
-            new BookAuthor {BookId = 21, AuthorId = 15},
-            new BookAuthor {BookId = 22, AuthorId = 7},
-            new BookAuthor {BookId = 23, AuthorId = 79},
-            new BookAuthor {BookId = 24, AuthorId = 2},
-            new BookAuthor {BookId = 25, AuthorId = 29},
-            new BookAuthor {BookId = 26, AuthorId = 15},
-            new BookAuthor {BookId = 27, AuthorId = 45},
-            new BookAuthor {BookId = 28, AuthorId = 31},
-            new BookAuthor {BookId = 29, AuthorId = 15},
-            new BookAuthor {BookId = 30, AuthorId = 6},
-
-            new BookAuthor {BookId = 31, AuthorId = 59},
-            new BookAuthor {BookId = 32, AuthorId = 25},
-            new BookAuthor {BookId = 33, AuthorId = 60},
-            new BookAuthor {BookId = 34, AuthorId = 71},
-            new BookAuthor {BookId = 35, AuthorId = 14},
-            new BookAuthor {BookId = 36, AuthorId = 80},
-            new BookAuthor {BookId = 37, AuthorId = 80},
-            new BookAuthor {BookId = 38, AuthorId = 43},
-            new BookAuthor {BookId = 39, AuthorId = 51},
-            new BookAuthor {BookId = 40, AuthorId = 52},
-
-            new BookAuthor {BookId = 41, AuthorId = 33},
-            new BookAuthor {BookId = 42, AuthorId = 37},
-            new BookAuthor {BookId = 42, AuthorId = 49},
-            new BookAuthor {BookId = 42, AuthorId = 76},
-            new BookAuthor {BookId = 43, AuthorId = 35},
-            new BookAuthor {BookId = 44, AuthorId = 67},
-            new BookAuthor {BookId = 45, AuthorId = 40},
-            new BookAuthor {BookId = 45, AuthorId = 86},
-            new BookAuthor {BookId = 46, AuthorId = 38},
-            new BookAuthor {BookId = 47, AuthorId = 5},
-            new BookAuthor {BookId = 48, AuthorId = 78},
-            new BookAuthor {BookId = 48, AuthorId = 32},
-            new BookAuthor {BookId = 48, AuthorId = 21},
-            new BookAuthor {BookId = 49, AuthorId = 24},
-            new BookAuthor {BookId = 49, AuthorId = 47},
-            new BookAuthor {BookId = 49, AuthorId = 26},
-            new BookAuthor {BookId = 50, AuthorId = 19},
-
-            new BookAuthor {BookId = 51, AuthorId = 34},
-            new BookAuthor {BookId = 52, AuthorId = 56},
-            new BookAuthor {BookId = 53, AuthorId = 55},
-            new BookAuthor {BookId = 54, AuthorId = 39},
-            new BookAuthor {BookId = 55, AuthorId = 4},
-            new BookAuthor {BookId = 56, AuthorId = 44},
-            new BookAuthor {BookId = 57, AuthorId = 1},
-            new BookAuthor {BookId = 58, AuthorId = 74},
-            new BookAuthor {BookId = 59, AuthorId = 8},
-            new BookAuthor {BookId = 60, AuthorId = 50},
-
-            new BookAuthor {BookId = 61, AuthorId = 34},
-            new BookAuthor {BookId = 62, AuthorId = 39},
-            new BookAuthor {BookId = 63, AuthorId = 8},
-            new BookAuthor {BookId = 64, AuthorId = 41},
-            new BookAuthor {BookId = 65, AuthorId = 13},
-            new BookAuthor {BookId = 65, AuthorId = 10},
-            new BookAuthor {BookId = 66, AuthorId = 65},
-            new BookAuthor {BookId = 66, AuthorId = 9},
-            new BookAuthor {BookId = 67, AuthorId = 70},
-            new BookAuthor {BookId = 68, AuthorId = 28},
-            new BookAuthor {BookId = 69, AuthorId = 17},
-            new BookAuthor {BookId = 70, AuthorId = 53},
-
-            new BookAuthor {BookId = 71, AuthorId = 69},
-            new BookAuthor {BookId = 72, AuthorId = 69},
-            new BookAuthor {BookId = 73, AuthorId = 77},
-            new BookAuthor {BookId = 74, AuthorId = 11},
-            new BookAuthor {BookId = 75, AuthorId = 64},
-            new BookAuthor {BookId = 76, AuthorId = 54},
-            new BookAuthor {BookId = 77, AuthorId = 36},
-            new BookAuthor {BookId = 78, AuthorId = 54},
-            new BookAuthor {BookId = 79, AuthorId = 72},
-            new BookAuthor {BookId = 80, AuthorId = 68},
-        });
-
-        dbContext.SaveChanges();
-        Console.WriteLine("✅ Đã thêm dữ liệu vào database!");
-    }
-    
 }
 
 

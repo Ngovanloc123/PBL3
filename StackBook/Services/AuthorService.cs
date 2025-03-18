@@ -12,7 +12,7 @@ namespace StackBook.Services
             _context = context;
         }
 
-        public List<Author> GetAuthorsByBookId(int bookId)
+        public List<Author> GetAuthorsByBookId(Guid bookId)
         {
             return _context.BookAuthors
                 .Where(ba => ba.BookId == bookId)

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "jCdnH3LCWn/JsXv7gykXtfSY9162Z805QGo0x4Sjp0M=",
+  "Hash": "KX5xx6zqvZc2o6TaoY5pquorL/q9Jd2fz/F8WffmOjA=",
   "Source": "StackBook",
   "BasePath": "_content/StackBook",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "StackBook\\wwwroot",
       "Source": "StackBook",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StackBook.styles.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StackBook.styles.css",
       "SourceId": "StackBook",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "StackBook#[.{fingerprint}]?.styles.css",
       "AssetKind": "All",
@@ -35,13 +35,13 @@
       "Integrity": "LYsgPAkFxAVTER5atIgwQNwEvOC5iJcuQY6A2wCuMpU=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StackBook.styles.css"
+      "OriginalItemSpec": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StackBook.styles.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StackBook.bundle.scp.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StackBook.bundle.scp.css",
       "SourceId": "StackBook",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "StackBook#[.{fingerprint}]!.bundle.scp.css",
       "AssetKind": "All",
@@ -56,13 +56,13 @@
       "Integrity": "LYsgPAkFxAVTER5atIgwQNwEvOC5iJcuQY6A2wCuMpU=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StackBook.bundle.scp.css"
+      "OriginalItemSpec": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StackBook.bundle.scp.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\css\\account.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\css\\account.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "css/account#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -80,10 +80,10 @@
       "OriginalItemSpec": "wwwroot\\css\\account.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\css\\site.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\css\\site.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "css/site#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -101,10 +101,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\favicon.ico",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\favicon.ico",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "favicon#[.{fingerprint}]?.ico",
       "AssetKind": "All",
@@ -122,10 +122,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Atomic_Habits- Self-help.webp",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Atomic_Habits- Self-help.webp",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "images/Books/Atomic_Habits- Self-help#[.{fingerprint}]?.webp",
       "AssetKind": "All",
@@ -143,10 +143,10 @@
       "OriginalItemSpec": "wwwroot\\images\\Books\\Atomic_Habits- Self-help.webp"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Computers and Technology.webp",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Computers and Technology.webp",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "images/Books/Computers and Technology#[.{fingerprint}]?.webp",
       "AssetKind": "All",
@@ -164,10 +164,10 @@
       "OriginalItemSpec": "wwwroot\\images\\Books\\Computers and Technology.webp"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Health, Fitness and Dieting.webp",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Health, Fitness and Dieting.webp",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "images/Books/Health, Fitness and Dieting#[.{fingerprint}]?.webp",
       "AssetKind": "All",
@@ -185,10 +185,10 @@
       "OriginalItemSpec": "wwwroot\\images\\Books\\Health, Fitness and Dieting.webp"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Literature and Fiction.webp",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Literature and Fiction.webp",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "images/Books/Literature and Fiction#[.{fingerprint}]?.webp",
       "AssetKind": "All",
@@ -206,10 +206,10 @@
       "OriginalItemSpec": "wwwroot\\images\\Books\\Literature and Fiction.webp"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Mystery, Thriller and Suspense.webp",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Mystery, Thriller and Suspense.webp",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "images/Books/Mystery, Thriller and Suspense#[.{fingerprint}]?.webp",
       "AssetKind": "All",
@@ -227,10 +227,10 @@
       "OriginalItemSpec": "wwwroot\\images\\Books\\Mystery, Thriller and Suspense.webp"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Rich Dad Poor Dad - Business and Money.webp",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Rich Dad Poor Dad - Business and Money.webp",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "images/Books/Rich Dad Poor Dad - Business and Money#[.{fingerprint}]?.webp",
       "AssetKind": "All",
@@ -248,10 +248,10 @@
       "OriginalItemSpec": "wwwroot\\images\\Books\\Rich Dad Poor Dad - Business and Money.webp"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Sapiens - History.webp",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Sapiens - History.webp",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "images/Books/Sapiens - History#[.{fingerprint}]?.webp",
       "AssetKind": "All",
@@ -269,10 +269,10 @@
       "OriginalItemSpec": "wwwroot\\images\\Books\\Sapiens - History.webp"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Science and Math.webp",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Science and Math.webp",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "images/Books/Science and Math#[.{fingerprint}]?.webp",
       "AssetKind": "All",
@@ -290,10 +290,10 @@
       "OriginalItemSpec": "wwwroot\\images\\Books\\Science and Math.webp"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Science Fiction and Fantasy.webp",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Science Fiction and Fantasy.webp",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "images/Books/Science Fiction and Fantasy#[.{fingerprint}]?.webp",
       "AssetKind": "All",
@@ -311,10 +311,10 @@
       "OriginalItemSpec": "wwwroot\\images\\Books\\Science Fiction and Fantasy.webp"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider1.jpg",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider1.jpg",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "images/sliders/slider1#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -332,10 +332,10 @@
       "OriginalItemSpec": "wwwroot\\images\\sliders\\slider1.jpg"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider2.jpg",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider2.jpg",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "images/sliders/slider2#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -353,10 +353,10 @@
       "OriginalItemSpec": "wwwroot\\images\\sliders\\slider2.jpg"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider3.jpg",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider3.jpg",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "images/sliders/slider3#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -374,10 +374,10 @@
       "OriginalItemSpec": "wwwroot\\images\\sliders\\slider3.jpg"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider4.jpg",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider4.jpg",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "images/sliders/slider4#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -395,10 +395,10 @@
       "OriginalItemSpec": "wwwroot\\images\\sliders\\slider4.jpg"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\js\\site.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\js\\site.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "js/site#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -416,10 +416,10 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -437,10 +437,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -458,10 +458,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -479,10 +479,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -500,10 +500,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -521,10 +521,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -542,10 +542,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -563,10 +563,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -584,10 +584,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -605,10 +605,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -626,10 +626,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -647,10 +647,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -668,10 +668,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -689,10 +689,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -710,10 +710,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -731,10 +731,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -752,10 +752,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -773,10 +773,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -794,10 +794,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -815,10 +815,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -836,10 +836,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -857,10 +857,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -878,10 +878,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -899,10 +899,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -920,10 +920,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -941,10 +941,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -962,10 +962,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -983,10 +983,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -1004,10 +1004,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -1025,10 +1025,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -1046,10 +1046,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -1067,10 +1067,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -1088,10 +1088,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1109,10 +1109,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -1130,10 +1130,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1151,10 +1151,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -1172,10 +1172,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1193,10 +1193,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -1214,10 +1214,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1235,10 +1235,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -1256,10 +1256,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1277,10 +1277,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -1298,10 +1298,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1319,10 +1319,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -1340,10 +1340,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\LICENSE",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/bootstrap/LICENSE#[.{fingerprint}]?",
       "AssetKind": "All",
@@ -1361,10 +1361,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\LICENSE"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/jquery/dist/jquery#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1382,10 +1382,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/jquery/dist/jquery.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1403,10 +1403,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/jquery/dist/jquery.min#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -1424,10 +1424,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/jquery/LICENSE#[.{fingerprint}]?.txt",
       "AssetKind": "All",
@@ -1445,10 +1445,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/jquery-validation/dist/additional-methods#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1466,10 +1466,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1487,10 +1487,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1508,10 +1508,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1529,10 +1529,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/jquery-validation/LICENSE#[.{fingerprint}]?.md",
       "AssetKind": "All",
@@ -1550,10 +1550,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1571,10 +1571,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1592,10 +1592,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Identity": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "SourceId": "StackBook",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\",
+      "ContentRoot": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\",
       "BasePath": "_content/StackBook",
       "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE#[.{fingerprint}]?.txt",
       "AssetKind": "All",
@@ -1616,7 +1616,7 @@
   "Endpoints": [
     {
       "Route": "css/account.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\css\\account.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\css\\account.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1653,7 +1653,7 @@
     },
     {
       "Route": "css/account.fqvipb49ud.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\css\\account.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\css\\account.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1698,7 +1698,7 @@
     },
     {
       "Route": "css/site.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\css\\site.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1735,7 +1735,7 @@
     },
     {
       "Route": "css/site.yvm9zn6c2g.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\css\\site.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1780,7 +1780,7 @@
     },
     {
       "Route": "favicon.61n19gt1b8.ico",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\favicon.ico",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\favicon.ico",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1825,7 +1825,7 @@
     },
     {
       "Route": "favicon.ico",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\favicon.ico",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\favicon.ico",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1862,7 +1862,7 @@
     },
     {
       "Route": "images/Books/Atomic_Habits- Self-help.fijc094557.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Atomic_Habits- Self-help.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Atomic_Habits- Self-help.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1907,7 +1907,7 @@
     },
     {
       "Route": "images/Books/Atomic_Habits- Self-help.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Atomic_Habits- Self-help.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Atomic_Habits- Self-help.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1944,7 +1944,7 @@
     },
     {
       "Route": "images/Books/Computers and Technology.0dggtghckq.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Computers and Technology.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Computers and Technology.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1989,7 +1989,7 @@
     },
     {
       "Route": "images/Books/Computers and Technology.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Computers and Technology.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Computers and Technology.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2026,7 +2026,7 @@
     },
     {
       "Route": "images/Books/Health, Fitness and Dieting.jfk4clauvy.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Health, Fitness and Dieting.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Health, Fitness and Dieting.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2071,7 +2071,7 @@
     },
     {
       "Route": "images/Books/Health, Fitness and Dieting.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Health, Fitness and Dieting.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Health, Fitness and Dieting.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2108,7 +2108,7 @@
     },
     {
       "Route": "images/Books/Literature and Fiction.rrgwurhrrg.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Literature and Fiction.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Literature and Fiction.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2153,7 +2153,7 @@
     },
     {
       "Route": "images/Books/Literature and Fiction.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Literature and Fiction.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Literature and Fiction.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2190,7 +2190,7 @@
     },
     {
       "Route": "images/Books/Mystery, Thriller and Suspense.8dlkm2qvly.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Mystery, Thriller and Suspense.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Mystery, Thriller and Suspense.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2235,7 +2235,7 @@
     },
     {
       "Route": "images/Books/Mystery, Thriller and Suspense.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Mystery, Thriller and Suspense.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Mystery, Thriller and Suspense.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2272,7 +2272,7 @@
     },
     {
       "Route": "images/Books/Rich Dad Poor Dad - Business and Money.mnrdgjqyi5.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Rich Dad Poor Dad - Business and Money.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Rich Dad Poor Dad - Business and Money.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2317,7 +2317,7 @@
     },
     {
       "Route": "images/Books/Rich Dad Poor Dad - Business and Money.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Rich Dad Poor Dad - Business and Money.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Rich Dad Poor Dad - Business and Money.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2354,7 +2354,7 @@
     },
     {
       "Route": "images/Books/Sapiens - History.w3ev34rmmq.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Sapiens - History.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Sapiens - History.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2399,7 +2399,7 @@
     },
     {
       "Route": "images/Books/Sapiens - History.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Sapiens - History.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Sapiens - History.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2436,7 +2436,7 @@
     },
     {
       "Route": "images/Books/Science and Math.nhrov08fbv.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Science and Math.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Science and Math.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2481,7 +2481,7 @@
     },
     {
       "Route": "images/Books/Science and Math.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Science and Math.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Science and Math.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2518,7 +2518,7 @@
     },
     {
       "Route": "images/Books/Science Fiction and Fantasy.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Science Fiction and Fantasy.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Science Fiction and Fantasy.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2555,7 +2555,7 @@
     },
     {
       "Route": "images/Books/Science Fiction and Fantasy.zyibpq7pom.webp",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Science Fiction and Fantasy.webp",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\Books\\Science Fiction and Fantasy.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2600,7 +2600,7 @@
     },
     {
       "Route": "images/sliders/slider1.jpg",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider1.jpg",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider1.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2637,7 +2637,7 @@
     },
     {
       "Route": "images/sliders/slider1.pf9vr0iha5.jpg",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider1.jpg",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider1.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2682,7 +2682,7 @@
     },
     {
       "Route": "images/sliders/slider2.buab1yassg.jpg",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider2.jpg",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider2.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2727,7 +2727,7 @@
     },
     {
       "Route": "images/sliders/slider2.jpg",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider2.jpg",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider2.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2764,7 +2764,7 @@
     },
     {
       "Route": "images/sliders/slider3.jpg",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider3.jpg",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider3.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2801,7 +2801,7 @@
     },
     {
       "Route": "images/sliders/slider3.oj2ifynn9z.jpg",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider3.jpg",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider3.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2846,7 +2846,7 @@
     },
     {
       "Route": "images/sliders/slider4.jpg",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider4.jpg",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider4.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2883,7 +2883,7 @@
     },
     {
       "Route": "images/sliders/slider4.jzju281bn0.jpg",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider4.jpg",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\images\\sliders\\slider4.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2928,7 +2928,7 @@
     },
     {
       "Route": "js/site.ibv362wg7p.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\js\\site.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\js\\site.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2973,7 +2973,7 @@
     },
     {
       "Route": "js/site.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\js\\site.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\js\\site.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3010,7 +3010,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.2p1smmc02c.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3055,7 +3055,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3092,7 +3092,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.css.73kdqttayv.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3137,7 +3137,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3174,7 +3174,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.min.bpk8xqwxhs.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3219,7 +3219,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.min.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3256,7 +3256,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.min.css.8inm30yfxf.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3301,7 +3301,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.min.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3338,7 +3338,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3375,7 +3375,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.css.4gxs3k148c.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3420,7 +3420,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3457,7 +3457,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.min.9b9oa1qrmt.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3502,7 +3502,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.min.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3539,7 +3539,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.min.css.fctod5rc9n.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3584,7 +3584,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3621,7 +3621,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.ve6x09088i.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3666,7 +3666,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.agp80tu62r.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3711,7 +3711,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3748,7 +3748,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3785,7 +3785,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.css.st1cbwfwo5.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3830,7 +3830,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.min.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3867,7 +3867,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.min.css.5vj65cig9w.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3912,7 +3912,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3949,7 +3949,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.min.unj9p35syc.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3994,7 +3994,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4031,7 +4031,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css.2q4vfeazbq.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4076,7 +4076,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4113,7 +4113,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4150,7 +4150,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4187,7 +4187,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.o371a8zbv2.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4232,7 +4232,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.n1oizzvkh6.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4277,7 +4277,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.q2ku51ktnl.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4322,7 +4322,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.7na4sro3qu.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4367,7 +4367,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4404,7 +4404,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.css.jeal3x0ldm.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4449,7 +4449,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4486,7 +4486,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.min.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4523,7 +4523,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4560,7 +4560,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.min.css.okkk44j0xs.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4605,7 +4605,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.min.f8imaxxbri.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4650,7 +4650,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.0wve5yxp74.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4695,7 +4695,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4732,7 +4732,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.cwzlr5n8x4.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4777,7 +4777,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4814,7 +4814,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4851,7 +4851,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4888,7 +4888,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.wmug9u23qg.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4933,7 +4933,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.npxfuf8dg6.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4978,7 +4978,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5015,7 +5015,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.css.j75batdsum.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5060,7 +5060,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5097,7 +5097,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.min.16095smhkz.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5142,7 +5142,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.min.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5179,7 +5179,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5216,7 +5216,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.min.css.vy0bq9ydhf.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5261,7 +5261,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.b4skse8du6.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5306,7 +5306,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5343,7 +5343,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.ab1c3rmv7g.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5388,7 +5388,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5425,7 +5425,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5462,7 +5462,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.56d2bn4wt9.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5507,7 +5507,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5544,7 +5544,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.u3xrusw2ol.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5589,7 +5589,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.tey0rigmnh.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5634,7 +5634,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5671,7 +5671,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.js.kbynt5jhd9.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5716,7 +5716,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.js.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5753,7 +5753,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.l2av4jpuoj.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5798,7 +5798,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.min.25iw1kog22.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5843,7 +5843,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.min.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5880,7 +5880,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.min.js.c2nslu3uf3.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5925,7 +5925,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5962,7 +5962,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5999,7 +5999,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.js.2lgwfvgpvi.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6044,7 +6044,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.js.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6081,7 +6081,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.m39kt2b5c9.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6126,7 +6126,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.min.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6163,7 +6163,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6200,7 +6200,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.min.js.wsezl0heh6.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6245,7 +6245,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.min.um2aeqy4ik.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6290,7 +6290,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6327,7 +6327,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.js.6ukhryfubh.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6372,7 +6372,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.js.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6409,7 +6409,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.min.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6446,7 +6446,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.min.js.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6483,7 +6483,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.min.js.u33ctipx7g.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6528,7 +6528,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.min.zwph15dxgs.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6573,7 +6573,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.o4kw7cc6tf.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6618,7 +6618,7 @@
     },
     {
       "Route": "lib/bootstrap/LICENSE",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\LICENSE",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6655,7 +6655,7 @@
     },
     {
       "Route": "lib/bootstrap/LICENSE.z6qzljqjd0",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\bootstrap\\LICENSE",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6700,7 +6700,7 @@
     },
     {
       "Route": "lib/jquery/dist/jquery.fwhahm2icz.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6745,7 +6745,7 @@
     },
     {
       "Route": "lib/jquery/dist/jquery.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6782,7 +6782,7 @@
     },
     {
       "Route": "lib/jquery/dist/jquery.min.5pze98is44.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6827,7 +6827,7 @@
     },
     {
       "Route": "lib/jquery/dist/jquery.min.dd6z7egasc.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6872,7 +6872,7 @@
     },
     {
       "Route": "lib/jquery/dist/jquery.min.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6909,7 +6909,7 @@
     },
     {
       "Route": "lib/jquery/dist/jquery.min.map",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6946,7 +6946,7 @@
     },
     {
       "Route": "lib/jquery/LICENSE.jfsiqqwiad.txt",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6991,7 +6991,7 @@
     },
     {
       "Route": "lib/jquery/LICENSE.txt",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7028,7 +7028,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/additional-methods.gcjdx5jb8l.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7073,7 +7073,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/additional-methods.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7110,7 +7110,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/additional-methods.min.35gxhxa0gh.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7155,7 +7155,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/additional-methods.min.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7192,7 +7192,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/jquery.validate.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7229,7 +7229,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/jquery.validate.min.b7iojwaux1.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7274,7 +7274,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/jquery.validate.min.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7311,7 +7311,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/jquery.validate.pzqfkb6aqo.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7356,7 +7356,7 @@
     },
     {
       "Route": "lib/jquery-validation/LICENSE.md",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7393,7 +7393,7 @@
     },
     {
       "Route": "lib/jquery-validation/LICENSE.xzw0cte36n.md",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7438,7 +7438,7 @@
     },
     {
       "Route": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.47otxtyo56.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7483,7 +7483,7 @@
     },
     {
       "Route": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7520,7 +7520,7 @@
     },
     {
       "Route": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.4v8eqarkd7.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7565,7 +7565,7 @@
     },
     {
       "Route": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7602,7 +7602,7 @@
     },
     {
       "Route": "lib/jquery-validation-unobtrusive/LICENSE.l3n5xuwxn8.txt",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7647,7 +7647,7 @@
     },
     {
       "Route": "lib/jquery-validation-unobtrusive/LICENSE.txt",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7684,7 +7684,7 @@
     },
     {
       "Route": "StackBook.bundle.scp.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StackBook.bundle.scp.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StackBook.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7721,7 +7721,7 @@
     },
     {
       "Route": "StackBook.p9pxt09n6z.bundle.scp.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StackBook.bundle.scp.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StackBook.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7766,7 +7766,7 @@
     },
     {
       "Route": "StackBook.p9pxt09n6z.styles.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StackBook.styles.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StackBook.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -7811,7 +7811,7 @@
     },
     {
       "Route": "StackBook.styles.css",
-      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StackBook.styles.css",
+      "AssetFile": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\obj\\Debug\\net8.0\\scopedcss\\bundle\\StackBook.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {

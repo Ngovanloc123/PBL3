@@ -1571,3 +1571,4 @@ D:\LocNgo\University\Semester 2 year 2\PBL3\Merge\FE - Copy\PBL3-Temp\StackBook\
 D:\LocNgo\University\Semester 2 year 2\PBL3\Merge\FE - Copy\PBL3-Temp\StackBook\obj\Debug\net8.0\StackBook.pdb
 D:\LocNgo\University\Semester 2 year 2\PBL3\Merge\FE - Copy\PBL3-Temp\StackBook\obj\Debug\net8.0\StackBook.genruntimeconfig.cache
 D:\LocNgo\University\Semester 2 year 2\PBL3\Merge\FE - Copy\PBL3-Temp\StackBook\obj\Debug\net8.0\ref\StackBook.dll
+D:\LocNgo\University\Semester 2 year 2\PBL3\Merge\FE\PBL3-Temp\StackBook\obj\Debug\net8.0\StackBook.sourcelink.json

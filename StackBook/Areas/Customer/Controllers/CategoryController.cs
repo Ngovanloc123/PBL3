@@ -2,8 +2,10 @@
 using StackBook.Services;
 using StackBook.ViewModels;
 
-namespace StackBook.Controllers
+namespace StackBook.Areas.Customer.Controllers
 {
+    // Định nghĩa khu vực cho controller
+    [Area("Customer")]
     public class CategoryController : Controller
     {
         private readonly CategoryService _categoryService;

@@ -1,5 +1,7 @@
 ﻿using ClosedXML.Excel;
 using Microsoft.EntityFrameworkCore;
+using StackBook.DAL;
+using StackBook.DAL.IRepository;
 using StackBook.Data;
 using StackBook.Models;
 using StackBook.Services;
@@ -15,6 +17,8 @@ builder.Services.AddScoped<AuthorService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
@@ -37,7 +41,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 using (var scope = app.Services.CreateScope())
 {
@@ -49,14 +53,14 @@ using (var scope = app.Services.CreateScope())
     {
         dbContext.Categories.AddRange(new List<Category>
         {
-            new Category { CategoryName = "Literature & Fiction" },
-            new Category { CategoryName = "Science & Math" },
-            new Category { CategoryName = "Mystery, Thriller & Suspense" },
-            new Category { CategoryName = "Business & Money" },
-            new Category { CategoryName = "Computers & Technology" },
-            new Category { CategoryName = "Self-Help" },
-            new Category { CategoryName = "Health, Fitness & Dieting" },
-            new Category { CategoryName = "Science Fiction & Fantasy" },
+            new Category { CategoryName = "Literature & Fiction", DisplayOrder = 1 },
+            new Category { CategoryName = "Science & Math",  DisplayOrder = 2},
+            new Category { CategoryName = "Mystery, Thriller & Suspense" , DisplayOrder = 3},
+            new Category { CategoryName = "Business & Money", DisplayOrder = 4},
+            new Category { CategoryName = "Computers & Technology" , DisplayOrder = 5},
+            new Category { CategoryName = "Self-Help", DisplayOrder = 6 },
+            new Category { CategoryName = "Health, Fitness & Dieting" , DisplayOrder = 7},
+            new Category { CategoryName = "Science Fiction & Fantasy" , DisplayOrder = 8},
         });
 
         dbContext.SaveChanges();

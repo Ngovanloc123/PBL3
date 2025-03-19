@@ -5,8 +5,9 @@ using StackBook.Models;
 using StackBook.Services;
 using StackBook.ViewModels;
 
-namespace StackBook.Controllers
+namespace StackBook.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

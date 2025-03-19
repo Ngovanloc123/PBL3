@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/StackBook.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
     
 </head>
 <body>
@@ -25,10 +27,10 @@
                 <div class="collapse navbar-collapse" id="navbarColor02">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item fw-bold">
-                            <a class="nav-link btn-nav" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link btn-nav" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item fw-bold">
-                            <a class="nav-link btn-nav" asp-controller="Category" asp-action="Index">Category</a>
+                            <a class="nav-link btn-nav" asp-area="Customer" asp-controller="Category" asp-action="Index">Category</a>
                         </li>
                         <li class="nav-item fw-bold">
                             <a class="nav-link btn-nav" href="#">About & Contact</a>
@@ -36,6 +38,19 @@
                         <li class="nav-item fw-bold">
                             <a class="nav-link btn-nav" href="#">Customer Service</a>
                         </li>
+
+                        @* Giành cho Admin *@
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Management</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Book" asp-action="Index">Book</a>
+                                @* <a class="dropdown-item" href="#">Something else here</a> *@
+                                @* <div class="dropdown-divider"></div> *@
+                                @* <a class="dropdown-item" href="#">Separated link</a> *@
+                            </div>
+                        </li>
+                        @* Giành cho Admin *@
                     </ul>
 
 
@@ -67,6 +82,7 @@
     @* ================== PHẦN BODY PAGE ================== *@
     <div  style="margin-top: 80px;">
         <main role="main" class="pb-3">
+            <partial name="_Notification" />
             @* Hiển thị nội dung của từng View con. *@
             @RenderBody()
         </main>

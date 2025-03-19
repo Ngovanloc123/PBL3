@@ -1,0 +1,71 @@
+﻿@model StackBook.ViewModels.BookAllInforViewModel
+
+<div class="container">
+	<form method="post">
+		<div class="border p-3 mt-4">
+			<div class="row pb-2">
+				<h2 class="text-primary">Create Book</h2>
+				<hr />
+			</div>
+			<div class="mb-3">
+				@* Lấy text label thông qua DisplayName = BookName *@
+				<label asp-for="BookTitle" class=" pb-2"></label>
+				<input asp-for="BookTitle" class="form-control" />
+				<span asp-validation-for="BookTitle" class="text-danger"></span>
+			</div>
+			 <div class="mb-3"> 
+			 	<label asp-for="Description" class=" pb-2"></label>
+				<input asp-for="Description" class="form-control" />
+				<span asp-validation-for="Description" class="text-danger"></span>
+			</div>
+			@* <div class="mb-3"> *@
+			@* 	<label asp-for="Author" class=" pb-2"></label> *@
+			@* 	<input asp-for="Author" class="form-control" /> *@
+			@* 	<span asp-validation-for="Author" class="text-danger"></span> *@
+			@* </div> *@
+			<div class="mb-3">
+				<label asp-for="Price" class=" pb-2"></label>
+				<input asp-for="Price" class="form-control" />
+				<span asp-validation-for="Price" class="text-danger"></span>
+			</div>
+			 <div class="mb-3">
+				<label asp-for="Stock" class=" pb-2"></label>
+				<input asp-for="Stock" class="form-control" />
+				<span asp-validation-for="Stock" class="text-danger"></span>
+			</div> 
+			 <div class="mb-3">
+				<label asp-for="CreatedBook" class=" pb-2"></label>
+				<input asp-for="CreatedBook" class="form-control" />
+				<span asp-validation-for="CreatedBook" class="text-danger"></span>
+			</div>
+			@* <div class="mb-3"> *@
+			@* 	<label asp-for="Category" class=" pb-2"></label> *@
+			@* 	<input asp-for="Category" class="form-control" /> *@
+			@* 	<span asp-validation-for="Category" class="text-danger"></span> *@
+			@* </div> *@
+			@* <div class="mb-3"> *@
+			@* 	<label asp-for="ImageURL" class=" pb-2"></label> *@
+			@* 	<input asp-for="ImageURL" class="form-control" /> *@
+			@* 	<span asp-validation-for="ImageURL" class="text-danger"></span> *@
+			@* </div> *@
+			<div class="row">
+				<div class="col-6 col-md-3">
+					<button type="submit" class="btn btn-primary form-control">Create</button>
+				</div>
+				<div class="col-6 col-md-3">
+					<a asp-area="Admin" asp-controller="Book" asp-action="Index" class="btn btn-secondary form-control">
+						Back to list
+					</a>
+				</div>
+			</div>
+		</div>
+
+	</form>
+</div>
+
+@* Dùng để gửi dữ liệu từ form, cập nhật database. Dữ liệu không hiển thị trên URL. *@
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}

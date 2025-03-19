@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\StackBook.csproj": {}
+    "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\StackBook.csproj": {}
   },
   "projects": {
-    "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\StackBook.csproj": {
+    "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\StackBook.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\StackBook.csproj",
+        "projectUniqueName": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\StackBook.csproj",
         "projectName": "StackBook",
-        "projectPath": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\StackBook.csproj",
+        "projectPath": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\StackBook.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy\\PBL3-Temp\\StackBook\\obj\\",
+        "outputPath": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

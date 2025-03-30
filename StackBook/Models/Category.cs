@@ -6,12 +6,12 @@ namespace StackBook.Models
     {
         [Key]
         [Required]
-        public int CategoryId { get; set; }
+        public Guid CategoryId { get; set; } = Guid.NewGuid();
 
 
         [Required(ErrorMessage = "Category name is required!")]
-        public string CategoryName { get; set; }
+        public string? CategoryName { get; set; }
 
-        public virtual ICollection<BookCategory> BookCategories { get; set; }
+        public virtual ICollection<BookCategory>? BookCategories { get; set; }
     }
 }

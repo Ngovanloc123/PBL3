@@ -22,7 +22,7 @@ namespace StackBook.Services
             return _context.Books.ToList();
         }
 
-        public List<BookWithAuthors> GetListBookAuthorsByCategoryId(int categoryId)
+        public List<BookWithAuthors> GetListBookAuthorsByCategoryId(Guid categoryId)
         {
             return _context.BookCategories
                 .Where(cb => cb.CategoryId == categoryId)

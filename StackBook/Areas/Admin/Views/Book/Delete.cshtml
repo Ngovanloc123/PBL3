@@ -1,8 +1,8 @@
-﻿@model StackBook.ViewModels.BookAllInforViewModel
+﻿@model StackBook.ViewModels.BookDetailViewModel
 
 <div class="container">
 	<form method="post">
-		@* <input asp-for="BookId" hidden /> *@
+		<input asp-for="BookId" hidden />
 		<div class="border p-3 mt-4">
 			<div class="row pb-2">
 				<h2 class="text-primary">Delete Book</h2>
@@ -12,43 +12,48 @@
 				@* Lấy text label thông qua DisplayName = BookName *@
 				<label asp-for="BookTitle" class=" pb-2"></label>
 				<input asp-for="BookTitle" disabled class="form-control" />
-				
+				<span asp-validation-for="BookTitle" class="text-danger"></span>
 			</div>
+
 			<div class="mb-3">
-				<label asp-for="Description" class=" pb-2"></label>
-				<input asp-for="Description" disabled class="form-control" />
-				
+				<label asp-for="AuthorsName" class="pb-2"></label>
+				<div id="author-container">
+					@if (Model?.AuthorsName != null)
+					{
+						@for (int i = 0; i < (Model.AuthorsName?.Count ?? 0); i++)
+						{
+							<input asp-for="AuthorsName[i]" disabled class="form-control" />
+						}
+					}
+				</div>
 			</div>
-			@* <div class="mb-3"> *@
-			@* 	<label asp-for="Author" class=" pb-2"></label> *@
-			@* 	<input asp-for="Author" disabled class="form-control" /> *@
-			
-			@* </div> *@
+
+			<div class="mb-3">
+				<label asp-for="CategoryName" class=" pb-2"></label>
+
+				<input asp-for="CategoryName" disabled class="form-control" />
+			</div>
 			<div class="mb-3">
 				<label asp-for="Price" class=" pb-2"></label>
 				<input asp-for="Price" disabled class="form-control" />
-				
 			</div>
 			<div class="mb-3">
 				<label asp-for="Stock" class=" pb-2"></label>
 				<input asp-for="Stock" disabled class="form-control" />
-				
 			</div>
 			<div class="mb-3">
 				<label asp-for="CreatedBook" class=" pb-2"></label>
 				<input asp-for="CreatedBook" disabled class="form-control" />
-				
 			</div>
-			@* <div class="mb-3"> *@
-			@* 	<label asp-for="Category" class=" pb-2"></label> *@
-			@* 	<input asp-for="Category" disabled class="form-control" /> *@
-			
-			@* </div> *@
-			@* <div class="mb-3"> *@
-			@* 	<label asp-for="ImageURL" class=" pb-2"></label> *@
-			@* 	<input asp-for="ImageURL" disabled class="form-control" /> *@
-				
-			@* </div> *@
+
+			<div class="mb-3">
+				<label asp-for="Description" class=" pb-2"></label>
+				<textarea asp-for="Description" readonly class="form-control"></textarea>
+			</div>
+			<div class="mb-3">
+				<label asp-for="ImageURL" class=" pb-2"></label>
+				<input asp-for="ImageURL" disabled class="form-control" />
+			</div>
 			<div class="row">
 				<div class="col-6 col-md-3">
 					<button type="submit" class="btn btn-danger form-control">Delete</button>
@@ -60,6 +65,23 @@
 				</div>
 			</div>
 		</div>
-
 	</form>
 </div>
+
+@section Scripts {
+	<script>
+		tinymce.init({
+		selector: 'textarea',
+		readonly: true,
+		plugins: 'wordcount',
+		toolbar: false,
+		tinycomments_mode: 'embedded',
+		tinycomments_author: 'Author name',
+		mergetags_list: [
+			{ value: 'First.Name', title: 'First Name' },
+			{ value: 'Email', title: 'Email' },
+		],
+		ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+		});
+	</script>
+}

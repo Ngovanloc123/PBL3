@@ -1,72 +1,152 @@
-﻿@model StackBook.ViewModels.BookAllInforViewModel
+﻿@model StackBook.ViewModels.BookDetailViewModel
 
 <div class="container">
-	<form method="post">
-		@* <input asp-for="BookId" hidden /> *@
-		<div class="border p-3 mt-4">
-			<div class="row pb-2">
+	<div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+		<div class="row pb-2">
+			<div class="col-12 text-center">
 				<h2 class="text-primary">Edit Book</h2>
-				<hr />
-			</div>
-			<div class="mb-3">
-				@* Lấy text label thông qua DisplayName = BookName *@
-				<label asp-for="BookTitle" class=" pb-2"></label>
-				<input asp-for="BookTitle" class="form-control" />
-				<span asp-validation-for="BookTitle" class="text-danger"></span>
-			</div>
-			<div class="mb-3">
-				<label asp-for="Description" class=" pb-2"></label>
-				<textarea asp-for="Description" class="form-control"></textarea>
-				<span asp-validation-for="Description" class="text-danger"></span>
-			</div>
-			@* <div class="mb-3"> *@
-			@* 	<label asp-for="Author" class=" pb-2"></label> *@
-			@* 	<input asp-for="Author" class="form-control" /> *@
-			@* 	<span asp-validation-for="Author" class="text-danger"></span> *@
-			@* </div> *@
-			<div class="mb-3">
-				<label asp-for="Price" class=" pb-2"></label>
-				<input asp-for="Price" class="form-control" />
-				<span asp-validation-for="Price" class="text-danger"></span>
-			</div>
-			<div class="mb-3">
-				<label asp-for="Stock" class=" pb-2"></label>
-				<input asp-for="Stock" class="form-control" />
-				<span asp-validation-for="Stock" class="text-danger"></span>
-			</div>
-			<div class="mb-3">
-				<label asp-for="CreatedBook" class=" pb-2"></label>
-				<input asp-for="CreatedBook" class="form-control" />
-				<span asp-validation-for="CreatedBook" class="text-danger"></span>
-			</div>
-			@* <div class="mb-3"> *@
-			@* 	<label asp-for="Category" class=" pb-2"></label> *@
-			@* 	<input asp-for="Category" class="form-control" /> *@
-			@* 	<span asp-validation-for="Category" class="text-danger"></span> *@
-			@* </div> *@
-			@* <div class="mb-3"> *@
-			@* 	<label asp-for="ImageURL" class=" pb-2"></label> *@
-			@* 	<input asp-for="ImageURL" class="form-control" /> *@
-			@* 	<span asp-validation-for="ImageURL" class="text-danger"></span> *@
-			@* </div> *@
-			<div class="row">
-				<div class="col-6 col-md-3">
-					<button type="submit" class="btn btn-primary form-control">Edit</button>
-				</div>
-				<div class="col-6 col-md-3">
-					<a asp-area="Admin" asp-controller="Book" asp-action="Index" class="btn btn-secondary form-control">
-						Back to list
-					</a>
-				</div>
 			</div>
 		</div>
+	</div>
 
-	</form>
+	<div class="card-body p-4">
+		@* Buộc phải có enctype nếu có form <input type="file"> *@
+		<form method="post" class="row" enctype="multipart/form-data">
+			<input asp-for="BookId" hidden />
+			<input asp-for="ImageURL" hidden />
+			<div class="border p-3 mt-4">
+				<div class="form-floating mb-3">
+					@* Lấy text label thông qua DisplayName = BookName *@
+					<input asp-for="BookTitle" class="form-control" />
+					<label asp-for="BookTitle" class=" pb-2"></label>
+					<span asp-validation-for="BookTitle" class="text-danger"></span>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<div class="form-floating mb-3">
+							<input type="file" name="file" class="form-control" />
+							<label for="file" asp-for="ImageURL" class=" pb-2"></label>
+							@* <!-- File Upload --> *@
+							@* <input type="file" name="file" id="fileInput" class="form-control" onchange="toggleInputs('file')" /> *@
+
+							@* <!-- URL Input --> *@
+							@* <input asp-for="ImageURL" id="urlInput" class="form-control mt-2" placeholder="Or enter image URL..." oninput="toggleInputs('url')" /> *@
+
+							@* <label asp-for="ImageURL" class="pb-2">Upload an Image or Enter a URL</label> *@
+							<!-- Hidden Input to Store Image URL -->
+							@* <input type="hidden" id="ImageURL" name="ImageURL" /> *@
+							@* <img id="previewImage" src="" style="width: 100%; max-height: 300px; margin-top: 10px; display: none;" /> *@
+						</div>
+						<div class="mb-3 form-floating">
+							<select asp-for="CategoryName" asp-items="ViewBag.CategoryList" class="form-select pb-2">
+								<option disabled selected>--Select Category--</option>
+							</select>
+							<label asp-for="CategoryName" class=" pb-2"></label>
+							<span asp-validation-for="CategoryName" class="text-danger"></span>
+						</div>
+						<div class="form-floating mb-3">
+							<input asp-for="Price" class="form-control" />
+							<label asp-for="Price" class=" pb-2"></label>
+							<span asp-validation-for="Price" class="text-danger"></span>
+						</div>
+						<div class="form-floating mb-3">
+							<input asp-for="Stock" class="form-control" />
+							<label asp-for="Stock" class=" pb-2"></label>
+							<span asp-validation-for="Stock" class="text-danger"></span>
+						</div>
+						<div class="form-floating mb-3">
+							<input asp-for="CreatedBook" class="form-control" />
+							<label asp-for="CreatedBook" class=" pb-2"></label>
+							<span asp-validation-for="CreatedBook" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="col-6 card-image">
+						<img src="@Model?.ImageURL"  style="width: 100% !important;" />
+					</div>
+				</div>
+
+				<div class=" mb-3">
+					<label asp-for="AuthorsName" class="pb-2 text-muted"></label>
+					<div id="author-container">
+						@if (Model?.AuthorsName != null && Model.AuthorsName.Count > 0)
+						{
+							for (int i = 0; i < Model.AuthorsName.Count; i++)
+							{
+								<div class="mb-3 d-flex flex-sm-row author-item">
+									<input asp-for="AuthorsName[i]" readonly class="form-control" />
+									<button onclick="removeAuthor(this)" type="button" class="btn btn-secondary mx-2"><i class="fa-solid fa-delete-left "></i></button>
+								</div>
+							}
+						}
+					</div>
+					<span asp-validation-for="AuthorsName" class="text-danger"></span>
+					<div class="mb-3">
+						<select id="new-author" onchange="addAuthor()" asp-items="ViewBag.AuthorList" class="form-select pb-2">
+							<option disabled selected>--Select Author--</option>
+						</select>
+					</div>
+				</div>
+
+
+
+				<div class=" mb-3">
+					<label asp-for="Description" class="p-0 text-muted"></label>
+					<textarea asp-for="Description" class="form-control"></textarea>
+				</div>
+
+
+				<div class="row">
+					<div class="col-6 col-md-3">
+						<button type="submit" class="btn btn-primary form-control">Edit</button>
+					</div>
+					<div class="col-6 col-md-3">
+						<a asp-area="Admin" asp-controller="Book" asp-action="Index" class="btn btn-secondary form-control">
+							Back to list
+						</a>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 </div>
 
 @* Dùng để gửi dữ liệu từ form, cập nhật database. Dữ liệu không hiển thị trên URL. *@
 @section Scripts {
+	<script>
+		tinymce.init({
+		selector: 'textarea',
+		plugins: [
+			// Core editing features
+			'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+			// Your account includes a free trial of TinyMCE premium features
+			// Try the most popular premium features until Apr 8, 2025:
+			'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+		],
+		toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | align lineheight | checklist numlist bullist indent outdent ',
+		tinycomments_mode: 'embedded',
+		tinycomments_author: 'Author name',
+		mergetags_list: [
+			{ value: 'First.Name', title: 'First Name' },
+			{ value: 'Email', title: 'Email' },
+		],
+		ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+		});
+	</script>
+	<script>
+		// function toggleInputs(source) {
+		// 	let fileInput = document.getElementById("fileInput");
+		// 	let urlInput = document.getElementById("urlInput");
+
+		// 	if (source === "file") {
+		// 		urlInput.disabled = fileInput.files.length > 0; Disable URL input if file is selected
+		// 	} else if (source === "url") {
+		// 		fileInput.disabled = urlInput.value.trim() !== ""; Disable file input if URL is entered
+		// 	}
+		// }
+			
+	</script>
 	@{
 		<partial name="_ValidationScriptsPartial" />
 	}
 }
+

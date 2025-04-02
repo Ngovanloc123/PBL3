@@ -7,8 +7,10 @@ namespace StackBook.DAL.IRepository
         IEnumerable<T> GetAll();
         T Get(Expression<Func<T, bool>> filter);
         void Add(T entity);
-        //void Update(T entity);
+        // void Update(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
+
+        
     }
 }

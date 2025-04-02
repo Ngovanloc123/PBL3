@@ -5,17 +5,17 @@ using StackBook.Models;
 
 namespace StackBook.DAL
 {
-    public class BookRepository : Repository<Book>, IBookRepository
+    public class AuthorRepository : Repository<Author>, IAuthorRepository
     {
         private readonly ApplicationDbContext _db;
-        public BookRepository(ApplicationDbContext db) : base(db)
+        public AuthorRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
 
-        public void Update(Book obj)
+        public void Update(Author obj)
         {
-            _db.Books.Update(obj);
+            _db.Authors.Update(obj);
         }
     }
 }

@@ -22,7 +22,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
-
+//builder.Services.AddHttpContextAccessor();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

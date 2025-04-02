@@ -3,7 +3,9 @@
     public interface IUnitOfWork
     {
         ICategoryRepository Category { get; }
-        IBookRepository Book { get; }
+        IAuthorRepository Author { get; }
+        IBookDetailRepository BookDetail { get; }
+        
 
         void Save();
     }

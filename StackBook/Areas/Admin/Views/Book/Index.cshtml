@@ -1,59 +1,90 @@
-﻿@model List<StackBook.ViewModels.BookAllInforViewModel>
-
-
-
+﻿@model List<StackBook.ViewModels.BookDetailViewModel>
 
 <div class="container">
 	<div class="row pt-4 pb-4">
-		<div class="col-6">
+		<div class="col-md-6">
 			<h1 class="text-primary">Book List</h1>
-
 		</div>
-		<div class="col-6 text-end">
+		<div class="col-md-6 text-md-end text-center">
 			<a asp-area="Admin" asp-controller="Book" asp-action="Create" class="btn btn-primary">
 				<i class="fa-solid fa-plus"></i> Create New Book
 			</a>
 		</div>
 	</div>
-	<table class="table table-bordered table-striped">
-		<thead>
-			<tr>
-				<th>Title</th>
-				<th>Description</th>
-				<th>Author</th>
-				<th>Price</th>
-				<th>Stock</th>
-				<th>Publication Date</th>
-				<th>Category</th> 
-				<th>Image URL</th>
 
-				<th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var obj in Model)
-			{
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead class="table-dark">
 				<tr>
-					<td>@obj.BookTitle</td>
-					<td>@obj.Description</td>
-					<td>AuthorsName List</td>
-					<td>@obj.Price$</td>
-					<td>@obj.Stock</td>
-					<td>@obj.CreatedBook</td>
-					<td>@obj.CategoryName</td>
-					<td>@obj.ImageURL</td>
-					<td>
-						<div class="w-75 btn-group" role="group">
-							<a asp-area="Admin" asp-controller="Book" asp-action="Edit" asp-route-BookId="@obj.BookId" class="btn btn-primary mx-2">
-								<i class="fa-solid fa-pen-to-square"></i> Edit
-							</a>
-							<a asp-area="Admin" asp-controller="Book" asp-action="Delete" asp-route-BookId="@obj.BookId" class="btn btn-danger mx-2">
-								<i class="fa-solid fa-trash"></i> Delete
-							</a>
-						</div>
-					</td>
+					<th>Title</th>
+					<th class="d-none d-md-table-cell">Authors</th>
+					<th class="d-none d-lg-table-cell">Price</th>
+					<th>Stock</th>
+					<th class="d-none d-xl-table-cell">Publication</th>
+					<th class="d-none d-md-table-cell">Category</th>
+					<th class="d-none d-lg-table-cell">Image</th>
+					<th>Actions</th>
 				</tr>
-			}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				@foreach (var obj in Model)
+				{
+					<tr>
+						<td>
+							<span title="@obj.BookTitle">
+								@obj.BookTitle
+							</span>
+						</td>
+						<td class="d-none d-md-table-cell">
+							@* @if (obj.AuthorsName != null && obj.AuthorsName.Any()) *@
+							@* { *@
+								<ul class="list-unstyled mb-0">
+									@foreach (var author in obj.AuthorsName)
+									{
+										<li>
+											<span class="d-inline-block" title="@author">
+												@author
+											</span>
+										</li>
+									}
+								</ul>
+							@* } *@
+							@* else *@
+							@* { *@
+							@* 	<span>No Authors</span> *@
+							@* } *@
+						</td>
+						<td class="d-none d-lg-table-cell">@obj.Price$</td>
+						<td>@obj.Stock</td>
+						<td class="d-none d-xl-table-cell">@obj.CreatedBook.ToString("dd-MM-yyyy")</td>
+						<td class="d-none d-md-table-cell">
+							<span class="d-inline-block" title="@obj.CategoryName">
+								@obj.CategoryName
+							</span>
+						</td>
+						<td class="d-none d-lg-table-cell text-center">
+							@if (!string.IsNullOrEmpty(obj.ImageURL))
+							{
+								<img src="@obj.ImageURL" alt="Book Image" class="img-thumbnail" style="width: 50px; height: auto;" />
+							}
+							else
+							{
+								<span>No Image</span>
+							}
+						</td>
+						<td>
+							<div class="btn-group" role="group">
+								<a asp-area="Admin" asp-controller="Book" asp-action="Edit" asp-route-BookId="@obj.BookId" class="btn btn-primary btn-sm">
+									<i class="fa-solid fa-pen-to-square"></i> Edit
+								</a>
+								<a asp-area="Admin" asp-controller="Book" asp-action="Delete" asp-route-BookId="@obj.BookId" class="btn btn-danger btn-sm">
+									<i class="fa-solid fa-trash"></i> Delete
+								</a>
+							</div>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 </div>

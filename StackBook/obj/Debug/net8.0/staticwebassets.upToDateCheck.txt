@@ -1,8 +1,10 @@
 wwwroot\css\account.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\images\Books\49401b23-e088-43ac-9673-7bf208b2e0e7.webp
 wwwroot\images\Books\Atomic_Habits- Self-help.webp
 wwwroot\images\Books\Computers and Technology.webp
+wwwroot\images\Books\Con cá.jpg
 wwwroot\images\Books\Health, Fitness and Dieting.webp
 wwwroot\images\Books\Literature and Fiction.webp
 wwwroot\images\Books\Mystery, Thriller and Suspense.webp

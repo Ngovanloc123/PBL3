@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "O/KRIDhCsjM=",
+  "dgSpecHash": "LiQbMYXcbLE=",
   "success": true,
-  "projectFilePath": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE\\PBL3-Temp\\StackBook\\StackBook.csproj",
+  "projectFilePath": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Merge\\FE - Copy (2)\\PBL3\\StackBook\\StackBook.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\closedxml\\0.104.2\\closedxml.0.104.2.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\closedxml.parser\\1.2.0\\closedxml.parser.1.2.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\documentformat.openxml\\3.1.1\\documentformat.openxml.3.1.1.nupkg.sha512",

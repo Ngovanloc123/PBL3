@@ -2993,11 +2993,11 @@ textarea.form-control-lg {
         transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
     }
 
-@media (prefers-reduced-motion: reduce) {
+/*@media (prefers-reduced-motion: reduce) {
     .form-floating > label {
         transition: none;
     }
-}
+}*/
 
 .form-floating > .form-control,
 .form-floating > .form-control-plaintext {
@@ -8035,6 +8035,19 @@ textarea.form-control-lg {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.truncate-2-lines {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Giới hạn tối đa 2 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 248px; /* Giới hạn chiều rộng */
+}
+
 
 .vr {
     display: inline-block;

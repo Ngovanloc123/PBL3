@@ -25,6 +25,8 @@ namespace StackBook.Models
         public string? Password { get; set; }
         [Required]
         public bool Role { get; set; }
+        public string? ResetToken { get; set; }
+        public DateTime? ResetTokenExpires { get; set; }
         public DateTime CreatedUser { get; set; }
     }
 }

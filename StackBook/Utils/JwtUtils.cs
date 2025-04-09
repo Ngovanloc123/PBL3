@@ -28,7 +28,6 @@ namespace StackBook.Utils
 
             return false;
         }
-
         public ClaimsPrincipal ?ValidateToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -76,7 +75,7 @@ namespace StackBook.Utils
             {
                 var value = property.GetValue(user);
                 if (value != null)
-                {
+                { 
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, value.ToString()));
                 }
             }

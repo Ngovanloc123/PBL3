@@ -22,28 +22,27 @@ namespace  StackBook.Middleware
         }
         public async Task InvokeAsync(HttpContext context)
         {
-            var authHeader = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            if(!string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Bearer", StringComparison.OrdinalIgnoreCase))
+            var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
+            if (!string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
             {
-                var token = authHeader.Substring("Bearer".Length).Trim();
-                // Validate the token
+                var token = authHeader.Substring("Bearer ".Length).Trim();
                 var principal = _jwtUtils.ValidateToken(token);
-                if(principal != null)
+
+                if (principal != null)
                 {
                     context.Items["User"] = principal;
                 }
                 else
                 {
                     context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    await context.Response.WriteAsync("Unauthorized");
+                    await context.Response.WriteAsync("Unauthorized: Invalid token");
                     return;
                 }
             }
             else
             {
-                // No token found
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                await context.Response.WriteAsync("Unauthorized");
+                await context.Response.WriteAsync("Unauthorized: No token provided");
                 return;
             }
             await _next(context);

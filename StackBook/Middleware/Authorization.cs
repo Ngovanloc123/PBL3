@@ -1,23 +1,34 @@
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Linq;
 
 namespace StackBook.Middleware
 {
-    public static class Authorization
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
+    public class AuthorizeRoleAttribute : Attribute, IAuthorizationFilter
     {
-        public static bool CheckUserRole(IHttpContextAccessor httpContextAccessor, string role)
+        private readonly string[] _roles;
+
+        public AuthorizeRoleAttribute(params string[] roles)
         {
-            var user = httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(c => c.Type == "role")?.Value;
-            if(user == null)
+            _roles = roles;
+        }
+        public void OnAuthorization(AuthorizationFilterContext context)
+        {
+            var user = context.HttpContext.User;
+            if (!user.Identity?.IsAuthenticated ?? true)
             {
-                return false;
+                context.Result = new UnauthorizedResult();
+                return;
             }
-            return user.Equals(role, StringComparison.OrdinalIgnoreCase);
+            var roleClaim = user.Claims.FirstOrDefault(c => c.Type == "Role")?.Value;
+
+            if (string.IsNullOrEmpty(roleClaim) || !_roles.Any(r => string.Equals(r, roleClaim, StringComparison.OrdinalIgnoreCase)))
+            {
+                context.Result = new ForbidResult();
+            }
         }
     }
 }

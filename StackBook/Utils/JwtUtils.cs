@@ -29,7 +29,7 @@ namespace StackBook.Utils
             return false;
         }
 
-        public ClaimsPrincipal ?ValidateToken(string token)
+        public ClaimsPrincipal? ValidateToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = System.Text.Encoding.UTF8.GetBytes(_secretKey); 
@@ -71,17 +71,15 @@ namespace StackBook.Utils
         //Generate JWT Token
         protected virtual List<Claim> GenerateClaimsForUser(User user)
         {
-            var claims = new List<Claim>();
-            foreach (PropertyInfo property in typeof(User).GetProperties())
+            return new List<Claim>
             {
-                var value = property.GetValue(user);
-                if (value != null)
-                {
-                    claims.Add(new Claim(ClaimTypes.NameIdentifier, value.ToString()));
-                }
-            }
-
-            return claims;
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim(ClaimTypes.Name, user.FullName),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("Role", user.Role == true ? "admin": "user"),
+                new Claim("IsEmailVerified", user.IsEmailVerified == false ? "no-active" : "active"),
+                new Claim("LockStatus", user.LockStatus == false ? "no-lock" : "lock"),
+            };
         }
 
         protected virtual SecurityTokenDescriptor BuildTokenDescriptor(User user, List<Claim> claims)

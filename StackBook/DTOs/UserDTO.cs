@@ -1,4 +1,5 @@
-﻿namespace StackBook.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+namespace StackBook.DTOs
 {
     public class RegisterDto
     {
@@ -27,5 +28,15 @@
     public class ForgotPasswordDto
     {
         public string ?Email { get; set; }
+    }
+    public class ResetPasswordDto
+    {
+        public string ?Token { get; set; } = string.Empty;
+        [Required]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters.")]
+        public string ?NewPassword { get; set; }
+        [Required]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters.")]
+        public string ?ConfirmPassword { get; set; }
     }
 }

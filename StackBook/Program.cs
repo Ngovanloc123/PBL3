@@ -5,6 +5,9 @@ using StackBook.DAL.IRepository;
 using StackBook.Data;
 using StackBook.Models;
 using StackBook.Services;
+using StackBook.Utils;
+using Microsoft.AspNetCore.Builder;
+using StackBook.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +22,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddScoped<EMailUtils>();
 
 var app = builder.Build();
 

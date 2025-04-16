@@ -9,6 +9,7 @@ namespace StackBook.Models
         public virtual ICollection<BookAuthor>? BookAuthors { get; set; }
 
         [Required(ErrorMessage = "Author name is required!")]
+        [StringLength(100)]
         public string? AuthorName { get; set; }
     }
 }

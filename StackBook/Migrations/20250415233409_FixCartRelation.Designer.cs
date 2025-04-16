@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StackBook.Data;
 
@@ -11,9 +12,11 @@ using StackBook.Data;
 namespace StackBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250415233409_FixCartRelation")]
+    partial class FixCartRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +33,7 @@ namespace StackBook.Migrations
 
                     b.Property<string>("AuthorName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AuthorId");
 
@@ -46,8 +48,7 @@ namespace StackBook.Migrations
 
                     b.Property<string>("BookTitle")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedBook")
                         .HasColumnType("datetime2");
@@ -106,6 +107,9 @@ namespace StackBook.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedCart")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
@@ -116,25 +120,31 @@ namespace StackBook.Migrations
                     b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("StackBook.Models.CartBook", b =>
+            modelBuilder.Entity("StackBook.Models.CartDetail", b =>
                 {
-                    b.Property<Guid>("CartId")
+                    b.Property<Guid>("CartDetailId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedCart")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("CartId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("CartId", "BookId");
+                    b.HasKey("CartDetailId");
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("CartBooks");
+                    b.HasIndex("CartId");
+
+                    b.ToTable("CartDetails");
                 });
 
             modelBuilder.Entity("StackBook.Models.Category", b =>
@@ -145,8 +155,8 @@ namespace StackBook.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
@@ -165,27 +175,12 @@ namespace StackBook.Migrations
                     b.Property<DateTime>("CreatedDiscount")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DiscountCode")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("DiscountName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("Price")
+                    b.Property<double>("price")
                         .HasColumnType("float");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("DiscountId");
 
@@ -224,6 +219,9 @@ namespace StackBook.Migrations
                     b.Property<Guid>("DiscountId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("OrderDetailId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("ShippingAddressId")
                         .HasColumnType("uniqueidentifier");
 
@@ -240,6 +238,8 @@ namespace StackBook.Migrations
 
                     b.HasIndex("DiscountId")
                         .IsUnique();
+
+                    b.HasIndex("OrderDetailId");
 
                     b.HasIndex("ShippingAddressId");
 
@@ -260,14 +260,12 @@ namespace StackBook.Migrations
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("quantity")
                         .HasColumnType("int");
 
                     b.HasKey("OrderDetailId");
 
                     b.HasIndex("BookId");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -275,7 +273,6 @@ namespace StackBook.Migrations
             modelBuilder.Entity("StackBook.Models.Payment", b =>
                 {
                     b.Property<Guid>("PaymentId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedPayment")
@@ -286,17 +283,17 @@ namespace StackBook.Migrations
 
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentStatus")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Transaction")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PaymentId");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Payments");
                 });
@@ -313,24 +310,48 @@ namespace StackBook.Migrations
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ShippingAddressId")
+                    b.Property<Guid?>("ReturnOrderDetailId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("ShippingAddressId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ReturnOrderId");
 
                     b.HasIndex("OrderId")
                         .IsUnique();
 
+                    b.HasIndex("ReturnOrderDetailId");
+
                     b.HasIndex("ShippingAddressId");
 
                     b.ToTable("ReturnOrders");
+                });
+
+            modelBuilder.Entity("StackBook.Models.ReturnOrderDetail", b =>
+                {
+                    b.Property<Guid>("ReturnOrderDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ReturnOrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ReturnOrderDetailId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("ReturnOrderDetails");
                 });
 
             modelBuilder.Entity("StackBook.Models.Review", b =>
@@ -341,9 +362,6 @@ namespace StackBook.Migrations
 
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
@@ -368,31 +386,26 @@ namespace StackBook.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Ward")
+                    b.Property<string>("city")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ward")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ShippingAddressId");
 
@@ -450,8 +463,7 @@ namespace StackBook.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("VerificationToken")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 
@@ -507,16 +519,16 @@ namespace StackBook.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("StackBook.Models.CartBook", b =>
+            modelBuilder.Entity("StackBook.Models.CartDetail", b =>
                 {
                     b.HasOne("StackBook.Models.Book", "Book")
-                        .WithMany("CartBooks")
+                        .WithMany("CartDetail")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StackBook.Models.Cart", "Cart")
-                        .WithMany("CartBooks")
+                        .WithMany("CartDetails")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -545,19 +557,25 @@ namespace StackBook.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("StackBook.Models.OrderDetail", "OrderDetail")
+                        .WithMany("Order")
+                        .HasForeignKey("OrderDetailId");
+
                     b.HasOne("StackBook.Models.ShippingAddress", "ShippingAddress")
                         .WithMany("Orders")
                         .HasForeignKey("ShippingAddressId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StackBook.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Discount");
+
+                    b.Navigation("OrderDetail");
 
                     b.Navigation("ShippingAddress");
 
@@ -572,22 +590,14 @@ namespace StackBook.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StackBook.Models.Order", "Order")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Book");
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("StackBook.Models.Payment", b =>
                 {
                     b.HasOne("StackBook.Models.Order", "Order")
-                        .WithMany("Payments")
-                        .HasForeignKey("OrderId")
+                        .WithOne("Payment")
+                        .HasForeignKey("StackBook.Models.Payment", "PaymentId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -599,18 +609,31 @@ namespace StackBook.Migrations
                     b.HasOne("StackBook.Models.Order", "Order")
                         .WithOne("ReturnOrder")
                         .HasForeignKey("StackBook.Models.ReturnOrder", "OrderId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StackBook.Models.ShippingAddress", "ShippingAddress")
+                    b.HasOne("StackBook.Models.ReturnOrderDetail", "ReturnOrderDetail")
                         .WithMany("ReturnOrders")
-                        .HasForeignKey("ShippingAddressId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("ReturnOrderDetailId");
+
+                    b.HasOne("StackBook.Models.ShippingAddress", null)
+                        .WithMany("ReturnOrders")
+                        .HasForeignKey("ShippingAddressId");
 
                     b.Navigation("Order");
 
-                    b.Navigation("ShippingAddress");
+                    b.Navigation("ReturnOrderDetail");
+                });
+
+            modelBuilder.Entity("StackBook.Models.ReturnOrderDetail", b =>
+                {
+                    b.HasOne("StackBook.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("StackBook.Models.Review", b =>
@@ -624,7 +647,7 @@ namespace StackBook.Migrations
                     b.HasOne("StackBook.Models.User", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Book");
@@ -637,7 +660,7 @@ namespace StackBook.Migrations
                     b.HasOne("StackBook.Models.User", "User")
                         .WithMany("ShippingAddresses")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -654,7 +677,7 @@ namespace StackBook.Migrations
 
                     b.Navigation("BookCategories");
 
-                    b.Navigation("CartBooks");
+                    b.Navigation("CartDetail");
 
                     b.Navigation("OrderDetails");
 
@@ -663,7 +686,7 @@ namespace StackBook.Migrations
 
             modelBuilder.Entity("StackBook.Models.Cart", b =>
                 {
-                    b.Navigation("CartBooks");
+                    b.Navigation("CartDetails");
                 });
 
             modelBuilder.Entity("StackBook.Models.Category", b =>
@@ -678,11 +701,19 @@ namespace StackBook.Migrations
 
             modelBuilder.Entity("StackBook.Models.Order", b =>
                 {
-                    b.Navigation("OrderDetails");
-
-                    b.Navigation("Payments");
+                    b.Navigation("Payment");
 
                     b.Navigation("ReturnOrder");
+                });
+
+            modelBuilder.Entity("StackBook.Models.OrderDetail", b =>
+                {
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("StackBook.Models.ReturnOrderDetail", b =>
+                {
+                    b.Navigation("ReturnOrders");
                 });
 
             modelBuilder.Entity("StackBook.Models.ShippingAddress", b =>

@@ -9,7 +9,7 @@ namespace StackBook.Models
         public Guid CategoryId { get; set; } = Guid.NewGuid();
 
         [Required]
-        [MaxLength(30)]
+        [StringLength(100)]
         [Display(Name = "Category Name")]
         public string? CategoryName { get; set; }
         [DisplayName("Display Order")]

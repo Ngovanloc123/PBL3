@@ -12,11 +12,11 @@ namespace StackBook.Models
         [ForeignKey("OrderId")]
         public virtual Order? Order { get; set; }
         [Required]
+        [StringLength(100)]
         public string? PaymentMethod { get; set; }
         [Required]
+        [StringLength(100)]
         public string? PaymentStatus { get; set; }
-        [Required]
-        public string? Transaction { get; set; }
         public DateTime CreatedPayment { get; set; }
     }
 }

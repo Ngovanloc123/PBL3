@@ -9,13 +9,25 @@ namespace StackBook.Models
         public virtual Order? Order { get; set; }
 
         [Required]
+        [StringLength(100)]
         public string? DiscountName { get; set; }
-        
+
+        [Required]
+        [StringLength(100)]
+        public string? DiscountCode { get; set; }
+
         [Required]
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0.")]
-        public double price { get; set; }
+        public double Price { get; set; }
+
+        public string? Description { get; set; }
 
         [Required]
         public DateTime CreatedDiscount { get; set; }
+
+        [Required]
+        public DateTime StartDate { get; set; }
+        [Required]
+        public DateTime EndDate { get; set; }
     }
 }

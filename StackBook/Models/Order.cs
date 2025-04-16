@@ -7,8 +7,8 @@ namespace StackBook.Models
         [Key]
         public Guid OrderId { get; set; } = Guid.NewGuid();
         public virtual ReturnOrder? ReturnOrder { get; set; }
-        public virtual OrderDetail? OrderDetail { get; set; }
-        public virtual Payment? Payment { get; set; }
+        public virtual ICollection<OrderDetail>? OrderDetails { get; set; }
+        public virtual ICollection<Payment>? Payments { get; set; }
 
         [Required]
         public Guid UserId { get; set; }

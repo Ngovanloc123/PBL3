@@ -35,6 +35,7 @@ namespace StackBook.Models
         public int AmountOfTime { get; set; }
         public bool IsEmailVerified { get; set; } = false;
         public DateTime EmailVerifiedAt { get; set; }
+        [StringLength(100)]
         public string? VerificationToken { get; set; }
     }
 }

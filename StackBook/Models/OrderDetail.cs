@@ -9,13 +9,13 @@ namespace StackBook.Models
 
         [Required]
         public Guid OrderId { get; set; }
-        public virtual ICollection<Order>? Order { get; set; }
+        public virtual Order? Order { get; set; }
 
         [Required]
         public Guid BookId { get; set; } 
         public virtual Book? Book { get; set; }
 
         [Required]
-        public int quantity { get; set; }
+        public int Quantity { get; set; }
     }
 }

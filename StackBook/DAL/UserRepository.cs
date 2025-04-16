@@ -9,7 +9,7 @@ using StackBook.Data;
 using StackBook.DAL.IRepository;
 //using StackBook.Interfaces;
 
-namespace StackBook.Repository
+namespace StackBook.DAL
 {
     public class UserRepository : IUserRepository<User>
     {

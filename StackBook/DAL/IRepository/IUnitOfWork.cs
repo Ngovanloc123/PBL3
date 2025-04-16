@@ -1,4 +1,5 @@
-﻿namespace StackBook.DAL.IRepository
+﻿using StackBook.DAL.IRepository;
+namespace StackBook.DAL.IRepository
 {
     public interface IUnitOfWork
     {

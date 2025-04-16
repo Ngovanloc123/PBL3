@@ -8,6 +8,7 @@ namespace StackBook.Models
         public Guid BookId { get; set; } = Guid.NewGuid();
 
         [Required(ErrorMessage = "Product name is required.")]
+        [StringLength(255)]
         public string? BookTitle { get; set; }
 
         public string? Description { get; set; }
@@ -29,8 +30,8 @@ namespace StackBook.Models
 
         public virtual ICollection<BookAuthor>? BookAuthors { get; set; }
         public virtual ICollection<BookCategory>? BookCategories { get; set; }
-        public virtual ICollection<CartDetail>? CartDetail { get; set; }
         public virtual ICollection<OrderDetail>? OrderDetails { get; set; }
         public virtual ICollection<Review>? Reviews { get; set; }
+        public virtual ICollection<CartBook> CartBooks { get; set; }
     }
 }

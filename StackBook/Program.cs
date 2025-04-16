@@ -8,6 +8,7 @@ using StackBook.Services;
 using StackBook.Utils;
 using Microsoft.AspNetCore.Builder;
 using StackBook.Configurations;
+using StackBook.DAL.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 

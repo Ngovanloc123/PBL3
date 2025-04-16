@@ -15,7 +15,6 @@ namespace StackBook.Data
         public DbSet<Author> Authors { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Cart> Carts { get; set; }
-        public DbSet<CartDetail> CartDetails { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<ShippingAddress> ShippingAddresses { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -25,8 +24,8 @@ namespace StackBook.Data
         public DbSet<ReturnOrder> ReturnOrders { get; set; }
         public DbSet<BookAuthor> BookAuthors { get; set; }
         public DbSet<BookCategory> BookCategories { get; set; }
-        public DbSet<ReturnOrderDetail> ReturnOrderDetails { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<CartBook> CartBooks { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,32 +37,56 @@ namespace StackBook.Data
                 .HasOne(o => o.User)
                 .WithMany(u => u.Orders)
                 .HasForeignKey(o => o.UserId)
-                .OnDelete(DeleteBehavior.Restrict); // ⚠ Sửa từ Cascade thành Restrict
+                .OnDelete(DeleteBehavior.NoAction); 
 
-            // Thiết lập quan hệ 1-1 giữa Order và Payment
-            modelBuilder.Entity<Order>()
-                .HasOne(o => o.Payment)
-                .WithOne(p => p.Order)
-                .HasForeignKey<Payment>(o => o.PaymentId)
+            // Thiết lập quan hệ 1-n giữa Order và Payment
+            modelBuilder.Entity<Payment>()
+                .HasOne(o => o.Order)
+                .WithMany(p => p.Payments)
+                .HasForeignKey(o => o.OrderId)
                 .OnDelete(DeleteBehavior.NoAction); // ⚠ Ngăn chặn xóa tự động
 
             // Thiết lập quan hệ 1-1 giữa Order và ReturnOrder
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.ReturnOrder)
                 .WithOne(ro => ro.Order)
-                .HasForeignKey<ReturnOrder>(ro => ro.OrderId);
+                .HasForeignKey<ReturnOrder>(ro => ro.OrderId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             // Thiết lập quan hệ 1-n giữa User và Review
             modelBuilder.Entity<Review>()
                 .HasOne(r => r.User)
                 .WithMany(u => u.Reviews)
-                .HasForeignKey(r => r.UserId);
+                .HasForeignKey(r => r.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             // Thiết lập quan hệ 1-n giữa User và ShippingAddress
             modelBuilder.Entity<ShippingAddress>()
                 .HasOne(sa => sa.User)
                 .WithMany(u => u.ShippingAddresses)
-                .HasForeignKey(sa => sa.UserId);
+                .HasForeignKey(sa => sa.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Thiết lập quan hệ 1-n giữa ShippingAddress và Order
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.ShippingAddress)
+                .WithMany(sa => sa.Orders)
+                .HasForeignKey(o => o.ShippingAddressId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Thiết lập quan hệ 1-n giữa ShippingAddress và ReturnOrder
+            modelBuilder.Entity<ReturnOrder>()
+                .HasOne(ro => ro.ShippingAddress)
+                .WithMany(sa => sa.ReturnOrders)
+                .HasForeignKey(ro => ro.ShippingAddressId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Thiết lập quan hệ 1-n giữa Order và OrderDetail
+            modelBuilder.Entity<OrderDetail>()
+                .HasOne(od => od.Order)
+                .WithMany(o => o.OrderDetails)
+                .HasForeignKey(od => od.OrderId)
+                .OnDelete(DeleteBehavior.Cascade); // Cho phép cascade vì là chi tiết đơn hàng
 
             // Thiết lập quan hệ n-n giữa Book và Author
             modelBuilder.Entity<BookAuthor>()
@@ -92,6 +115,20 @@ namespace StackBook.Data
                 .HasOne(bc => bc.Category)
                 .WithMany(c => c.BookCategories)
                 .HasForeignKey(bc => bc.CategoryId);
+
+            // Thiết lập quan hệ n-n giữa Book và Cart
+            modelBuilder.Entity<CartBook>()
+                .HasKey(cb => new { cb.CartId, cb.BookId });
+
+            modelBuilder.Entity<CartBook>()
+                .HasOne(cb => cb.Cart)
+                .WithMany(cb => cb.CartBooks)
+                .HasForeignKey(cb => cb.CartId);
+
+            modelBuilder.Entity<CartBook>()
+                .HasOne(cb =>cb.Book)
+                .WithMany(cb => cb.CartBooks)
+                .HasForeignKey(cb => cb.BookId);
         }
     }
 }

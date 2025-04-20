@@ -1,0 +1,92 @@
+﻿@model StackBook.ViewModels.BookDetailPageViewModel
+<div class="container my-5 mt-5">
+    <div class="row gy-4 align-items-start">
+        <!-- Book Image -->
+        <div class="col-md-4">
+            <img class="img-fluid rounded shadow" src="@Model.BookDetail.Book.ImageURL" alt="@Model.BookDetail.Book.BookTitle" />
+        </div>
+
+        <!-- Book Info -->
+        <div class="col-md-8 pt-5">
+            <!-- Title and Author -->
+            <div class="mb-3">
+                <h2 class="fw-bold">@Model.BookDetail.Book.BookTitle</h2>
+                <p class="text-muted mb-1">
+                    <span class="fw-medium">by</span>
+                @string.Join(", ", @Model.BookDetail.Authors.Select(a => a.AuthorName))
+                </p>
+                <div class="d-flex align-items-center">
+                    <span class="text-warning me-2">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                    <span class="text-muted">(5,412 ratings)</span> <!-- Bạn có thể gắn rating thực nếu có trong model -->
+                </div>
+            </div>
+
+            <!-- Pricing -->
+            <div class="border-top pt-3 mb-3">
+                <h4 class="text-danger fw-bold mb-1">
+                    <!-- Giả định bạn có thêm trường PriceOld nếu muốn giảm giá -->
+                    $@Model.BookDetail.Book.Price
+                </h4>
+                <p class="mb-1">List Price: <span class="text-decoration-line-through">$@Model.BookDetail.Book.Price</span></p>
+                <p class="text-success mb-0">FREE International Returns</p>
+            </div>
+            @* <div class="border-top pt-3 mb-3"> *@
+            @*     <h4 class="text-danger fw-bold mb-1"> *@
+            @*         -@((int)((1 - Model.BookDetail.Book.Price / 40) * 100))% *@
+            @*         $@Model.BookDetail.Book.Price *@
+            @*     </h4> *@
+            @*     <p class="mb-1">List Price: <span class="text-decoration-line-through">$@Model.BookDetail.Book.Price</span></p> *@
+            @*     <p class="text-success mb-0">FREE International Returns</p> *@
+            @* </div> *@
+
+            <!-- Purchase Actions -->
+            <div class="border-top pt-3">
+                <h5 class="text-primary">@(Model.BookDetail.Book != null ? "In Stock" : "Out of Stock")</h5>
+                <label for="quantity-@Model.BookDetail.Book.BookId" class="form-label">Quantity</label>
+                <input type="number" id="quantity" class="form-control w-50 mb-3" min="1" max="@Model.BookDetail.Book.Stock" value="1" />
+
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-warning flex-grow-1">Add to Cart</button>
+                    <button type="button" class="btn btn-success flex-grow-1">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description -->
+    <div class="row mt-5 border-top pt-4">
+        <div class="col-12">
+            <h3 class="mb-3">Description</h3>
+            <p style="white-space: pre-line;" class="text-secondary">
+                @Model.BookDetail.Book.Description
+            </p>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
+        <h2 class="">Explore more</h2>
+    </div>
+    <div class="row g-4">
+        @await Component.InvokeAsync("Books", Model.AllBooks)
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const quantityInputs = document.querySelectorAll("#quantity");
+
+        quantityInputs.forEach(input => {
+            input.addEventListener("input", function () {
+                const max = parseInt(this.max);
+                const min = parseInt(this.min);
+                let value = parseInt(this.value);
+
+                if (value > max) {
+                    this.value = max;
+                } else if (value < min) {
+                    this.value = min;
+                }
+            });
+        });
+    });
+</script>

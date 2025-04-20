@@ -29,7 +29,7 @@ namespace StackBook.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            List<BookDetailViewModel> BookDetail = _UnitOfWork.BookDetail.GetAll().ToList();
+            List<BookDetailViewModel> BookDetail = _UnitOfWork.Book.GetAllBookDetails().ToList();
             
             return View(BookDetail);
         }
@@ -59,7 +59,6 @@ namespace StackBook.Areas.Admin.Controllers
             return View();
         }
 
-        // Dùng để gửi dữ liệu từ form, cập nhật database. Dữ liệu không hiển thị trên URL.
         [HttpPost]
         public IActionResult Create(BookDetailViewModel bookCreate, IFormFile? file)
         {
@@ -93,7 +92,7 @@ namespace StackBook.Areas.Admin.Controllers
 
                 }    
 
-                _UnitOfWork.BookDetail.Add(bookCreate);
+                _UnitOfWork.Book.AddBookDetail(bookCreate);
                 _UnitOfWork.Save();
                 TempData["success"] = "Book created successfully";
                 return RedirectToAction("Index");
@@ -107,7 +106,7 @@ namespace StackBook.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            BookDetailViewModel? BookDetail = _UnitOfWork.BookDetail.Get(u => u.BookId == BookId);
+            BookDetailViewModel? BookDetail = _UnitOfWork.Book.GetBookDetail(BookId);
             if (BookDetail == null)
             {
                 return NotFound();
@@ -135,7 +134,6 @@ namespace StackBook.Areas.Admin.Controllers
             return View(BookDetail);
         }
 
-        // Dùng để gửi dữ liệu từ form, cập nhật database. Dữ liệu không hiển thị trên URL.
         [HttpPost]
         public IActionResult Edit(BookDetailViewModel bookEdit, IFormFile? file)
         {
@@ -167,7 +165,7 @@ namespace StackBook.Areas.Admin.Controllers
                     bookEdit.ImageURL = @"/images/Books/" + fileName;
 
                 }
-                _UnitOfWork.BookDetail.Update(bookEdit);
+                _UnitOfWork.Book.UpdateBookDetail(bookEdit);
                 _UnitOfWork.Save();
 
                 TempData["success"] = "Book edited successfully";
@@ -182,30 +180,29 @@ namespace StackBook.Areas.Admin.Controllers
 
 
 
-        public IActionResult Delete(Guid? BookId)
+        //public IActionResult Delete(Guid? BookId)
+        //{
+        //    if (BookId == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    BookDetailViewModel? bookDelete = _UnitOfWork.Book.GetBookDetail(BookId);
+        //    if (bookDelete == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(bookDelete);
+        //}
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(Guid? BookId)
         {
-            if (BookId == null)
-            {
-                return NotFound();
-            }
-            BookDetailViewModel? bookDelete = _UnitOfWork.BookDetail.Get(u => u.BookId == BookId);
+            BookDetailViewModel? bookDelete = _UnitOfWork.Book.GetBookDetail(BookId);
             if (bookDelete == null)
             {
                 return NotFound();
             }
-            return View(bookDelete);
-        }
-
-        // Dùng để gửi dữ liệu từ form, cập nhật database. Dữ liệu không hiển thị trên URL.
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePOST(Guid? BookId)
-        {
-            BookDetailViewModel? obj = _UnitOfWork.BookDetail.Get(u => u.BookId == BookId);
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            _UnitOfWork.BookDetail.Remove(obj);
+            _UnitOfWork.Book.DeleteBookDetail(bookDelete);
             _UnitOfWork.Save();
             TempData["success"] = "Book deleted successfully";
             return RedirectToAction("Index");

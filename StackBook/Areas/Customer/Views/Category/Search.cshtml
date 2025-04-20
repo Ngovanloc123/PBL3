@@ -1,0 +1,49 @@
+﻿@model List<StackBook.ViewModels.BookWithAuthors>
+@* ================= MẶC ĐỊNH KHI NHẤN VÀO SHOP ================ *@
+<div class="container-fluid">
+    <h1 class="text-center my-4 py-2 border-bottom bg-body-tertiary">
+        Results for "<span class="text-primary">@ViewBag.Query</span>"
+    </h1>
+
+
+    
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="text-center my-5">
+            <i class="fa-solid fa-book-open fa-3x text-secondary mb-3"></i>
+            <h2 class="text-muted">No books found</h2>
+            <p>Please try searching with a different keyword.</p>
+        </div>
+        @await Component.InvokeAsync("SliderCategory")
+    }
+    else {
+        @await Component.InvokeAsync("SliderCategory")
+        @* =================  CONTENT ============== *@
+        <div class="content">
+           
+            <div class="row g-4">
+                @foreach (var bookAuthors in Model)
+                {
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="card h-100 shadow-sm border-0 hover-shadow transition">
+                            <a href="#" class="text-decoration-none">
+                                <img src="@bookAuthors.Book.ImageURL" class="card-img-top rounded-top" alt="@bookAuthors.Book.BookTitle">
+                                <div class="card-body text-center">
+                                    <h6 class="card-title text-dark mb-2">@bookAuthors.Book.BookTitle</h6>
+                                    <div class="rating mb-2">
+                                        <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                                        <span class="text-muted small">5,412</span>
+                                    </div>
+                                    <h5 class="text-danger mb-0">$@bookAuthors.Book.Price</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    
+</div>

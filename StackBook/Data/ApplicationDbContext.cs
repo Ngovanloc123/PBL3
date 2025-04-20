@@ -79,6 +79,7 @@ namespace StackBook.Data
                 .WithMany(a => a.BookAuthors)
                 .HasForeignKey(ba => ba.AuthorId);
 
+
             // Thiết lập quan hệ n-n giữa Book và Category
             modelBuilder.Entity<BookCategory>()
                 .HasKey(bc => new { bc.BookId, bc.CategoryId });
@@ -92,6 +93,7 @@ namespace StackBook.Data
                 .HasOne(bc => bc.Category)
                 .WithMany(c => c.BookCategories)
                 .HasForeignKey(bc => bc.CategoryId);
+
         }
     }
 }

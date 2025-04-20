@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace StackBook.Controllers
+namespace StackBook.Areas.Account.Controllers
 {
+    [Area("Site")]
     public class AccountController : Controller
     {
         public IActionResult Signin()

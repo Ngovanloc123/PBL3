@@ -117,8 +117,7 @@ namespace StackBook.Migrations
 
                     b.HasIndex("CartDetailId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Carts");
                 });
@@ -156,7 +155,8 @@ namespace StackBook.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
@@ -420,7 +420,13 @@ namespace StackBook.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("AmountOfTime")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedUser")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateLock")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -428,18 +434,36 @@ namespace StackBook.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime>("EmailVerifiedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("IsEmailVerified")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockStatus")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ResetPasswordToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ResetTokenExpiry")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Role")
                         .HasColumnType("bit");
+
+                    b.Property<string>("VerificationToken")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 
@@ -491,8 +515,8 @@ namespace StackBook.Migrations
                         .HasForeignKey("CartDetailId");
 
                     b.HasOne("StackBook.Models.User", "User")
-                        .WithOne("Cart")
-                        .HasForeignKey("StackBook.Models.Cart", "UserId")
+                        .WithMany("Carts")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -699,7 +723,7 @@ namespace StackBook.Migrations
 
             modelBuilder.Entity("StackBook.Models.User", b =>
                 {
-                    b.Navigation("Cart");
+                    b.Navigation("Carts");
 
                     b.Navigation("Orders");
 

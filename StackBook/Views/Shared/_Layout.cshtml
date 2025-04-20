@@ -16,67 +16,7 @@
 </head>
 <body>
     <header>
-        @* ===================== THANH NAVBAR ====================== *@
-        <nav class="navbar fixed-top navbar-expand-lg bg-dark" data-bs-theme="dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">StackBooks</a>
-                <button class="navbar-toggler float-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarColor02">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link btn-nav" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link btn-nav" asp-area="Customer" asp-controller="Category" asp-action="Index">Category</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link btn-nav" href="#">About & Contact</a>
-                        </li>
-                        <li class="nav-item fw-bold">
-                            <a class="nav-link btn-nav" href="#">Customer Service</a>
-                        </li>
-
-                        @* Giành cho Admin *@
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Management</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Book" asp-action="Index">Book</a>
-                                @* <a class="dropdown-item" href="#">Something else here</a> *@
-                                @* <div class="dropdown-divider"></div> *@
-                                @* <a class="dropdown-item" href="#">Separated link</a> *@
-                            </div>
-                        </li>
-                        @* Giành cho Admin *@
-                    </ul>
-
-
-                    @* ================= SEARCH INFOR ============== *@
-                    <form class="d-flex">
-                        <input class="form-control me-sm-2" type="search" placeholder="Search">
-                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
-
-                    @* =================== ACCOUNT ================ *@
-                    <div class="d-grid gap-2 d-lg-flex mx-lg-2 my-sm-2">
-                        <a asp-controller="Account" asp-action="Signin" class="btn btn-primary w-100 w-lg-auto" style="line-height: 1;">
-                            <span class="fw-light">Hello, sign in</span><br />
-                            <span class="fw-bold">Account</span>
-                        </a>
-                    </div>
-
-
-
-                    @* =================== CART ================ *@
-
-
-
-                </div>
-            </div>
-        </nav>
+        <partial name="_Navbar" />
     </header>
 
     @* ================== PHẦN BODY PAGE ================== *@
@@ -88,63 +28,8 @@
         </main>
     </div>
 
-    @* ================== PHẦN FOOTER PAGE ================== *@
-    <footer class="border-top bg-body-tertiary text-dark py-4">
-        <div class="container">
-            <div class="row">
-                <!-- Column 1: About Us -->
-                <div class="col-md-3">
-                    <h5 class="fw-bold">About Us</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-primary text-decoration-none">Introduction to StackBooks Bookstore</a></li>
-                        <li><a href="#" class="text-primary text-decoration-none">Customer Loyalty Program</a></li>
-                        <li><a href="#" class="text-primary text-decoration-none">StackBooks Bookstore System</a></li>
-                        <li><a href="#" class="text-primary text-decoration-none">Terms of Use</a></li>
-                        <li><a href="#" class="text-primary text-decoration-none">Privacy Policy</a></li>
-                        <li><a href="#" class="text-primary text-decoration-none">Sales Policy</a></li>
-                        <li><a href="#" class="text-primary text-decoration-none">Shipping Methods</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 2: My Account -->
-                <div class="col-md-3">
-                    <h5 class="fw-bold">My Account</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-primary text-decoration-none">Sign in</a></li>
-                        <li><a href="#" class="text-primary text-decoration-none">Create an Account</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Customer Support -->
-                <div class="col-md-3">
-                    <h5 class="fw-bold">Customer Support</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-primary text-decoration-none">Frequently Asked Questions</a></li>
-                        <li><a href="#" class="text-primary text-decoration-none">Return/Exchange Policy</a></li>
-                        <li><a href="#" class="text-primary text-decoration-none">Commenting Rules</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Contact Us -->
-                <div class="col-md-3">
-                    <h5 class="fw-bold">Contact Us</h5>
-                    <p class="mb-1">Hotline: 1900 6656</p>
-                    <p>Email: hotro@StackBooks.com</p>
-                    <div>
-                        <a href="#" class="me-2"><i class="bi bi-facebook icon-footer"></i></a>
-                        <a href="#" class="me-2"><i class="bi bi-instagram icon-footer"></i></a>
-                        <a href="#" class="me-2"><i class="bi bi-youtube icon-footer"></i></a>
-                        <a href="#" class="me-2"><i class="bi bi-linkedin icon-footer"></i></a>
-                        <a href="#" class="me-2"><i class="bi bi-tiktok icon-footer"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mt-4">
-                <p class="mb-0">&copy; 2024 - Copyright by StackBooks Retail Co., Ltd - <a href="#" class="text-dark">StackBooks.com</a></p>
-            </div>
-        </div>
-    </footer>
+    <partial name="_Footer" />
+    
 
     @* Link SWwiperJS JS *@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

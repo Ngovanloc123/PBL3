@@ -1,0 +1,36 @@
+﻿@model List<StackBook.ViewModels.BookWithAuthors>
+
+<div class="row g-5">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var bookAuthors in Model)
+        {
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@bookAuthors.Book?.BookId"
+                   class="book-card text-decoration-none text-black d-block h-100">
+
+                    <img src="@bookAuthors.Book?.ImageURL" alt="@bookAuthors.Book?.BookTitle" class="img-fluid rounded-top" />
+
+                    <div class="book-title fw-bold mt-2">@bookAuthors.Book?.BookTitle</div>
+
+                    <div class="book-rating text-warning mb-1">⭐ 4.4 (619)</div>
+
+                    <div class="fs-8 text-muted">
+                        @if (bookAuthors.Authors != null && bookAuthors.Authors.Any())
+                        {
+                            foreach (var author in bookAuthors.Authors)
+                            {
+                                <div>@author.AuthorName</div>
+                            }
+                        }
+                    </div>
+
+                    <div class="book-price text-danger fw-semibold mt-1">
+                        $@bookAuthors.Book?.Price
+                    </div>
+
+                </a>
+            </div>
+        }
+    }
+</div>

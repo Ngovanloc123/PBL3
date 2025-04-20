@@ -1,0 +1,55 @@
+﻿@model StackBook.ViewModels.DataHomeViewModel
+
+<div class="container-fluid px-4 py-3">
+    <div class="row">
+
+        @* =========== SIDEBAR ========= *@
+        <div class="col-lg-2 col-md-3 mb-3">
+            <div class="bg-light rounded shadow-sm p-3 h-100">
+                <h5 class="text-primary mb-3">Categories</h5>
+                <ul class="list-unstyled">
+                    @foreach (var Category in Model.Categories)
+                    {
+                        <li class="mb-2">
+                            <a asp-area="Customer" asp-controller="Category" asp-action="Index" asp-route-CategoryId="@Category.CategoryId" class="fw-semibold text-dark text-decoration-none link-hover">
+                                @Category.CategoryName
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        @* ========= MAIN CONTENT ========== *@
+        <div class="col-lg-10 col-md-9">
+            @* ========== SLIDER =========== *@
+            <div class="row g-3 mb-4">
+                <div class="col-6 col-md-3">
+                    <a href="#">
+                        <img class="img-fluid rounded shadow-sm" src="~/images/sliders/slider1.jpg" alt="slider image" />
+                    </a>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a href="#">
+                        <img class="img-fluid rounded shadow-sm" src="~/images/sliders/slider2.jpg" alt="slider image" />
+                    </a>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a href="#">
+                        <img class="img-fluid rounded shadow-sm" src="~/images/sliders/slider3.jpg" alt="slider image" />
+                    </a>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a href="#">
+                        <img class="img-fluid rounded shadow-sm" src="~/images/sliders/slider4.jpg" alt="slider image" />
+                    </a>
+                </div>
+            </div>
+
+            <h3 class="text-primary mb-4">📚 Best Sellers</h3>
+
+            @* ============ BOOKS =========== *@
+            @await Component.InvokeAsync("Books", Model.BookWithAuthors)
+        </div>
+    </div>
+</div>

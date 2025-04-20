@@ -17,11 +17,6 @@ namespace StackBook.Services
             _authorService = authorService;
         }
 
-        public List<Book> GetAllBooks()
-        {
-            return _context.Books.ToList();
-        }
-
         public List<BookWithAuthors> GetListBookAuthorsByCategoryId(Guid categoryId)
         {
             return _context.BookCategories

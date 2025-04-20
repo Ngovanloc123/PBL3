@@ -16,30 +16,37 @@ namespace StackBook.DAL
             this.dbSet = _db.Set<T>();
         }
 
-        public virtual void Add(T entity)
+        public void Add(T entity)
         {
             dbSet.Add(entity);
         }
 
-        public virtual T Get(Expression<Func<T, bool>> filter)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter)
+        {
+            IQueryable<T> query = dbSet;
+            return query.Where(filter).ToList();
+        }
+
+
+        public T Get(Expression<Func<T, bool>> filter)
         {
             IQueryable<T> query = dbSet;
             query = query.Where(filter);
             return query.FirstOrDefault();
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll()
         {
             IQueryable<T> query = dbSet;
             return query.ToList();
         }
 
-        public virtual void Remove(T entity)
+        public void Delete(T entity)
         {
             dbSet.Remove(entity);
         }
 
-        public void RemoveRange(IEnumerable<T> entities)
+        public void DeleteRange(IEnumerable<T> entities)
         {
             dbSet.RemoveRange(entities);
         }

@@ -1,23 +1,24 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using StackBook.DAL.IRepository;
 using StackBook.Data;
 using StackBook.Models;
 using StackBook.Services;
 using StackBook.ViewModels;
 
-namespace StackBook.Areas.Customer.Controllers
+namespace StackBook.Areas.Site.Controllers
 {
-    [Area("Customer")]
+    [Area("Site")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly BookService _bookService;
+        private readonly IUnitOfWork _UnitOfWork;
         private readonly CategoryService _categoryService;
 
-        public HomeController(ILogger<HomeController> logger, BookService bookService, CategoryService categoryService)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, CategoryService categoryService)
         {
             _logger = logger;
-            _bookService = bookService;
+            _UnitOfWork = unitOfWork;
             _categoryService = categoryService;
         }
 
@@ -25,8 +26,8 @@ namespace StackBook.Areas.Customer.Controllers
         {
             var dataHome = new DataHomeViewModel
             {
-                Books = _bookService.GetAllBooks(),
-                MenuCategories = _categoryService.GetMenuCategories()
+                BookWithAuthors = _UnitOfWork.Book.GetAllBookWithAuthor(),
+                Categories = _UnitOfWork.Category.GetAll().ToList(),
             };
 
             return View(dataHome);

@@ -70,21 +70,6 @@ namespace StackBook.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult Delete(Guid? CategoryId)
-        {
-            if (CategoryId == null)
-            {
-                return NotFound();
-            }
-            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.CategoryId == CategoryId);
-            if (categoryFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(categoryFromDb);
-        }
-
-        // Dùng để gửi dữ liệu từ form, cập nhật database. Dữ liệu không hiển thị trên URL.
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(Guid? CategoryId)
         {
@@ -93,7 +78,7 @@ namespace StackBook.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.Category.Delete(obj);
             _unitOfWork.Save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");

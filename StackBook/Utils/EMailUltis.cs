@@ -1,11 +1,11 @@
-//using StackBook.Interfaces;
+using StackBook.Interfaces;
 using System.Net.Mail;
 using StackBook.Configurations;
 using Microsoft.Extensions.Options;
 
 namespace StackBook.Utils
 {
-    public class EMailUtils : IEmailService
+    public class EMailUtils : IEmailUtils
     {
         private readonly EmailSettings _emailSettings;
         public EMailUtils(IOptions<EmailSettings> emailSettings)

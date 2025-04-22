@@ -5,121 +5,166 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using StackBook.Exceptions;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
-using StackBook.DAL;
+using StackBook.DAL.IRepository;
+using StackBook.DTOs;
 
 namespace StackBook.Services
 {
-    public class CartService : ICartService
+   public class CartService : ICartService
     {
-        private readonly ApplicationDbContext _context;
-        public CartService(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-        public async Task<Cart> GetOrCreateCartAsync(Guid userId)
-        {
-            var cart = await _context.Carts.Include(c => c.CartDetails)
-                .ThenInclude(cd => cd.Book)
-                .FirstOrDefaultAsync(c => c.UserId == userId);
-            if (cart == null)
-            {
-                cart = new CancellationTokenRegistration
-                {
-                    UserId = userId,
-                    CartDetails = new List<CartDetail>()
-                };
-                _context.Carts.Add(cart);
-                await _context.SaveChangesAsync();
-            }
+        private readonly ICartRepository _cartRepository;
 
-            return cart;
+        public CartService(ICartRepository cartRepository)
+        {
+            _cartRepository = cartRepository;
         }
 
-        public async Task<Cart> GetCartAsync(Guid userId)
-        {
-            var cart = await GetOrCreateCartAsync(userId);
-            foreach (var detail in cart.CartDetails)
-            {
-                if(detail.Quantity > detail.Book.Stock)
-                {
-                    throw new OutOfStockException($"Book {detail.Book.BookTitle} is out of stock. Available: {detail.Book.Stock}, Requested: {detail.Quantity}");
-                }
-            }
-            return cart;
-        }
-        public async Task<List<CartDetail>> GetCartDetailsAsync(Guid userId)
-        {
-            var cart = await GetOrCreateCartAsync(userId);
-            return cart.CartDetails.ToList();
-        }
         public async Task AddToCartAsync(Guid userId, Guid bookId, int quantity)
         {
-            var cart = await GetOrCreateCartAsync(userId);
-            var book = await _context.Books.FindAsync(bookId) ?? throw new KeyNotFoundException("Book not found.");
+            try
+            {
+                var cart = await _cartRepository.GetOrCreateByUserIdAsync(userId);
+                var cartBook = await _cartRepository.GetCartBookAsync(cart.CartId, bookId);
 
-            var cartDetail = cart.CartDetails.FirstOrDefault(cd => cd.BookId == bookId);
-            var newQty = (cartDetail?.Quantity ?? 0) + quantity;
-            if (newQty > book.Stock)
-            {
-                throw new OutOfStockException($"Book {book.BookTitle} is out of stock. Available: {book.Stock}, Requested: {newQty}");
-            }
-            if (cartDetail == null)
-            {
-                cartDetail = new CartDetail
+                if (cartBook != null)
                 {
-                    BookId = bookId,
-                    Quantity = quantity,
-                    Book = book
-                };
-                cart.CartDetails.Add(cartDetail);
-            }
-            else
-            {
-                cartDetail.Quantity = newQty;
-            }
-            await _context.SaveChangesAsync();
-        }
-        public async Task UpdateCartAsync(Guid userId, Guid bookId, int quantity)
-        {
-            var cart = await GetOrCreateCartAsync(userId);
-            var cartDetail = cart.CartDetails.FirstOrDefault(cd => cd.BookId == bookId) ?? throw new KeyNotFoundException("Book not found in cart.");
-            var book = await _context.Books.FindAsync(bookId) ?? throw new KeyNotFoundException("Book not found.");
-            if(quantity <= 0)
-            {
-                cart.CartDetails.Remove(cartDetail);
-            }
-            else
-            {
-                if (quantity > book.Stock)
-                {
-                    throw new OutOfStockException($"Book {book.BookTitle} is out of stock. Available: {book.Stock}, Requested: {quantity}");
+                    cartBook.Quantity += quantity;
+                    await _cartRepository.UpdateCartBookAsync(cartBook);
                 }
-                cartDetail.Quantity = quantity;
+                else
+                {
+                    var newCartBook = new CartBook
+                    {
+                        CartId = cart.CartId,
+                        BookId = bookId,
+                        Quantity = quantity,
+                        CreatedCart = DateTime.Now
+                    };
+                    await _cartRepository.AddCartBookAsync(newCartBook);
+                }
+
+                await _cartRepository.SaveAsync();
             }
-            await _context.SaveChangesAsync();
+            catch (Exception ex)
+            {
+                throw new AppException($"Lỗi khi thêm sách vào giỏ hàng: {ex.Message}");
+            }
         }
+
+        public async Task UpdateQuantityAsync(Guid userId, Guid bookId, int quantity)
+        {
+            try
+            {
+                var cart = await _cartRepository.GetByUserIdAsync(userId);
+                if (cart == null) throw new AppException("Giỏ hàng không tồn tại.");
+
+                var cartBook = await _cartRepository.GetCartBookAsync(cart.CartId, bookId);
+                if (cartBook == null) throw new AppException("Sách không có trong giỏ hàng.");
+
+                cartBook.Quantity = quantity;
+                await _cartRepository.UpdateCartBookAsync(cartBook);
+                await _cartRepository.SaveAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new AppException($"Lỗi khi cập nhật số lượng: {ex.Message}");
+            }
+        }
+
         public async Task RemoveFromCartAsync(Guid userId, Guid bookId)
         {
-            var cart = await GetOrCreateCartAsync(userId);
-            var cartDetail = cart.CartDetails.FirstOrDefault(cd => cd.BookId == bookId) ?? throw new KeyNotFoundException("Book not found in cart.");
-            if(cartDetail != null)
+            try
             {
-                cart.CartDetails.Remove(cartDetail);
-                await _context.SaveChangesAsync();
+                var cart = await _cartRepository.GetByUserIdAsync(userId);
+                if (cart == null) throw new AppException("Giỏ hàng không tồn tại.");
+
+                var cartBook = await _cartRepository.GetCartBookAsync(cart.CartId, bookId);
+                if (cartBook == null) throw new AppException("Không tìm thấy sách trong giỏ hàng.");
+
+                await _cartRepository.RemoveCartBookAsync(cartBook);
+                await _cartRepository.SaveAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new AppException($"Lỗi khi xoá sách khỏi giỏ hàng: {ex.Message}");
             }
         }
-        public async Task ClearCartAsync(Guid userId, bool clearAll = false)
+
+        public async Task ClearCartAsync(Guid userId)
         {
-            var cart = await GetOrCreateCartAsync(userId);
-            if (clearAll)
+            try
             {
-                _context.Carts.Remove(cart);
+                var cart = await _cartRepository.GetByUserIdAsync(userId);
+                if (cart == null) throw new AppException("Giỏ hàng không tồn tại.");
+
+                var cartBooks = await _cartRepository.GetCartBooksAsync(cart.CartId);
+                foreach (var cartBook in cartBooks)
+                {
+                    await _cartRepository.RemoveCartBookAsync(cartBook);
+                }
+
+                await _cartRepository.SaveAsync();
             }
-            else
+            catch (Exception ex)
             {
-                cart.CartDetails.Clear();
+                throw new AppException($"Lỗi khi xoá toàn bộ giỏ hàng: {ex.Message}");
             }
-            await _context.SaveChangesAsync();
         }
-    }
+
+        public async Task<List<BookInCartDto>> GetCartDetailsAsync(Guid userId)
+        {
+            try
+            {
+                var cart = await _cartRepository.GetByUserIdAsync(userId);
+                if (cart == null || cart.CartBooks == null)
+                    return new List<BookInCartDto>();
+
+                var result = new List<BookInCartDto>();
+                foreach (var cartBook in cart.CartBooks)
+                {
+                    if (cartBook.Book != null)
+                    {
+                        var bookDto = new BookInCartDto
+                        {
+                            BookId = cartBook.BookId,
+                            BookTitle = cartBook.Book.BookTitle,
+                            Quantity = cartBook.Quantity
+                        };
+                        result.Add(bookDto);
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new AppException($"Lỗi khi lấy chi tiết giỏ hàng: {ex.Message}");
+            }
+        }
+    
+            public async Task<double> GetTotalPriceCartAsync(Guid userId)
+            {
+                try
+                {
+                    var cart = await _cartRepository.GetByUserIdAsync(userId);
+                    if (cart == null || cart.CartBooks == null)
+                        return 0;
+    
+                    double totalPrice = 0;
+                    foreach (var cartBook in cart.CartBooks)
+                    {
+                        if (cartBook.Book != null)
+                        {
+                            totalPrice += cartBook.Quantity * cartBook.Book.Price;
+                        }
+                    }
+    
+                    return totalPrice;
+                }
+                catch (Exception ex)
+                {
+                    throw new AppException($"Lỗi khi tính tổng giá trị giỏ hàng: {ex.Message}");
+                }
+            }
+        }
 }

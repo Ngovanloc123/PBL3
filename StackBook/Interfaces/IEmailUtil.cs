@@ -1,0 +1,7 @@
+namespace StackBook.Interfaces
+{
+    public interface IEmailUtils
+    {
+        Task SendEmailAsync(string email, string subject, string message);
+    }
+}

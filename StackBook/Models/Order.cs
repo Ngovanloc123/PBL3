@@ -25,8 +25,6 @@ namespace StackBook.Models
         [Required]
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0.")]
         public double TotalPrice { get; set; }
-
-
         //  1. Pending
         //  2. Shipped
         //  3. Canceled

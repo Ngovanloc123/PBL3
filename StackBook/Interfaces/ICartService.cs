@@ -1,16 +1,16 @@
 using StackBook.Data;
 using StackBook.Models;
+using StackBook.DTOs;
 
 namespace StackBook.Interfaces
 {
     public interface ICartService
     {
-        Task<Cart> GetOrCreateCartAsync(Guid userId);
         Task AddToCartAsync(Guid userId, Guid bookId, int quantity);
-        Task UpdateCartAsync(Guid userId, Guid bookId, int quantity);
+        Task UpdateQuantityAsync(Guid userId, Guid bookId, int quantity);
         Task RemoveFromCartAsync(Guid userId, Guid bookId);
-        Task ClearCartAsync(Guid userId, bool clearAll = false);
-        Task<Cart> GetCartAsync(Guid userId);
-        Task<List<Book>> GetCartDetailsAsync(Guid userId);
+        Task ClearCartAsync(Guid userId);
+        Task<List<BookInCartDto>> GetCartDetailsAsync(Guid userId);
+        Task<double> GetTotalPriceCartAsync(Guid userId);
     }
 }

@@ -31,10 +31,10 @@ namespace StackBook.Models
         public DateTime? ResetTokenExpiry { get; set; }
 
         public bool LockStatus { get; set; } = true;
-        public DateTime DateLock { get; set; }
+        public DateTime? DateLock { get; set; }
         public int AmountOfTime { get; set; }
         public bool IsEmailVerified { get; set; } = false;
-        public DateTime EmailVerifiedAt { get; set; }
+        public DateTime? EmailVerifiedAt { get; set; }
         [StringLength(100)]
         public string? VerificationToken { get; set; }
     }

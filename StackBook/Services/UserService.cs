@@ -24,16 +24,16 @@ namespace StackBook.Services
             _context = context;
             _emailUtils = eMailUtils;
         }
-        public async Task<IActionResult> RegisterUser(RegisterDto registerDto)
+        public async Task<User> RegisterUser(RegisterDto registerDto)
         {
             if(registerDto == null || string.IsNullOrEmpty(registerDto.Email) || string.IsNullOrEmpty(registerDto.Password) || string.IsNullOrEmpty(registerDto.Username))
             {
-                return new BadRequestObjectResult("Invalid data");
+                throw new ArgumentNullException("Invalid data");
             }
             var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == registerDto.Email);
             if (existingUser != null)
             {
-                return new BadRequestObjectResult("Email already exists");
+                throw new ArgumentException("Email already exists");
             }
             var hashedPassword = PasswordHashedUtils.HashPassword(registerDto.Password);
             // Send verification email
@@ -61,12 +61,7 @@ namespace StackBook.Services
             var subject = "Email Verification";
             var message = $"Please verify your email by clicking this link: {verificationLink}";
             await _emailUtils.SendEmailAsync(registerDto.Email, subject, message);
-            return new CreatedAtActionResult(
-                "Please verify your email",
-                "User",
-                new { id = user.UserId },
-                user
-            );
+            return user;
         }
 
         public async Task<IActionResult> LoginUser(LoginDto loginDto)

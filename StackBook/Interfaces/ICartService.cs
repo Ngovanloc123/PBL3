@@ -6,6 +6,7 @@ namespace StackBook.Interfaces
 {
     public interface ICartService
     {
+        Task CreateCartAsync(Guid userId);
         Task AddToCartAsync(Guid userId, Guid bookId, int quantity);
         Task UpdateQuantityAsync(Guid userId, Guid bookId, int quantity);
         Task RemoveFromCartAsync(Guid userId, Guid bookId);

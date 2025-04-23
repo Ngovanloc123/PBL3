@@ -19,6 +19,27 @@ namespace StackBook.Services
             _cartRepository = cartRepository;
         }
 
+        public async Task CreateCartAsync(Guid userId)
+        {
+            try
+            {
+                var cart = await _cartRepository.GetByUserIdAsync(userId);
+                if (cart != null) throw new AppException("Giỏ hàng đã tồn tại.");
+
+                var newCart = new Cart
+                {
+                    CartId = Guid.NewGuid(),
+                    UserId = userId,
+                };
+
+                await _cartRepository.GetOrCreateByUserIdAsync(userId);
+                await _cartRepository.SaveAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new AppException($"Lỗi khi tạo giỏ hàng: {ex.Message}");
+            }
+        }
         public async Task AddToCartAsync(Guid userId, Guid bookId, int quantity)
         {
             try

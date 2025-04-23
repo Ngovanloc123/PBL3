@@ -31,7 +31,7 @@ namespace StackBook.Models
         //  2. Shipped
         //  3. Canceled
         //  4. Delivered
-        //  5. return
+        //  5. Return
         [Required]
         [Range(1, 5, ErrorMessage = "The type must be between 1 and 5.")]
         public int Status { get; set; } 

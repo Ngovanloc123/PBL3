@@ -9,13 +9,13 @@ namespace StackBook.Models
         public Guid CategoryId { get; set; } = Guid.NewGuid();
 
         [Required]
-        [MaxLength(30)]
+        [StringLength(100)]
         [Display(Name = "Category Name")]
         public string? CategoryName { get; set; }
         [DisplayName("Display Order")]
         [Range(1, 100, ErrorMessage = "Display Order must be between 1-100")]
         public int DisplayOrder { get; set; }
 
-        public virtual ICollection<BookCategory>? BookCategories { get; set; }
+        public virtual ICollection<Book> Books { get; set; } = new List<Book>();
     }
 }

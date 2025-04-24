@@ -1,12 +1,10 @@
-﻿@{
-    ViewData["CategoryName"] = ViewBag.CategoryName;
-}
-
-@if (ViewBag.CategoryId == null)
+﻿@if (ViewBag.Category == null)
 {
-    <partial name="_ExploreAllCategories" />
+    ViewData["Title"] = "Category";
+    <partial name="_ExploreAllCategories"/>
 }
 else
 {
-    <partial name="_SingleCategory" view-data="ViewData" />
+    ViewData["Title"] = @ViewData["CategoryName"];
+    <partial name="_SingleCategory" />
 }

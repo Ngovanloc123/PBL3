@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DocumentFormat.OpenXml.Drawing.Diagrams;
+using Microsoft.AspNetCore.Mvc;
 using StackBook.DAL;
 using StackBook.DAL.IRepository;
 using StackBook.Services;
+using StackBook.Models;
 using StackBook.ViewModels;
+using DocumentFormat.OpenXml.VariantTypes;
 
 namespace StackBook.Areas.Customer.Controllers
 {
@@ -24,41 +27,38 @@ namespace StackBook.Areas.Customer.Controllers
 
         public IActionResult Index(Guid? categoryId)
         {
-            ViewBag.CategoryId = categoryId;
-            ViewBag.CategoryName = _categoryService.GetNameById(categoryId);
 
             if (categoryId != null)
             {
-                var books = _unitOfWork.Category.GetBooksByCategoryId(categoryId);
-                return View(books);
+                var category = _unitOfWork.Category.Get(c => c.CategoryId == categoryId);
+                ViewBag.Category = category;
+                return View(category);
             }
             else
             {
-                var CategoriesWithBook = _unitOfWork.Category.GetCategoriesWithBooks();
-                return View(CategoriesWithBook);
+                var categories = _unitOfWork.Category.GetAll().ToList();
+                return View(categories);
             }
         }
 
         public IActionResult BookDetail(Guid? bookId)
         {
-            var allBooks = _unitOfWork.Book.GetAllBookWithAuthor();
-            var bookDetail = _unitOfWork.Book.GetBookWithAuthor(bookId);
+            var book = _unitOfWork.Book.Get(b => b.BookId == bookId);
 
-            var viewModel = new BookDetailPageViewModel
-            {
-                AllBooks = allBooks,
-                BookDetail = bookDetail
-            };
-
-            return View(viewModel);
+            return View(book);
         }
 
 
-        public IActionResult Search(String? s)
+        public IActionResult Search(string? s)
         {
+            if (string.IsNullOrWhiteSpace(s))
+            {
+                ViewBag.Query = string.Empty;
+                return View(new List<Book>());
+            }
+
             ViewBag.Query = s;
-            var allBooks = _unitOfWork.Book.GetAllBookWithAuthor();
-            var booksSearch = _searchService.SearchBooks(allBooks, s);
+            var booksSearch = _searchService.SearchBooks(s);
             return View(booksSearch);
         }
 

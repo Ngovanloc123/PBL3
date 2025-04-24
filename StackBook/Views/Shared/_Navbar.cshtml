@@ -27,14 +27,12 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
                         <a class="dropdown-item" asp-area="Admin" asp-controller="Book" asp-action="Index">Book</a>
-                        @* <a class="dropdown-item" href="#">Something else here</a> *@
-                        @* <div class="dropdown-divider"></div> *@
-                        @* <a class="dropdown-item" href="#">Separated link</a> *@
                     </div>
                 </li>
                 @* Giành cho Admin *@
             </ul>
 
+            
 
             @* ================= SEARCH INFOR ============== *@
             <form class="d-flex" method="get" asp-area="Customer" asp-controller="Category" asp-action="Search">
@@ -44,12 +42,22 @@
                 </button>
             </form>
 
-
             @* ================ ACCOUNT ================ *@
             <div class="d-grid gap-2 d-lg-flex mx-lg-2 my-sm-2">
                 <a asp-area="Site" asp-controller="Account" asp-action="Signin" class="btn btn-primary w-100 w-lg-auto" style="line-height: 1;">
                     <span class="fw-light">Hello, sign in</span><br />
                     <span class="fw-bold">Account</span>
+                </a>
+            </div>
+
+            @* ============ GIỎ HÀNG ============ *@
+            <div class="mx-2 my-2">
+                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-outline-light position-relative">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        @ViewBag.CartCount
+                        <span class="visually-hidden">items in cart</span>
+                    </span>
                 </a>
             </div>
         </div>

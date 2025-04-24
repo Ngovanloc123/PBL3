@@ -7,12 +7,11 @@ namespace StackBook.Models
     {
         [Key]
         public Guid CartId { get; set; } = Guid.NewGuid();
-        public virtual CartDetail? CartDetail { get; set; }
+        public virtual ICollection<CartDetail> CartDetails { get; set; }
 
         [Required]
         public Guid UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual User? User { get; set; }
-        public DateTime CreatedCart { get; set; }
     }
 }

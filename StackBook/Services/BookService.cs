@@ -19,14 +19,15 @@ namespace StackBook.Services
 
         public List<BookWithAuthors> GetListBookAuthorsByCategoryId(Guid categoryId)
         {
-            return _context.BookCategories
-                .Where(cb => cb.CategoryId == categoryId)
-                .Select(cb => new BookWithAuthors
-                {
-                    Book = cb.Book,
-                    Authors = _authorService.GetAuthorsByBookId(cb.BookId)
-                })
-                .ToList();
+            //return _context.BookCategories
+            //    .Where(cb => cb.CategoryId == categoryId)
+            //    .Select(cb => new BookWithAuthors
+            //    {
+            //        Book = cb.Book,
+            //        Authors = _authorService.GetAuthorsByBookId(cb.BookId)
+            //    })
+            //    .ToList();
+            return null;
         }
 
 

@@ -14,18 +14,23 @@ namespace StackBook.Models
          public virtual User? User { get; set; }
 
         [Required]
+        [StringLength(20, ErrorMessage = "Phone cannot exceed 20 characters.")]
         public string? Phone { get; set; }
 
         [Required]
-        public string? country { get; set; }
+        [StringLength(100, ErrorMessage = "Country cannot exceed 100 characters.")]
+        public string? Country { get; set; }
 
         [Required]
-        public string? city { get; set; }
+        [StringLength(100, ErrorMessage = "City cannot exceed 100 characters.")]
+        public string? City { get; set; }
 
         [Required]
-        public string? ward { get; set; }
+        [StringLength(100, ErrorMessage = "Ward cannot exceed 100 characters.")]
+        public string? Ward { get; set; }
 
         [Required]
+        [StringLength(255, ErrorMessage = "Address cannot exceed 255 characters.")]
         public string? Address { get; set; }
     }
 }

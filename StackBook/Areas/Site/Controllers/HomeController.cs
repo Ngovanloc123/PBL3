@@ -24,13 +24,13 @@ namespace StackBook.Areas.Site.Controllers
 
         public IActionResult Index()
         {
-            var dataHome = new DataHomeViewModel
+            var allBook_category = new AllBookCategoryViewModel
             {
-                BookWithAuthors = _UnitOfWork.Book.GetAllBookWithAuthor(),
                 Categories = _UnitOfWork.Category.GetAll().ToList(),
+                Books = _UnitOfWork.Book.GetAll().ToList()
             };
 
-            return View(dataHome);
+            return View(allBook_category);
         }
     }
 }

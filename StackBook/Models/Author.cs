@@ -6,9 +6,10 @@ namespace StackBook.Models
     {
         [Key]
         public Guid AuthorId { get; set; } = Guid.NewGuid();
-        public virtual ICollection<BookAuthor>? BookAuthors { get; set; }
+        public virtual ICollection<Book> Books { get; set; } = new List<Book>();
 
         [Required(ErrorMessage = "Author name is required!")]
-        public string? AuthorName { get; set; }
+        [StringLength(100)]
+        public string? AuthorName { get; set; } 
     }
 }

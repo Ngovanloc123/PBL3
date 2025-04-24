@@ -1,32 +1,33 @@
-﻿@model List<StackBook.ViewModels.BookWithAuthors>
+﻿@model List<StackBook.Models.Book>
 
 <div class="row g-5">
     @if (Model != null && Model.Any())
     {
-        foreach (var bookAuthors in Model)
+        foreach (var book in Model)
         {
             <div class="col-sm-6 col-md-4 col-lg-3">
-                <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@bookAuthors.Book?.BookId"
-                   class="book-card text-decoration-none text-black d-block h-100">
+                <a asp-area="Customer" asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@book?.BookId"
+                class="h-66 book-card text-decoration-none text-black d-block ">
 
-                    <img src="@bookAuthors.Book?.ImageURL" alt="@bookAuthors.Book?.BookTitle" class="img-fluid rounded-top" />
+                    <img src="@book?.ImageURL" alt="@book?.BookTitle" class="img-fluid" />
 
-                    <div class="book-title fw-bold mt-2">@bookAuthors.Book?.BookTitle</div>
+                    <div class="book book-title fw-bold mt-2">@book?.BookTitle</div>
 
                     <div class="book-rating text-warning mb-1">⭐ 4.4 (619)</div>
 
                     <div class="fs-8 text-muted">
-                        @if (bookAuthors.Authors != null && bookAuthors.Authors.Any())
+                        @if (book!.Authors != null && book.Authors.Any())
                         {
-                            foreach (var author in bookAuthors.Authors)
+                            foreach (var author in book.Authors)
                             {
                                 <div>@author.AuthorName</div>
                             }
                         }
                     </div>
 
+
                     <div class="book-price text-danger fw-semibold mt-1">
-                        $@bookAuthors.Book?.Price
+                        $@book?.Price
                     </div>
 
                 </a>

@@ -16,12 +16,6 @@ namespace StackBook.Services
             _unitOfWork = unitOfWork;
         }
 
-        public string GetNameById(Guid? categoryId)
-        {
-            var category = _unitOfWork.Category.Get(c => c.CategoryId == categoryId);
-            return category != null ? category.CategoryName : null;
-        }
-
 
     }
 }

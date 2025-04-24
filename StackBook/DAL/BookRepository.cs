@@ -5,7 +5,7 @@ using StackBook.DAL.IRepository;
 using StackBook.Data;
 using StackBook.Models;
 using StackBook.ViewModels;
-using static StackBook.ViewModels.BookWithAuthors;
+using StackBook.Repository;
 namespace StackBook.DAL
 {
     public class BookRepository : Repository<Book>, IBookRepository
@@ -14,199 +14,183 @@ namespace StackBook.DAL
         public BookRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
-        }
-        public IEnumerable<BookDetailViewModel> GetAllBookDetails()
+        } 
+
+        public void Update(Book entity)
         {
-            return _db.Books
-                .Include(b => b.BookAuthors!).ThenInclude(ba => ba.Author)
-                .Include(b => b.BookCategories!).ThenInclude(bc => bc.Category)
-                .Select(b => new BookDetailViewModel
-                {
-                    BookId = b.BookId,
-                    BookTitle = b.BookTitle,
-                    Description = b.Description,
-                    Price = b.Price,
-                    Stock = b.Stock,
-                    ImageURL = b.ImageURL,
-                    CreatedBook = b.CreatedBook,
-                    AuthorsName = b.BookAuthors!.Select(ba => ba.Author!.AuthorName!).ToList(),
-                    CategoryNames = b.BookCategories!.Select(bc => bc.Category!.CategoryName!).ToList()
-                })
-                .ToList();
+            _db.Books.Update(entity);
         }
-
-        public BookDetailViewModel? GetBookDetail(Guid? bookId)
-        {
-            return _db.Books
-                .Include(b => b.BookAuthors!).ThenInclude(ba => ba.Author)
-                .Include(b => b.BookCategories!).ThenInclude(bc => bc.Category)
-                .Where(b => b.BookId == bookId)
-                .Select(b => new BookDetailViewModel
-                {
-                    BookId = b.BookId,
-                    BookTitle = b.BookTitle,
-                    Description = b.Description,
-                    Price = b.Price,
-                    Stock = b.Stock,
-                    ImageURL = b.ImageURL,
-                    CreatedBook = b.CreatedBook,
-                    AuthorsName = b.BookAuthors!.Select(ba => ba.Author!.AuthorName!).ToList(),
-                    CategoryNames = b.BookCategories!.Select(bc => bc.Category!.CategoryName!).ToList()
-                })
-                .FirstOrDefault();
-        }
-
-        public List<BookWithAuthors> GetAllBookWithAuthor()
-        {
-            return _db.Books
-                .Include(b => b.BookAuthors!)
-                    .ThenInclude(ba => ba.Author)
-                .Select(b => new BookWithAuthors
-                {
-                    Book = b,
-                    Authors = b.BookAuthors!.Select(ba => ba.Author).ToList()
-                })
-                .ToList();
-        }
-
-        public BookWithAuthors? GetBookWithAuthor(Guid? bookId)
-        {
-            if (bookId == null)
-                return null;
-
-            var book = _db.Books
-                .Include(b => b.BookAuthors!)
-                    .ThenInclude(ba => ba.Author)
-                .FirstOrDefault(b => b.BookId == bookId);
-
-            if (book == null)
-                return null;
-
-            return new BookWithAuthors
-            {
-                Book = book,
-                Authors = book.BookAuthors!.Select(ba => ba.Author).ToList()
-            };
-        }
+        //public IEnumerable<BookDetailViewModel> GetAllBookDetails()
+        //{
+        //    return _db.Books
+        //        .Include(b => b.Authors)
+        //        .Include(b => b.Categories)
+        //        .Select(b => new BookDetailViewModel
+        //        {
+        //            BookId = b.BookId,
+        //            BookTitle = b.BookTitle,
+        //            Description = b.Description,
+        //            Price = b.Price,
+        //            Stock = b.Stock,
+        //            ImageURL = b.ImageURL,
+        //            CreatedBook = b.CreatedBook,
+        //            AuthorsName = b.Authors.Select(a => a.AuthorName!).ToList(),
+        //            CategoryNames = b.Categories.Select(c => c.CategoryName!).ToList()
+        //        })
+        //        .ToList();
+        //}
 
 
+        //public BookDetailViewModel? GetBookDetail(Guid? bookId)
+        //{
+        //    return _db.Books
+        //        .Include(b => b.Authors)
+        //        .Include(b => b.Categories!)
+        //        .Where(b => b.BookId == bookId)
+        //        .Select(b => new BookDetailViewModel
+        //        {
+        //            BookId = b.BookId,
+        //            BookTitle = b.BookTitle,
+        //            Description = b.Description,
+        //            Price = b.Price,
+        //            Stock = b.Stock,
+        //            ImageURL = b.ImageURL,
+        //            CreatedBook = b.CreatedBook,
+        //            AuthorsName = b.Authors.Select(a => a.AuthorName!).ToList(),
+        //            CategoryNames = b.Categories.Select(c => c.CategoryName!).ToList()
+        //        })
+        //        .FirstOrDefault();
+        //    return null;
+        //}
 
-        public void UpdateBookDetail(BookDetailViewModel bookUpdate)
-        {
-            var bookDetail = _db.Books
-                .Include(b => b.BookAuthors)
-                .Include(b => b.BookCategories)
-                .FirstOrDefault(b => b.BookId == bookUpdate.BookId);
+        //public List<BookWithAuthors> GetAllBookWithAuthor()
+        //{
+        //    return _db.Books
+        //        .Include(b => b.Authors!)
+        //        .Select(b => new BookWithAuthors
+        //        {
+        //            Book = b,
+        //            Authors = b.Authors.ToList()
+        //        })
+        //        .ToList();
+        //}
 
-            if (bookDetail == null) return;
+        //public BookWithAuthors? GetBookWithAuthor(Guid? bookId)
+        //{
+        //    if (bookId == null)
+        //        return null;
 
-            bookDetail.BookTitle = bookUpdate.BookTitle;
-            bookDetail.Description = bookUpdate.Description;
-            bookDetail.Price = bookUpdate.Price;
-            bookDetail.Stock = bookUpdate.Stock;
-            if (bookDetail.ImageURL != null)
-            {
-                bookDetail.ImageURL = bookUpdate.ImageURL;
-            }
-            bookDetail.CreatedBook = bookUpdate.CreatedBook;
+        //    var book = _db.Books
+        //        .Include(b => b.Authors)
+        //        .FirstOrDefault(b => b.BookId == bookId);
 
-            // Cập nhật tác giả (Xóa tác giả cũ, thêm tác giả mới)
-            bookDetail.BookAuthors!.Clear();
-            var authors = _db.Authors.Where(a => bookUpdate.AuthorsName!.Contains(a.AuthorName!)).ToList();
-            foreach (var author in authors)
-            {
-                bookDetail.BookAuthors.Add(new BookAuthor { BookId = bookDetail.BookId, AuthorId = author.AuthorId });
-            }
+        //    if (book == null)
+        //        return null;
 
-            // Cập nhật thể loại
-            bookDetail.BookCategories!.Clear();
-            var categorys = _db.Categories.Where(c => bookUpdate.CategoryNames!.Contains(c.CategoryName!)).ToList();
-            foreach (var category in categorys)
-            {
-                bookDetail.BookCategories.Add(new BookCategory { BookId = bookDetail.BookId, CategoryId = category.CategoryId });
-            }
+        //    return new BookWithAuthors
+        //    {
+        //        Book = book,
+        //        Authors = book.Authors!.ToList()
+        //    };
+        //}
 
-            _db.SaveChanges();
-        }
 
-        public void AddBookDetail(BookDetailViewModel bookAdd)
-        {
-            var newBook = new Book
-            {
-                BookId = Guid.NewGuid(),
-                BookTitle = bookAdd.BookTitle,
-                Description = bookAdd.Description,
-                Price = bookAdd.Price,
-                Stock = bookAdd.Stock,
-                ImageURL = bookAdd.ImageURL,
-                CreatedBook = bookAdd.CreatedBook
-            };
 
-            // Them sach vao DB  
-            _db.Books.Add(newBook);
-            _db.SaveChanges(); // Lưu để có id sử dụng cho bước tiếp theo  
+        //public void UpdateBookDetail(BookDetailViewModel bookUpdate)
+        //{
+        //    var bookDetail = _db.Books
+        //        .Include(b => b.Authors)
+        //        .Include(b => b.Categories)
+        //        .FirstOrDefault(b => b.BookId == bookUpdate.BookId);
 
-            // Đưa vào bản trung gian BookAuthor  
-            if (bookAdd.AuthorsName != null && bookAdd.AuthorsName.Any())
-            {
-                // Lấy danh sách Author có AuthorName trong bookAdd  
-                var authors = _db.Authors
-                    .Where(a => bookAdd.AuthorsName.Contains(a.AuthorName))
-                    .ToList();
+        //    if (bookDetail == null) return;
 
-                // Đưa dữ liệu vào bảng trung gian  
-                foreach (var author in authors)
-                {
-                    _db.BookAuthors.Add(new BookAuthor
-                    {
-                        BookId = newBook.BookId,
-                        AuthorId = author.AuthorId
-                    });
-                }
-            }
+        //    // Cập nhật thông tin cơ bản
+        //    bookDetail.BookTitle = bookUpdate.BookTitle;
+        //    bookDetail.Description = bookUpdate.Description;
+        //    bookDetail.Price = bookUpdate.Price;
+        //    bookDetail.Stock = bookUpdate.Stock;
+        //    if (bookUpdate.ImageURL != null)  // <-- Sửa: kiểm tra giá trị mới, không phải cũ
+        //    {
+        //        bookDetail.ImageURL = bookUpdate.ImageURL;
+        //    }
+        //    bookDetail.CreatedBook = bookUpdate.CreatedBook;
 
-            // Thêm vào bảng trung gian BookCategory
-            if (bookAdd.CategoryNames != null && bookAdd.CategoryNames.Any())
-            {
-                var categories = _db.Categories.Where(c => bookAdd.CategoryNames.Contains(c.CategoryName!)).ToList();
-                foreach (var categoryItem in categories) // Renamed 'category' to 'categoryItem' to avoid conflict  
-                {
-                    _db.BookCategories.Add(new BookCategory
-                    {
-                        BookId = newBook.BookId,
-                        CategoryId = categoryItem.CategoryId
-                    });
-                }
-            }
+        //    // Cập nhật tác giả
+        //    bookDetail.Authors.Clear(); // xóa danh sách cũ
+        //    var authors = _db.Authors.Where(a => bookUpdate.AuthorsName!.Contains(a.AuthorName!)).ToList();
+        //    foreach (var author in authors)
+        //    {
+        //        bookDetail.Authors.Add(author);
+        //    }
 
-            _db.SaveChanges();
-        }
+        //    // Cập nhật thể loại
+        //    bookDetail.Categories.Clear(); // xóa danh sách cũ
+        //    var categories = _db.Categories.Where(c => bookUpdate.CategoryNames!.Contains(c.CategoryName!)).ToList();
+        //    foreach (var category in categories)
+        //    {
+        //        bookDetail.Categories.Add(category);
+        //    }
 
-        public void DeleteBookDetail(BookDetailViewModel bookDelete)
-        {
-            // Xóa quan hệ giữa Book Và Category
-            var bookCategory = _db.BookCategories.Where(bc => bc.BookId == bookDelete.BookId).ToList();
-            if (bookCategory != null)
-            {
-                _db.BookCategories.RemoveRange(bookCategory);
-            }
+        //    //_db.SaveChanges();
+        //}
 
-            // Xóa quan hệ giữa Book và Author
-            var bookAuthors = _db.BookAuthors.Where(ba => ba.BookId == bookDelete.BookId).ToList();
-            if (bookAuthors.Any())
-            {
-                _db.BookAuthors.RemoveRange(bookAuthors);
-            }
 
-            _db.SaveChanges();
+        //public void AddBookDetail(BookDetailViewModel bookAdd)
+        //{
+        //    var newBook = new Book
+        //    {
+        //        BookId = Guid.NewGuid(),
+        //        BookTitle = bookAdd.BookTitle,
+        //        Description = bookAdd.Description,
+        //        Price = bookAdd.Price,
+        //        Stock = bookAdd.Stock,
+        //        ImageURL = bookAdd.ImageURL,
+        //        CreatedBook = bookAdd.CreatedBook
+        //    };
 
-            // Sách cần xóa
-            var bookDel = _db.Books.FirstOrDefault(b => b.BookId == bookDelete.BookId);
-            if (bookDel != null)
-            {
-                _db.Books.Remove(bookDel);
-            }
-        }
+        //    // Gán trực tiếp Authors nếu có
+        //    if (bookAdd.AuthorsName?.Any() == true)
+        //    {
+        //        newBook.Authors = _db.Authors
+        //            .Where(a => bookAdd.AuthorsName.Contains(a.AuthorName!))
+        //            .ToList();
+        //    }
+
+        //    // Gán trực tiếp Categories nếu có
+        //    if (bookAdd.CategoryNames?.Any() == true)
+        //    {
+        //        newBook.Categories = _db.Categories
+        //            .Where(c => bookAdd.CategoryNames.Contains(c.CategoryName!))
+        //            .ToList();
+        //    }
+
+        //    _db.Books.Add(newBook);
+        //    _db.SaveChanges();
+        //}
+
+
+        //public void DeleteBookDetail(BookDetailViewModel bookDelete)
+        //{
+        //    var book = _db.Books
+        //        .Include(b => b.Authors)
+        //        .Include(b => b.Categories)
+        //        .FirstOrDefault(b => b.BookId == bookDelete.BookId);
+
+        //    if (book == null) return;
+
+        //    // Xóa các liên kết với Authors và Categories (EF sẽ tự xử lý bảng trung gian)
+        //    book.Authors.Clear();
+        //    book.Categories.Clear();
+
+        //    // Lưu thay đổi trước khi xóa book để tránh ràng buộc khóa ngoại
+        //    _db.SaveChanges();
+
+        //    // Xóa book chính
+        //    _db.Books.Remove(book);
+        //    _db.SaveChanges();
+        //}
+
 
 
     }

@@ -186,6 +186,18 @@ footer .icon-footer {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     padding: 10px;
+    height: 100%;
+    transition: transform 0.3s;
+}
+
+.category-section .book-card {
+    flex: 0 0 auto;
+    text-align: center;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    height: auto;
     transition: transform 0.3s;
 }
 
@@ -194,17 +206,32 @@ footer .icon-footer {
     }
 
 .book-list .book-card img {
-    width: 100%;
-    height: 250px;
+    height: 200px;
     object-fit: contain;
 }
 
 .book-card img {
-    width: 100%;
+    height: 300px;
     object-fit: contain;
 }
 
-.book-title {
+.book-card .book-title {
+/*    text-align: center;*/
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px;
+}
+
+
+
+
+.book-title.book {
     text-align: center;
     font-size: 14px;
     font-weight: bold;
@@ -214,6 +241,7 @@ footer .icon-footer {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: auto;
 }
 
 .book-rating {

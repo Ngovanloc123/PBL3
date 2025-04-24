@@ -21,13 +21,6 @@ namespace StackBook.DAL
             dbSet.Add(entity);
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter)
-        {
-            IQueryable<T> query = dbSet;
-            return query.Where(filter).ToList();
-        }
-
-
         public T Get(Expression<Func<T, bool>> filter)
         {
             IQueryable<T> query = dbSet;

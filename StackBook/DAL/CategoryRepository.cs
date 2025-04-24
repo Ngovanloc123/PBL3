@@ -23,17 +23,18 @@ namespace StackBook.DAL
 
         public List<BookWithAuthors> GetBooksByCategoryId(Guid? categoryId)
         {
+            if (categoryId == null) return new List<BookWithAuthors>();
+
             var books = _db.Books
-                           .Include(b => b.BookCategories)
-                           .Include(b => b.BookAuthors)
-                               .ThenInclude(ba => ba.Author)
-                           .Where(b => b.BookCategories.Any(bc => bc.CategoryId == categoryId))
-                           .ToList();
+                .Include(b => b.Authors)
+                .Include(b => b.Categories)
+                .Where(b => b.Categories.Any(c => c.CategoryId == categoryId))
+                .ToList();
 
             var result = books.Select(b => new BookWithAuthors
             {
                 Book = b,
-                Authors = b.BookAuthors.Select(ba => ba.Author).ToList()
+                Authors = b.Authors.ToList()
             }).ToList();
 
             return result;
@@ -41,27 +42,27 @@ namespace StackBook.DAL
 
 
 
+
         public List<CategoryWithBooksViewModel> GetCategoriesWithBooks()
         {
-            return _db.Categories
-                .Include(c => c.BookCategories)
-                    .ThenInclude(cb => cb.Book)
-                        .ThenInclude(b => b.BookAuthors)
-                            .ThenInclude(ba => ba.Author)
-                .Select(c => new CategoryWithBooksViewModel
-                {
-                    CategoryId = c.CategoryId,
-                    CategoryName = c.CategoryName,
-                    // Sách và những tác gia của sách đó
-                    BookWithAuthors = c.BookCategories
-                        .Select(cb => new BookWithAuthors
-                        {
-                            Book = cb.Book,
-                            Authors = cb.Book.BookAuthors.Select(ba => ba.Author).ToList()
-                        })
-                        .ToList()
-                })
+            var categories = _db.Categories
+                .Include(c => c.Books)
+                    .ThenInclude(b => b.Authors)
                 .ToList();
+
+            var result = categories.Select(c => new CategoryWithBooksViewModel
+            {
+                CategoryId = c.CategoryId,
+                CategoryName = c.CategoryName,
+                BookWithAuthors = c.Books.Select(b => new BookWithAuthors
+                {
+                    Book = b,
+                    Authors = b.Authors.ToList()
+                }).ToList()
+            }).ToList();
+
+            return result;
         }
+
     }
 }

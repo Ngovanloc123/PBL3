@@ -29,9 +29,9 @@ namespace StackBook.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            List<BookDetailViewModel> BookDetail = _UnitOfWork.Book.GetAllBookDetails().ToList();
+            List<Book> books = _UnitOfWork.Book.GetAll().ToList();
             
-            return View(BookDetail);
+            return View(books);
         }
 
         public IActionResult Create()
@@ -60,7 +60,7 @@ namespace StackBook.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(BookDetailViewModel bookCreate, IFormFile? file)
+        public IActionResult Create(Book bookCreate, IFormFile? file)
         {
 
             if (ModelState.IsValid)
@@ -92,7 +92,7 @@ namespace StackBook.Areas.Admin.Controllers
 
                 }    
 
-                _UnitOfWork.Book.AddBookDetail(bookCreate);
+                _UnitOfWork.Book.Add(bookCreate);
                 _UnitOfWork.Save();
                 TempData["success"] = "Book created successfully";
                 return RedirectToAction("Index");
@@ -100,14 +100,14 @@ namespace StackBook.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult Edit(Guid? BookId)
+        public IActionResult Edit(Guid? bookId)
         {
-            if (BookId == null)
+            if (bookId == null)
             {
                 return NotFound();
             }
-            BookDetailViewModel? BookDetail = _UnitOfWork.Book.GetBookDetail(BookId);
-            if (BookDetail == null)
+            Book? book = _UnitOfWork.Book.Get(b => b.BookId == bookId);
+            if (book == null)
             {
                 return NotFound();
             }
@@ -131,11 +131,11 @@ namespace StackBook.Areas.Admin.Controllers
 
             ViewBag.AuthorList = AuthorList;
 
-            return View(BookDetail);
+            return View(book);
         }
 
         [HttpPost]
-        public IActionResult Edit(BookDetailViewModel bookEdit, IFormFile? file)
+        public IActionResult Edit(Book bookEdit, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
@@ -165,7 +165,7 @@ namespace StackBook.Areas.Admin.Controllers
                     bookEdit.ImageURL = @"/images/Books/" + fileName;
 
                 }
-                _UnitOfWork.Book.UpdateBookDetail(bookEdit);
+                _UnitOfWork.Book.Update(bookEdit);
                 _UnitOfWork.Save();
 
                 TempData["success"] = "Book edited successfully";
@@ -195,14 +195,14 @@ namespace StackBook.Areas.Admin.Controllers
         //}
 
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePOST(Guid? BookId)
+        public IActionResult DeletePOST(Guid? bookId)
         {
-            BookDetailViewModel? bookDelete = _UnitOfWork.Book.GetBookDetail(BookId);
-            if (bookDelete == null)
+            Book? bookDel = _UnitOfWork.Book.Get(b => b.BookId == bookId);
+            if (bookDel == null)
             {
                 return NotFound();
             }
-            _UnitOfWork.Book.DeleteBookDetail(bookDelete);
+            _UnitOfWork.Book.Delete(bookDel);
             _UnitOfWork.Save();
             TempData["success"] = "Book deleted successfully";
             return RedirectToAction("Index");

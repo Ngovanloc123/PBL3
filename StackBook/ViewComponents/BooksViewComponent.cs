@@ -6,9 +6,9 @@ namespace StackBook.ViewComponents
 {
     public class BooksViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke(List<BookWithAuthors> bookWithAuthor)
+        public IViewComponentResult Invoke(List<Book> books)
         {
-            return View(bookWithAuthor);
+            return View(books);
         }
     }
 }

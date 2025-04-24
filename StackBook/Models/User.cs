@@ -18,15 +18,11 @@ namespace StackBook.Models
         [StringLength(100, ErrorMessage = "Email cannot exceed 100 characters.")]
         [Required(ErrorMessage = "Email is required.")]
         public string? Email { get; set; }
-
-        [MinLength(8, ErrorMessage = "Password must be at least 8 characters.")]
-        [StringLength(100, ErrorMessage = "Password cannot exceed 30 characters.")]
-        [Required(ErrorMessage = "Password is required.")]
         public string? Password { get; set; }
         [Required]
         public bool Role { get; set; }
         public DateTime CreatedUser { get; set; }
-
+        public string? GoogleId { get; set; }
         public string? ResetPasswordToken { get; set; }
         public DateTime? ResetTokenExpiry { get; set; }
 

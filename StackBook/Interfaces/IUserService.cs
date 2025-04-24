@@ -6,6 +6,7 @@ using StackBook.Utils;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace StackBook.Interfaces
 {
@@ -13,6 +14,8 @@ namespace StackBook.Interfaces
     {
         Task<ServiceResponse<User>> RegisterUser(RegisterDto registerDto);
         Task<ServiceResponse<User>> LoginUser(LoginDto loginDto);
+        Task<ServiceResponse<string>> RedirectGoogleConsentScreenAsync();
+        Task<ServiceResponse<User>> LoginWithGoogle(string code);
         Task<ServiceResponse<User>> UpdateUser(UpdateDto updateDto);
         Task<ServiceResponse<User>> DeleteUser(Guid userId);
         Task<ServiceResponse<List<User>>> GetAllUsers();

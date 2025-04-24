@@ -1,15 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using StackBook.DTOs;
 using StackBook.Services;
+using StackBook.Models;
 using System.Threading.Tasks;
 using StackBook.Middleware;
 using Microsoft.AspNetCore.Authorization;
+using StackBook.ViewModels;
 
 namespace StackBook.Controllers
 {
     [Route("auth/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : Controller
     {
         private readonly UserService _userService;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -26,17 +28,17 @@ namespace StackBook.Controllers
             try
             {
                 if (registerDto == null)
-                    return BadRequest("Invalid data.");
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
 
                 var result = await _userService.RegisterUser(registerDto);
                 if (result == null)
-                    return BadRequest("Registration failed.");
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Registration failed." });
 
-                return Ok(result);
+                return RedirectToAction("Login");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal error: {ex.Message}");
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }
 
@@ -46,24 +48,28 @@ namespace StackBook.Controllers
             try
             {
                 if (loginDto == null)
-                    return BadRequest("Invalid data.");
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
 
                 var result = await _userService.LoginUser(loginDto);
-                return Ok(result);
+                if (result == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed." });
+
+                return RedirectToAction("Profile", new { id = result.Data?.UserId, token = result.Token });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal error: {ex.Message}");
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }
 
         [HttpPut("{userId}")]
+        [Authorize]
         public async Task<IActionResult> UpdateUser(Guid userId, [FromBody] UpdateDto updateDto)
         {
             try
             {
                 if (updateDto == null)
-                    return BadRequest("Invalid data.");
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
 
                 var currentUserIdClaims = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
                 if (currentUserIdClaims == null)
@@ -72,26 +78,26 @@ namespace StackBook.Controllers
                 var currentUserId = Guid.Parse(currentUserIdClaims);
 
                 if (userId != currentUserId)
-                    return BadRequest("You can only update your own profile.");
+                    return View("Error", new ErrorViewModel { ErrorMessage = "You can only update your own profile." });
 
                 updateDto.UserId = userId;
                 var result = await _userService.UpdateUser(updateDto);
 
-                return Ok(result);
+                return RedirectToAction("Profile", new { id = result.Data?.UserId, token = result.Token });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal error: {ex.Message}");
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }
-
+        [Authorize]
         [HttpPut("password/{userId}")]
         public async Task<IActionResult> UpdatePassword(Guid userId, [FromBody] UpdatePasswordDto updatePasswordDto)
         {
             try
             {
                 if (updatePasswordDto == null)
-                    return BadRequest("Invalid data.");
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
 
                 var currentUserIdClaims = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
                 if (currentUserIdClaims == null)
@@ -99,63 +105,54 @@ namespace StackBook.Controllers
 
                 var currentUserId = Guid.Parse(currentUserIdClaims);
                 if (userId != currentUserId)
-                    return BadRequest("You can only update your own password.");
+                    return View("Error", new ErrorViewModel { ErrorMessage = "You can only update your own password." });
 
                 updatePasswordDto.UserId = userId;
                 var result = await _userService.UpdatePassword(updatePasswordDto);
 
-                return Ok(result);
+                return RedirectToAction("Profile", new { id = result.Data?.UserId, token = result.Token });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal error: {ex.Message}");
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }
-
-        [HttpDelete("{userId}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteUser(Guid userId)
+        [HttpGet("google-login")]
+        public async Task<IActionResult> LoginWithGoogle([FromBody] string code)
         {
             try
             {
-                var currentUserIdClaims = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
-                if (currentUserIdClaims == null)
-                    return Unauthorized("User not authenticated.");
+                if (string.IsNullOrEmpty(code))
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
 
-                var currentUserId = Guid.Parse(currentUserIdClaims);
-                if (userId != currentUserId)
-                    return BadRequest("You can only delete your own account.");
-
-                var result = await _userService.DeleteUser(userId);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal error: {ex.Message}");
-            }
-        }
-
-        [HttpDelete("self")]
-        [Authorize(Roles = "User, Admin")]
-        public async Task<IActionResult> DeleteSelf()
-        {
-            try
-            {
-                var userIdStr = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
-                if (string.IsNullOrEmpty(userIdStr))
-                    return Unauthorized("User not authenticated.");
-
-                var userId = Guid.Parse(userIdStr);
-                var result = await _userService.DeleteUser(userId);
-
+                var result = await _userService.LoginWithGoogle(code);
                 if (result == null)
-                    return NotFound("User not found.");
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed." });
 
-                return Ok("Deleted successfully.");
+                return RedirectToAction("Profile", new { id = result.Data?.UserId, token = result.Token });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal error: {ex.Message}");
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+            }
+        }
+        [HttpGet("google-callback")]
+        public async Task<IActionResult> GoogleCallback([FromQuery] string code)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(code))
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
+
+                var result = await _userService.LoginWithGoogle(code);
+                if (result == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed." });
+
+                return RedirectToAction("Profile", new { id = result.Data?.UserId, token = result.Token });
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }
     }

@@ -5,6 +5,7 @@ namespace StackBook.Services
         public bool Success { get; set; }
         public string? Message { get; set; }
         public T? Data { get; set; }
+        public string? Token { get; set; } // optional
         public int StatusCode { get; set; } = 200; // thêm HTTP code nếu muốn
         public Dictionary<string, string[]>? Errors { get; set; } // optional
 

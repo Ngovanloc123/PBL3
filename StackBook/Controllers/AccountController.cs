@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using StackBook.Middleware;
 using Microsoft.AspNetCore.Authorization;
 using StackBook.ViewModels;
+using StackBook.Interfaces;
 
 namespace StackBook.Controllers
 {
@@ -13,10 +14,10 @@ namespace StackBook.Controllers
     [ApiController]
     public class AccountController : Controller
     {
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AccountController(UserService userService, IHttpContextAccessor httpContextAccessor)
+        public AccountController(IUserService userService, IHttpContextAccessor httpContextAccessor)
         {
             _userService = userService;
             _httpContextAccessor = httpContextAccessor;

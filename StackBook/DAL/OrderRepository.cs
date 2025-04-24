@@ -77,7 +77,7 @@ namespace StackBook.DAL
                 {
                     OrderDetailId = od.OrderDetailId,
                     BookId = od.BookId,
-                    BookTitle = od.Book.BookTitle,
+                    BookTitle = od.Book.BookTitle.ToString(),
                     Quantity = od.Quantity,
                     Price = od.Book.Price,
                     TotalPrice = od.Quantity * od.Book.Price

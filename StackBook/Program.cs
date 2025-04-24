@@ -9,8 +9,11 @@ using StackBook.Utils;
 using Microsoft.AspNetCore.Builder;
 using StackBook.Configurations;
 using StackBook.DAL.Repository;
+using StackBook.Interfaces;
+using StackBook.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpContextAccessor();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -18,6 +21,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<BookService>();
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<AuthorService>();
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+builder.Services.AddScoped<OAuthGoogleService>();
+builder.Services.AddScoped<JwtUtils>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<AccountController>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

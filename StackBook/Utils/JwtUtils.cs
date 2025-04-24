@@ -5,6 +5,7 @@ using System.Security.Claims;
 using DocumentFormat.OpenXml.VariantTypes;
 using Microsoft.IdentityModel.Tokens;
 using StackBook.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace StackBook.Utils
 {
@@ -13,10 +14,10 @@ namespace StackBook.Utils
         private readonly string _secretKey;
         private readonly int _tokenExpiryDays;
 
-        public JwtUtils(string secretKey)
+        public JwtUtils(IConfiguration configuration)
         {
-            _secretKey = secretKey;
-            _tokenExpiryDays = 1;
+            _secretKey = configuration["Jwt:SecretKey"] ?? throw new ArgumentNullException("Secret key is not configured.");
+            _tokenExpiryDays = int.TryParse(configuration["Jwt:TokenExpiryDays"], out var expiryDays) ? expiryDays : 1;
         }
         private bool IsJwtWithValidSecurityAlgorithm(SecurityToken validatedToken)
         {

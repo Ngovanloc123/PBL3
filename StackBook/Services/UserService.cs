@@ -6,6 +6,7 @@ using StackBook.DTOs;
 using StackBook.Models;
 using StackBook.Services;
 using StackBook.Interfaces;
+using StackBook.DAL.IRepository;
 using StackBook.Utils;
 using System;
 using System.Collections.Generic;
@@ -14,16 +15,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using StackBook.Configurations;
 using DocumentFormat.OpenXml.Office.CoverPageProps;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using Microsoft.AspNetCore.Identity;
+
 namespace StackBook.Services
 {
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _context;
         private readonly EMailUtils _emailUtils;
-        public UserService(ApplicationDbContext context, EMailUtils eMailUtils)
+        private readonly OAuthGoogleService _oauthGoogleService;
+        private readonly JwtUtils _jwtUtils;
+        private readonly IUserRepository _userRepository;
+        public UserService(ApplicationDbContext context, EMailUtils eMailUtils, OAuthGoogleService oauthGoogleService, IUserRepository userRepository, JwtUtils jwtUtils)
         {
             _context = context;
             _emailUtils = eMailUtils;
+            _oauthGoogleService = oauthGoogleService;
+            _userRepository = userRepository;
+            _jwtUtils = jwtUtils;
         }
         public async Task<ServiceResponse<User>> RegisterUser(RegisterDto registerDto)
         {
@@ -38,7 +48,7 @@ namespace StackBook.Services
                 return response;
             }
 
-            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == registerDto.Email);
+            var existingUser = await _userRepository.GetUserByEmailAsync(registerDto.Email);
             if (existingUser != null)
             {
                 response.Success = false;
@@ -92,7 +102,7 @@ namespace StackBook.Services
                 return response;
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginDto.Email);
+            var user = await _userRepository.GetUserByEmailAsync(loginDto.Email);
             if (user == null || string.IsNullOrEmpty(user.Password) || !PasswordHashedUtils.VerifyPassword(loginDto.Password, user.Password))
             {
                 response.Success = false;
@@ -100,8 +110,11 @@ namespace StackBook.Services
                 return response;
             }
 
+            var token = _jwtUtils.GenerateToken(user);
             response.Success = true;
             response.Data = user;
+            response.Token = token;
+            response.StatusCode = StatusCodes.Status200OK;
             response.Message = "Login successful";
             return response;
         }
@@ -109,7 +122,7 @@ namespace StackBook.Services
         {
             var response = new ServiceResponse<User>();
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == updateDto.UserId);
+            var user = await _userRepository.GetByIdAsync(updateDto.UserId);
             if (user == null)
             {
                 response.Success = false;
@@ -120,8 +133,7 @@ namespace StackBook.Services
             // Kiểm tra email đã tồn tại chưa
             if (!string.IsNullOrEmpty(updateDto.Email))
             {
-                var emailOwner = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Email == updateDto.Email && u.UserId != updateDto.UserId);
+                var emailOwner = await _context.Users.FirstOrDefaultAsync(u => u.Email == updateDto.Email && u.UserId != updateDto.UserId);
 
                 if (emailOwner != null)
                 {
@@ -562,6 +574,82 @@ namespace StackBook.Services
 
             response.Data = "Email verified successfully";
             response.Success = true;
+            return response;
+        }
+        public async Task<ServiceResponse<string>> RedirectGoogleConsentScreenAsync()
+        {
+            try
+            {
+                var response = new ServiceResponse<string>();
+                var url = await _oauthGoogleService.GetRedirectConsentScreenURL();
+                if (string.IsNullOrEmpty(url))
+                {
+                    response.Success = false;
+                    response.Message = "Failed to get redirect URL";
+                    response.StatusCode = StatusCodes.Status500InternalServerError;
+                    response.Data = null;
+                    return response;
+                }
+                response.Success = true;
+                response.Message = "Login Sucessfully";
+                response.Data = url;
+                response.StatusCode = StatusCodes.Status200OK;
+                return response;
+            }
+            catch
+            {
+                return new ServiceResponse<string>
+                {
+                    Success = false,
+                    Message = "Error occurred while redirecting to Google consent screen",
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                    Data = null
+                };
+            }
+        }
+        public async Task<ServiceResponse<User>> LoginWithGoogle(string code)
+        {
+            var response = new ServiceResponse<User>();
+
+            try
+            {
+                var accessToken = await _oauthGoogleService.GetAccessTokenAsync(code);
+                var (email, name, googleId) = await _oauthGoogleService.GetGoogleUserProfileAsync(accessToken);
+
+                var user = await _userRepository.GetUserByGoogleIdAsync(googleId);
+                if (user == null)
+                {
+                    user = await _userRepository.GetUserByEmailAsync(email);
+                    if (user == null)
+                    {
+                        user = new User
+                        {
+                            UserId = Guid.NewGuid(),
+                            Email = email,
+                            FullName = name,
+                            GoogleId = googleId,
+                            CreatedUser = DateTime.UtcNow,
+                            IsEmailVerified = true,
+                            Role = false
+                        };
+                        await _userRepository.CreateGoogleUserAsync(user);
+                    }
+                    else
+                    {
+                        user.GoogleId = googleId;
+                        await _userRepository.UpdateAsync(user);
+                    }
+                }
+
+                response.Success = true;
+                response.Data = user;
+                response.Message = "Login with Google successful";
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = $"Error during Google login: {ex.Message}";
+            }
             return response;
         }
     }

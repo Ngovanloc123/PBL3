@@ -1,17 +1,22 @@
+using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using StackBook.Models;
-using StackBook.Services;
 
 namespace StackBook.DAL.IRepository
 {
-    public interface IUserRepository<T> where T : class
+    public interface IUserRepository
     {
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<T> GetByIdAsync(Guid id);
-        Task<T> CreateAsync(T entity);
-        Task<T> UpdateAsync(T entity);
+        Task<User> CreateAsync(User entity);
+        Task<IEnumerable<User>> GetAllAsync();
+        Task<User> GetByIdAsync(Guid id);
+        Task<User> UpdateAsync(User entity);
         Task DeleteAsync(Guid id);
-        Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
+        Task<IEnumerable<User>> FindAsync(Expression<Func<User, bool>> predicate);
         Task SaveAsync();
+        Task<User?> GetUserByGoogleIdAsync(string googleId);
+        Task<User?> GetUserByEmailAsync(string email);
+        Task CreateGoogleUserAsync(User user);
     }
 }

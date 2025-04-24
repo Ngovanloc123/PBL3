@@ -11,7 +11,7 @@ using StackBook.DAL.IRepository;
 
 namespace StackBook.DAL
 {
-    public class UserRepository : IUserRepository<User>
+    public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
         public UserRepository(ApplicationDbContext context)
@@ -50,6 +50,19 @@ namespace StackBook.DAL
         }
         public async Task SaveAsync()
         {
+            await _context.SaveChangesAsync();
+        }
+        public async Task<User?> GetUserByGoogleIdAsync(string googleId)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.GoogleId == googleId);
+        }
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
+        public async Task CreateGoogleUserAsync(User user)
+        {
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
         }
     }

@@ -1,20 +1,20 @@
-﻿using StackBook.Data;
-using StackBook.DAL.IRepository;
-using StackBook.DAL;
-namespace StackBook.DAL.Repository
+﻿using StackBook.DAL.IRepository;
+using StackBook.Data;
+
+namespace StackBook.DAL
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _db;
-        public ICategoryRepository Category {  get; private set; }
+        public ICategoryRepository Category { get; private set; }
         public IAuthorRepository Author { get; private set; }
-        public IBookDetailRepository BookDetail {  get; private set; }
+        public IBookRepository Book { get; private set; }
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
             Category = new CategoryRepository(_db);
             Author = new AuthorRepository(_db);
-            BookDetail = new BookDetailRepository(_db);
+            Book = new BookRepository(_db);
         }
 
         public void Save()

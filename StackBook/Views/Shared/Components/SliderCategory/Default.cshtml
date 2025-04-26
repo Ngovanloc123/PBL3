@@ -1,80 +1,26 @@
-﻿
-
+﻿@model List<StackBook.Models.Category>
 
 <h2 class="pb-2">Featured Books</h2>
 @* ================== SLIDER BOOKS ======================== *@
 <div class="container swiper">
     <div class="card-wrapper">
         <ul class="card-list swiper-wrapper">
-            <li class="card-item swiper-slide">
-                <a href="" class="card-link">
-                    <img src="~/images/books/Literature and Fiction.webp" alt="Cart Image" class="card-image" />
-                    <p class="category">Literature & Fiction</p>
-                    <h2 class="card-title mt-4">Once you know where the cracks are, they’re easier to break</h2>
-                    <button class="card-button fa-solid fa-arrow-right"></button>
-                </a>
-            </li>
-            <li class="card-item swiper-slide">
-                <a href="" class="card-link">
-                    <img src="~/images/books/Science and Math.webp" alt="Cart Image" class="card-image" />
-                    <p class="category">Science & Math</p>
-                    <h2 class="card-title mt-4">The greatest crisis that America faces today is the control of information</h2>
-                    <button class="card-button fa-solid fa-arrow-right"></button>
-                </a>
-            </li>
-            <li class="card-item swiper-slide">
-                <a href="" class="card-link">
-                    <img src="~/images/books/Mystery, Thriller and Suspense.webp" alt="Cart Image" class="card-image" />
-                    <p class="category">Mystery, Thriller & Suspense</p>
-                    <h2 class="card-title mt-4">The financial system is only as strong as the trust placed in it, and in 2008, that trust was shattered</h2>
-                    <button class="card-button fa-solid fa-arrow-right"></button>
-                </a>
-            </li>
-            <li class="card-item swiper-slide">
-                <a href="" class="card-link">
-                    <img src="~/images/books/Rich Dad Poor Dad - Business and Money.webp" alt="Cart Image" class="card-image" />
-                    <p class="category">Business & Money</p>
-                    <h2 class="card-title mt-4">The poor and the middle class work for money. The rich have money work for them</h2>
-                    <button class="card-button fa-solid fa-arrow-right"></button>
-                </a>
-            </li>
-            <li class="card-item swiper-slide">
-                <a href="" class="card-link">
-                    <img src="~/images/books/Computers and Technology.webp" alt="Cart Image" class="card-image" />
-                    <p class="category">Computers & Technology</p>
-                    <h2 class="card-title mt-4">
-                        Big vision and perseverance in overcoming challenges
-                    </h2>
-                    <button class="card-button fa-solid fa-arrow-right"></button>
-                </a>
-            </li>
-            <li class="card-item swiper-slide">
-                <a href="" class="card-link">
-                    <img src="~/images/books/Atomic_Habits- Self-help.webp" alt="Cart Image" class="card-image" />
-                    <p class="category">Self-help</p>
-                    <h2 class="card-title mt-4">Tiny Changes, Remarkable Results</h2>
-                    <button class="card-button fa-solid fa-arrow-right"></button>
-                </a>
-            </li>
-            <li class="card-item swiper-slide">
-                <a href="" class="card-link">
-                    <img src="~/images/books/Health, Fitness and Dieting.webp" alt="Cart Image" class="card-image" />
-                    <p class="category">Health, Fitness & Dieting</p>
-                    <h2 class="card-title mt-4">
-                        The impact of social media on youth mental health
-                    </h2>
-                    <button class="card-button fa-solid fa-arrow-right"></button>
-                </a>
-            </li>
+            @foreach (var category in Model)
+            {
+                <li class="card-item swiper-slide">
+                    <a asp-area="Customer"
+                       asp-controller="Category"
+                       asp-action="Index"
+                       asp-route-CategoryId="@category.CategoryId"
+                       class="card-link">
 
-            <li class="card-item swiper-slide">
-                <a href="" class="card-link">
-                    <img src="~/images/books/Science Fiction and Fantasy.webp" alt="Cart Image" class="card-image" />
-                    <p class="category">Science Fiction & Fantasy</p>
-                    <h2 class="card-title mt-4">Human beings have a remarkable ability to accept the abnormal and make it normal</h2>
-                    <button class="card-button fa-solid fa-arrow-right"></button>
-                </a>
-            </li>
+                        <img src="~/images/books/@(Model.IndexOf(category) + 1).webp" alt="Cart Image" class="card-image" />
+                        <p class="category">@category.CategoryName</p>
+                        <h2 class="card-title mt-4">Some default description or quote here</h2>
+                        <button class="card-button fa-solid fa-arrow-right"></button>
+                    </a>
+                </li>
+            }
         </ul>
 
         <div class="swiper-pagination"></div>

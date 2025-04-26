@@ -22,7 +22,7 @@ namespace StackBook.DAL
         public async Task<Cart?> GetByUserIdAsync(Guid userId)
         {
             return await _db.Carts
-                .Include(c => c.CartBooks)
+                .Include(c => c.CartDetails)
                 .ThenInclude(cb => cb.Book)
                 .FirstOrDefaultAsync(c => c.UserId == userId);
         }
@@ -36,7 +36,7 @@ namespace StackBook.DAL
                 {
                     UserId = userId,
                     CartId = Guid.NewGuid(),
-                    CartBooks = new List<CartBook>()
+                    CartDetails = new List<CartDetail>()
                 };
                 _db.Carts.Add(cart);
                 await _db.SaveChangesAsync();
@@ -44,31 +44,30 @@ namespace StackBook.DAL
             return cart;
         }
 
-        public async Task<CartBook?> GetCartBookAsync(Guid cartId, Guid bookId)
+        public async Task<CartDetail?> GetCartBookAsync(Guid cartId, Guid bookId)
         {
-            return await _db.CartBooks.FirstOrDefaultAsync(cb => cb.CartId == cartId && cb.BookId == bookId);
+            return await _db.CartDetails.FirstOrDefaultAsync(cb => cb.CartId == cartId && cb.BookId == bookId);
         }
 
-        public async Task<List<CartBook>> GetCartBooksAsync(Guid cartId)
+        public async Task<List<CartDetail>> GetCartBooksAsync(Guid cartId)
         {
-            return await _db.CartBooks.Where(cb => cb.CartId == cartId).ToListAsync();
+            return await _db.CartDetails.Where(cb => cb.CartId == cartId).ToListAsync();
         }
 
-        public Task AddCartBookAsync(CartBook cartBook)
+        public Task AddCartBookAsync(CartDetail cartDetail)
         {
-            _db.CartBooks.Add(cartBook);
+            _db.CartDetails.Add(cartDetail);
+            return Task.CompletedTask;
+        }
+        public Task UpdateCartBookAsync(CartDetail cartDetail)
+        {
+            _db.CartDetails.Update(cartDetail);
             return Task.CompletedTask;
         }
 
-        public Task UpdateCartBookAsync(CartBook cartBook)
+        public Task RemoveCartBookAsync(CartDetail cartDetail)
         {
-            _db.CartBooks.Update(cartBook);
-            return Task.CompletedTask;
-        }
-
-        public Task RemoveCartBookAsync(CartBook cartBook)
-        {
-            _db.CartBooks.Remove(cartBook);
+            _db.CartDetails.Remove(cartDetail);
             return Task.CompletedTask;
         }
 

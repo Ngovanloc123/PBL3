@@ -1,4 +1,8 @@
-﻿<head>
+﻿@{
+	ViewData["Title"] = "Sign In";
+}
+
+<head>
 	<link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
 </head>
 
@@ -25,7 +29,7 @@
 			</div>
 			<button type="submit">Login</button>
 			<div class="register-link">
-				<p>Don't have an account?<a asp-controller="Account" asp-action="Register">Register</a></p>
+					<p>Don't have an account?<a asp-area ="Site" asp-controller="Account" asp-action="Register">Register</a></p>
 			</div>
 		</form>
 	</div>

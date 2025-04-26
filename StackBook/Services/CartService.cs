@@ -54,7 +54,7 @@ namespace StackBook.Services
                 }
                 else
                 {
-                    var newCartBook = new CartBook
+                    var newCartBook = new CartDetail
                     {
                         CartId = cart.CartId,
                         BookId = bookId,
@@ -137,11 +137,11 @@ namespace StackBook.Services
             try
             {
                 var cart = await _cartRepository.GetByUserIdAsync(userId);
-                if (cart == null || cart.CartBooks == null)
+                if (cart == null || cart.CartDetails == null)
                     return new List<BookInCartDto>();
 
                 var result = new List<BookInCartDto>();
-                foreach (var cartBook in cart.CartBooks)
+                foreach (var cartBook in cart.CartDetails)
                 {
                     if (cartBook.Book != null)
                     {
@@ -168,11 +168,11 @@ namespace StackBook.Services
                 try
                 {
                     var cart = await _cartRepository.GetByUserIdAsync(userId);
-                    if (cart == null || cart.CartBooks == null)
+                    if (cart == null || cart.CartDetails == null)
                         return 0;
     
                     double totalPrice = 0;
-                    foreach (var cartBook in cart.CartBooks)
+                    foreach (var cartBook in cart.CartDetails)
                     {
                         if (cartBook.Book != null)
                         {

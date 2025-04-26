@@ -43,6 +43,6 @@ namespace StackBook.ViewModels
 
         [Required]
         [Display(Name = "Category")]
-        public string? CategoryName { get; set; }
+        public List<string> CategoryNames { get; set; }
     }
 }

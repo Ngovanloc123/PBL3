@@ -22,10 +22,8 @@ namespace StackBook.Data
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<ReturnOrder> ReturnOrders { get; set; }
-        public DbSet<BookAuthor> BookAuthors { get; set; }
-        public DbSet<BookCategory> BookCategories { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-        public DbSet<CartBook> CartBooks { get; set; }
+        public DbSet<CartDetail> CartDetails { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -87,47 +85,19 @@ namespace StackBook.Data
                 .WithMany(o => o.OrderDetails)
                 .HasForeignKey(od => od.OrderId)
                 .OnDelete(DeleteBehavior.Cascade); // Cho phép cascade vì là chi tiết đơn hàng
-
-            // Thiết lập quan hệ n-n giữa Book và Author
-            modelBuilder.Entity<BookAuthor>()
-                .HasKey(ba => new { ba.BookId, ba.AuthorId });
-
-            modelBuilder.Entity<BookAuthor>()
-                .HasOne(ba => ba.Book)
-                .WithMany(b => b.BookAuthors)
-                .HasForeignKey(ba => ba.BookId);
-
-            modelBuilder.Entity<BookAuthor>()
-                .HasOne(ba => ba.Author)
-                .WithMany(a => a.BookAuthors)
-                .HasForeignKey(ba => ba.AuthorId);
-
-            // Thiết lập quan hệ n-n giữa Book và Category
-            modelBuilder.Entity<BookCategory>()
-                .HasKey(bc => new { bc.BookId, bc.CategoryId });
-
-            modelBuilder.Entity<BookCategory>()
-                .HasOne(bc => bc.Book)
-                .WithMany(b => b.BookCategories)
-                .HasForeignKey(bc => bc.BookId);
-
-            modelBuilder.Entity<BookCategory>()
-                .HasOne(bc => bc.Category)
-                .WithMany(c => c.BookCategories)
-                .HasForeignKey(bc => bc.CategoryId);
-
+          
             // Thiết lập quan hệ n-n giữa Book và Cart
-            modelBuilder.Entity<CartBook>()
+            modelBuilder.Entity<CartDetail>()
                 .HasKey(cb => new { cb.CartId, cb.BookId });
 
-            modelBuilder.Entity<CartBook>()
+            modelBuilder.Entity<CartDetail>()
                 .HasOne(cb => cb.Cart)
-                .WithMany(cb => cb.CartBooks)
+                .WithMany(cb => cb.CartDetails)
                 .HasForeignKey(cb => cb.CartId);
 
-            modelBuilder.Entity<CartBook>()
+            modelBuilder.Entity<CartDetail>()
                 .HasOne(cb =>cb.Book)
-                .WithMany(cb => cb.CartBooks)
+                .WithMany(cb => cb.CartDetails)
                 .HasForeignKey(cb => cb.BookId);
         }
     }

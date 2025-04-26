@@ -1,0 +1,35 @@
+﻿@model List<StackBook.ViewModels.BookWithAuthors>
+
+
+@{
+	ViewData["Title"] = '"' + @ViewBag.Query + '"';
+}
+
+<div class="container-fluid">
+    <h1 class="text-center my-4 py-2 border-bottom bg-body-tertiary">
+        Results for "<span class="text-primary">@ViewBag.Query</span>"
+    </h1>
+
+
+    
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="text-center my-5">
+            <i class="fa-solid fa-book-open fa-3x text-secondary mb-3"></i>
+            <h2 class="text-muted">No books found</h2>
+            <p>Please try searching with a different keyword.</p>
+        </div>
+        @await Component.InvokeAsync("SliderCategory")
+    }
+    else {
+        @await Component.InvokeAsync("SliderCategory")
+        @* =================  CONTENT ============== *@
+        <div class="content d-flex justify-content-between mt-5 pb-2 border-bottom">
+                @await Component.InvokeAsync("Books", Model)
+           
+        </div>
+    }
+
+    
+</div>

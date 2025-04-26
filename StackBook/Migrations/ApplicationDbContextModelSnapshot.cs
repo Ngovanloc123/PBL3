@@ -22,6 +22,36 @@ namespace StackBook.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AuthorBook", b =>
+                {
+                    b.Property<Guid>("AuthorsAuthorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BooksBookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AuthorsAuthorId", "BooksBookId");
+
+                    b.HasIndex("BooksBookId");
+
+                    b.ToTable("AuthorBook");
+                });
+
+            modelBuilder.Entity("BookCategory", b =>
+                {
+                    b.Property<Guid>("BooksBookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoriesCategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("BooksBookId", "CategoriesCategoryId");
+
+                    b.HasIndex("CategoriesCategoryId");
+
+                    b.ToTable("BookCategory");
+                });
+
             modelBuilder.Entity("StackBook.Models.Author", b =>
                 {
                     b.Property<Guid>("AuthorId")
@@ -70,36 +100,6 @@ namespace StackBook.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("StackBook.Models.BookAuthor", b =>
-                {
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("BookId", "AuthorId");
-
-                    b.HasIndex("AuthorId");
-
-                    b.ToTable("BookAuthors");
-                });
-
-            modelBuilder.Entity("StackBook.Models.BookCategory", b =>
-                {
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("BookId", "CategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("BookCategories");
-                });
-
             modelBuilder.Entity("StackBook.Models.Cart", b =>
                 {
                     b.Property<Guid>("CartId")
@@ -116,7 +116,7 @@ namespace StackBook.Migrations
                     b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("StackBook.Models.CartBook", b =>
+            modelBuilder.Entity("StackBook.Models.CartDetail", b =>
                 {
                     b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier");
@@ -134,7 +134,7 @@ namespace StackBook.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("CartBooks");
+                    b.ToTable("CartDetails");
                 });
 
             modelBuilder.Entity("StackBook.Models.Category", b =>
@@ -270,6 +270,28 @@ namespace StackBook.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderDetails");
+                });
+
+            modelBuilder.Entity("StackBook.Models.OrderHistory", b =>
+                {
+                    b.Property<Guid>("OrderHistoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("createdStatus")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("OrderHistoryId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderHistory");
                 });
 
             modelBuilder.Entity("StackBook.Models.Payment", b =>
@@ -459,42 +481,34 @@ namespace StackBook.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("StackBook.Models.BookAuthor", b =>
+            modelBuilder.Entity("AuthorBook", b =>
                 {
-                    b.HasOne("StackBook.Models.Author", "Author")
-                        .WithMany("BookAuthors")
-                        .HasForeignKey("AuthorId")
+                    b.HasOne("StackBook.Models.Author", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorsAuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StackBook.Models.Book", "Book")
-                        .WithMany("BookAuthors")
-                        .HasForeignKey("BookId")
+                    b.HasOne("StackBook.Models.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksBookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("StackBook.Models.BookCategory", b =>
+            modelBuilder.Entity("BookCategory", b =>
                 {
-                    b.HasOne("StackBook.Models.Book", "Book")
-                        .WithMany("BookCategories")
-                        .HasForeignKey("BookId")
+                    b.HasOne("StackBook.Models.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksBookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StackBook.Models.Category", "Category")
-                        .WithMany("BookCategories")
-                        .HasForeignKey("CategoryId")
+                    b.HasOne("StackBook.Models.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("StackBook.Models.Cart", b =>
@@ -508,16 +522,16 @@ namespace StackBook.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("StackBook.Models.CartBook", b =>
+            modelBuilder.Entity("StackBook.Models.CartDetail", b =>
                 {
                     b.HasOne("StackBook.Models.Book", "Book")
-                        .WithMany("CartBooks")
+                        .WithMany("CartDetails")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StackBook.Models.Cart", "Cart")
-                        .WithMany("CartBooks")
+                        .WithMany("CartDetails")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -584,6 +598,17 @@ namespace StackBook.Migrations
                     b.Navigation("Order");
                 });
 
+            modelBuilder.Entity("StackBook.Models.OrderHistory", b =>
+                {
+                    b.HasOne("StackBook.Models.Order", "Order")
+                        .WithMany("OrderHistories")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("StackBook.Models.Payment", b =>
                 {
                     b.HasOne("StackBook.Models.Order", "Order")
@@ -644,18 +669,9 @@ namespace StackBook.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("StackBook.Models.Author", b =>
-                {
-                    b.Navigation("BookAuthors");
-                });
-
             modelBuilder.Entity("StackBook.Models.Book", b =>
                 {
-                    b.Navigation("BookAuthors");
-
-                    b.Navigation("BookCategories");
-
-                    b.Navigation("CartBooks");
+                    b.Navigation("CartDetails");
 
                     b.Navigation("OrderDetails");
 
@@ -664,12 +680,7 @@ namespace StackBook.Migrations
 
             modelBuilder.Entity("StackBook.Models.Cart", b =>
                 {
-                    b.Navigation("CartBooks");
-                });
-
-            modelBuilder.Entity("StackBook.Models.Category", b =>
-                {
-                    b.Navigation("BookCategories");
+                    b.Navigation("CartDetails");
                 });
 
             modelBuilder.Entity("StackBook.Models.Discount", b =>
@@ -680,6 +691,8 @@ namespace StackBook.Migrations
             modelBuilder.Entity("StackBook.Models.Order", b =>
                 {
                     b.Navigation("OrderDetails");
+
+                    b.Navigation("OrderHistories");
 
                     b.Navigation("Payments");
 

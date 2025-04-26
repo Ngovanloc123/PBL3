@@ -17,5 +17,9 @@ namespace StackBook.DAL
         {
             _db.Categories.Update(obj);
         }
+        public void Delete(Category obj)
+        {
+            _db.Categories.Remove(obj);
+        }	
     }
 }

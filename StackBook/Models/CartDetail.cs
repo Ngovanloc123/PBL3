@@ -1,6 +1,6 @@
 ﻿namespace StackBook.Models
 {
-    public class CartBook
+    public class CartDetail
     {
         public Guid CartId { get; set; }
         public Guid BookId { get; set; }

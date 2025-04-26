@@ -1,5 +1,9 @@
 ﻿@model List<StackBook.ViewModels.BookDetailViewModel>
 
+@{
+	ViewData["Title"] = "Manager Book";
+}
+
 <div class="container">
 	<div class="row pt-4 pb-4">
 		<div class="col-md-6">
@@ -16,6 +20,7 @@
 		<table class="table table-bordered table-striped">
 			<thead class="table-dark">
 				<tr>
+					<th>#</th>
 					<th>Title</th>
 					<th class="d-none d-md-table-cell">Authors</th>
 					<th class="d-none d-lg-table-cell">Price</th>
@@ -27,40 +32,44 @@
 				</tr>
 			</thead>
 			<tbody>
+				@{
+					var index = 1;
+				}
 				@foreach (var obj in Model)
 				{
 					<tr>
+						<td>@index</td>
 						<td>
 							<span title="@obj.BookTitle">
 								@obj.BookTitle
 							</span>
 						</td>
 						<td class="d-none d-md-table-cell">
-							@* @if (obj.AuthorsName != null && obj.AuthorsName.Any()) *@
-							@* { *@
-								<ul class="list-unstyled mb-0">
-									@foreach (var author in obj.AuthorsName)
-									{
-										<li>
-											<span class="d-inline-block" title="@author">
-												@author
-											</span>
-										</li>
-									}
-								</ul>
-							@* } *@
-							@* else *@
-							@* { *@
-							@* 	<span>No Authors</span> *@
-							@* } *@
+							<ul class="list-unstyled mb-0">
+								@foreach (var author in obj.AuthorsName)
+								{
+									<li>
+										<span class="d-inline-block" title="@author">
+											@author
+										</span>
+									</li>
+								}
+							</ul>
 						</td>
 						<td class="d-none d-lg-table-cell">@obj.Price$</td>
 						<td>@obj.Stock</td>
 						<td class="d-none d-xl-table-cell">@obj.CreatedBook.ToString("dd-MM-yyyy")</td>
 						<td class="d-none d-md-table-cell">
-							<span class="d-inline-block" title="@obj.CategoryName">
-								@obj.CategoryName
-							</span>
+							<ul class="list-unstyled mb-0">
+								@foreach (var category in obj.CategoryNames)
+								{
+									<li>
+										<span class="d-inline-block" title="@category">
+											@category
+										</span>
+									</li>
+								}
+							</ul>
 						</td>
 						<td class="d-none d-lg-table-cell text-center">
 							@if (!string.IsNullOrEmpty(obj.ImageURL))
@@ -77,14 +86,63 @@
 								<a asp-area="Admin" asp-controller="Book" asp-action="Edit" asp-route-BookId="@obj.BookId" class="btn btn-primary btn-sm">
 									<i class="fa-solid fa-pen-to-square"></i> Edit
 								</a>
-								<a asp-area="Admin" asp-controller="Book" asp-action="Delete" asp-route-BookId="@obj.BookId" class="btn btn-danger btn-sm">
+								<a data-bs-id=@obj.BookId class="btn btn-danger" data-bs-toggle="modal"
+								   data-bs-target="#delete-book-modal">
 									<i class="fa-solid fa-trash"></i> Delete
 								</a>
 							</div>
 						</td>
 					</tr>
+					index++;
 				}
 			</tbody>
 		</table>
 	</div>
 </div>
+
+ @* Confirm modal delete Book *@
+<div id="delete-book-modal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header d-flex justify-content-between">
+				<h5 class="modal-title">Delete book?</h5>
+				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+				<p>Are you sure you want to delete this book?</p>
+			</div>
+			<div class="modal-footer">
+				<button id="btn-delete-book" type="button" class="btn btn-danger">Delete</button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<form method="POST" name="delete-book-form"></form>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const deleteBookModal = document.getElementById('delete-book-modal');
+		const deleteForm = document.forms['delete-book-form'];
+		const btnDeleteBook = document.getElementById('btn-delete-book');
+
+		if (deleteBookModal) {
+			deleteBookModal.addEventListener('show.bs.modal', function (event) {
+				const button = event.relatedTarget;
+				const bookId = button.getAttribute('data-bs-id');
+
+				// Gán action cho form
+				deleteForm.action = '/Admin/Book/Delete?BookId=' + bookId;
+			});
+		}
+
+		btnDeleteBook?.addEventListener('click', function () {
+			deleteForm.submit();
+		});
+	});
+</script>
+

@@ -1,49 +1,10 @@
-﻿@model List<StackBook.ViewModels.CategoryWithBooksViewModel>
-
-<div class="container-fluid">
-    <h1 class="text-center my-4 py-2 border-bottom bg-body-tertiary"><span class="fw-light">Explore</span> Category</h1>
-
-    @await Component.InvokeAsync("SliderCategory")
-
-    @* ===============  CONTENT ============== *@
-    <div class="content">
-        @{
-            var index = 1;
-        }
-
-            @foreach (var CategoryWithBooks in Model)
-            {
-                @* =============== Literature & Fiction =============== *@
-                <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
-                    <h2 class="">@CategoryWithBooks.CategoryName</h2>
-                    <a asp-controller="Category" asp-action="Books" class="text-decoration-none">See more</a>
-                </div>
-            <div class="container-books category@( "" + index )">
-                    <button id="prev-card" class="fa-solid fa-arrow-left card-button"></button>
-                    <div class="book-list">
-
-                    @foreach (var bookAuthors in CategoryWithBooks.BookWithAuthors)
-                    {  
-                        <a asp-controller="Category" asp-action="ProductDetail" class="book-card text-decoration-none text-black">
-                            <img src="@bookAuthors.Book.ImageURL" alt="@bookAuthors.Book.BookTitle">
-                            <div class="book-title">@bookAuthors.Book.BookTitle</div>
-                            <div class="book-rating">⭐ 4.4 (619)</div>
-                            <div class="fs-8">
-                                @foreach (var author in bookAuthors.Authors)
-                                {
-                                    <div>@author.AuthorName</div>
-                                }
-                            </div>
-                            <div class="book-price">$@bookAuthors.Book.Price</div>
-
-                        </a> 
-                        }
-                    </div>
-                    <button id="next-card" class="fa-solid fa-arrow-right card-button"></button>
-                </div>
-                index++;
-            }
-            
-        
-    </div>
-</div>
+﻿@if (ViewBag.Category == null)
+{
+    ViewData["Title"] = "Category";
+    <partial name="_ExploreAllCategories"/>
+}
+else
+{
+    ViewData["Title"] = @ViewData["CategoryName"];
+    <partial name="_SingleCategory" />
+}

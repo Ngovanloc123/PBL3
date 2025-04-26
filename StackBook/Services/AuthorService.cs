@@ -14,9 +14,8 @@ namespace StackBook.Services
 
         public List<Author> GetAuthorsByBookId(Guid bookId)
         {
-            return _context.BookAuthors
-                .Where(ba => ba.BookId == bookId)
-                .Select(ba => ba.Author)
+            return _context.Authors
+                .Where(a => a.Books.Any(b => b.BookId == bookId))
                 .ToList();
         }
     }

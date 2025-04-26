@@ -79,7 +79,7 @@ namespace StackBook.Services
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            var verificationLink = $"http://localhost:5572/auth/verify-email?token={verificationToken}";
+            var verificationLink = $"http://localhost:5272/auth/verify-email?token={verificationToken}";
             var subject = "Email Verification";
             var message = $"Please verify your email by clicking this link: {verificationLink}";
 

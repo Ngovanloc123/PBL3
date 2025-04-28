@@ -240,7 +240,7 @@ namespace StackBook.Services
             await _userRepository.SaveAsync();
 
             // Gửi mail xác minh
-            var verificationLink = $"http://localhost:5272/auth/verify-email?token={resetToken}";
+            var verificationLink = $"https://localhost:7170/auth/verify-email?token={resetToken}";
             await _emailUtils.SendEmailAsync(newEmail, "Verify your new email", $"Click here to verify: {verificationLink}");
 
             response.Data = "Verification email sent to new address";

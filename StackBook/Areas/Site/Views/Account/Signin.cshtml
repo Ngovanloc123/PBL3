@@ -13,16 +13,26 @@
             <form asp-controller="Account" asp-action="SignInUser" method="post">
                 <h2>Sign in</h2>
 
+                <!-- Email input -->
                 <div class="input-box">
                     <span class="icon"><i class="fa-solid fa-envelope"></i></span>
                     <input asp-for="Email" type="email" required />
                     <label>Email</label>
+                    @if (ViewData["EmailError"] != null)
+                    {
+                        <span class="text-danger">@ViewData["EmailError"]</span>
+                    }
                 </div>
 
+                <!-- Password input -->
                 <div class="input-box">
                     <span class="icon"><i class="fa-solid fa-lock"></i></span>
                     <input asp-for="Password" type="password" required />
                     <label>Password</label>
+                    @if (ViewData["PasswordError"] != null)
+                    {
+                        <span class="text-danger">@ViewData["PasswordError"]</span>
+                    }
                 </div>
 
                 <div class="remember-forgot">
@@ -40,4 +50,69 @@
             </form>
         </div>
     </section>
+
+    <!-- Sử dụng TempData để lấy AccessToken và RefreshToken nếu có -->
+    @if (TempData["AccessToken"] != null && TempData["RefreshToken"] != null)
+    {
+        <script>
+            // Lấy accessToken và refreshToken từ TempData
+            var accessToken = '@TempData["AccessToken"]';
+            var refreshToken = '@TempData["RefreshToken"]';
+
+            // Lưu vào localStorage
+            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('refreshToken', refreshToken);
+
+            // Kiểm tra nếu token được lưu thành công
+            console.log("AccessToken saved: ", localStorage.getItem('accessToken'));
+            console.log("RefreshToken saved: ", localStorage.getItem('refreshToken'));
+
+            // Nếu muốn điều hướng sau khi đăng nhập thành công, có thể dùng:
+            var userId = '@TempData["UserId"]'; // Lấy UserId từ TempData nếu cần
+            window.location.href = 'Account/Profile/${userId}'; // Hoặc trang nào đó bạn muốn chuyển hướng
+        </script>
+    }
+    else
+    {
+        <script>
+            // Nếu không có accessToken và refreshToken
+            console.log("Token không được trả về, vui lòng thử lại.");
+        </script>
+    }
 </body>
+@* @{
+    Layout = "_Layout";
+}
+
+<h2>Login</h2>
+
+<form method="post" action="/Account/SignIn">
+    <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required />
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+    </div>
+    <button type="submit">Sign In</button>
+</form>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="error-message">
+        <p>@TempData["ErrorMessage"]</p>
+    </div>
+}
+
+@if (TempData["AccessToken"] != null)
+{
+    <script>
+        var accessToken = '@TempData["AccessToken"]';
+        var refreshToken = '@TempData["RefreshToken"]';
+        var userId = '@TempData["UserId"]';
+        
+        // Điều hướng đến trang profile sau khi đăng nhập
+        window.location.href = `/Account/Profile/${userId}`;
+    </script>
+} *@

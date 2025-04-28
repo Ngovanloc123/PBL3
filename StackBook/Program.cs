@@ -8,7 +8,6 @@ using StackBook.Services;
 using StackBook.Utils;
 using Microsoft.AspNetCore.Builder;
 using StackBook.Configurations;
-using StackBook.DAL;
 using StackBook.Interfaces;
 using StackBook.Controllers;
 using DocumentFormat.OpenXml.Bibliography;
@@ -62,7 +61,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseMiddleware<Authentication>();
-app.UseAuthorization();
+// app.UseAuthorization();
 app.MapControllers();
 
 app.MapControllerRoute(

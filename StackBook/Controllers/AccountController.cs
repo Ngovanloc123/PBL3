@@ -11,8 +11,7 @@ using StackBook.Utils;
 
 namespace StackBook.Controllers
 {
-    [Route("[controller]")]
-
+    [Route("Auth/[controller]")]
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
@@ -55,23 +54,27 @@ namespace StackBook.Controllers
             {
                 if (signInDto == null)
                     return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
-                Console.WriteLine($"SignIn result: {signInDto}");
+
                 var result = await _authService.SignInUser(signInDto);
-                Console.WriteLine($"SignIn result: {result.Data}");
                 if (result.Success == false)
                     return View("Error", new ErrorViewModel { ErrorMessage = "Login failed." });
-                //tra ve accessToken = result.AccessToken, refreshToken = result.RefreshToken });
-                ViewData["AccessToken"] = result.AccessToken;
-                ViewData["RefreshToken"] = result.RefreshToken;
-                return RedirectToAction("Profile", new { id = result.Data?.UserId});
+
+                TempData["AccessToken"] = result.AccessToken;
+                System.Console.WriteLine(result.AccessToken);
+                TempData["RefreshToken"] = result.RefreshToken;
+                System.Console.WriteLine(result.RefreshToken);
+                TempData["UserId"] = result.Data?.UserId;
+                System.Console.WriteLine(result.Data?.UserId);
+                return RedirectToAction("Profile", new { id = result.Data?.UserId });
             }
             catch (Exception ex)
             {
                 return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }
+
         [HttpPut("Update/{userId}")]
-        [CustomAuthorize]
+        [Authorize]
         public async Task<IActionResult> UpdateUser(Guid userId, UpdateDto updateDto)
         {
             try
@@ -84,22 +87,22 @@ namespace StackBook.Controllers
                     return Unauthorized("User not authenticated.");
 
                 var currentUserId = Guid.Parse(currentUserIdClaims);
-
                 if (userId != currentUserId)
                     return View("Error", new ErrorViewModel { ErrorMessage = "You can only update your own profile." });
 
                 updateDto.UserId = userId;
                 var result = await _userService.UpdateUser(updateDto);
                 ViewData["AccessToken"] = result.AccessToken;
-                return RedirectToAction("Profile", new { id = result.Data?.UserId});
+                return RedirectToAction("Profile", new { id = result.Data?.UserId });
             }
             catch (Exception ex)
             {
                 return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }
+
         [HttpPut("UpdatePassword/{userId}")]
-        [CustomAuthorize]
+        [Authorize]
         public async Task<IActionResult> UpdatePassword(Guid userId, UpdatePasswordDto updatePasswordDto)
         {
             try
@@ -117,33 +120,20 @@ namespace StackBook.Controllers
 
                 updatePasswordDto.UserId = userId;
                 var result = await _userService.UpdatePassword(updatePasswordDto);
-                var accessToken = result.AccessToken;
-                ViewData["AccessToken"] = accessToken;
-                return RedirectToAction("Profile", new { id = result.Data?.UserId});
+                ViewData["AccessToken"] = result.AccessToken;
+                return RedirectToAction("Profile", new { id = result.Data?.UserId });
             }
             catch (Exception ex)
             {
                 return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }
+
         [HttpGet("Profile/{id}")]
-        [CustomAuthorize]
+        [Authorize]
         public async Task<IActionResult> GetProfile(Guid id)
         {
-            var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            if (string.IsNullOrEmpty(token))
-            {
-                return Unauthorized("Token is missing.");
-            }
-
-            // Giải mã và xác thực token
-            var claimsPrincipal = _jwtUtils.ValidateToken(token);
-            if (claimsPrincipal == null)
-            {
-                return Unauthorized("Invalid token.");
-            }
-
-            // Tiếp tục xử lý sau khi xác thực token
+            // Lấy thông tin người dùng từ context.User đã được xác thực trong middleware
             var userProfile = await _userService.GetUserById(id);
             if (userProfile == null)
             {
@@ -153,24 +143,12 @@ namespace StackBook.Controllers
             return View(userProfile);
         }
         [HttpGet("Logout")]
-        [CustomAuthorize]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             try
             {
-                var token = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-                if (string.IsNullOrEmpty(token))
-                {
-                    return Unauthorized("Token is missing.");
-                }
-
-                var claimsPrincipal = _jwtUtils.ValidateToken(token);
-                if (claimsPrincipal == null)
-                {
-                    return Unauthorized("Invalid token.");
-                }
-
-                var userId = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
+                var userId = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
                 if (userId == null)
                 {
                     return Unauthorized("User not authenticated.");
@@ -184,7 +162,7 @@ namespace StackBook.Controllers
                 return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }
-        
+
         [HttpGet("google-login")]
         public async Task<IActionResult> LoginWithGoogle(string code)
         {
@@ -204,6 +182,7 @@ namespace StackBook.Controllers
                 return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }
+
         [HttpGet("google-callback")]
         public async Task<IActionResult> GoogleCallback(string code)
         {

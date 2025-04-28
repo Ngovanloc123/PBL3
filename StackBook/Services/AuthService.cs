@@ -76,7 +76,7 @@ namespace StackBook.Services
             {
                 var verificationToken = _jwtUtils.GenerateToken(user);
                 user.VerificationToken = verificationToken;
-                var verificationLink = $"http://localhost:5272/auth/verify-email?token={verificationToken}";
+                var verificationLink = $"https://localhost:7170/auth/verify-email?token={verificationToken}";
                 var subject = "Email Verification";
                 var message = $"Please verify your email by clicking this link: {verificationLink}";
                 await _emailSender.SendEmailAsync(user.Email, subject, message);
@@ -179,7 +179,7 @@ namespace StackBook.Services
             user.ResetTokenExpiry = DateTime.UtcNow.AddMinutes(15);
             await _userRepository.UpdateAsync(user);
             await _userRepository.SaveAsync();
-            var resetLink = $"http://localhost:5272/auth/reset-password?token={resetToken}";
+            var resetLink = $"https://localhost:7170/auth/reset-password?token={resetToken}";
             var subject = "Reset Password";
             var message = $"Please reset your password by clicking this link: {resetLink}";
             await _emailSender.SendEmailAsync(user.Email, subject, message);
@@ -248,7 +248,7 @@ namespace StackBook.Services
             user.EmailVerifiedAt = DateTime.UtcNow.AddMinutes(15);
             await _userRepository.UpdateAsync(user);
             await _userRepository.SaveAsync();
-            var verificationLink = $"http://localhost:5272/auth/verify-email?token={verificationToken}";
+            var verificationLink = $"https://localhost:7170/auth/verify-email?token={verificationToken}";
             var subject = "Email Verification";
             var message = $"Please verify your email by clicking this link: {verificationLink}";
             await _emailSender.SendEmailAsync(user.Email, subject, message);
@@ -284,7 +284,7 @@ namespace StackBook.Services
             user.EmailVerifiedAt = DateTime.UtcNow.AddMinutes(15);
             await _userRepository.UpdateAsync(user);
             await _userRepository.SaveAsync();
-            var verificationLink = $"http://localhost:5272/auth/verify-email?token={verificationToken}";
+            var verificationLink = $"https://localhost:7170/auth/verify-email?token={verificationToken}";
             var subject = "Email Verification";
             var message = $"Please verify your email by clicking this link: {verificationLink}";
             await _emailSender.SendEmailAsync(user.Email, subject, message);

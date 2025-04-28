@@ -17,6 +17,8 @@ namespace StackBook.DAL.IRepository
         Task SaveAsync();
         Task<User?> GetUserByGoogleIdAsync(string googleId);
         Task<User?> GetUserByEmailAsync(string email);
+        Task<User?> GetUserByResetTokenAsync(string username);
+        Task<User?> GetUserByRefreshTokenAsync(string refreshToken);
         Task CreateGoogleUserAsync(User user);
     }
 }

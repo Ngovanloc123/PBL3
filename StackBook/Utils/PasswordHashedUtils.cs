@@ -5,7 +5,7 @@ namespace StackBook.Utils
     public class PasswordHashedUtils
     {
         private const int WorkFactor = 12;
-        public static string HashPassword(string password)
+        public async static Task<string>  HashPassword(string password)
         {
             if(string.IsNullOrEmpty(password))
             {
@@ -13,14 +13,14 @@ namespace StackBook.Utils
             }
             try
             {
-                return BCrypt.Net.BCrypt.HashPassword(password, WorkFactor);
+                return await Task.Run(() =>  BCrypt.Net.BCrypt.HashPassword(password, WorkFactor));
             }
             catch (Exception ex)
             {
                 throw new Exception("Error hashing password", ex);
             }
         }
-        public static bool VerifyPassword(string password, string hashedPassword)
+        public async static Task<bool> VerifyPassword(string password, string hashedPassword)
         {
             if(string.IsNullOrEmpty(password))
             {
@@ -32,7 +32,7 @@ namespace StackBook.Utils
             }
             try
             {
-                return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+                return await Task.Run(() => BCrypt.Net.BCrypt.Verify(password, hashedPassword));
             }
             catch (Exception ex)
             {

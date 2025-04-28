@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Reflection;
 using System.Security.Claims;
-using DocumentFormat.OpenXml.VariantTypes;
+using System.Security.Cryptography;
+using System.Text;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using StackBook.Models;
-using Microsoft.Extensions.Configuration;
 
 namespace StackBook.Utils
 {
@@ -17,90 +18,110 @@ namespace StackBook.Utils
         public JwtUtils(IConfiguration configuration)
         {
             _secretKey = configuration["Jwt:SecretKey"] ?? throw new ArgumentNullException("Secret key is not configured.");
-            _tokenExpiryDays = int.TryParse(configuration["Jwt:TokenExpiryDays"], out var expiryDays) ? expiryDays : 1;
+            _tokenExpiryDays = int.TryParse(configuration["Jwt:TokenExpiryDays"], out var days) ? days : 1;
         }
+
+        //Kiểm tra token có dùng thuật toán hợp lệ không
         private bool IsJwtWithValidSecurityAlgorithm(SecurityToken validatedToken)
         {
-            if (validatedToken is JwtSecurityToken jwtToken)
-            {
-                var algorithm = jwtToken.Header.Alg;
-                return algorithm == SecurityAlgorithms.HmacSha256 || algorithm == SecurityAlgorithms.HmacSha512;
-            }
-
-            return false;
+            return validatedToken is JwtSecurityToken jwt &&
+                   (jwt.Header.Alg == SecurityAlgorithms.HmacSha256 || jwt.Header.Alg == SecurityAlgorithms.HmacSha512);
         }
 
+        //Xác thực JWT Token
         public ClaimsPrincipal? ValidateToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = System.Text.Encoding.UTF8.GetBytes(_secretKey); 
+            var key = Encoding.UTF8.GetBytes(_secretKey);
 
-            var tokenValidationParameters = new TokenValidationParameters
+            var validationParams = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,     // Nếu có issuer hợp lệ, thay đổi thành true và cấu hình issuer
-                ValidateAudience = false,   // Nếu có audience hợp lệ, thay đổi thành true và cấu hình audience
-                ValidateLifetime = true,    // Kiểm tra thời gian hết hạn của token
-                ClockSkew = TimeSpan.Zero   // Không chấp nhận độ lệch thời gian
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
             };
 
             try
             {
-                var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken);
-                if (IsJwtWithValidSecurityAlgorithm(validatedToken))
-                {
-                    return principal;
-                }
+                var principal = tokenHandler.ValidateToken(token, validationParams, out var validatedToken);
+                return IsJwtWithValidSecurityAlgorithm(validatedToken) ? principal : null;
             }
-            catch (SecurityTokenExpiredException)
-            {
-                Console.WriteLine("Token đã hết hạn.");
-            }
-            catch (SecurityTokenInvalidSignatureException)
-            {
-                Console.WriteLine("Chữ ký của token không hợp lệ.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Xác thực token thất bại: {ex.Message}");
-            }
+            catch (SecurityTokenExpiredException) { Console.WriteLine("Token đã hết hạn."); }
+            catch (SecurityTokenInvalidSignatureException) { Console.WriteLine("Token có chữ ký không hợp lệ."); }
+            catch (Exception ex) { Console.WriteLine($"Xác thực token thất bại: {ex.Message}"); }
 
             return null;
         }
 
-        //Generate JWT Token
-        protected virtual List<Claim> GenerateClaimsForUser(User user)
+        //Sinh danh sách Claims cho user
+        protected virtual List<Claim> GenerateClaimsForUser(User user) => new()
         {
-            return new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                new Claim(ClaimTypes.Name, user.FullName),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim("Role", user.Role == true ? "admin": "user"),
-                new Claim("IsEmailVerified", user.IsEmailVerified == false ? "no-active" : "active"),
-                new Claim("LockStatus", user.LockStatus == false ? "no-lock" : "lock"),
-            };
-        }
+            new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+            new Claim(ClaimTypes.Name, user.FullName),
+            new Claim(ClaimTypes.Email, user.Email),
+            new Claim("Role", user.Role ? "Admin" : "User"),
+            new Claim("IsEmailVerified", user.IsEmailVerified ? "active" : "no-active"),
+            new Claim("LockStatus", user.LockStatus ? "lock" : "no-lock"),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString())
+        };
 
-        protected virtual SecurityTokenDescriptor BuildTokenDescriptor(User user, List<Claim> claims)
+        //Dựng thông tin token
+        protected virtual SecurityTokenDescriptor BuildTokenDescriptor(List<Claim> claims, DateTime expiresAt)
         {
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_secretKey));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var tokenDescriptor = new SecurityTokenDescriptor
+
+            return new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(_tokenExpiryDays),
+                Expires = expiresAt,
                 SigningCredentials = credentials
             };
-            return tokenDescriptor;
         }
 
-        public virtual string GenerateToken(User user)
+        //Sinh access token (30 phút)
+        public string GenerateAccessToken(User user)
         {
             var claims = GenerateClaimsForUser(user);
-            var identity = new ClaimsIdentity(claims);
-            var tokenDescriptor = BuildTokenDescriptor(user, claims);
+            var tokenDescriptor = BuildTokenDescriptor(claims, DateTime.UtcNow.AddMinutes(30));
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+
+        //Sinh refresh token (ngẫu nhiên, không chứa user info)
+        public string GenerateRefreshToken()
+        {
+            var bytes = new byte[64];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(bytes);
+            return Convert.ToBase64String(bytes);
+        }
+
+        //Sinh token dùng để reset mật khẩu (10 phút)
+        public string GenerateResetToken(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim("ResetPassword", "true")
+            };
+
+            var tokenDescriptor = BuildTokenDescriptor(claims, DateTime.UtcNow.AddMinutes(10));
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+
+        //Sinh token mặc định theo cấu hình ngày hết hạn
+        public string GenerateToken(User user)
+        {
+            var claims = GenerateClaimsForUser(user);
+            var tokenDescriptor = BuildTokenDescriptor(claims, DateTime.UtcNow.AddDays(_tokenExpiryDays));
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);

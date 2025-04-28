@@ -60,6 +60,14 @@ namespace StackBook.DAL
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
+        public async Task<User?> GetUserByResetTokenAsync(string resetToken)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.ResetPasswordToken == resetToken);
+        }
+        public async Task<User?> GetUserByRefreshTokenAsync(string refreshToken)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
+        }
         public async Task CreateGoogleUserAsync(User user)
         {
             _context.Users.Add(user);

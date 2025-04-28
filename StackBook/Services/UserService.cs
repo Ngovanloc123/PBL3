@@ -1,6 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.EntityFrameworkCore;
-//using Org.BouncyCastle.Crypto.Generators;
 using StackBook.Data;
 using StackBook.DTOs;
 using StackBook.Models;
@@ -35,89 +34,6 @@ namespace StackBook.Services
             _userRepository = userRepository;
             _jwtUtils = jwtUtils;
         }
-        public async Task<ServiceResponse<User>> RegisterUser(RegisterDto registerDto)
-        {
-            var response = new ServiceResponse<User>();
-
-            if (registerDto == null || string.IsNullOrEmpty(registerDto.Email) 
-                || string.IsNullOrEmpty(registerDto.Password) 
-                || string.IsNullOrEmpty(registerDto.Username))
-            {
-                response.Success = false;
-                response.Message = "Invalid data";
-                return response;
-            }
-
-            var existingUser = await _userRepository.GetUserByEmailAsync(registerDto.Email);
-            if (existingUser != null)
-            {
-                response.Success = false;
-                response.Message = "Email already exists";
-                return response;
-            }
-
-            var hashedPassword = PasswordHashedUtils.HashPassword(registerDto.Password);
-            string verificationToken = Guid.NewGuid().ToString();
-
-            var user = new User
-            {
-                Email = registerDto.Email,
-                FullName = registerDto.Username,
-                Password = hashedPassword,
-                Role = false,
-                CreatedUser = DateTime.Now,
-                IsEmailVerified = false,
-                VerificationToken = verificationToken,
-                EmailVerifiedAt = DateTime.Now,
-                ResetPasswordToken = null,
-                ResetTokenExpiry = null,
-                LockStatus = false,
-                DateLock = DateTime.Now,
-                AmountOfTime = 0
-            };
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            var verificationLink = $"http://localhost:5272/auth/verify-email?token={verificationToken}";
-            var subject = "Email Verification";
-            var message = $"Please verify your email by clicking this link: {verificationLink}";
-
-            await _emailUtils.SendEmailAsync(registerDto.Email, subject, message);
-
-            response.Success = true;
-            response.Data = user;
-            response.Message = "Registration successful. Verification email sent.";
-
-            return response;
-        }
-        public async Task<ServiceResponse<User>> LoginUser(LoginDto loginDto)
-        {
-            var response = new ServiceResponse<User>();
-
-            if (loginDto == null || string.IsNullOrEmpty(loginDto.Email) || string.IsNullOrEmpty(loginDto.Password))
-            {
-                response.Success = false;
-                response.Message = "Invalid data";
-                return response;
-            }
-
-            var user = await _userRepository.GetUserByEmailAsync(loginDto.Email);
-            if (user == null || string.IsNullOrEmpty(user.Password) || !PasswordHashedUtils.VerifyPassword(loginDto.Password, user.Password))
-            {
-                response.Success = false;
-                response.Message = "Invalid email or password";
-                return response;
-            }
-
-            var token = _jwtUtils.GenerateToken(user);
-            response.Success = true;
-            response.Data = user;
-            response.Token = token;
-            response.StatusCode = StatusCodes.Status200OK;
-            response.Message = "Login successful";
-            return response;
-        }
         public async Task<ServiceResponse<User>> UpdateUser(UpdateDto updateDto)
         {
             var response = new ServiceResponse<User>();
@@ -149,21 +65,22 @@ namespace StackBook.Services
             {
                 user.FullName = updateDto.Username;
             }
+            var accessToken = _jwtUtils.GenerateAccessToken(user);
 
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
+            await _userRepository.UpdateAsync(user);
+            await _userRepository.SaveAsync();
 
             response.Data = user;
             response.Message = "User updated successfully";
             response.Success = true;
-
+            response.AccessToken = accessToken;
             return response;
         }
         public async Task<ServiceResponse<User>> DeleteUser(Guid userId)
         {
             var response = new ServiceResponse<User>();
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
             {
                 response.Success = false;
@@ -171,8 +88,8 @@ namespace StackBook.Services
                 return response;
             }
 
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+            await _userRepository.DeleteAsync(user.UserId);
+            await _userRepository.SaveAsync();
 
             response.Data = user;
             response.Message = "User deleted successfully";
@@ -269,7 +186,7 @@ namespace StackBook.Services
                 return response;
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == updatePasswordDto.UserId);
+            var user = await _userRepository.GetByIdAsync(updatePasswordDto.UserId);
             if (user == null)
             {
                 response.Success = false;
@@ -277,12 +194,13 @@ namespace StackBook.Services
                 return response;
             }
 
-            var hashedPassword = PasswordHashedUtils.HashPassword(updatePasswordDto.Password);
+            var hashedPassword = await PasswordHashedUtils.HashPassword(updatePasswordDto.Password);
             user.Password = hashedPassword;
 
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-
+            await _userRepository.UpdateAsync(user);
+            await _userRepository.SaveAsync();
+            var accessToken = _jwtUtils.GenerateAccessToken(user);
+            response.AccessToken = accessToken;
             response.Data = user;
             response.Message = "Password updated successfully";
             response.Success = true;
@@ -293,7 +211,7 @@ namespace StackBook.Services
         {
             var response = new ServiceResponse<string>();
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
             {
                 response.Success = false;
@@ -302,8 +220,8 @@ namespace StackBook.Services
             }
 
             // Kiểm tra email đã tồn tại chưa
-            var emailExists = await _context.Users.AnyAsync(u => u.Email == newEmail && u.UserId != userId);
-            if (emailExists)
+            var emailExists = await _userRepository.GetUserByEmailAsync(newEmail);
+            if (emailExists != null)
             {
                 response.Success = false;
                 response.Message = "Email already in use";
@@ -313,106 +231,21 @@ namespace StackBook.Services
             // Cập nhật email + yêu cầu xác minh lại
             user.Email = newEmail;
             user.IsEmailVerified = false;
-            user.VerificationToken = Guid.NewGuid().ToString();
+            var resetToken = _jwtUtils.GenerateResetToken(user);
+            user.VerificationToken = resetToken;
+            user.ResetTokenExpiry = DateTime.UtcNow.AddMinutes(10);
             user.EmailVerifiedAt = null;
 
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
+            await _userRepository.UpdateAsync(user);
+            await _userRepository.SaveAsync();
 
             // Gửi mail xác minh
-            var verificationLink = $"http://localhost:5572/auth/verify-email?token={user.VerificationToken}";
+            var verificationLink = $"http://localhost:5272/auth/verify-email?token={resetToken}";
             await _emailUtils.SendEmailAsync(newEmail, "Verify your new email", $"Click here to verify: {verificationLink}");
 
             response.Data = "Verification email sent to new address";
             response.Message = "Email updated. Please verify your new email.";
-            return response;
-        }
-
-        public async Task<ServiceResponse<string>> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
-        {
-            var response = new ServiceResponse<string>();
-
-            if (string.IsNullOrEmpty(forgotPasswordDto.Email))
-            {
-                response.Success = false;
-                response.Message = "Email is required";
-                return response;
-            }
-
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == forgotPasswordDto.Email);
-            if (user == null)
-            {
-                response.Success = false;
-                response.Message = "User not found";
-                return response;
-            }
-
-            string resetToken = Guid.NewGuid().ToString();
-            user.ResetPasswordToken = resetToken;
-            user.ResetTokenExpiry = DateTime.Now.AddHours(1);
-
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-
-            var resetLink = $"http://localhost:5572/auth/reset-password?token={resetToken}";
-            var subject = "Reset Password";
-            var message = $"Please reset your password by clicking this link: {resetLink}";
-
-            // Send email with reset password link
-            await _emailUtils.SendEmailAsync(forgotPasswordDto.Email, subject, message);
-
-            response.Data = "Reset password email sent";
-            response.Message = "Reset password email sent successfully";
             response.Success = true;
-
-            return response;
-        }
-
-        public async Task<ServiceResponse<string>> ResetPassword(ResetPasswordDto resetPasswordDto)
-        {
-            var response = new ServiceResponse<string>();
-
-            // Kiểm tra dữ liệu đầu vào
-            if (resetPasswordDto == null || 
-                string.IsNullOrEmpty(resetPasswordDto.NewPassword) || 
-                string.IsNullOrEmpty(resetPasswordDto.ConfirmPassword) || 
-                string.IsNullOrEmpty(resetPasswordDto.Token))
-            {
-                response.Success = false;
-                response.Message = "Invalid data";
-                return response;
-            }
-
-            if (resetPasswordDto.NewPassword != resetPasswordDto.ConfirmPassword)
-            {
-                response.Success = false;
-                response.Message = "Passwords do not match";
-                return response;
-            }
-
-            var user = await _context.Users.FirstOrDefaultAsync(u =>
-                u.ResetPasswordToken == resetPasswordDto.Token &&
-                u.ResetTokenExpiry > DateTime.Now);
-
-            if (user == null)
-            {
-                response.Success = false;
-                response.Message = "Invalid or expired token";
-                return response;
-            }
-
-            // Hash mật khẩu mới và cập nhật
-            user.Password = PasswordHashedUtils.HashPassword(resetPasswordDto.NewPassword);
-            user.ResetPasswordToken = null;
-            user.ResetTokenExpiry = null;
-
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-
-            response.Data = "Password reset successfully";
-            response.Message = "Password reset successfully";
-            response.Success = true;
-
             return response;
         }
 
@@ -420,7 +253,7 @@ namespace StackBook.Services
         {
             var response = new ServiceResponse<string>();
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
             {
                 response.Success = false;
@@ -438,8 +271,8 @@ namespace StackBook.Services
             user.LockStatus = true;
             user.DateLock = DateTime.Now;
 
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
+            await _userRepository.UpdateAsync(user);
+            await _userRepository.SaveAsync();
 
             response.Data = "User locked successfully";
             response.Success = true;
@@ -450,7 +283,7 @@ namespace StackBook.Services
         {
             var response = new ServiceResponse<string>();
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
             {
                 response.Success = false;
@@ -468,188 +301,11 @@ namespace StackBook.Services
             user.LockStatus = false;
             user.DateLock = null;
 
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
+            await _userRepository.UpdateAsync(user);
+            await _userRepository.SaveAsync();
 
             response.Data = "User unlocked successfully";
             response.Success = true;
-            return response;
-        }
-        public async Task<ServiceResponse<string>> VerifyUser(string email)
-        {
-            var response = new ServiceResponse<string>();
-
-            if (string.IsNullOrEmpty(email))
-            {
-                response.Success = false;
-                response.Message = "Email is required";
-                return response;
-            }
-
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && !u.IsEmailVerified);
-            if (user == null)
-            {
-                response.Success = false;
-                response.Message = "User not found or already verified";
-                return response;
-            }
-
-            string verificationToken = Guid.NewGuid().ToString();
-            user.VerificationToken = verificationToken;
-
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-
-            var verificationLink = $"http://localhost:5572/auth/verify-email?token={verificationToken}";
-            var subject = "Email Verification";
-            var message = $"Please verify your email by clicking this link: {verificationLink}";
-
-            await _emailUtils.SendEmailAsync(email, subject, message);
-
-            response.Data = "Verification email sent";
-            response.Success = true;
-            return response;
-        }
-        public async Task<ServiceResponse<string>> ResendVerificationEmail(string email)
-        {
-            var response = new ServiceResponse<string>();
-
-            if (string.IsNullOrEmpty(email))
-            {
-                response.Success = false;
-                response.Message = "Email is required";
-                return response;
-            }
-
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && !u.IsEmailVerified);
-            if (user == null)
-            {
-                response.Success = false;
-                response.Message = "User not found or already verified";
-                return response;
-            }
-
-            string verificationToken = Guid.NewGuid().ToString();
-            user.VerificationToken = verificationToken;
-
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-
-            var verificationLink = $"http://localhost:5572/auth/verify-email?token={verificationToken}";
-            var subject = "Email Verification";
-            var message = $"Please verify your email by clicking this link: {verificationLink}";
-
-            await _emailUtils.SendEmailAsync(email, subject, message);
-
-            response.Data = "Verification email resent";
-            response.Success = true;
-            return response;
-        }
-
-        public async Task<ServiceResponse<string>> VerifyEmail(string token)
-        {
-            var response = new ServiceResponse<string>();
-
-            if (string.IsNullOrEmpty(token))
-            {
-                response.Success = false;
-                response.Message = "Token is required";
-                return response;
-            }
-
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.VerificationToken == token && !u.IsEmailVerified);
-            if (user == null)
-            {
-                response.Success = false;
-                response.Message = "Invalid or expired token";
-                return response;
-            }
-
-            user.IsEmailVerified = true;
-            user.VerificationToken = null;
-            user.EmailVerifiedAt = DateTime.Now;
-
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-
-            response.Data = "Email verified successfully";
-            response.Success = true;
-            return response;
-        }
-        public async Task<ServiceResponse<string>> RedirectGoogleConsentScreenAsync()
-        {
-            try
-            {
-                var response = new ServiceResponse<string>();
-                var url = await _oauthGoogleService.GetRedirectConsentScreenURL();
-                if (string.IsNullOrEmpty(url))
-                {
-                    response.Success = false;
-                    response.Message = "Failed to get redirect URL";
-                    response.StatusCode = StatusCodes.Status500InternalServerError;
-                    response.Data = null;
-                    return response;
-                }
-                response.Success = true;
-                response.Message = "Login Sucessfully";
-                response.Data = url;
-                response.StatusCode = StatusCodes.Status200OK;
-                return response;
-            }
-            catch
-            {
-                return new ServiceResponse<string>
-                {
-                    Success = false,
-                    Message = "Error occurred while redirecting to Google consent screen",
-                    StatusCode = StatusCodes.Status500InternalServerError,
-                    Data = null
-                };
-            }
-        }
-        public async Task<ServiceResponse<User>> LoginWithGoogle(string code)
-        {
-            var response = new ServiceResponse<User>();
-
-            try
-            {
-                var accessToken = await _oauthGoogleService.GetAccessTokenAsync(code);
-                var (email, name, googleId) = await _oauthGoogleService.GetGoogleUserProfileAsync(accessToken);
-
-                var user = await _userRepository.GetUserByGoogleIdAsync(googleId);
-                if (user == null)
-                {
-                    user = await _userRepository.GetUserByEmailAsync(email);
-                    if (user == null)
-                    {
-                        user = new User
-                        {
-                            UserId = Guid.NewGuid(),
-                            Email = email,
-                            FullName = name,
-                            GoogleId = googleId,
-                            CreatedUser = DateTime.UtcNow,
-                            IsEmailVerified = true,
-                            Role = false
-                        };
-                        await _userRepository.CreateGoogleUserAsync(user);
-                    }
-                    else
-                    {
-                        user.GoogleId = googleId;
-                        await _userRepository.UpdateAsync(user);
-                    }
-                }
-
-                response.Success = true;
-                response.Data = user;
-                response.Message = "Login with Google successful";
-            }
-            catch (Exception ex)
-            {
-                response.Success = false;
-                response.Message = $"Error during Google login: {ex.Message}";
-            }
             return response;
         }
     }

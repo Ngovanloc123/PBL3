@@ -1,51 +1,35 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Builder;
-using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Http;
 using StackBook.Utils;
 
-namespace  StackBook.Middleware
+namespace StackBook.Middleware
 {
     public class Authentication
     {
         private readonly RequestDelegate _next;
-        private readonly JwtUtils _jwtUtils;
 
-        public Authentication(RequestDelegate next, JwtUtils jwtUtils)
+        public Authentication(RequestDelegate next)
         {
             _next = next;
-            _jwtUtils = jwtUtils;
         }
-        public async Task InvokeAsync(HttpContext context)
+
+
+        public async Task InvokeAsync(HttpContext context, JwtUtils jwtUtils)
         {
             var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
             if (!string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
             {
                 var token = authHeader.Substring("Bearer ".Length).Trim();
-                var principal = _jwtUtils.ValidateToken(token);
+                var principal = jwtUtils.ValidateToken(token);
 
                 if (principal != null)
                 {
+                    context.User = principal;
                     context.Items["User"] = principal;
                 }
-                else
-                {
-                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    await context.Response.WriteAsync("Unauthorized: Invalid token");
-                    return;
-                }
             }
-            else
-            {
-                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                await context.Response.WriteAsync("Unauthorized: No token provided");
-                return;
-            }
+
             await _next(context);
         }
-    }    
+    }
 }

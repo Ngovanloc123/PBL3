@@ -11,5 +11,8 @@ namespace StackBook.Configurations
         public string UserInfoUrl { get; set; }          // https://www.googleapis.com/oauth2/v2/userinfo
 
         public List<string> Scopes { get; set; }         // Ví dụ: ["openid", "profile", "email"]
+        public GoogleOAuthConfig()
+        {
+        }
     }
 }

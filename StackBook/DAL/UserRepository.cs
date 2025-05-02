@@ -11,46 +11,52 @@ using StackBook.DAL.IRepository;
 
 namespace StackBook.DAL
 {
-    public class UserRepository : IUserRepository<User>
+    public class UserRepository : IUserRepository
     {
-        private readonly ApplicationDbContext _context;
-        public UserRepository(ApplicationDbContext context)
+        private readonly ApplicationDbContext _db;
+
+        public UserRepository(ApplicationDbContext db)
         {
-            _context = context;
+            _db = db;
         }
-        public async Task<User> CreateAsync(User entity)
+        public async Task<User?> GetUserByIdAsync(Guid userId)
         {
-            await _context.Users.AddAsync(entity);
-            await _context.SaveChangesAsync();
-            return entity;
+            return await _db.Users
+                .FirstOrDefaultAsync(u => u.UserId == userId);
         }
-        public async Task<IEnumerable<User>> GetAllAsync(){
-            return await _context.Users.ToListAsync();
-        }
-        public async Task<User> GetByIdAsync(Guid id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            return user ?? throw new Exception("User not found");
-        }
-        public async Task<User> UpdateAsync(User entity)
-        {
-            _context.Users.Update(entity);
-            await _context.SaveChangesAsync();
-            return entity;
-        }
-        public async Task DeleteAsync(Guid id)
-        {
-            var user = await GetByIdAsync(id);
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-        }
-        public async Task<IEnumerable<User>> FindAsync(Expression<Func<User, bool>> predicate)
-        {
-            return await _context.Users.Where(predicate).ToListAsync();
-        }
-        public async Task SaveAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
+        //public async Task<User> CreateAsync(User entity)
+        //{
+        //    await _context.Users.AddAsync(entity);
+        //    await _context.SaveChangesAsync();
+        //    return entity;
+        //}
+        //public async Task<IEnumerable<User>> GetAllAsync(){
+        //    return await _context.Users.ToListAsync();
+        //}
+        //public async Task<User> GetByIdAsync(Guid id)
+        //{
+        //    var user = await _context.Users.FindAsync(id);
+        //    return user ?? throw new Exception("User not found");
+        //}
+        //public async Task<User> UpdateAsync(User entity)
+        //{
+        //    _context.Users.Update(entity);
+        //    await _context.SaveChangesAsync();
+        //    return entity;
+        //}
+        //public async Task DeleteAsync(Guid id)
+        //{
+        //    var user = await GetByIdAsync(id);
+        //    _context.Users.Remove(user);
+        //    await _context.SaveChangesAsync();
+        //}
+        //public async Task<IEnumerable<User>> FindAsync(Expression<Func<User, bool>> predicate)
+        //{
+        //    return await _context.Users.Where(predicate).ToListAsync();
+        //}
+        //public async Task SaveAsync()
+        //{
+        //    await _context.SaveChangesAsync();
+        //}
     }
 }

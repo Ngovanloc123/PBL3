@@ -1,6 +1,6 @@
-// using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Http;
 using StackBook.Utils;
+using System.Threading.Tasks;
 
 namespace StackBook.Middleware
 {
@@ -15,18 +15,14 @@ namespace StackBook.Middleware
 
         public async Task InvokeAsync(HttpContext context, JwtUtils jwtUtils)
         {
-            // Lấy thông tin Authorization header
-            var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
-            
-            // Nếu có header Authorization và bắt đầu bằng "Bearer"
-            if (authHeader != null && IsBearerToken(authHeader))
-            {
-                var token = ExtractToken(authHeader);
+            // Lấy access token từ cookie
+            var token = context.Request.Cookies["accessToken"];
 
-                // Xác thực và lấy principal từ JWT token
+            if (!string.IsNullOrEmpty(token))
+            {
+                // Xác thực token và lấy ClaimsPrincipal
                 var principal = jwtUtils.ValidateToken(token);
 
-                // Nếu principal hợp lệ, gán vào context.User
                 if (principal != null)
                 {
                     context.User = principal;
@@ -34,25 +30,14 @@ namespace StackBook.Middleware
                 }
                 else
                 {
-                    // Nếu không xác thực được token, có thể thêm xử lý lỗi hoặc trả về 401.
+                    // Token không hợp lệ => trả về 401
                     context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return;
                 }
             }
 
-            // Tiếp tục chuỗi middleware
+            // Tiếp tục xử lý request
             await _next(context);
-        }
-
-        // Phương thức kiểm tra xem header có phải là Bearer token không
-        private bool IsBearerToken(string authHeader)
-        {
-            return !string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase);
-        }
-
-        // Phương thức tách token từ Authorization header
-        private string ExtractToken(string authHeader)
-        {
-            return authHeader.Substring("Bearer ".Length).Trim();
         }
     }
 }

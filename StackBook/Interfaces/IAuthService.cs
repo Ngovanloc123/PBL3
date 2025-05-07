@@ -12,15 +12,15 @@ namespace StackBook.Interfaces
 {
     public interface IAuthService
     {
-        Task<ServiceResponse<User>> RegisterUser(RegisterDto registerDto);
-        Task<ServiceResponse<User>> SignInUser(SignInDto signInDto);
-        Task<ServiceResponse<User>> LogoutUser(Guid userId);
-        Task<ServiceResponse<User>> ForgotPassword(ForgotPasswordDto forgotPasswordDto);
-        Task<ServiceResponse<User>> ResetPassword(ResetPasswordDto resetPasswordDto);
-        Task<ServiceResponse<User>> SendVerifyEmail(string email);
-        Task<ServiceResponse<User>> ResendVerifyEmail(string email);
-        Task<ServiceResponse<User>> VerifyEmail(string token);
-        Task<ServiceResponse<string>> RedirectGoogleConsentScreenAsync();
-        Task<ServiceResponse<User>> LoginWithGoogle(string code);
+        Task<ServiceResponse<User>> RegisterUser(RegisterDto registerDto);//dang ky thanh vien
+        Task<ServiceResponse<User>> SignInUser(SignInDto signInDto);//dang nhap thanh vien
+        Task<ServiceResponse<User>> LogoutUser(Guid userId);//dang xuat thanh vien
+        Task<ServiceResponse<User>> ForgotPassword(ForgotPasswordDto forgotPasswordDto);//quen mat khau
+        Task<ServiceResponse<User>> ResetPassword(ResetPasswordDto resetPasswordDto);//reset mat khau
+        Task<ServiceResponse<User>> SendVerifyEmail(string email);//gui link kiem tra email
+        Task<ServiceResponse<User>> ResendVerifyEmail(string email);//gui lai link kiem tra email
+        Task<ServiceResponse<User>> VerifyEmail(string token);//kiem tra email
+        Task<ServiceResponse<string>> RedirectGoogleConsentScreenAsync();//chuyen huong den man hinh consent google
+        Task<ServiceResponse<User>> LoginWithGoogle(string code);//dang nhap bang google
     }
 }

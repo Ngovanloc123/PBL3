@@ -12,6 +12,7 @@ using StackBook.Interfaces;
 using StackBook.Controllers;
 using DocumentFormat.OpenXml.Bibliography;
 using StackBook.Middleware;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
@@ -32,6 +33,26 @@ builder.Services.AddScoped<AccountController>();
 builder.Configuration.AddJsonFile("appsettings.json");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddAuthentication("Cookies")
+//    .AddCookie("Cookies", options =>
+//    {
+//        options.Cookie.Name = "accessToken"; // hoặc tên bất kỳ, nhưng bạn cần xử lý tương ứng
+//        options.Events.OnRedirectToLogin = context =>
+//        {
+//            context.Response.StatusCode = 401;
+//            return Task.CompletedTask;
+//        };
+//    });
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "accessToken";
+        options.Events.OnValidatePrincipal = async context =>
+        {
+            await Task.CompletedTask;
+        };
+    });
+builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
@@ -45,7 +66,9 @@ builder.Services.AddSingleton<StackBook.Utils.JwtUtils>();
 var app = builder.Build();
 
 //builder.Services.AddHttpContextAccessor();
-
+app.UseAuthentication(); //Middelware
+app.UseMiddleware<Authentication>(); //Middleware custom của bạn
+app.UseAuthorization(); //Để `[Authorize]` hoạt động
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -60,8 +83,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseMiddleware<Authentication>();
-// app.UseAuthorization();
 app.MapControllers();
 
 app.MapControllerRoute(

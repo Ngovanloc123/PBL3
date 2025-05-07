@@ -14,5 +14,6 @@ namespace StackBook.Models
         [Required]
         public string? Message { get; set; }
         public bool Status { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

@@ -12,15 +12,15 @@ namespace StackBook.Interfaces
 {
     public interface IUserService
     {
-        Task<ServiceResponse<User>> UpdateUser(UpdateDto updateDto);
-        Task<ServiceResponse<User>> DeleteUser(Guid userId);
-        Task<ServiceResponse<List<User>>> GetAllUsers();
-        Task<ServiceResponse<User>> GetUserByName(string username);
-        Task<ServiceResponse<User>> GetUserById(Guid userId);
-        Task<ServiceResponse<User>> GetUserByEmail(string email);
-        Task<ServiceResponse<User>> UpdatePassword(UpdatePasswordDto updatePasswordDto);
-        Task<ServiceResponse<string>> UpdateEmail(Guid userId, string newEmail);
-        Task<ServiceResponse<string>> LockUser(Guid userId);
-        Task<ServiceResponse<string>> UnlockUser(Guid userId);
+        Task<ServiceResponse<User>> UpdateUser(UpdateDto updateDto);//sua thong tin
+        Task<ServiceResponse<User>> DeleteUser(Guid userId);//xoa nguoi dung
+        Task<ServiceResponse<List<User>>> GetAllUsers();//in ra tat ca user
+        Task<ServiceResponse<User>> GetUserByName(string username);//tim kiem user theo ten
+        Task<ServiceResponse<User>> GetUserById(Guid userId);//tim kiem user theo id
+        Task<ServiceResponse<User>> GetUserByEmail(string email);//tim kiem user theo email
+        Task<ServiceResponse<User>> UpdatePassword(UpdatePasswordDto updatePasswordDto);//doi mat khau
+        Task<ServiceResponse<string>> UpdateEmail(Guid userId, string newEmail);//doi email
+        Task<ServiceResponse<string>> LockUser(Guid userId);//khoa nguoi dung
+        Task<ServiceResponse<string>> UnlockUser(Guid userId);//mo khoa nguoi dung
     }
 }

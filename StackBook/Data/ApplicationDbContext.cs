@@ -19,6 +19,7 @@ namespace StackBook.Data
         public DbSet<ShippingAddress> ShippingAddresses { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<OrderHistory> OrderHistories { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<ReturnOrder> ReturnOrders { get; set; }

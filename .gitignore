@@ -1,2 +1,4 @@
 StackBook/bin/
 StackBook/obj/
+StackBook/appsettings.json
+/.vs

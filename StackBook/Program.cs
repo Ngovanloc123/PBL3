@@ -13,12 +13,15 @@ using StackBook.Controllers;
 using DocumentFormat.OpenXml.Bibliography;
 using StackBook.Middleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using StackBook.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+// Thêm services
+builder.Services.AddSignalR();
 
 builder.Services.AddScoped<BookService>();
 builder.Services.AddScoped<CategoryService>();
@@ -29,6 +32,10 @@ builder.Services.AddScoped<JwtUtils>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<AccountController>();
 builder.Configuration.AddJsonFile("appsettings.json");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -65,6 +72,8 @@ builder.Services.Configure<GoogleOAuthConfig>(
 builder.Services.AddSingleton<StackBook.Utils.JwtUtils>();
 var app = builder.Build();
 
+// Cấu hình endpoint
+app.MapHub<NotificationHub>("/notificationHub");
 //builder.Services.AddHttpContextAccessor();
 app.UseAuthentication(); //Middelware
 app.UseMiddleware<Authentication>(); //Middleware custom của bạn

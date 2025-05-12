@@ -1,10 +1,10 @@
 ﻿@if (ViewBag.Category == null)
 {
     ViewData["Title"] = "Category";
-    <partial name="_ExploreAllCategories"/>
+    @await Html.PartialAsync("_ExploreAllCategories")
 }
 else
 {
     ViewData["Title"] = @ViewData["CategoryName"];
-    <partial name="_SingleCategory" />
+    @await Html.PartialAsync("_SingleCategory")
 }

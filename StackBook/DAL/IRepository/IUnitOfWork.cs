@@ -5,8 +5,9 @@
         ICategoryRepository Category { get; }
         IAuthorRepository Author { get; }
         IBookRepository Book { get; }
-        
+        IUserRepository User { get; }
 
-        void Save();
+
+        Task SaveAsync();
     }
 }

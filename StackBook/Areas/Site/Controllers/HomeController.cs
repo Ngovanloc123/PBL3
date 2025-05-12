@@ -22,15 +22,23 @@ namespace StackBook.Areas.Site.Controllers
             _categoryService = categoryService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var allBook_category = new AllBookCategoryViewModel
+            if (User.Identity.IsAuthenticated)
             {
-                Categories = _UnitOfWork.Category.GetAll().ToList(),
-                Books = _UnitOfWork.Book.GetAll().ToList()
+                if (User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("Index", "Statistic", new { area = "Admin" });
+                }
+            }
+            var homeVM = new HomeVM
+            {
+
+                Categories = await _UnitOfWork.Category.GetAllAsync(),
+                Books = await _UnitOfWork.Book.GetAllAsync("Authors")
             };
 
-            return View(allBook_category);
+            return View(homeVM);
         }
     }
 }

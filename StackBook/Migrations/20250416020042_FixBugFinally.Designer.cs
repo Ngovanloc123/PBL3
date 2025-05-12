@@ -443,7 +443,7 @@ namespace StackBook.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("ResetPasswordToken")
+                    b.Property<string>("ResetPassworVMken")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ResetTokenExpiry")

@@ -1,4 +1,4 @@
-using StackBook.DTOs;
+using StackBook.VMs;
 using StackBook.Models;
 using System;
 using System.Collections.Generic;
@@ -64,16 +64,16 @@ namespace StackBook.DAL
                 .Where(od => od.OrderId == orderId)
                 .ToListAsync();
         }
-        public async Task<List<OrderDetailDto>> GetOrderDetailsDtoAsync(Guid orderId)
+        public async Task<List<OrderDetailVM>> GetOrderDetailsVMAsync(Guid orderId)
         {
             var orderDetails = await _db.OrderDetails
                 .Include(od => od.Book)
                 .Where(od => od.OrderId == orderId)
                 .ToListAsync();
-            var orderDetailDtos = new List<OrderDetailDto>();
+            var orderDetailVMs = new List<OrderDetailVM>();
             foreach (var od in orderDetails)
             {
-                orderDetailDtos.Add(new OrderDetailDto
+                orderDetailVMs.Add(new OrderDetailVM
                 {
                     OrderDetailId = od.OrderDetailId,
                     BookId = od.BookId,
@@ -83,7 +83,7 @@ namespace StackBook.DAL
                     TotalPrice = od.Quantity * od.Book.Price
                 });
             }
-            return orderDetailDtos;
+            return orderDetailVMs;
         }
         public async Task UpdateOrderStatusAsync(Guid orderId, int status)
         {

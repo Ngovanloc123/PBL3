@@ -1,0 +1,23 @@
+﻿@model StackBook.Models.Author
+
+@{
+    ViewData["Title"] = "Create Author";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Create Author</h1>
+
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label asp-for="AuthorName" class="form-label"></label>
+            <input asp-for="AuthorName" class="form-control" />
+            <span asp-validation-for="AuthorName" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

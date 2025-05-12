@@ -2,6 +2,7 @@
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Microsoft.EntityFrameworkCore;
 using StackBook.DAL.IRepository;
+using StackBook.DAL.Repository;
 using StackBook.Data;
 using StackBook.Models;
 using StackBook.ViewModels;
@@ -13,17 +14,12 @@ namespace StackBook.DAL
         public BookRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
-        } 
-
-        public void Update(Book entity)
-        {
-            _db.Books.Update(entity);
         }
 
-        public void Delete(Book book)
-        {
-            _db.Books.Remove(book);
-        }
+        //public void Update(Book entity)
+        //{
+        //    _db.Books.Update(entity);
+        //}
         //public IEnumerable<BookDetailViewModel> GetAllBookDetails()
         //{
         //    return _db.Books

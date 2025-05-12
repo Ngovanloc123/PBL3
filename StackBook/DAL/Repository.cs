@@ -1,47 +1,70 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StackBook.DAL.IRepository;
-using StackBook.Data;
 using System.Linq.Expressions;
 
-namespace StackBook.DAL
+namespace StackBook.DAL.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly ApplicationDbContext _db;
-        internal DbSet<T> dbSet;
+        private readonly DbContext _context;
+        private readonly DbSet<T> _dbSet;
 
-        public Repository(ApplicationDbContext db)
+        public Repository(DbContext context)
         {
-            _db = db;
-            this.dbSet = _db.Set<T>();
+            _context = context;
+            _dbSet = _context.Set<T>();
         }
 
-        public virtual void Add(T entity)
+        public async Task<IEnumerable<T>> GetAllAsync(string? includeProperties = null)
         {
-            dbSet.Add(entity);
+            IQueryable<T> query = _dbSet;
+
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+
+            return await query.ToListAsync();
         }
 
-        public virtual T Get(Expression<Func<T, bool>> filter)
+        public async Task<T?> GetAsync(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
-            IQueryable<T> query = dbSet;
-            query = query.Where(filter);
-            return query.FirstOrDefault();
+            IQueryable<T> query = _dbSet;
+
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+
+            return await query.FirstOrDefaultAsync(filter);
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public async Task AddAsync(T entity)
         {
-            IQueryable<T> query = dbSet;
-            return query.ToList();
+            await _dbSet.AddAsync(entity);
         }
 
-        public virtual void Remove(T entity)
+        public async Task DeleteAsync(T entity)
         {
-            dbSet.Remove(entity);
+            await Task.Run(() => _dbSet.Remove(entity));
         }
 
-        public void RemoveRange(IEnumerable<T> entities)
+        public async Task DeleteRangeAsync(IEnumerable<T> entities)
         {
-            dbSet.RemoveRange(entities);
+            await Task.Run(() => _dbSet.RemoveRange(entities));
+        }
+
+        public Task<T> UpdateAsync(T entity)
+        {
+            _dbSet.Update(entity);
+            return Task.FromResult(entity);
         }
     }
 }
+

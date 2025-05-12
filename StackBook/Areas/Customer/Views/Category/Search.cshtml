@@ -1,11 +1,11 @@
-﻿@model List<StackBook.ViewModels.BookWithAuthors>
+﻿@model List<StackBook.Models.Book>
 
 
 @{
 	ViewData["Title"] = '"' + @ViewBag.Query + '"';
 }
 
-<div class="container-fluid">
+<div class="container">
     <h1 class="text-center my-4 py-2 border-bottom bg-body-tertiary">
         Results for "<span class="text-primary">@ViewBag.Query</span>"
     </h1>

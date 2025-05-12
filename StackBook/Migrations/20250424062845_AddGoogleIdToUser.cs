@@ -5,7 +5,7 @@
 namespace StackBook.Migrations
 {
     /// <inheritdoc />
-    public partial class AddGoogleIdToUser : Migration
+    public partial class AddGoogleIVMUser : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

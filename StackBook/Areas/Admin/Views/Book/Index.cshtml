@@ -1,148 +1,87 @@
-﻿@model List<StackBook.ViewModels.BookDetailViewModel>
+﻿@model IEnumerable<StackBook.Models.Book>
 
 @{
-	ViewData["Title"] = "Manager Book";
+       
+    ViewData["Title"] = "Books";
 }
 
-<div class="container">
-	<div class="row pt-4 pb-4">
-		<div class="col-md-6">
-			<h1 class="text-primary">Book List</h1>
-		</div>
-		<div class="col-md-6 text-md-end text-center">
-			<a asp-area="Admin" asp-controller="Book" asp-action="Create" class="btn btn-primary">
-				<i class="fa-solid fa-plus"></i> Create New Book
-			</a>
-		</div>
-	</div>
+<div class="container ">
+    <h1 class="text-primary text-center">Books</h1>
+    <hr />
+    <a asp-action="Create" class="btn btn-success mb-3">Add New Book</a>
 
-	<div class="table-responsive">
-		<table class="table table-bordered table-striped">
-			<thead class="table-dark">
-				<tr>
-					<th>#</th>
-					<th>Title</th>
-					<th class="d-none d-md-table-cell">Authors</th>
-					<th class="d-none d-lg-table-cell">Price</th>
-					<th>Stock</th>
-					<th class="d-none d-xl-table-cell">Publication</th>
-					<th class="d-none d-md-table-cell">Category</th>
-					<th class="d-none d-lg-table-cell">Image</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				@{
-					var index = 1;
-				}
-				@foreach (var obj in Model)
-				{
-					<tr>
-						<td>@index</td>
-						<td>
-							<span title="@obj.BookTitle">
-								@obj.BookTitle
-							</span>
-						</td>
-						<td class="d-none d-md-table-cell">
-							<ul class="list-unstyled mb-0">
-								@foreach (var author in obj.AuthorsName)
-								{
-									<li>
-										<span class="d-inline-block" title="@author">
-											@author
-										</span>
-									</li>
-								}
-							</ul>
-						</td>
-						<td class="d-none d-lg-table-cell">@obj.Price$</td>
-						<td>@obj.Stock</td>
-						<td class="d-none d-xl-table-cell">@obj.CreatedBook.ToString("dd-MM-yyyy")</td>
-						<td class="d-none d-md-table-cell">
-							<ul class="list-unstyled mb-0">
-								@foreach (var category in obj.CategoryNames)
-								{
-									<li>
-										<span class="d-inline-block" title="@category">
-											@category
-										</span>
-									</li>
-								}
-							</ul>
-						</td>
-						<td class="d-none d-lg-table-cell text-center">
-							@if (!string.IsNullOrEmpty(obj.ImageURL))
-							{
-								<img src="@obj.ImageURL" alt="Book Image" class="img-thumbnail" style="width: 50px; height: auto;" />
-							}
-							else
-							{
-								<span>No Image</span>
-							}
-						</td>
-						<td>
-							<div class="btn-group" role="group">
-								<a asp-area="Admin" asp-controller="Book" asp-action="Edit" asp-route-BookId="@obj.BookId" class="btn btn-primary btn-sm">
-									<i class="fa-solid fa-pen-to-square"></i> Edit
-								</a>
-								<a data-bs-id=@obj.BookId class="btn btn-danger" data-bs-toggle="modal"
-								   data-bs-target="#delete-book-modal">
-									<i class="fa-solid fa-trash"></i> Delete
-								</a>
-							</div>
-						</td>
-					</tr>
-					index++;
-				}
-			</tbody>
-		</table>
-	</div>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Authors</th>
+                <th>Categories</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.BookTitle</td>
+                    <td>@book.Price.ToString("C")</td>
+                    <td>@book.Stock</td>
+                    <td>
+                        @string.Join(", ", book.Authors.Select(a => a.AuthorName))
+                    </td>
+                    <td>
+                        @string.Join(", ", book.Categories.Select(c => c.CategoryName))
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-bookId="@book.BookId" class="btn btn-primary btn-sm ">Edit</a>
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-book-id="@book.BookId" data-book-title="@book.BookTitle">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
- @* Confirm modal delete Book *@
-<div id="delete-book-modal" class="modal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header d-flex justify-content-between">
-				<h5 class="modal-title">Delete book?</h5>
-				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-
-			<div class="modal-body">
-				<p>Are you sure you want to delete this book?</p>
-			</div>
-			<div class="modal-footer">
-				<button id="btn-delete-book" type="button" class="btn btn-danger">Delete</button>
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-			</div>
-		</div>
-	</div>
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the book <strong id="bookTitle"></strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" method="post" asp-action="Delete">
+                    <input type="hidden" id="bookId" name="bookId" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
-<form method="POST" name="delete-book-form"></form>
+@section Scripts {
+    <script>
+      
+        const deleteModal = document.getElementById('deleteModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget; 
+            const bookId = button.getAttribute('data-book-id'); 
+            const bookTitle = button.getAttribute('data-book-title'); 
 
-<script>
-	document.addEventListener('DOMContentLoaded', function () {
-		const deleteBookModal = document.getElementById('delete-book-modal');
-		const deleteForm = document.forms['delete-book-form'];
-		const btnDeleteBook = document.getElementById('btn-delete-book');
+            
+            const modalTitle = deleteModal.querySelector('#bookTitle');
+            const deleteForm = deleteModal.querySelector('#deleteForm');
+            const bookIdInput = deleteModal.querySelector('#bookId');
 
-		if (deleteBookModal) {
-			deleteBookModal.addEventListener('show.bs.modal', function (event) {
-				const button = event.relatedTarget;
-				const bookId = button.getAttribute('data-bs-id');
-
-				// Gán action cho form
-				deleteForm.action = '/Admin/Book/Delete?BookId=' + bookId;
-			});
-		}
-
-		btnDeleteBook?.addEventListener('click', function () {
-			deleteForm.submit();
-		});
-	});
-</script>
-
+            modalTitle.textContent = bookTitle;
+            bookIdInput.value = bookId;
+        });
+    </script>
+}

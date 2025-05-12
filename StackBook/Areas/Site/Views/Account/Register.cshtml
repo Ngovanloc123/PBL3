@@ -1,50 +1,67 @@
-﻿@{
-	ViewData["Title"] = "Register";
+﻿@model StackBook.ViewModels.UserVM.RegisterVM
+
+@{
+    ViewData["Title"] = "Register";
 }
 
-<head>
-	<link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
-</head>
-
 <body>
-	<section>
-		<div class="account-box">
-			<form action="">
-				<h2>Register</h2>
+    <section class="d-flex justify-content-center align-items-center vh-100 bg-light">
+        <div class="card shadow-sm" style="width: 400px;">
+            <div class="card-body">
+                <h2 class="text-center mb-4">Register</h2>
+                <form method="post" asp-action="RegisterUser">
+                    <!-- Username Input -->
+                    <div class="mb-3">
+                        <label asp-for="Username" class="form-label"></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                            <input asp-for="Username" class="form-control" placeholder="Enter your username" />
+                        </div>
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
 
-				<div class="input-box">
-					<span class="icon"><i class="fa-solid fa-user"></i></i></span>
-					<input type="text" required />
-					<label>Username</label>
-				</div>
+                    <!-- Email Input -->
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label"></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email" />
+                        </div>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
 
-				<div class="input-box">
-					<span class="icon"><i class="fa-solid fa-envelope"></i></span>
-					<input type="email" required />
-					<label>Email</label>
-				</div>
+                    <!-- Password Input -->
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label"></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
 
-				<div class="input-box">
-					<span class="icon"><i class="fa-solid fa-lock"></i></span>
-					<input type="password" required />
-					<label>Password</label>
-				</div>
+                    <!-- Confirm Password Input -->
+                    <div class="mb-3">
+                        <label asp-for="ConfirmPassword" class="form-label"></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-unlock"></i></span>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password" />
+                        </div>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
 
-				<div class="input-box">
-					<span class="icon"><i class="fa-solid fa-unlock"></i></span>
-					<input type="password" required />
-					<label>Confirm password</label>
-				</div>
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
 
-				@* <div class="remember-forgot"> *@
-				@* 	<label><input type="checkbox" />Remember me</label> *@
-				@* 	<a href="#">Forgot Password?</a> *@
-				@* </div> *@
-				<button type="submit">Register</button>
-				<div class="register-link">
-					<p>Already have a account??<a asp-area="Site" asp-controller="Account" asp-action="Signin">Signin</a></p>
-				</div>
-			</form>
-		</div>
-	</section>
+                    <!-- Sign In Link -->
+                    <div class="text-center mt-3">
+                        <p>
+                            Already have an account?
+                            <a asp-area="Site" asp-controller="Account" asp-action="Signin" class="text-decoration-none">Sign In</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 </body>

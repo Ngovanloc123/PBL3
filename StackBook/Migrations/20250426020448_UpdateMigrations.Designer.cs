@@ -466,7 +466,7 @@ namespace StackBook.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ResetPasswordToken")
+                    b.Property<string>("ResetPassworVMken")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ResetTokenExpiry")

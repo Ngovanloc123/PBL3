@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.EntityFrameworkCore;
 using StackBook.Data;
-using StackBook.DTOs;
+using StackBook.VMs;
 using StackBook.Models;
 using StackBook.Services;
 using StackBook.Interfaces;
@@ -16,29 +16,30 @@ using StackBook.Configurations;
 using DocumentFormat.OpenXml.Office.CoverPageProps;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.AspNetCore.Identity;
+using static StackBook.ViewModels.UserVM;
 
 namespace StackBook.Services
 {
     public class UserService : IUserService
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly ApplicationDbContext _context;
         private readonly EMailUtils _emailUtils;
         private readonly OAuthGoogleService _oauthGoogleService;
         private readonly JwtUtils _jwtUtils;
-        private readonly IUserRepository _userRepository;
-        public UserService(ApplicationDbContext context, EMailUtils eMailUtils, OAuthGoogleService oauthGoogleService, IUserRepository userRepository, JwtUtils jwtUtils)
+        public UserService(ApplicationDbContext context,  EMailUtils eMailUtils, OAuthGoogleService oauthGoogleService, JwtUtils jwtUtils, IUnitOfWork unitOfWork)
         {
             _context = context;
             _emailUtils = eMailUtils;
             _oauthGoogleService = oauthGoogleService;
-            _userRepository = userRepository;
             _jwtUtils = jwtUtils;
+            _unitOfWork = unitOfWork;
         }
-        public async Task<ServiceResponse<User>> UpdateUser(UpdateDto updateDto)
+        public async Task<ServiceResponse<User>> UpdateUser(UpdateVM updateVM)
         {
             var response = new ServiceResponse<User>();
 
-            var user = await _userRepository.GetByIdAsync(updateDto.UserId);
+            var user = await _unitOfWork.User.GetByIdAsync(updateVM.UserId);
             if (user == null)
             {
                 response.Success = false;
@@ -47,9 +48,9 @@ namespace StackBook.Services
             }
 
             // Kiểm tra email đã tồn tại chưa
-            if (!string.IsNullOrEmpty(updateDto.Email))
+            if (!string.IsNullOrEmpty(updateVM.Email))
             {
-                var emailOwner = await _context.Users.FirstOrDefaultAsync(u => u.Email == updateDto.Email && u.UserId != updateDto.UserId);
+                var emailOwner = await _context.Users.FirstOrDefaultAsync(u => u.Email == updateVM.Email && u.UserId != updateVM.UserId);//
 
                 if (emailOwner != null)
                 {
@@ -58,17 +59,17 @@ namespace StackBook.Services
                     return response;
                 }
 
-                user.Email = updateDto.Email;
+                user.Email = updateVM.Email;
             }
 
-            if (!string.IsNullOrEmpty(updateDto.Username))
+            if (!string.IsNullOrEmpty(updateVM.Username))
             {
-                user.FullName = updateDto.Username;
+                user.FullName = updateVM.Username;
             }
             var accessToken = _jwtUtils.GenerateAccessToken(user);
 
-            await _userRepository.UpdateAsync(user);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.User.UpdateAsync(user);
+            await _unitOfWork.SaveAsync();
 
             response.Data = user;
             response.Message = "User updated successfully";
@@ -80,7 +81,7 @@ namespace StackBook.Services
         {
             var response = new ServiceResponse<User>();
 
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _unitOfWork.User.GetByIdAsync(userId);
             if (user == null)
             {
                 response.Success = false;
@@ -88,8 +89,8 @@ namespace StackBook.Services
                 return response;
             }
 
-            await _userRepository.DeleteAsync(user.UserId);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.User.DeleteAsync(user);
+            await _unitOfWork.SaveAsync();
 
             response.Data = user;
             response.Message = "User deleted successfully";
@@ -103,7 +104,7 @@ namespace StackBook.Services
         {
             var response = new ServiceResponse<List<User>>();
 
-            var users = await _context.Users.ToListAsync();
+            var users = await _context.Users.ToListAsync();//
             if (users == null || users.Count == 0)
             {
                 response.Success = false;
@@ -122,7 +123,7 @@ namespace StackBook.Services
         {
             var response = new ServiceResponse<User>();
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.FullName == username);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.FullName == username);//
             if (user == null)
             {
                 response.Success = false;
@@ -140,7 +141,7 @@ namespace StackBook.Services
         {
             var response = new ServiceResponse<User>();
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);//
             if (user == null)
             {
                 response.Success = false;
@@ -175,18 +176,18 @@ namespace StackBook.Services
             return response;
         }
 
-        public async Task<ServiceResponse<User>> UpdatePassword(UpdatePasswordDto updatePasswordDto)
+        public async Task<ServiceResponse<User>> UpdatePassword(UpdatePasswordVM updatePasswordVM)
         {
             var response = new ServiceResponse<User>();
 
-            if (updatePasswordDto == null || string.IsNullOrEmpty(updatePasswordDto.Password))
+            if (updatePasswordVM == null || string.IsNullOrEmpty(updatePasswordVM.Password))
             {
                 response.Success = false;
                 response.Message = "Invalid data";
                 return response;
             }
 
-            var user = await _userRepository.GetByIdAsync(updatePasswordDto.UserId);
+            var user = await _unitOfWork.User.GetByIdAsync(updatePasswordVM.UserId);
             if (user == null)
             {
                 response.Success = false;
@@ -194,11 +195,11 @@ namespace StackBook.Services
                 return response;
             }
 
-            var hashedPassword = await PasswordHashedUtils.HashPassword(updatePasswordDto.Password);
+            var hashedPassword = await PasswordHashedUtils.HashPassword(updatePasswordVM.Password);
             user.Password = hashedPassword;
 
-            await _userRepository.UpdateAsync(user);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.User.UpdateAsync(user);
+            await _unitOfWork.SaveAsync();
             var accessToken = _jwtUtils.GenerateAccessToken(user);
             response.AccessToken = accessToken;
             response.Data = user;
@@ -211,7 +212,7 @@ namespace StackBook.Services
         {
             var response = new ServiceResponse<string>();
 
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _unitOfWork.User.GetByIdAsync(userId);
             if (user == null)
             {
                 response.Success = false;
@@ -220,7 +221,7 @@ namespace StackBook.Services
             }
 
             // Kiểm tra email đã tồn tại chưa
-            var emailExists = await _userRepository.GetUserByEmailAsync(newEmail);
+            var emailExists = await _unitOfWork.User.GetUserByEmailAsync(newEmail);
             if (emailExists != null)
             {
                 response.Success = false;
@@ -236,8 +237,8 @@ namespace StackBook.Services
             user.ResetTokenExpiry = DateTime.UtcNow.AddMinutes(10);
             user.EmailVerifiedAt = null;
 
-            await _userRepository.UpdateAsync(user);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.User.UpdateAsync(user);
+            await _unitOfWork.SaveAsync();
 
             // Gửi mail xác minh
             var verificationLink = $"https://localhost:7170/auth/verify-email?token={resetToken}";
@@ -253,7 +254,7 @@ namespace StackBook.Services
         {
             var response = new ServiceResponse<string>();
 
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _unitOfWork.User.GetByIdAsync(userId);
             if (user == null)
             {
                 response.Success = false;
@@ -271,8 +272,8 @@ namespace StackBook.Services
             user.LockStatus = true;
             user.DateLock = DateTime.Now;
 
-            await _userRepository.UpdateAsync(user);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.User.UpdateAsync(user);
+            await _unitOfWork.SaveAsync();
 
             response.Data = "User locked successfully";
             response.Success = true;
@@ -283,7 +284,7 @@ namespace StackBook.Services
         {
             var response = new ServiceResponse<string>();
 
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _unitOfWork.User.GetByIdAsync(userId);
             if (user == null)
             {
                 response.Success = false;
@@ -301,8 +302,8 @@ namespace StackBook.Services
             user.LockStatus = false;
             user.DateLock = null;
 
-            await _userRepository.UpdateAsync(user);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.User.UpdateAsync(user);
+            await _unitOfWork.SaveAsync();
 
             response.Data = "User unlocked successfully";
             response.Success = true;

@@ -10,6 +10,7 @@ namespace StackBook.Models
         [Required(ErrorMessage = "Product name is required.")]
         [StringLength(255)]
         public string? BookTitle { get; set; }
+
         public string? Description { get; set; }
 
         [Required(ErrorMessage = "Price is required.")]

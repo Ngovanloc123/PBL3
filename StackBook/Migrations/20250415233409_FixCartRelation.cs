@@ -78,7 +78,7 @@ namespace StackBook.Migrations
                 defaultValue: false);
 
             migrationBuilder.AddColumn<string>(
-                name: "ResetPasswordToken",
+                name: "ResetPassworVMken",
                 table: "Users",
                 type: "nvarchar(max)",
                 nullable: true);
@@ -159,7 +159,7 @@ namespace StackBook.Migrations
                 table: "Users");
 
             migrationBuilder.DropColumn(
-                name: "ResetPasswordToken",
+                name: "ResetPassworVMken",
                 table: "Users");
 
             migrationBuilder.DropColumn(

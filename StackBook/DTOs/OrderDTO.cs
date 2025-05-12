@@ -1,17 +1,17 @@
 using System.ComponentModel.DataAnnotations;
-namespace StackBook.DTOs
+namespace StackBook.VMs
 {
-    public class OrderDto
+    public class OrderVM
     {
         public Guid OrderId { get; set; }
         public Guid UserId { get; set; }
         public string UserFullName { get; set; } = string.Empty; 
         public double TotalPrice { get; set; }
         public int Status { get; set; }
-        public List<OrderDetailDto> OrderDetails { get; set; } = new List<OrderDetailDto>();
+        public List<OrderDetailVM> OrderDetails { get; set; } = new List<OrderDetailVM>();
         public string ShippingAddress { get; set; } = string.Empty;
     }
-    public class OrderDetailDto
+    public class OrderDetailVM
     {
         public Guid OrderDetailId { get; set; }
         public Guid BookId { get; set; }

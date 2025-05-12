@@ -1,0 +1,54 @@
+﻿<div class="col-md-3">
+    <div class="text-center mb-4">
+        <img src="https://lh3.googleusercontent.com/a/ACg8ocJat_Edzo8L89RCHII0p2OWNBTYA1vKoPHJ8UwSyh-kgU0-1gyB=s240-c-rg-br100"
+             style="width: 100px; height: 100px;"
+             class="rounded-circle img-fluid mb-3"
+             alt="Customer Avatar">
+        <h5>Code FE so chill but...</h5>
+    </div>
+    <ul class="nav flex-column nav-pills">
+        <!-- Notifications -->
+        <li class="nav-item">
+            <a class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Notifications" ? "active" : "")"
+               asp-area="Customer"
+               asp-controller="Account"
+               asp-action="Notifications">
+                <img src="https://down-vn.img.susercontent.com/file/e10a43b53ec8605f4829da5618e0717c"
+                     class="me-2" width="20" alt="Notifications"> Notifications
+            </a>
+        </li>
+
+        <!-- My Profile -->
+        <li class="nav-item">
+            <a class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Profile" ? "active" : "")"
+               asp-area="Customer"
+               asp-controller="Account"
+               asp-action="Profile">
+                <img src="https://down-vn.img.susercontent.com/file/ba61750a46794d8847c3f463c5e71cc4"
+                     class="me-2" width="20" alt="Profile"> My Profile
+            </a>
+        </li>
+
+        <!-- Orders -->
+        <li class="nav-item">
+            <a class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Orders" ? "active" : "")"
+               asp-area="Customer"
+               asp-controller="Account"
+               asp-action="Orders">
+                <img src="https://down-vn.img.susercontent.com/file/f0049e9df4e536bc3e7f140d071e9078"
+                     class="me-2" width="20" alt="Orders"> Orders
+            </a>
+        </li>
+
+        <!-- Vouchers -->
+        <li class="nav-item">
+            <a class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Vouchers" ? "active" : "")"
+               asp-area="Customer"
+               asp-controller="Account"
+               asp-action="Vouchers">
+                <img src="https://down-vn.img.susercontent.com/file/84feaa363ce325071c0a66d3c9a88748"
+                     class="me-2" width="20" alt="Vouchers"> Vouchers
+            </a>
+        </li>
+    </ul>
+</div>

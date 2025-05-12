@@ -1,7 +1,7 @@
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.EntityFrameworkCore;
 using StackBook.Data;
-using StackBook.DTOs;
+using StackBook.VMs;
 using StackBook.Models;
 using StackBook.Services;
 using StackBook.Interfaces;
@@ -18,44 +18,50 @@ using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using VNPAY.NET;
+using static StackBook.ViewModels.UserVM;
 
 namespace StackBook.Services
 {
     public class AuthService : IAuthService
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly EMailUtils _emailSender;  
         private readonly IUserRepository _userRepository;
         private readonly JwtUtils _jwtUtils;
         private readonly OAuthGoogleService _oauthGoogleService;
 
-        public AuthService( EMailUtils emailSender, IUserRepository userRepository, JwtUtils jwtUtils, OAuthGoogleService oauthGoogleService)
+        private string avatarDefault = "https://res.cloudinary.com/dzkbuah8k/image/upload/v1746291744/avatar_default_y8oo4n.jpg\r\n";
+
+        public AuthService( EMailUtils emailSender, IUserRepository userRepository, JwtUtils jwtUtils, OAuthGoogleService oauthGoogleService, IUnitOfWork unitOfWork)
         {
             _emailSender = emailSender;
             _userRepository = userRepository;
             _jwtUtils = jwtUtils;
             _oauthGoogleService = oauthGoogleService;
+            _unitOfWork = unitOfWork;
         }
-        public async Task<ServiceResponse<User>> RegisterUser(RegisterDto registerDto)
+        public async Task<ServiceResponse<User>> RegisterUser(RegisterVM registerVM)
         {
             var response = new ServiceResponse<User>();
-            if(string.IsNullOrEmpty(registerDto.Email) || string.IsNullOrEmpty(registerDto.Password) || string.IsNullOrEmpty(registerDto.Username))
+            if(string.IsNullOrEmpty(registerVM.Email) || string.IsNullOrEmpty(registerVM.Password) || string.IsNullOrEmpty(registerVM.Username))
             {
                 response.Success = false;
                 response.Message = "Email, password and username are required";
                 return response;
             }
-            var existingUser = await _userRepository.GetUserByEmailAsync(registerDto.Email);
+            var existingUser = await _userRepository.GetUserByEmailAsync(registerVM.Email);
             if (existingUser != null)
             {
                 response.Success = false;
                 response.Message = "Email already exists";
                 return response;
             }
-            var hashedPassword = await PasswordHashedUtils.HashPassword(registerDto.Password);
+            var hashedPassword = await PasswordHashedUtils.HashPassword(registerVM.Password);
             var user = new User
             {
-                Email = registerDto.Email,
-                FullName = registerDto.Username,
+                Email = registerVM.Email,
+                FullName = registerVM.Username,
+                AvatarURL = avatarDefault,
                 Password = hashedPassword,
                 Role = false,
                 CreatedUser = DateTime.UtcNow,
@@ -71,7 +77,7 @@ namespace StackBook.Services
                 RefreshTokenExpiry = null,
             };
             var result = await _userRepository.CreateAsync(user);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
             if (result != null)
             {
                 var verificationToken = _jwtUtils.GenerateToken(user);
@@ -92,18 +98,18 @@ namespace StackBook.Services
                 return response;
             }
         }
-        public async Task<ServiceResponse<User>> SignInUser(SignInDto signInDto)
+        public async Task<ServiceResponse<User>> SignInUser(SignInVM signInVM)
         {
             var response = new ServiceResponse<User>();
-            if(string.IsNullOrEmpty(signInDto.Email) || string.IsNullOrEmpty(signInDto.Password))
+            if(string.IsNullOrEmpty(signInVM.Email) || string.IsNullOrEmpty(signInVM.Password))
             {
                 response.Success = false;
                 response.Message = "Email and password are required";
                 Console.WriteLine($"SignIn result: {response}");
                 return response;
             }
-            var user = await _userRepository.GetUserByEmailAsync(signInDto.Email);
-            Console.WriteLine($"User found: {user.Password}");
+            var user = await _userRepository.GetUserByEmailAsync(signInVM.Email);
+            //Console.WriteLine($"User found: {user.Password}");
             if(user == null)
             {
                 response.Success = false;
@@ -122,20 +128,20 @@ namespace StackBook.Services
             {
                 response.Success = false;
                 response.Message = "Email is not verified";
-                Console.WriteLine($"SignIn result: {response.Message}");
+                //Console.WriteLine($"SignIn result: {response.Message}");
                 return response;
             }
             if(user.Password == null)
             {
                 response.Success = false;
                 response.Message = "Password is not set";
-                Console.WriteLine($"SignIn result: {response.Message}");	
+                //Console.WriteLine($"SignIn result: {response.Message}");	
                 return response;
             }
-            bool matches = await PasswordHashedUtils.VerifyPassword(signInDto.Password, user.Password);
-            Console.WriteLine($"Password verification result: {matches}");
-            Console.WriteLine($"User password: {user.Password}");
-            Console.WriteLine($"Input password: {signInDto.Password}");
+            bool matches = await PasswordHashedUtils.VerifyPassword(signInVM.Password, user.Password);
+            //Console.WriteLine($"Password verification result: {matches}");
+            //Console.WriteLine($"User password: {user.Password}");
+            //Console.WriteLine($"Input password: {signInVM.Password}");
             if(!matches)
             {
                 response.Success = false;
@@ -148,26 +154,26 @@ namespace StackBook.Services
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(7);
             await _userRepository.UpdateAsync(user);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
             response.Success = true;
             response.Data = user;
             response.AccessToken = accessToken;
             response.RefreshToken = refreshToken;
             response.StatusCode = 200;
             response.Message = "Login successful";
-            Console.WriteLine($"SignIn result: {response}");	
+            //Console.WriteLine($"SignIn result: {response}");	
             return response;
         }
-        public async Task<ServiceResponse<User>> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
+        public async Task<ServiceResponse<User>> ForgotPassword(ForgotPasswordVM forgotPasswordVM)
         {
             var response = new ServiceResponse<User>();
-            if(string.IsNullOrEmpty(forgotPasswordDto.Email))
+            if(string.IsNullOrEmpty(forgotPasswordVM.Email))
             {
                 response.Success = false;
                 response.Message = "Email is required";
                 return response;
             }
-            var user = await _userRepository.GetUserByEmailAsync(forgotPasswordDto.Email);
+            var user = await _userRepository.GetUserByEmailAsync(forgotPasswordVM.Email);
             if(user == null)
             {
                 response.Success = false;
@@ -178,7 +184,7 @@ namespace StackBook.Services
             user.ResetPasswordToken = resetToken;
             user.ResetTokenExpiry = DateTime.UtcNow.AddMinutes(15);
             await _userRepository.UpdateAsync(user);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
             var resetLink = $"https://localhost:7170/auth/reset-password?token={resetToken}";
             var subject = "Reset Password";
             var message = $"Please reset your password by clicking this link: {resetLink}";
@@ -188,34 +194,34 @@ namespace StackBook.Services
             response.Data = user;
             return response;
         }
-        public async Task<ServiceResponse<User>> ResetPassword(ResetPasswordDto resetPasswordDto)
+        public async Task<ServiceResponse<User>> ResetPassword(ResetPasswordVM resetPasswordVM)
         {
             var response = new ServiceResponse<User>();
-            if(string.IsNullOrEmpty(resetPasswordDto.Token) || string.IsNullOrEmpty(resetPasswordDto.NewPassword) || string.IsNullOrEmpty(resetPasswordDto.ConfirmPassword))
+            if(string.IsNullOrEmpty(resetPasswordVM.Token) || string.IsNullOrEmpty(resetPasswordVM.NewPassword) || string.IsNullOrEmpty(resetPasswordVM.ConfirmPassword))
             {
                 response.Success = false;
                 response.Message = "Token, new password and confirm password are required";
                 return response;
             }
-            if(resetPasswordDto.NewPassword != resetPasswordDto.ConfirmPassword)
+            if(resetPasswordVM.NewPassword != resetPasswordVM.ConfirmPassword)
             {
                 response.Success = false;
                 response.Message = "Passwords do not match";
                 return response;
             }
-            var user = await _userRepository.GetUserByResetTokenAsync(resetPasswordDto.Token);
+            var user = await _userRepository.GetUserByResetTokenAsync(resetPasswordVM.Token);
             if(user == null || user.ResetTokenExpiry < DateTime.UtcNow)
             {
                 response.Success = false;
                 response.Message = "Invalid or expired token";
                 return response;
             }
-            var hashedPassword = await PasswordHashedUtils.HashPassword(resetPasswordDto.NewPassword);
+            var hashedPassword = await PasswordHashedUtils.HashPassword(resetPasswordVM.NewPassword);
             user.Password = hashedPassword;
             user.ResetPasswordToken = null;
             user.ResetTokenExpiry = null;
             await _userRepository.UpdateAsync(user);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
             response.Success = true;
             response.Message = "Password reset successfully";
             response.Data = user;
@@ -247,7 +253,7 @@ namespace StackBook.Services
             user.VerificationToken = verificationToken;
             user.EmailVerifiedAt = DateTime.UtcNow.AddMinutes(15);
             await _userRepository.UpdateAsync(user);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
             var verificationLink = $"https://localhost:7170/auth/verify-email?token={verificationToken}";
             var subject = "Email Verification";
             var message = $"Please verify your email by clicking this link: {verificationLink}";
@@ -283,7 +289,7 @@ namespace StackBook.Services
             user.VerificationToken = verificationToken;
             user.EmailVerifiedAt = DateTime.UtcNow.AddMinutes(15);
             await _userRepository.UpdateAsync(user);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
             var verificationLink = $"https://localhost:7170/auth/verify-email?token={verificationToken}";
             var subject = "Email Verification";
             var message = $"Please verify your email by clicking this link: {verificationLink}";
@@ -313,7 +319,7 @@ namespace StackBook.Services
             user.VerificationToken = null;
             user.EmailVerifiedAt = DateTime.UtcNow;
             await _userRepository.UpdateAsync(user);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
             response.Success = true;
             response.Message = "Email verified successfully";
             response.Data = user;
@@ -359,7 +365,7 @@ namespace StackBook.Services
             user.RefreshToken = null;
             user.RefreshTokenExpiry = null;
             await _userRepository.UpdateAsync(user);
-            await _userRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
             response.Success = true;
             response.Message = "Logout successful";
             return response;

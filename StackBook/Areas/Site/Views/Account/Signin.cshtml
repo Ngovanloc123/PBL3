@@ -1,118 +1,61 @@
-﻿@model StackBook.DTOs.SignInDto
+﻿@model StackBook.ViewModels.UserVM.SignInVM
+
 @{
     ViewData["Title"] = "Sign In";
 }
 
-<head>
-    <link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
-</head>
-
 <body>
-    <section>
-        <div class="account-box">
-            <form asp-controller="Account" asp-action="SignInUser" method="post">
-                <h2>Sign in</h2>
+    <section class="d-flex justify-content-center align-items-center vh-100 bg-light">
+        <div class="card shadow-sm" style="width: 400px;">
+            <div class="card-body">
+                <h2 class="text-center mb-4">Sign In</h2>
 
-                <!-- Email input -->
-                <div class="input-box">
-                    <span class="icon"><i class="fa-solid fa-envelope"></i></span>
-                    <input asp-for="Email" type="email" required />
-                    <label>Email</label>
-                    @if (ViewData["EmailError"] != null)
-                    {
-                        <span class="text-danger">@ViewData["EmailError"]</span>
-                    }
-                </div>
+                @* <div asp-validation-summary="All" class="text-danger mb-3"></div> *@
 
-                <!-- Password input -->
-                <div class="input-box">
-                    <span class="icon"><i class="fa-solid fa-lock"></i></span>
-                    <input asp-for="Password" type="password" required />
-                    <label>Password</label>
-                    @if (ViewData["PasswordError"] != null)
-                    {
-                        <span class="text-danger">@ViewData["PasswordError"]</span>
-                    }
-                </div>
+                <form method="post" asp-action="SignInUser" asp-all-route-urlRedirect="@ViewBag.URLRedirect">
+                    <!-- Email Input -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                            <input type="email" class="form-control" id="email" name="Email" placeholder="Enter your email" required />
+                        </div>
+                        <!-- Validation Message for Email -->
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
 
-                <div class="remember-forgot">
-                    <label><input type="checkbox" />Remember me</label>
-                    <a href="#">Forgot Password?</a>
-                </div>
+                    <!-- Password Input -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                            <input type="password" class="form-control" id="password" name="Password" placeholder="Enter your password" required />
+                        </div>
+                        <!-- Validation Message for Password -->
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
 
-                <button type="submit">Login</button>
+                    <!-- Remember Me and Forgot Password -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe" />
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <a href="#" class="text-decoration-none">Forgot Password?</a>
+                    </div>
 
-                <div class="register-link">
-                    <p>Don't have an account?
-                        <a asp-controller="Account" asp-action="Register">Register</a>
-                    </p>
-                </div>
-            </form>
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+
+                    <!-- Register Link -->
+                    <div class="text-center mt-3">
+                        <p>
+                            Don't have an account?
+                            <a asp-action="Register" class="text-decoration-none">Register</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
         </div>
     </section>
-
-    <!-- Sử dụng TempData để lấy AccessToken và RefreshToken nếu có -->
-    @if (TempData["AccessToken"] != null && TempData["RefreshToken"] != null)
-    {
-        <script>
-            // Lấy accessToken và refreshToken từ TempData
-            var accessToken = '@TempData["AccessToken"]';
-            var refreshToken = '@TempData["RefreshToken"]';
-
-            // Lưu vào localStorage
-            localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('refreshToken', refreshToken);
-
-            // Kiểm tra nếu token được lưu thành công
-            console.log("AccessToken saved: ", localStorage.getItem('accessToken'));
-            console.log("RefreshToken saved: ", localStorage.getItem('refreshToken'));
-
-            // Nếu muốn điều hướng sau khi đăng nhập thành công, có thể dùng:
-            var userId = '@TempData["UserId"]'; // Lấy UserId từ TempData nếu cần
-            window.location.href = 'Account/Profile/${userId}'; // Hoặc trang nào đó bạn muốn chuyển hướng
-        </script>
-    }
-    else
-    {
-        <script>
-            // Nếu không có accessToken và refreshToken
-            console.log("Token không được trả về, vui lòng thử lại.");
-        </script>
-    }
 </body>
-@* @{
-    Layout = "_Layout";
-}
-
-<h2>Login</h2>
-
-<form method="post" action="/Account/SignIn">
-    <div>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required />
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required />
-    </div>
-    <button type="submit">Sign In</button>
-</form>
-
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="error-message">
-        <p>@TempData["ErrorMessage"]</p>
-    </div>
-}
-
-@if (TempData["AccessToken"] != null)
-{
-    <script>
-        var accessToken = '@TempData["AccessToken"]';
-        var refreshToken = '@TempData["RefreshToken"]';
-        var userId = '@TempData["UserId"]';
-        
-        // Điều hướng đến trang profile sau khi đăng nhập
-        window.location.href = `/Account/Profile/${userId}`;
-    </script>
-} *@

@@ -1,281 +1,93 @@
-﻿@model StackBook.ViewModels.BookDetailViewModel
+﻿@model StackBook.ViewModels.BookVM
 
 @{
-	ViewData["Title"] = "Edit Book";
+
+    ViewData["Title"] = "Edit Book";
 }
 
+<div class="container mt-4">
+    <h1 class="text-primary text-center">Edit Book</h1>
+    <hr />
+    @* [POST] admin/book/edit *@
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <input asp-for="BookId" type="hidden" />
+        <input asp-for="ImageURL" type="hidden" />
 
-<div class="container">
-	<div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
-		<div class="row pb-2">
-			<div class="col-12 text-center">
-				<h2 class="text-primary">Edit Book</h2>
-			</div>
-		</div>
-	</div>
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Book Title -->
+                <div class="mb-3">
+                    <label asp-for="BookTitle" class="form-label">Book Title</label>
+                    <input asp-for="BookTitle" class="form-control" />
+                    <span asp-validation-for="BookTitle" class="text-danger"></span>
+                </div>
 
-	<div class="card-body p-4">
-		@* Buộc phải có enctype nếu có form <input type="file"> *@
-		<form method="post" class="row" enctype="multipart/form-data">
-			<input asp-for="BookId" hidden />
-			<input asp-for="ImageURL" hidden />
-			<div class="border p-3 mt-4">
-				<div class="form-floating mb-3">
-					@* Lấy text label thông qua DisplayName = BookName *@
-					<input asp-for="BookTitle" class="form-control" />
-					<label asp-for="BookTitle" class=" pb-2"></label>
-					<span asp-validation-for="BookTitle" class="text-danger"></span>
-				</div>
-				<div class="row">
-					<div class="col-6">
-						<div class="form-floating mb-3">
-							<input type="file" name="file" class="form-control" />
-							<label for="file" asp-for="ImageURL" class=" pb-2"></label>
-						</div>
-						<div class="mb-3">
-							<label asp-for="CategoryNames" class="pb-2 text-muted"></label>
-							<div id="category-container">
-								@if (Model?.CategoryNames != null && Model.CategoryNames.Count > 0)
-								{
-									for (int i = 0; i < Model.CategoryNames.Count; i++)
-									{
-										<div class="mb-3 d-flex flex-sm-row category-item">
-											<input name="CategoryNames[@i]"
-												   value="@Model.CategoryNames[i]"
-												   readonly
-												   class="form-control" />
-											<button onclick="removeCategory(this)"
-													type="button"
-													class="btn btn-secondary mx-2">
-												<i class="fa-solid fa-delete-left"></i>
-											</button>
-										</div>
-									}
-								}
-							</div>
+                <!-- Description -->
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
 
-							<span asp-validation-for="CategoryNames" class="text-danger"></span>
-							<div class="mb-3">
-								<select id="new-category"
-										onchange="addCategory()"
-										asp-items="ViewBag.CategoryList"
-										class="form-select pb-2">
-									<option readonly selected>--Select Category--</option>
-								</select>
-							</div>
-						</div>
+                <!-- Price -->
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label">Price</label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
 
-						<div class="form-floating mb-3">
-							<input asp-for="Price" class="form-control" />
-							<label asp-for="Price" class=" pb-2"></label>
-							<span asp-validation-for="Price" class="text-danger"></span>
-						</div>
-						<div class="form-floating mb-3">
-							<input asp-for="Stock" class="form-control" />
-							<label asp-for="Stock" class=" pb-2"></label>
-							<span asp-validation-for="Stock" class="text-danger"></span>
-						</div>
-						<div class="form-floating mb-3">
-							<input asp-for="CreatedBook" class="form-control" />
-							<label asp-for="CreatedBook" class=" pb-2"></label>
-							<span asp-validation-for="CreatedBook" class="text-danger"></span>
-						</div>
-					</div>
-					<div class="col-6 card-image">
-						<img src="@Model?.ImageURL"  style="width: 100% !important;" />
-					</div>
-				</div>
+                <!-- Stock -->
+                <div class="mb-3">
+                    <label asp-for="Stock" class="form-label">Stock</label>
+                    <input asp-for="Stock" class="form-control" />
+                    <span asp-validation-for="Stock" class="text-danger"></span>
+                </div>
 
-				<div class=" mb-3">
-					<label asp-for="AuthorsName" class="pb-2 text-muted"></label>
-					<div id="author-container">
-						@if (Model?.AuthorsName != null && Model.AuthorsName.Count > 0)
-						{
-							for (int i = 0; i < Model.AuthorsName.Count; i++)
-							{
-								<div class="mb-3 d-flex flex-sm-row author-item">
-									<input name="AuthorsName[@i]" value="@Model.AuthorsName[i]" readonly class="form-control" />
-									<button onclick="removeAuthor(this)" type="button" class="btn btn-secondary mx-2"><i class="fa-solid fa-delete-left"></i></button>
-								</div>
-							}
-						}
-					</div>
+                <!-- Created Date -->
+                <div class="mb-3">
+                    <label asp-for="CreatedBook" class="form-label">Created Date</label>
+                    <input asp-for="CreatedBook" class="form-control" type="date" />
+                    <span asp-validation-for="CreatedBook" class="text-danger"></span>
+                </div>
+            </div>
 
-					<span asp-validation-for="AuthorsName" class="text-danger"></span>
-					<div class="mb-3">
-						<select id="new-author" onchange="addAuthor()" asp-items="ViewBag.AuthorList" class="form-select pb-2">
-							<option readonly selected>--Select Author--</option>
-						</select>
-					</div>
-				</div>
+            <div class="col-md-6">
+                <!-- Book Image -->
+                <div class="mb-3">
+                    <label class="form-label">Current Image</label>
+                    <div class="mb-2">
+                        <img src="@Model.ImageURL" alt="Book Image" class="img-fluid rounded" style="max-height: 200px;" />
+                    </div>
+                    <label asp-for="ImageURL" class="form-label">Upload New Image</label>
+                    <input type="file" name="file" class="form-control" />
+                </div>
 
+                <!-- Categories (Multi-Select) -->
+                <div class="mb-3">
+                    <label asp-for="SelectedCategoryIds" class="form-label">Categories</label>
+                    <select asp-for="SelectedCategoryIds" asp-items="Model.Categories" class="form-select" multiple>
+                    </select>
+                    <span asp-validation-for="SelectedCategoryIds" class="text-danger"></span>
+                </div>
 
+                <!-- Authors (Multi-Select) -->
+                <div class="mb-3">
+                    <label asp-for="SelectedAuthorIds" class="form-label">Authors</label>
+                    <select asp-for="SelectedAuthorIds" asp-items="Model.Authors" class="form-select" multiple>
+                    </select>
+                    <span asp-validation-for="SelectedAuthorIds" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
 
-				<div class=" mb-3">
-					<label asp-for="Description" class="p-0 text-muted"></label>
-					<textarea asp-for="Description" class="form-control"></textarea>
-				</div>
-
-
-				<div class="row">
-					<div class="col-6 col-md-3">
-						<button type="submit" class="btn btn-primary form-control">Edit</button>
-					</div>
-					<div class="col-6 col-md-3">
-						<a asp-area="Admin" asp-controller="Book" asp-action="Index" class="btn btn-secondary form-control">
-							Back to list
-						</a>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
+        <!-- Submit Buttons -->
+        <div class="row mt-4">
+            <div class="col-md-3  my-sm-2">
+                <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+            </div>
+            <div class="col-md-3 my-sm-2">
+                <a asp-action="Index" class="btn btn-secondary w-100">Back to List</a>
+            </div>
+        </div>
+    </form>
 </div>
-
-@* Dùng để gửi dữ liệu từ form, cập nhật database. Dữ liệu không hiển thị trên URL. *@
-@section Scripts {
-	<script>
-		tinymce.init({
-		selector: 'textarea',
-		plugins: [
-			// Core editing features
-			'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-			// Your account includes a free trial of TinyMCE premium features
-			// Try the most popular premium features until Apr 8, 2025:
-			'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
-		],
-		toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | align lineheight | checklist numlist bullist indent outdent ',
-		tinycomments_mode: 'embedded',
-		tinycomments_author: 'Author name',
-		mergetags_list: [
-			{ value: 'First.Name', title: 'First Name' },
-			{ value: 'Email', title: 'Email' },
-		],
-		ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
-		});
-	</script>
-	<script>
-	// BEGIN: Thêm Author vào danh sách author =))
-		function addAuthor() {
-			// Lấy phần tử cần thêm
-			let selectBox = document.getElementById("new-author");
-			// Lấy giá trị cần thêm, vì value và text đều là AuthorName nên không cần lấy text
-			let selectValue = selectBox.value;
-
-			console.log(selectValue);
-
-			if (selectValue != "--Select Author--") {
-
-
-				let authorContainer = document.getElementById("author-container");
-				// Vị trí cần thêm
-				let index = document.querySelectorAll(".author-item").length;
-
-				let newDiv = document.createElement("div");
-
-				newDiv.classList.add("mb-3", "d-flex", "flex-sm-row", "author-item");
-				newDiv.innerHTML = `
-							<input value="${selectValue}" readonly class="form-control" />
-						<input type="hidden" name="AuthorsName[${index}]" value="${selectValue}" />
-
-						<button onclick="removeAuthor(this)" type="button" class="btn btn-secondary mx-2">
-							<i class="fa-solid fa-delete-left "></i>
-						</button>
-					`;
-
-				// console.log(newDiv);
-
-				authorContainer.appendChild(newDiv);
-
-				console.log(authorContainer);
-
-				// Reset dropdown về trạng thái mặc định
-				selectBox.selectedIndex = 0;
-			}
-		}
-		// END: Thêm Author vào danh sách author =))
-
-		// BEGIN: Xoá author khỏi danh sách author =))
-		function removeAuthor(button) {
-			const authorContainer = document.getElementById('author-container');
-			const authorItem = button.closest('.author-item');
-			if (authorItem) {
-				authorItem.remove();
-
-				// Cập nhật lại tất cả input name="AuthorsName[i]"
-				const authorInputs = authorContainer.querySelectorAll('input[name^="AuthorsName"]');
-				authorInputs.forEach((input, index) => {
-					input.setAttribute('name', `AuthorsName[${index}]`);
-				});
-			}
-		}
-
-
-		// END: Xoá author khỏi danh sách author =))
-
-		function addCategory() {
-		  const select = document.getElementById("new-category");
-		  const value = select.value;
-		  const text = select.options[select.selectedIndex].text;
-
-		  if (!value || value === "--Select Category--") return;
-
-		  // Kiểm tra đã có chưa
-		  const existing = Array.from(
-			document.querySelectorAll("#category-container input")
-		  ).some(i => i.value === text);
-		  if (existing) {
-			alert("Category này đã được thêm.");
-			select.selectedIndex = 0;
-			return;
-		  }
-
-		  const container = document.getElementById("category-container");
-		  const index = container.querySelectorAll(".category-item").length;
-
-		  // Tạo thẻ div chứa input + nút xóa
-		  const div = document.createElement("div");
-		  div.className = "mb-3 d-flex flex-sm-row category-item";
-		  div.innerHTML = `
-			<input
-			  name="CategoryNames[${index}]"
-			  value="${text}"
-			  readonly
-			  class="form-control" />
-			<button
-			  type="button"
-			  class="btn btn-secondary mx-2"
-			  onclick="removeCategory(this)">
-			  <i class="fa-solid fa-delete-left"></i>
-			</button>
-		  `;
-
-		  container.appendChild(div);
-		  select.selectedIndex = 0;
-		}
-
-		function removeCategory(button) {
-		  const container = document.getElementById("category-container");
-		  const item = button.closest(".category-item");
-		  if (!item) return;
-		  item.remove();
-
-		  // Re-index lại name
-		  container.querySelectorAll("input[name^='CategoryNames']").forEach((input, i) => {
-			input.setAttribute("name", `CategoryNames[${i}]`);
-		  });
-		}
-
-
-
-
-		document.addEventListener("DOMContentLoaded", initSlider);
-
-
-			
-	</script>
-	@{
-		<partial name="_ValidationScriptsPartial" />
-	}
-}
-

@@ -472,7 +472,7 @@ namespace StackBook.Migrations
                     b.Property<DateTime?>("RefreshTokenExpiry")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ResetPasswordToken")
+                    b.Property<string>("ResetPassworVMken")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ResetTokenExpiry")

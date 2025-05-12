@@ -13,16 +13,18 @@ namespace StackBook.Services
             _unitOfWork = unitOfWork;
         }
 
-        public List<Book> SearchBooks(String query)
+        public async Task<List<Book>> SearchBooksAsync(string query)
         {
-            var books = _unitOfWork.Book.GetAll();
+
+            var books = await _unitOfWork.Book.GetAllAsync("Authors");
+            if (string.IsNullOrEmpty(query)) return books.ToList();
             var result = new List<Book>();
             foreach (var book in books)
             {
-                // Thỏa mãn có chứa tên sách
+                // Thỏa mãn có chứa tên sách 
                 bool matchedByTitle = book.BookTitle.ToLower().Contains(query.ToLower());
 
-                // // Thỏa mản có chứa Author
+                // Thỏa mản có chứa Author  
                 bool matchedByAuthor = book.Authors.Any(author =>
                     author.AuthorName.ToLower().Contains(query.ToLower())
                 );
@@ -31,8 +33,6 @@ namespace StackBook.Services
                 {
                     result.Add(book);
                 }
-
-
             }
             return result;
         }

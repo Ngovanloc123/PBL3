@@ -11,10 +11,10 @@ namespace StackBook.ViewComponents
         {
             _unitOfWork = unitOfWork;
         }
-        // Có thể lấy dữ liệu từ database
-        public IViewComponentResult Invoke()
+
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var category = _unitOfWork.Category.GetAll();
+            var category = await _unitOfWork.Category.GetAllAsync();
             return View(category);
         }
     }

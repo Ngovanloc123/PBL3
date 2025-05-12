@@ -6,7 +6,7 @@ using StackBook.Models;
 
 namespace StackBook.DAL.IRepository
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository<User>
     {
         Task<User> CreateAsync(User entity);
         Task<IEnumerable<User>> GetAllAsync();
@@ -14,7 +14,7 @@ namespace StackBook.DAL.IRepository
         Task<User> UpdateAsync(User entity);
         Task DeleteAsync(Guid id);
         Task<IEnumerable<User>> FindAsync(Expression<Func<User, bool>> predicate);
-        Task SaveAsync();
+        //Task SaveAsync();
         Task<User?> GetUserByGoogleIdAsync(string googleId);
         Task<User?> GetUserByEmailAsync(string email);
         Task<User?> GetUserByResetTokenAsync(string username);

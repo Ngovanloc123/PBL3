@@ -2,88 +2,159 @@
 
 @{
     ViewData["Title"] = "Shopping Cart";
+    var totalItems = Model.Count;
+    var totalPrice = Model.Sum(book => book.Price);
 }
 
-<div class="container-fluid">
-    <h1 class="text-center my-4 py-2 border-bottom bg-body-tertiary">
+<div class="container my-4">
+    <h1 class="text-center py-3 border-bottom bg-body-tertiary">
         Shopping Cart
     </h1>
 
-    <div class="row d-flex justify-content-center my-4">
-        <div class="col-md-8">
-            <div class="card mb-4">
-                <div class="card-body">
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table align-middle text-center">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">
+                            <input type="checkbox" id="select-all" class="form-check-input">
+                        </th>
+                        <th scope="col">Book</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
                     @foreach (var book in Model)
                     {
-                        <div class="row mb-4">
-                            <div class="col-2  mb-3 mb-lg-0">
-                                <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                                    <img src="@book.ImageURL" class="w-100" alt="@book.BookTitle" />
-                                    <a href="#!">
-                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                                    </a>
-                                </div>
-                            </div>
+                        <tr>
+                            <!-- Checkbox -->
+                            <td>
+                                <input type="checkbox" class="form-check-input book-select" checked>
+                            </td>
 
-                            <div class="col-8  mb-3 mb-lg-0">
-                                <p><strong>@book.BookTitle</strong></p>
-                                <p>@string.Join(", ", book.Authors.Select(a => a.AuthorName))</p>
-                                
+                            <!-- Image and Title -->
+                            <td class="text-start">
+                                <img src="@book.ImageURL" alt="@book.BookTitle" style="width: 60px; height: auto;" class="rounded me-2">
+                                <strong>@book.BookTitle</strong><br />
+                                <small>@string.Join(", ", book.Authors.Select(a => a.AuthorName))</small>
+                            </td>
 
-                                <div class=" mb-4" style="max-width: 180px">
-                                    <div class="btn-group me-2" role="group" aria-label="First group">
-                                        <button class="btn btn-primary px-3 me-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <div class="form-outline">
-                                            <input min="1" name="quantity" value="1" type="number" class="form-control" />
-                                            @* <label class="form-label">Quantity</label> *@
-                                        </div>
-                                        <button class="btn btn-primary px-3 ms-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
+                            <!-- Quantity -->
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Quantity selector">
+                                    <button type="button" class="btn btn-primary px-2"
+                                            onclick="updateQuantity(this, -1)">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+
+                                    <input type="number" name="quantity" min="1" value="1"
+                                           class="form-control text-center mx-1 quantity-input" style="width: 100px;" />
+
+                                    <button type="button" class="btn btn-primary px-2"
+                                            onclick="updateQuantity(this, 1)">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
                                 </div>
-                                <button type="button" class="btn btn-danger btn-sm me-1 mb-2" title="Remove item">
+                            </td>
+
+                            <!-- Price -->
+                            <td>
+                                <strong class="book-price">@book.Price.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</strong>
+                            </td>
+
+                            <!-- Delete button -->
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm" title="Remove item" onclick="removeItem(this)">
                                     <i class="fas fa-trash"></i>
                                 </button>
-
-                                
-                            </div>
-
-                            <div class="col-lg-2 mb-3 mb-lg-0">
-                                <p class="text-end">
-                                    <strong>@book.Price.ToString("C")</strong>
-                                </p>
-                            </div>
-                        </div>
-
-                        <hr class="my-4" />
+                            </td>
+                        </tr>
                     }
-                    @* Subtotal (2 items): $23.17 *@
-                    <p class="text-end">
-                        <strong>Subtotal (): $@Model.Sum(b => b.Price)</strong>
-                    </p>
-                </div>
-            </div>
+                </tbody>
+            </table>
 
-            <div class="card mb-4">
-                <div class="card-body">
-                    <p><strong>Expected shipping delivery</strong></p>
-                    <p class="mb-0">12.10.2020 - 14.10.2020</p>
-                </div>
-            </div>
+            <!-- Sticky Total Bar -->
+            <div class="bg-light border-top fixed-bottom">
+                <div class="container py-3 d-flex justify-content-between align-items-center">
+                    <!-- Total -->
+                    <div>
+                        <strong>Total (<span id="total-items">@totalItems</span> item):</strong>
+                        <span class="text-danger fs-5 ms-2" id="total-price">
+                            @totalPrice.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))
+                        </span>
+                        <div class="text-muted small">You saved: <span class="text-success">$1.25</span></div>
+                    </div>
 
-            <div class="card mb-4 mb-lg-0">
-                <div class="card-body">
-                    <p><strong>We accept</strong></p>
-                    <img class="me-2" width="45px" src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg" alt="Visa" />
-                    <img class="me-2" width="45px" src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg" alt="American Express" />
-                    <!-- thêm hình thức thanh toán khác -->
+                    <!-- Checkout button -->
+                    <form method="post" asp-action="Checkout">
+                        <button type="submit" class="btn btn-danger btn-lg">Checkout</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">
+            Your cart is empty. <a href="/" class="alert-link">Continue shopping</a>.
+        </div>
+    }
 </div>
+
+<!-- SCRIPT -->
+@section Scripts {
+    <script>
+        function updateQuantity(button, change) {
+            const input = button.closest('div').querySelector('.quantity-input');
+            const newValue = Math.max(1, parseInt(input.value) + change);
+            input.value = newValue;
+            input.dispatchEvent(new Event('change'));
+        }
+
+        function removeItem(button) {
+            const row = button.closest('tr');
+            row.remove();
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const rows = document.querySelectorAll('tbody tr');
+            let total = 0;
+            let itemCount = 0;
+
+            rows.forEach(row => {
+                const checkbox = row.querySelector('.book-select');
+                if (checkbox && checkbox.checked) {
+                    const priceText = row.querySelector('.book-price').textContent;
+                    const price = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+                    const quantity = parseInt(row.querySelector('.quantity-input').value);
+                    total += price * quantity;
+                    itemCount++;
+                }
+            });
+
+            document.getElementById("total-price").textContent = total.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            });
+            document.getElementById("total-items").textContent = itemCount;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.book-select, .quantity-input').forEach(el => {
+                el.addEventListener('change', updateTotal);
+            });
+
+            document.getElementById('select-all').addEventListener('change', function () {
+                const checked = this.checked;
+                document.querySelectorAll('.book-select').forEach(cb => cb.checked = checked);
+                updateTotal();
+            });
+
+            updateTotal();
+        });
+    </script>
+}

@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using StackBook.DAL.IRepository;
+using StackBook.DAL.Repository;
 using StackBook.Data;
 using StackBook.Models;
 
@@ -11,15 +12,6 @@ namespace StackBook.DAL
         public CategoryRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
-        }
-
-        public void Update(Category obj)
-        {
-            _db.Categories.Update(obj);
-        }
-        public void Delete(Category obj)
-        {
-            _db.Categories.Remove(obj);
         }	
     }
 }

@@ -22,9 +22,9 @@ namespace StackBook.Utils
         }
 
         //Kiểm tra token có dùng thuật toán hợp lệ không
-        private bool IsJwtWithValidSecurityAlgorithm(SecurityToken validatedToken)
+        private bool IsJwtWithValidSecurityAlgorithm(SecurityToken validateVMken)
         {
-            return validatedToken is JwtSecurityToken jwt &&
+            return validateVMken is JwtSecurityToken jwt &&
                    (jwt.Header.Alg == SecurityAlgorithms.HmacSha256 || jwt.Header.Alg == SecurityAlgorithms.HmacSha512);
         }
 
@@ -46,8 +46,8 @@ namespace StackBook.Utils
 
             try
             {
-                var principal = tokenHandler.ValidateToken(token, validationParams, out var validatedToken);
-                return IsJwtWithValidSecurityAlgorithm(validatedToken) ? principal : null;
+                var principal = tokenHandler.ValidateToken(token, validationParams, out var validateVMken);
+                return IsJwtWithValidSecurityAlgorithm(validateVMken) ? principal : null;
             }
             catch (SecurityTokenExpiredException) { Console.WriteLine("Token đã hết hạn."); }
             catch (SecurityTokenInvalidSignatureException) { Console.WriteLine("Token có chữ ký không hợp lệ."); }
@@ -62,7 +62,7 @@ namespace StackBook.Utils
             new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
             new Claim(ClaimTypes.Name, user.FullName),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim("Role", user.Role ? "Admin" : "User"),
+            new Claim("Role", user.Role ? "Admin" : "Customer"),
             new Claim("IsEmailVerified", user.IsEmailVerified ? "active" : "no-active"),
             new Claim("LockStatus", user.LockStatus ? "lock" : "no-lock"),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
@@ -70,7 +70,7 @@ namespace StackBook.Utils
         };
 
         //Dựng thông tin token
-        protected virtual SecurityTokenDescriptor BuildTokenDescriptor(List<Claim> claims, DateTime expiresAt)
+        protected virtual SecurityTokenDescriptor BuilVMkenDescriptor(List<Claim> claims, DateTime expiresAt)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -83,11 +83,11 @@ namespace StackBook.Utils
             };
         }
 
-        //Sinh access token (30 phút)
+        //Sinh   (30 phút)
         public string GenerateAccessToken(User user)
         {
             var claims = GenerateClaimsForUser(user);
-            var tokenDescriptor = BuildTokenDescriptor(claims, DateTime.UtcNow.AddMinutes(30));
+            var tokenDescriptor = BuilVMkenDescriptor(claims, DateTime.UtcNow.AddMinutes(30));
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
@@ -111,7 +111,7 @@ namespace StackBook.Utils
                 new Claim("ResetPassword", "true")
             };
 
-            var tokenDescriptor = BuildTokenDescriptor(claims, DateTime.UtcNow.AddMinutes(10));
+            var tokenDescriptor = BuilVMkenDescriptor(claims, DateTime.UtcNow.AddMinutes(10));
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
@@ -121,7 +121,7 @@ namespace StackBook.Utils
         public string GenerateToken(User user)
         {
             var claims = GenerateClaimsForUser(user);
-            var tokenDescriptor = BuildTokenDescriptor(claims, DateTime.UtcNow.AddDays(_tokenExpiryDays));
+            var tokenDescriptor = BuilVMkenDescriptor(claims, DateTime.UtcNow.AddDays(_tokenExpiryDays));
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);

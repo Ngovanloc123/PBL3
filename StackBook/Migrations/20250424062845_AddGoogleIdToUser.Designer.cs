@@ -12,8 +12,8 @@ using StackBook.Data;
 namespace StackBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250424062845_AddGoogleIdToUser")]
-    partial class AddGoogleIdToUser
+    [Migration("20250424062845_AddGoogleIVMUser")]
+    partial class AddGoogleIVMUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -444,7 +444,7 @@ namespace StackBook.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ResetPasswordToken")
+                    b.Property<string>("ResetPassworVMken")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ResetTokenExpiry")

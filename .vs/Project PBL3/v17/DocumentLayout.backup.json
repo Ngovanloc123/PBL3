@@ -3,28 +3,44 @@
   "WorkspaceRootPath": "D:\\Studying\\Source\\PBL3\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\irepository\\ireviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\irepository\\ireviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\repository\\reviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\repository\\reviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\irepository\\ipaymentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\irepository\\ipaymentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\repository\\discountrepositpry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\repository\\discountrepositpry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\irepository\\inotificationsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\irepository\\inotificationsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\irepository\\idiscountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\irepository\\idiscountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\repository\\notificationsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\repository\\notificationsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\repository\\orderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\repository\\orderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\repository\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\repository\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\irepository\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\irepository\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,68 +70,113 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "IPaymentRepository.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IPaymentRepository.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\IPaymentRepository.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IPaymentRepository.cs*",
-              "RelativeToolTip": "StackBook\\DAL\\IRepository\\IPaymentRepository.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:22:47.104Z",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\appsettings.json",
+              "RelativeDocumentMoniker": "StackBook\\appsettings.json",
+              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\appsettings.json",
+              "RelativeToolTip": "StackBook\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-07T02:30:24.558Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserRepository.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\UserRepository.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\UserRepository.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\UserRepository.cs",
-              "RelativeToolTip": "StackBook\\DAL\\Repository\\UserRepository.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAUwCcAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "PaymentService.cs",
+              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\Services\\PaymentService.cs",
+              "RelativeDocumentMoniker": "StackBook\\Services\\PaymentService.cs",
+              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\Services\\PaymentService.cs",
+              "RelativeToolTip": "StackBook\\Services\\PaymentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:06:15.106Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T02:29:43.147Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "NotificationsRepository.cs",
+              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\NotificationsRepository.cs",
+              "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\NotificationsRepository.cs",
+              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\NotificationsRepository.cs",
+              "RelativeToolTip": "StackBook\\DAL\\Repository\\NotificationsRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T01:51:38.601Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "OrderRepository.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\OrderRepository.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\OrderRepository.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\OrderRepository.cs",
-              "RelativeToolTip": "StackBook\\DAL\\Repository\\OrderRepository.cs",
-              "ViewState": "AgIAAFYAAAAAAAAAAAAuwE8AAAAxAAAAAAAAAA==",
+              "Title": "ReviewRepository.cs",
+              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\ReviewRepository.cs",
+              "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\ReviewRepository.cs",
+              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\ReviewRepository.cs",
+              "RelativeToolTip": "StackBook\\DAL\\Repository\\ReviewRepository.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAkwCsAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:06:07.761Z",
+              "WhenOpened": "2025-05-07T01:50:54.013Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\Program.cs",
+              "RelativeDocumentMoniker": "StackBook\\Program.cs",
+              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\Program.cs",
+              "RelativeToolTip": "StackBook\\Program.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAAEkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T01:49:20.127Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IDiscountRepository.cs",
+              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
+              "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
+              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
+              "RelativeToolTip": "StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T01:47:17.284Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ICategoryRepository.cs",
+              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\ICategoryRepository.cs",
+              "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\ICategoryRepository.cs",
+              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\ICategoryRepository.cs",
+              "RelativeToolTip": "StackBook\\DAL\\IRepository\\ICategoryRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T01:47:16.474Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "INotificationsRepository.cs",
+              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\INotificationsRepository.cs",
+              "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\INotificationsRepository.cs",
+              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\INotificationsRepository.cs",
+              "RelativeToolTip": "StackBook\\DAL\\IRepository\\INotificationsRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T01:47:02.295Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "CategoryRepository.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\CategoryRepository.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\CategoryRepository.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\CategoryRepository.cs",
-              "RelativeToolTip": "StackBook\\DAL\\Repository\\CategoryRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAIAAAAAAAAAA==",
+              "Title": "IPaymentRepository.cs",
+              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IPaymentRepository.cs",
+              "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\IPaymentRepository.cs",
+              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IPaymentRepository.cs",
+              "RelativeToolTip": "StackBook\\DAL\\IRepository\\IPaymentRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:05:58.929Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DiscountRepositpry.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\DiscountRepositpry.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\DiscountRepositpry.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\DiscountRepositpry.cs",
-              "RelativeToolTip": "StackBook\\DAL\\Repository\\DiscountRepositpry.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:05:50.347Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T02:22:52.979Z"
             }
           ]
         },
@@ -153,12 +214,12 @@
       "Orientation": 0,
       "VerticalTabListWidth": 256,
       "FloatingWindowState": {
-        "Id": "92020631-2575-4427-aa5b-677bdf79362e",
+        "Id": "7c3bf067-887b-424b-bc5b-79a8430c8674",
         "Display": 0,
-        "X": 1151,
-        "Y": 144,
-        "Width": 1382,
-        "Height": 656,
+        "X": 1076,
+        "Y": 288,
+        "Width": 658,
+        "Height": 676,
         "WindowState": 0
       },
       "DocumentGroups": [
@@ -168,15 +229,15 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IDiscountRepository.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
-              "RelativeToolTip": "StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "IReviewRepository.cs",
+              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IReviewRepository.cs",
+              "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\IReviewRepository.cs",
+              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IReviewRepository.cs",
+              "RelativeToolTip": "StackBook\\DAL\\IRepository\\IReviewRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T00:55:39.836Z",
+              "WhenOpened": "2025-05-07T01:51:59.439Z",
               "EditorCaption": ""
             }
           ]

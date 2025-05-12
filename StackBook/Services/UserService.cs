@@ -16,6 +16,7 @@ using StackBook.Configurations;
 using DocumentFormat.OpenXml.Office.CoverPageProps;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace StackBook.Services
 {
@@ -25,14 +26,16 @@ namespace StackBook.Services
         private readonly EMailUtils _emailUtils;
         private readonly OAuthGoogleService _oauthGoogleService;
         private readonly JwtUtils _jwtUtils;
+        private readonly CloudinaryUtils _cloudinaryUtils;
         private readonly IUserRepository _userRepository;
-        public UserService(ApplicationDbContext context, EMailUtils eMailUtils, OAuthGoogleService oauthGoogleService, IUserRepository userRepository, JwtUtils jwtUtils)
+        public UserService(ApplicationDbContext context, EMailUtils eMailUtils, OAuthGoogleService oauthGoogleService, IUserRepository userRepository, JwtUtils jwtUtils, CloudinaryUtils cloudinaryUtils)
         {
             _context = context;
             _emailUtils = eMailUtils;
             _oauthGoogleService = oauthGoogleService;
             _userRepository = userRepository;
             _jwtUtils = jwtUtils;
+            _cloudinaryUtils = cloudinaryUtils;
         }
         public async Task<ServiceResponse<User>> UpdateUser(UpdateDto updateDto)
         {
@@ -306,6 +309,38 @@ namespace StackBook.Services
 
             response.Data = "User unlocked successfully";
             response.Success = true;
+            return response;
+        }
+        public async Task<ServiceResponse<string>> UpdateAvatar(Guid userId, IFormFile file)
+        {
+            var response = new ServiceResponse<string>();
+
+            var user = await _userRepository.GetByIdAsync(userId);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "User not found";
+                return response;
+            }
+
+            if (file != null && file.Length > 0)
+            {
+                var uploadResult = await _cloudinaryUtils.UploadImageAsync(file);
+                user.AvatarUrl = uploadResult.ToString();
+                await _userRepository.UpdateAsync(user);
+                await _userRepository.SaveAsync();
+                response.Data = user.AvatarUrl;
+                response.Message = "Avatar updated successfully";
+                response.Success = true;
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "Invalid file";
+            }
+            // Ghi lại thông tin người dùng vào cookie
+            var accessToken = _jwtUtils.GenerateAccessToken(user);
+            response.AccessToken = accessToken;
             return response;
         }
     }

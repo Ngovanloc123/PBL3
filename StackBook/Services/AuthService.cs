@@ -70,13 +70,13 @@ namespace StackBook.Services
                 RefreshToken = null,
                 RefreshTokenExpiry = null,
             };
+            var verificationToken = _jwtUtils.GenerateToken(user);
+            user.VerificationToken = verificationToken;
             var result = await _userRepository.CreateAsync(user);
             await _userRepository.SaveAsync();
             if (result != null)
             {
-                var verificationToken = _jwtUtils.GenerateToken(user);
-                user.VerificationToken = verificationToken;
-                var verificationLink = $"https://localhost:7170/auth/verify-email?token={verificationToken}";
+                var verificationLink = $"https://localhost:7170/Site/Account/verify-email?token={verificationToken}";
                 var subject = "Email Verification";
                 var message = $"Please verify your email by clicking this link: {verificationLink}";
                 await _emailSender.SendEmailAsync(user.Email, subject, message);
@@ -179,7 +179,7 @@ namespace StackBook.Services
             user.ResetTokenExpiry = DateTime.UtcNow.AddMinutes(15);
             await _userRepository.UpdateAsync(user);
             await _userRepository.SaveAsync();
-            var resetLink = $"https://localhost:7170/auth/reset-password?token={resetToken}";
+            var resetLink = $"https://localhost:7170/Site/Account/reset-password?token={resetToken}";
             var subject = "Reset Password";
             var message = $"Please reset your password by clicking this link: {resetLink}";
             await _emailSender.SendEmailAsync(user.Email, subject, message);
@@ -248,7 +248,7 @@ namespace StackBook.Services
             user.EmailVerifiedAt = DateTime.UtcNow.AddMinutes(15);
             await _userRepository.UpdateAsync(user);
             await _userRepository.SaveAsync();
-            var verificationLink = $"https://localhost:7170/auth/verify-email?token={verificationToken}";
+            var verificationLink = $"https://localhost:7170/Site/Account/verify-email?token={verificationToken}";
             var subject = "Email Verification";
             var message = $"Please verify your email by clicking this link: {verificationLink}";
             await _emailSender.SendEmailAsync(user.Email, subject, message);
@@ -284,7 +284,7 @@ namespace StackBook.Services
             user.EmailVerifiedAt = DateTime.UtcNow.AddMinutes(15);
             await _userRepository.UpdateAsync(user);
             await _userRepository.SaveAsync();
-            var verificationLink = $"https://localhost:7170/auth/verify-email?token={verificationToken}";
+            var verificationLink = $"https://localhost:7170/Site/Account/verify-email?token={verificationToken}";
             var subject = "Email Verification";
             var message = $"Please verify your email by clicking this link: {verificationLink}";
             await _emailSender.SendEmailAsync(user.Email, subject, message);
@@ -295,6 +295,7 @@ namespace StackBook.Services
         }
         public async Task<ServiceResponse<User>> VerifyEmail(string token)
         {
+            Console.WriteLine($"Token: {token}");
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(token))
             {
@@ -302,7 +303,8 @@ namespace StackBook.Services
                 response.Message = "Token is required";
                 return response;
             }
-            var user = await _userRepository.GetUserByResetTokenAsync(token);
+            var user = await _userRepository.GetUserByVerificationTokenAsync(token);
+            Console.WriteLine($"User found: {user.VerificationToken}");
             if(user == null || user.EmailVerifiedAt < DateTime.UtcNow)
             {
                 response.Success = false;

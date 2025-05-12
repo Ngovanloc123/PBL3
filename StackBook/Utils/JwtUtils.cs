@@ -62,9 +62,9 @@ namespace StackBook.Utils
             new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
             new Claim(ClaimTypes.Name, user.FullName),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim("Role", user.Role ? "Admin" : "User"),
-            new Claim("IsEmailVerified", user.IsEmailVerified ? "active" : "no-active"),
-            new Claim("LockStatus", user.LockStatus ? "lock" : "no-lock"),
+            new Claim(ClaimTypes.Role, user.Role == true ? "Admin" : "User"),
+            new Claim("isEmailVerified", user.IsEmailVerified ? "active" : "no-active"),
+            new Claim("lockStatus", user.LockStatus ? "lock" : "no-lock"),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString())
         };

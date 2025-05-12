@@ -1,25 +1,149 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-namespace StackBook.Areas.Account.Controllers
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
+using StackBook.Interfaces;
+using StackBook.Models;
+using StackBook.Utils;
+using StackBook.DTOs;
+using System.Security.Claims;
+
+namespace StackBook.Areas.Site.Controllers 
 {
     [Area("Site")]
-    [Route("Site/[controller]/[action]")]  // Chỉ định rõ đường dẫn trong area
+    [Route("Site/Account")] // Route cơ bản
     public class AccountController : Controller
     {
-        public IActionResult Signin()
+        private readonly IUserService _userService;
+        private readonly IAuthService _authService;
+        private readonly JwtUtils _jwtUtils;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public AccountController(IUserService userService, IAuthService authService, IHttpContextAccessor httpContextAccessor, JwtUtils jwtUtils)
         {
-            return View();
+            _userService = userService;
+            _authService = authService;
+            _httpContextAccessor = httpContextAccessor;
+            _jwtUtils = jwtUtils;
         }
 
-        public IActionResult Register()
+        [HttpPost("SignIn")]
+        public async Task<IActionResult> SignInUser(SignInDto signInDto)
         {
-            return View();
-        }
+            try
+            {
+                if (signInDto == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
 
-        [HttpGet("Profile/{userId}")]
-        public IActionResult Profile(Guid userId)
+                var result = await _authService.SignInUser(signInDto);
+                if (result.Success == false)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed." });
+
+                // Ghi access token vào cookie
+                Response.Cookies.Append("accessToken", result.AccessToken, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTimeOffset.UtcNow.AddMinutes(15)
+                });
+
+                // Ghi refresh token vào cookie
+                Response.Cookies.Append("refreshToken", result.RefreshToken, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTimeOffset.UtcNow.AddDays(7)
+                });
+
+                // Nếu muốn: Ghi thêm user ID (không bắt buộc)
+                Response.Cookies.Append("userId", result.Data.UserId.ToString(), new CookieOptions
+                {
+                    HttpOnly = false,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTimeOffset.UtcNow.AddDays(7)
+                });
+
+                return RedirectToAction("Profile", "Account", new { area = "Customer", id = result.Data?.UserId });
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+            }
+        }
+        [HttpGet("Signin")]
+        [AllowAnonymous]
+        public IActionResult Signin() => View();
+
+        [HttpPost("Register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> RegisterUser(RegisterDto registerDto)
         {
-            return View();
+            try
+            {
+                if (registerDto == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
+
+                var result = await _authService.RegisterUser(registerDto);
+                if (result == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Registration failed." });
+
+                return RedirectToAction("Signin", "Account", new { area = "Site" });
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+            }
+        }
+        [HttpGet("Register")]
+        [AllowAnonymous]
+        public IActionResult Register() => View();
+
+        [HttpGet("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            try
+            {
+                // Lấy userId từ claim trong token (cookie)
+                var userId = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userId == null)
+                {
+                    return Unauthorized("User not authenticated.");
+                }
+
+                // Đăng xuất người dùng (thực hiện các hành động cần thiết từ phía server, ví dụ: hủy session, xóa refresh token...)
+                await _authService.LogoutUser(Guid.Parse(userId));
+
+                // Xóa cookie chứa access token khi người dùng đăng xuất
+                Response.Cookies.Delete("accessToken");  // Xóa accessToken khỏi cookie
+                Response.Cookies.Delete("refreshToken"); // Xóa refreshToken khỏi cookie (nếu có)
+                Response.Cookies.Delete("userId");       // Xóa userId khỏi cookie
+
+                // Chuyển hướng về trang login
+                return RedirectToAction("Signin", "Account", new { area = "Site" });
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+            }
+        }
+        [HttpGet("verify-email")]
+        public async Task<IActionResult> VerifyEmail([FromQuery] string token)
+        {
+            if (string.IsNullOrEmpty(token))
+            {
+                return BadRequest("Token is required");
+            }
+
+            var response = await _authService.VerifyEmail(token);
+
+            if (!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+            return View("EmailVerified", response.Data);
         }
     }
 }
-

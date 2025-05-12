@@ -6,6 +6,7 @@ namespace StackBook.Models
     {
         [Key]
         public Guid UserId { get; set; } = Guid.NewGuid();
+        public string? AvatarUrl { get; set; } = "https://www.gravatar.com/avatar/default?s=200&d=mp";
         public virtual ICollection<Cart>? Carts { get; set; }
         public virtual ICollection<Order>? Orders { get; set; }
         public virtual ICollection<ShippingAddress>? ShippingAddresses { get; set; }
@@ -38,7 +39,7 @@ namespace StackBook.Models
         public bool IsEmailVerified { get; set; } = false;
         public DateTime? EmailVerifiedAt { get; set; }
 
-        [StringLength(100)]
+        [MaxLength(512)]
         public string? VerificationToken { get; set; }
         
         // Các trường liên quan đến Refresh Token

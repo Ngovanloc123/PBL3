@@ -22,5 +22,6 @@ namespace StackBook.Interfaces
         Task<ServiceResponse<string>> UpdateEmail(Guid userId, string newEmail);//doi email
         Task<ServiceResponse<string>> LockUser(Guid userId);//khoa nguoi dung
         Task<ServiceResponse<string>> UnlockUser(Guid userId);//mo khoa nguoi dung
+        Task<ServiceResponse<string>> UpdateAvatar(Guid userId, IFormFile file);
     }
 }

@@ -73,5 +73,9 @@ namespace StackBook.DAL
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
         }
+        public async Task<User?> GetUserByVerificationTokenAsync(string verificationToken)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.VerificationToken == verificationToken);
+        }
     }
 }

@@ -3,20 +3,28 @@
   "WorkspaceRootPath": "D:\\Studying\\Source\\PBL3\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\areas\\site\\views\\account\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\site\\views\\account\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\areas\\site\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\site\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\middleware\\authentication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\middleware\\authentication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\irepository\\ireviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\irepository\\ireviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\repository\\reviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,7 +58,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -70,7 +78,46 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\Areas\\Site\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "StackBook\\Areas\\Site\\Controllers\\AccountController.cs",
+              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\Areas\\Site\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "StackBook\\Areas\\Site\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-12T06:16:59.804Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Profile.cshtml",
+              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\Areas\\Site\\Views\\Account\\Profile.cshtml",
+              "RelativeDocumentMoniker": "StackBook\\Areas\\Site\\Views\\Account\\Profile.cshtml",
+              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\Areas\\Site\\Views\\Account\\Profile.cshtml",
+              "RelativeToolTip": "StackBook\\Areas\\Site\\Views\\Account\\Profile.cshtml",
+              "ViewState": "AgIAAOoAAAAAAAAAAAAAANoAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-12T06:16:44.354Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Authentication.cs",
+              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\Middleware\\Authentication.cs",
+              "RelativeDocumentMoniker": "StackBook\\Middleware\\Authentication.cs",
+              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\Middleware\\Authentication.cs",
+              "RelativeToolTip": "StackBook\\Middleware\\Authentication.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-12T06:16:18.524Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\appsettings.json",
               "RelativeDocumentMoniker": "StackBook\\appsettings.json",
@@ -83,7 +130,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "PaymentService.cs",
               "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\Services\\PaymentService.cs",
               "RelativeDocumentMoniker": "StackBook\\Services\\PaymentService.cs",
@@ -91,12 +138,11 @@
               "RelativeToolTip": "StackBook\\Services\\PaymentService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T02:29:43.147Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T02:29:43.147Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "NotificationsRepository.cs",
               "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\NotificationsRepository.cs",
               "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\NotificationsRepository.cs",
@@ -104,12 +150,11 @@
               "RelativeToolTip": "StackBook\\DAL\\Repository\\NotificationsRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:51:38.601Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T01:51:38.601Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "ReviewRepository.cs",
               "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\ReviewRepository.cs",
               "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\ReviewRepository.cs",
@@ -117,25 +162,24 @@
               "RelativeToolTip": "StackBook\\DAL\\Repository\\ReviewRepository.cs",
               "ViewState": "AgIAADwAAAAAAAAAAAAkwCsAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:50:54.013Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T01:50:54.013Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\Program.cs",
               "RelativeDocumentMoniker": "StackBook\\Program.cs",
               "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\Program.cs",
               "RelativeToolTip": "StackBook\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEQAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-07T01:49:20.127Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "IDiscountRepository.cs",
               "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
               "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
@@ -143,12 +187,11 @@
               "RelativeToolTip": "StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:47:17.284Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T01:47:17.284Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "ICategoryRepository.cs",
               "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\ICategoryRepository.cs",
               "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\ICategoryRepository.cs",
@@ -156,12 +199,11 @@
               "RelativeToolTip": "StackBook\\DAL\\IRepository\\ICategoryRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:47:16.474Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T01:47:16.474Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "INotificationsRepository.cs",
               "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\INotificationsRepository.cs",
               "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\INotificationsRepository.cs",
@@ -169,12 +211,11 @@
               "RelativeToolTip": "StackBook\\DAL\\IRepository\\INotificationsRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:47:02.295Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T01:47:02.295Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "IPaymentRepository.cs",
               "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IPaymentRepository.cs",
               "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\IPaymentRepository.cs",
@@ -182,8 +223,7 @@
               "RelativeToolTip": "StackBook\\DAL\\IRepository\\IPaymentRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T02:22:52.979Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T02:22:52.979Z"
             }
           ]
         },
@@ -212,40 +252,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "7c3bf067-887b-424b-bc5b-79a8430c8674",
-        "Display": 0,
-        "X": 1076,
-        "Y": 288,
-        "Width": 658,
-        "Height": 676,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IReviewRepository.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IReviewRepository.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\IReviewRepository.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IReviewRepository.cs",
-              "RelativeToolTip": "StackBook\\DAL\\IRepository\\IReviewRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:51:59.439Z",
-              "EditorCaption": ""
             }
           ]
         }

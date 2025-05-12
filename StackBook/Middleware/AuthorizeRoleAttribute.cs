@@ -18,6 +18,12 @@ namespace StackBook.Middleware
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             var user = context.HttpContext.User;
+            Console.WriteLine($"User: {user.Identity?.Name}");
+            Console.WriteLine($"IsAuthenticated: {user.Identity?.IsAuthenticated}");
+            Console.WriteLine($"Claims: {string.Join(", ", user.Claims.Select(c => $"{c.Type}: {c.Value}"))}");
+            // Kiểm tra xem người dùng đã xác thực chưa
+            //in ra role của người dùng
+            Console.WriteLine($"Role: {string.Join(", ", user.Claims.Where(c => c.Type == "Role").Select(c => c.Value))}");
             if (!user.Identity?.IsAuthenticated ?? true)
             {
                 context.Result = new UnauthorizedResult();

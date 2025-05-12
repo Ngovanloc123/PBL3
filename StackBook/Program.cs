@@ -70,14 +70,11 @@ builder.Services.AddScoped<IEmailUtils, EMailUtils>();
 builder.Services.Configure<GoogleOAuthConfig>(
     builder.Configuration.GetSection("GoogleOAuthConfig"));
 builder.Services.AddSingleton<StackBook.Utils.JwtUtils>();
+builder.Services.Configure<CloudinarySettings>(
+    builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.AddSingleton<StackBook.Utils.CloudinaryUtils>();
 var app = builder.Build();
 
-// Cấu hình endpoint
-app.MapHub<NotificationHub>("/notificationHub");
-//builder.Services.AddHttpContextAccessor();
-app.UseAuthentication(); //Middelware
-app.UseMiddleware<Authentication>(); //Middleware custom của bạn
-app.UseAuthorization(); //Để `[Authorize]` hoạt động
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -92,6 +89,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+// Cấu hình endpoint
+//builder.Services.AddHttpContextAccessor();
+app.UseAuthentication(); //Middelware
+app.UseMiddleware<Authentication>(); //Middleware custom của bạn
+app.UseAuthorization(); //Để `[Authorize]` hoạt động
+app.MapHub<NotificationHub>("/notificationHub");
 app.MapControllers();
 
 app.MapControllerRoute(

@@ -1,0 +1,245 @@
+﻿body.login-body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.login-container {
+    width: 900px;
+    height: 520px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 24px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+}
+
+.login-box {
+    display: flex;
+    width: 100%;
+}
+
+.login-left {
+    flex: 1;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .login-left h2 {
+        font-family: "Smooch Sans", sans-serif;
+        font-size: 32px;
+        margin-bottom: 0px;
+        color: #003366;
+        text-align: center;
+    }
+
+    .login-left p {
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        margin-top: 0px;
+        color: #808080;
+        text-align: center;
+    }
+
+/*.input-box {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .input-box label {
+        font-size: 14px;
+        margin-bottom: 6px;
+        color: #333;
+    }
+
+    .input-box input {
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+    }*/
+
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+    .form-group input {
+        width: 100%;
+        padding: 12px 16px 12px 42px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        outline: none;
+        transition: 0.3s;
+        font-size: 14px;
+        background: #f9f9f9;
+    }
+
+        .form-group input:focus {
+            border-color: #0D6EFD;
+            background: #fff;
+            box-shadow: 0 0 5px rgba(13, 110, 253, 0.1);
+        }
+
+        .form-group input::placeholder {
+            font-family: "Poppins", sans-serif;
+        }
+
+.form-icon {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #0D6EFD;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    button:hover {
+        background: #0b5ed7;
+    }
+
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(45deg, #0066cc, #3399ff);
+    border: none;
+    color: white;
+    font-size: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: 0.3s;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+    .login-btn:hover {
+        background: linear-gradient(45deg, #0052a3, #3385cc);
+    }
+
+.register-link {
+    font-size: 14px;
+    text-align: center;
+}
+
+    .register-link a {
+        color: #0066cc;
+        text-decoration: none;
+    }
+
+.login-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    .login-right .img-bg {
+        background: url('https://wallpapercave.com/wp/wp12279509.jpg') center/cover no-repeat;
+        border-radius: 16px;
+        width: 90%;
+        height: 90%;
+    }
+
+.img-bg .img-overlay {
+/*    position: absolute;*/
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(146 174 196 / 80%); /* lớp overlay màu xanh đậm mờ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* logo nằm giữa */
+.overlay-logo {
+    width: 80px;
+    height: auto;
+}
+
+/*    GOOGLE*/
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 24px 0;
+}
+
+    .divider::before, .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #ccc;
+    }
+
+    .divider span {
+        padding: 0 12px;
+        font-size: 13px;
+        color: #777;
+    }
+
+.social-login {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.google-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #333;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 14px;
+    justify-content: center;
+}
+
+    .google-btn i {
+        margin-right: 8px;
+        font-size: 16px;
+        color: #DB4437;
+    }
+
+    .google-btn img {
+        width: 10%;
+        margin-right: 5%;
+    }
+
+    .google-btn:hover {
+        background: #f9f9f9;
+        border-color: #bbb;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }

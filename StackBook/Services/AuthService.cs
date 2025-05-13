@@ -321,6 +321,27 @@ namespace StackBook.Services
             response.Data = user;
             return response;
         }
+        //Verify reset password token
+        public async Task<ServiceResponse<User>> VerifyResetPasswordToken(string token)
+        {
+            var response = new ServiceResponse<User>();
+            if(string.IsNullOrEmpty(token))
+            {
+                response.Success = false;
+                response.Message = "Token is required";
+                return response;
+            }
+            var user = await _userRepository.GetUserByResetTokenAsync(token);
+            if(user == null || user.ResetTokenExpiry < DateTime.UtcNow)
+            {
+                response.Success = false;
+                response.Message = "Invalid or expired token";
+                return response;
+            }
+            response.Success = true;
+            response.Message = "Token is valid";
+            return response;
+        }
         public async Task<ServiceResponse<User>> GetUserByRefreshTokenAsync(string refreshToken)
         {
             var response = new ServiceResponse<User>();
@@ -425,6 +446,7 @@ namespace StackBook.Services
                             IsEmailVerified = true,
                             Role = false,
                             EmailVerifiedAt = DateTime.UtcNow,
+                            LockStatus = false,
                         };
                         await _userRepository.CreateGoogleUserAsync(user);
                     }

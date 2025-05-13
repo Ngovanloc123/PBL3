@@ -4,13 +4,14 @@ using StackBook.Services;
 using StackBook.Models;
 using StackBook.DAL.IRepository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StackBook.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class CategoryController : Controller
     {
-
         private readonly IUnitOfWork _unitOfWork;
 
         public CategoryController(IUnitOfWork unitOfWork)
@@ -18,9 +19,9 @@ namespace StackBook.Areas.Admin.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Category> categories = _unitOfWork.Category.GetAll().ToList();
+            IEnumerable<Category> categories = await _unitOfWork.Category.GetAllAsync();
             return View(categories);
         }
 
@@ -28,27 +29,27 @@ namespace StackBook.Areas.Admin.Controllers
         {
             return View();
         }
-        // Dùng để gửi dữ liệu từ form, cập nhật database. Dữ liệu không hiển thị trên URL.
+
         [HttpPost]
-        public IActionResult Create(Category obj)
+        public async Task<IActionResult> Create(Category obj)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Add(obj);
-                _unitOfWork.Save();
+                await _unitOfWork.Category.AddAsync(obj);
+                await _unitOfWork.SaveAsync();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
             return View();
         }
 
-        public IActionResult Edit(Guid? CategoryId)
+        public async Task<IActionResult> Edit(Guid? CategoryId)
         {
             if (CategoryId == null)
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.CategoryId == CategoryId);
+            Category? categoryFromDb = await _unitOfWork.Category.GetAsync(u => u.CategoryId == CategoryId);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -56,30 +57,33 @@ namespace StackBook.Areas.Admin.Controllers
             return View(categoryFromDb);
         }
 
-        // Dùng để gửi dữ liệu từ form, cập nhật database. Dữ liệu không hiển thị trên URL.
         [HttpPost]
-        public IActionResult Edit(Category obj)
+        public async Task<IActionResult> Edit(Category obj)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Update(obj);
-                _unitOfWork.Save();
-                TempData["success"] = "Category edited successfully";
+                await _unitOfWork.Category.UpdateAsync(obj);
+                await _unitOfWork.SaveAsync();
+                TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(obj);
         }
 
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePOST(Guid? CategoryId)
+        public async Task<IActionResult> DeletePOST(Guid? CategoryId)
         {
-            Category? obj = _unitOfWork.Category.Get(u => u.CategoryId == CategoryId);
+            if (CategoryId == null)
+            {
+                return NotFound();
+            }
+            Category? obj = await _unitOfWork.Category.GetAsync(u => u.CategoryId == CategoryId);
             if (obj == null)
             {
                 return NotFound();
             }
-            _unitOfWork.Category.Delete(obj);
-            _unitOfWork.Save();
+            await _unitOfWork.Category.DeleteAsync(obj);
+            await _unitOfWork.SaveAsync();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
         }

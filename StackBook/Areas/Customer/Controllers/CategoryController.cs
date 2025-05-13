@@ -1,4 +1,4 @@
-﻿using DocumentFormat.OpenXml.Drawing.Diagrams;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 using Microsoft.AspNetCore.Mvc;
 using StackBook.DAL;
 using StackBook.DAL.IRepository;
@@ -6,10 +6,11 @@ using StackBook.Services;
 using StackBook.Models;
 using StackBook.ViewModels;
 using DocumentFormat.OpenXml.VariantTypes;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StackBook.Areas.Customer.Controllers
 {
-    // Định nghĩa khu vực cho controller
+    //[Authorize(Roles = "Customer")]
     [Area("Customer")]
     public class CategoryController : Controller
     {
@@ -25,40 +26,39 @@ namespace StackBook.Areas.Customer.Controllers
             _categoryService = categoryService;
         }
 
-        public IActionResult Index(Guid? categoryId)
+        public async Task<IActionResult> Index(Guid? categoryId)
         {
-
             if (categoryId != null)
             {
-                var category = _unitOfWork.Category.Get(c => c.CategoryId == categoryId);
+                var category = await _unitOfWork.Category.GetAsync(c => c.CategoryId == categoryId, "Books.Authors");
                 ViewBag.Category = category;
                 return View(category);
             }
             else
             {
-                var categories = _unitOfWork.Category.GetAll().ToList();
+                var categories = await _unitOfWork.Category.GetAllAsync("Books.Authors");
                 return View(categories);
             }
         }
 
-        public IActionResult BookDetail(Guid? bookId)
+        public async Task<IActionResult> BookDetail(Guid? bookId)
         {
-            var book = _unitOfWork.Book.Get(b => b.BookId == bookId);
+            var book = await _unitOfWork.Book.GetAsync(b => b.BookId == bookId, "Authors,Categories.Books.Authors");
 
             return View(book);
         }
 
 
-        public IActionResult Search(string? s)
+        public async Task<IActionResult> Search(string? s)
         {
-            if (string.IsNullOrWhiteSpace(s))
-            {
-                ViewBag.Query = string.Empty;
-                return View(new List<Book>());
-            }
+            //if (string.IsNullOrWhiteSpace(s))
+            //{
+            //    ViewBag.Query = string.Empty;
+            //    return View(new List<Book>());
+            //}
 
             ViewBag.Query = s;
-            var booksSearch = _searchService.SearchBooks(s);
+            var booksSearch = await _searchService.SearchBooksAsync(s);
             return View(booksSearch);
         }
 

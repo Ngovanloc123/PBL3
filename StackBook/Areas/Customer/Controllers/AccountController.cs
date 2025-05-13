@@ -106,5 +106,22 @@ namespace StackBook.Areas.Customer.Controllers
                 return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }
+         public IActionResult Notifications()
+        {
+            return View();
+        }
+
+        public IActionResult Orders()
+        {
+            return View();
+        }
+        public IActionResult Profile()
+        {
+            return View();
+        }
+        public IActionResult Vouchers()
+        {
+            return View();
+        }
     }
 }

@@ -7,6 +7,7 @@ using StackBook.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using StackBook.Middleware;
+using StackBook.VMs;
 
 namespace StackBook.Controllers
 {
@@ -52,7 +53,7 @@ namespace StackBook.Controllers
         [HttpPost("add")]
         [Authorize]
         [AuthorizeRole("user")]
-        public async Task<IActionResult> AddToCart([FromBody] BookInCartDto bookInCartDto)
+        public async Task<IActionResult> AddToCart([FromBody] BookInCartVM bookInCartDto)
         {
             try
             {

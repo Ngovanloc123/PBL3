@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using StackBook.DAL.IRepository;
+using StackBook.DAL.Repository;
 using StackBook.Data;
 using StackBook.Models;
 
@@ -11,11 +12,6 @@ namespace StackBook.DAL
         public AuthorRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
-        }
-
-        public void Update(Author obj)
-        {
-            _db.Authors.Update(obj);
         }
     }
 }

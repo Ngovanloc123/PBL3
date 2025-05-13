@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using StackBook.DAL.IRepository;
 using StackBook.Data;
 using Microsoft.EntityFrameworkCore;
+using StackBook.VMs;
 
 namespace StackBook.DAL
 {
@@ -64,16 +65,16 @@ namespace StackBook.DAL
                 .Where(od => od.OrderId == orderId)
                 .ToListAsync();
         }
-        public async Task<List<OrderDetailDto>> GetOrderDetailsDtoAsync(Guid orderId)
+        public async Task<List<OrderDetailVM>> GetOrderDetailsDtoAsync(Guid orderId)
         {
             var orderDetails = await _db.OrderDetails
                 .Include(od => od.Book)
                 .Where(od => od.OrderId == orderId)
                 .ToListAsync();
-            var orderDetailDtos = new List<OrderDetailDto>();
+            var orderDetailDtos = new List<OrderDetailVM>();
             foreach (var od in orderDetails)
             {
-                orderDetailDtos.Add(new OrderDetailDto
+                orderDetailDtos.Add(new OrderDetailVM
                 {
                     OrderDetailId = od.OrderDetailId,
                     BookId = od.BookId,

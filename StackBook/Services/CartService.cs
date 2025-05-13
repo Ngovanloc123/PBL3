@@ -7,6 +7,7 @@ using StackBook.Exceptions;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using StackBook.DAL.IRepository;
 using StackBook.DTOs;
+using StackBook.VMs;
 
 namespace StackBook.Services
 {
@@ -132,20 +133,20 @@ namespace StackBook.Services
             }
         }
 
-        public async Task<List<BookInCartDto>> GetCartDetailsAsync(Guid userId)
+        public async Task<List<BookInCartVM>> GetCartDetailsAsync(Guid userId)
         {
             try
             {
                 var cart = await _cartRepository.GetByUserIdAsync(userId);
                 if (cart == null || cart.CartDetails == null)
-                    return new List<BookInCartDto>();
+                    return new List<BookInCartVM>();
 
-                var result = new List<BookInCartDto>();
+                var result = new List<BookInCartVM>();
                 foreach (var cartBook in cart.CartDetails)
                 {
                     if (cartBook.Book != null)
                     {
-                        var bookDto = new BookInCartDto
+                        var bookDto = new BookInCartVM
                         {
                             BookId = cartBook.BookId,
                             BookTitle = cartBook.Book.BookTitle,

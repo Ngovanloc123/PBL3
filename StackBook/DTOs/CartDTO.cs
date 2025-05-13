@@ -1,7 +1,7 @@
 using StackBook.Models;
-namespace StackBook.DTOs
+namespace StackBook.VMs
 {
-    public class BookInCartDto
+    public class BookInCartVM
     {
         public Guid BookId { get; set; }
         public string? BookTitle { get; set; }

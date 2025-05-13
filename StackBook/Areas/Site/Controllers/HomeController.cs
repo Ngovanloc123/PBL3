@@ -26,8 +26,8 @@ namespace StackBook.Areas.Site.Controllers
         {
             var allBook_category = new AllBookCategoryViewModel
             {
-                Categories = _UnitOfWork.Category.GetAll().ToList(),
-                Books = _UnitOfWork.Book.GetAll().ToList()
+                Categories = _UnitOfWork.Category.GetAllAsync().Result.ToList(),
+                Books = _UnitOfWork.Book.GetAllAsync().Result.ToList(),
             };
 
             return View(allBook_category);

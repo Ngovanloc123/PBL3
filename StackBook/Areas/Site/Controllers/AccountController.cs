@@ -66,8 +66,20 @@ namespace StackBook.Areas.Site.Controllers
                     SameSite = SameSiteMode.Strict,
                     Expires = DateTimeOffset.UtcNow.AddDays(7)
                 });
-
-                return RedirectToAction("Profile", "Account", new { area = "Customer", id = result.Data?.UserId });
+                //Check Role roi chuyen den area tuong ung
+                if(result.Data.Role == true)
+                {
+                    return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+                }
+                else if (result.Data.Role == false)
+                {
+                    return RedirectToAction("Profile", "Account", new { area = "Customer", id = result.Data?.UserId });
+                }
+                else
+                {
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid role." });
+                }
+                // return RedirectToAction("Profile", "Account", new { area = "Customer", id = result.Data?.UserId });
             }
             catch (Exception ex)
             {
@@ -90,7 +102,7 @@ namespace StackBook.Areas.Site.Controllers
                 var result = await _authService.RegisterUser(registerDto);
                 if (result == null)
                     return View("Error", new ErrorViewModel { ErrorMessage = "Registration failed." });
-
+                
                 return RedirectToAction("Signin", "Account", new { area = "Site" });
             }
             catch (Exception ex)

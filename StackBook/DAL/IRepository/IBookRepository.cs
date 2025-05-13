@@ -8,7 +8,7 @@ namespace StackBook.DAL.IRepository
 {
     public interface IBookRepository :IRepository<Book>
     {
-        void Update(Book entity);
-        void Delete(Book book);
+        //void Update(Book entity);
+        //void Delete(Book book);
     }
 }

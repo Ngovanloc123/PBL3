@@ -3,7 +3,7 @@ using StackBook.DAL.IRepository;
 using StackBook.Data;
 using StackBook.Models;
 
-namespace StackBook.DAL
+namespace StackBook.DAL.Repository
 {
     public class CategoryRepository : Repository<Category>, ICategoryRepository
     {

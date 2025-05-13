@@ -87,7 +87,7 @@ namespace StackBook.Utils
         public string GenerateAccessToken(User user)
         {
             var claims = GenerateClaimsForUser(user);
-            var tokenDescriptor = BuildTokenDescriptor(claims, DateTime.UtcNow.AddMinutes(30));
+            var tokenDescriptor = BuildTokenDescriptor(claims, DateTime.UtcNow.AddMinutes(5));
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);

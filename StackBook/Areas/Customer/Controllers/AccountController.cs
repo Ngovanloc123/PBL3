@@ -40,6 +40,10 @@ namespace StackBook.Areas.Customer.Controllers
             Console.WriteLine($"AccessToken: {_httpContextAccessor.HttpContext?.Request.Cookies["accessToken"]}");
             //Xem cookie refresh token có tồn tại hay không
             Console.WriteLine($"RefreshToken: {_httpContextAccessor.HttpContext?.Request.Cookies["refreshToken"]}");
+            //Sem user qua cookie
+            var user = _userService.GetUserById(Guid.Parse(userIdValue));
+            var data = user.Result.Data.RefreshToken;
+            Console.WriteLine($"RefreshToken: {data}");
             Console.WriteLine($"UserIdValue: {userIdValue}");
             if (userIdValue == null)
                 return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });

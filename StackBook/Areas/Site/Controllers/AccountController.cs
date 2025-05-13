@@ -198,7 +198,7 @@ namespace StackBook.Areas.Site.Controllers
                         HttpOnly = true,
                         Secure = true,
                         SameSite = SameSiteMode.Strict,
-                        Expires = DateTimeOffset.UtcNow.AddMinutes(5)
+                        Expires = DateTimeOffset.UtcNow.AddDays(1)
                     });
                     // Ghi refresh token vào cookie
                     Response.Cookies.Append("refreshToken", result.RefreshToken, new CookieOptions

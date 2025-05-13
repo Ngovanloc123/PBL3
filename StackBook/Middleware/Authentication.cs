@@ -46,6 +46,8 @@ namespace StackBook.Middleware
                     }
                     var userRepository = context.RequestServices.GetRequiredService<IUserRepository>();
                     var existingUser = await userRepository.GetUserByRefreshTokenAsync(refreshToken);
+                    //in ra thong tin user
+                    Console.WriteLine($"UserId: {existingUser?.RefreshToken}");
                     if (existingUser == null)
                     {
                         context.Response.Cookies.Delete("accessToken");
@@ -63,8 +65,8 @@ namespace StackBook.Middleware
                         context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                         return;
                     }
-                    //Tao token moi
-                    var newAccessToken = jwtUtils.GenerateAccessToken(existingUser);    
+                    // Tạo token mới
+                    var newAccessToken = jwtUtils.GenerateAccessToken(existingUser);
                     context.Response.Cookies.Append("accessToken", newAccessToken, new CookieOptions
                     {
                         HttpOnly = true,
@@ -72,11 +74,20 @@ namespace StackBook.Middleware
                         SameSite = SameSiteMode.None,
                         Expires = DateTime.UtcNow.AddMinutes(15)
                     });
-                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+
+                    // Validate lại token mới và set lại context.User
+                    var newPrincipal = jwtUtils.ValidateToken(newAccessToken);
+                    if (newPrincipal != null)
+                    {
+                        context.User = newPrincipal;
+                        context.Items["User"] = newPrincipal;
+                    }
+
+                    // Tiếp tục xử lý request
+                    await _next(context);
                     return;
                 }
             }
-
             // Tiếp tục xử lý request
             await _next(context);
         }

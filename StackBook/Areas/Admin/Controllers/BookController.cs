@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using StackBook.DAL.IRepository;
 using StackBook.Models;
 using StackBook.ViewModels;
+using StackBook.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace StackBook.Areas.Admin.Controllers
 {
@@ -13,18 +15,42 @@ namespace StackBook.Areas.Admin.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ApplicationDbContext _context;
 
-        public BookController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+        public BookController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment, ApplicationDbContext context)
         {
+            _context = context;
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;
         }
 
         // [GET] Admin/Book
-        public async Task<IActionResult> Index()
+        // public async Task<IActionResult> Index()
+        // {
+        //     var books = await _unitOfWork.Book.GetAllAsync("Authors,Categories");
+        //     return View(books);
+        // }
+        public IActionResult Index()
         {
-            var books = await _unitOfWork.Book.GetAllAsync("Authors,Categories");
-            return View(books);
+            var books = _context.Books
+                .Include(b => b.Authors)
+                .Include(b => b.Categories)
+                .ToList();
+
+            var viewModel = books.Select(book => new BookDetailViewModel
+            {
+                BookId = book.BookId,
+                BookTitle = book.BookTitle,
+                Description = book.Description,
+                Price = book.Price,
+                Stock = book.Stock,
+                ImageURL = book.ImageURL,
+                CreatedBook = book.CreatedBook,
+                AuthorsName = book.Authors.Select(a => a.AuthorName).ToList(),
+                CategoryNames = book.Categories.Select(c => c.CategoryName).ToList()
+            }).ToList();
+
+            return View(viewModel);
         }
 
         // [GET] Admin/Book/Create

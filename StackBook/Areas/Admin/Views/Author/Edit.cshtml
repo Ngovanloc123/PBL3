@@ -1,0 +1,24 @@
+@model StackBook.Models.Author
+
+@{
+    ViewData["Title"] = "Edit Author";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Edit Author</h1>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="AuthorId" />
+        <div class="mb-3">
+            <label asp-for="AuthorName" class="form-label"></label>
+            <input asp-for="AuthorName" class="form-control" />
+            <span asp-validation-for="AuthorName" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

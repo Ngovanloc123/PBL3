@@ -36,6 +36,10 @@ namespace StackBook.Areas.Customer.Controllers
             Console.WriteLine($"Profile ID: {id}");
             //User Id của người dùng hiện tại trong cookie
             var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            //Xem cookie access token có tồn tại hay không
+            Console.WriteLine($"AccessToken: {_httpContextAccessor.HttpContext?.Request.Cookies["accessToken"]}");
+            //Xem cookie refresh token có tồn tại hay không
+            Console.WriteLine($"RefreshToken: {_httpContextAccessor.HttpContext?.Request.Cookies["refreshToken"]}");
             Console.WriteLine($"UserIdValue: {userIdValue}");
             if (userIdValue == null)
                 return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });

@@ -121,9 +121,11 @@ namespace StackBook.Utils
         public string GenerateToken(User user)
         {
             var claims = GenerateClaimsForUser(user);
-            var tokenDescriptor = BuildTokenDescriptor(claims, DateTime.UtcNow.AddDays(_tokenExpiryDays));
+            var tokenDescriptor = BuildTokenDescriptor(claims, DateTime.UtcNow.AddMinutes(5));
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            Console.WriteLine($"Token: {tokenHandler.WriteToken(token)}");
+            Console.WriteLine($"Token Expiry: {tokenDescriptor.Expires}");
             return tokenHandler.WriteToken(token);
         }
     }

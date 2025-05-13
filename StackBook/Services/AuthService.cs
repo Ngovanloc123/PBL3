@@ -18,6 +18,7 @@ using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using VNPAY.NET;
+using StackBook.ViewModels;
 
 namespace StackBook.Services
 {
@@ -158,7 +159,7 @@ namespace StackBook.Services
             Console.WriteLine($"SignIn result: {response}");	
             return response;
         }
-        public async Task<ServiceResponse<User>> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
+        public async Task<ServiceResponse<User>> ForgotPassword(UserVM.ForgotPasswordVM forgotPasswordDto)
         {
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(forgotPasswordDto.Email))
@@ -188,7 +189,7 @@ namespace StackBook.Services
             response.Data = user;
             return response;
         }
-        public async Task<ServiceResponse<User>> ResetPassword(ResetPasswordDto resetPasswordDto)
+        public async Task<ServiceResponse<User>> ResetPassword(UserVM.ResetPasswordVM resetPasswordDto)
         {
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(resetPasswordDto.Token) || string.IsNullOrEmpty(resetPasswordDto.NewPassword) || string.IsNullOrEmpty(resetPasswordDto.ConfirmPassword))

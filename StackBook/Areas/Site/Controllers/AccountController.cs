@@ -8,6 +8,7 @@ using StackBook.Utils;
 using StackBook.DTOs;
 using System.Security.Claims;
 using CloudinaryDotNet.Actions;
+using StackBook.ViewModels;
 
 namespace StackBook.Areas.Site.Controllers 
 {
@@ -69,10 +70,13 @@ namespace StackBook.Areas.Site.Controllers
                 //Check Role roi chuyen den area tuong ung
                 if(result.Data.Role == true)
                 {
-                    return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+                    TempData["success"] = "Sign in successful.";
+                    return RedirectToAction("Index", "Statistic", new { area = "Admin" });
                 }
                 else if (result.Data.Role == false)
                 {
+                    TempData["success"] = "Sign in successful.";
+                    // return RedirectToAction("Index", "Home", new { area = "Site" });
                     return RedirectToAction("Profile", "Account", new { area = "Customer", id = result.Data?.UserId });
                 }
                 else
@@ -114,8 +118,8 @@ namespace StackBook.Areas.Site.Controllers
         [AllowAnonymous]
         public IActionResult Register() => View();
 
-        [HttpGet("Logout")]
-        public async Task<IActionResult> Logout()
+        [HttpGet("SignOut")]
+        public async Task<IActionResult> SignOut()
         {
             try
             {
@@ -194,7 +198,7 @@ namespace StackBook.Areas.Site.Controllers
                         HttpOnly = true,
                         Secure = true,
                         SameSite = SameSiteMode.Strict,
-                        Expires = DateTimeOffset.UtcNow.AddMinutes(15)
+                        Expires = DateTimeOffset.UtcNow.AddMinutes(5)
                     });
                     // Ghi refresh token vào cookie
                     Response.Cookies.Append("refreshToken", result.RefreshToken, new CookieOptions
@@ -213,9 +217,75 @@ namespace StackBook.Areas.Site.Controllers
                         Expires = DateTimeOffset.UtcNow.AddDays(7)
                     });
                     return RedirectToAction("Profile", "Account", new { area = "Customer", id = result.Data?.UserId });
+                    // return RedirectToAction("Index", "Home", new { area = "Site" });
                 }
                 else
                 {
+                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+            }
+        }
+        [HttpGet("forgot-password")]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword() => View();
+        [HttpPost("forgot-password")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword(UserVM.ForgotPasswordVM forgotPasswordVM)
+        {
+            try
+            {
+               if(!ModelState.IsValid)
+               {
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
+               } 
+               var result = await _authService.ForgotPassword(forgotPasswordVM);
+               if (result.Success)
+               {
+                    return RedirectToAction("Signin", "Account", new { area = "Site" });
+               }
+               else
+               {
+                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message });
+               }
+            } 
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+            }
+        }
+        [HttpGet("reset-password")]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token." });
+            }
+            return View(new UserVM.ResetPasswordVM { Token = token });
+        }
+        [HttpPost("reset-password")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(UserVM.ResetPasswordVM resetPasswordVM)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
+                }
+                var result = await _authService.ResetPassword(resetPasswordVM);
+                if (result.Success)
+                {
+                    ViewData["Success"] = "Password reset successfully. You can now log in with your new password.";
+                    return RedirectToAction("Signin", "Account", new { area = "Site" });
+                }
+                else
+                {
+                    ViewData["Error"] = result.Message;
                     return View("Error", new ErrorViewModel { ErrorMessage = result.Message });
                 }
             }

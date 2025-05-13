@@ -7,6 +7,7 @@ using StackBook.Models;
 using StackBook.Utils;
 using StackBook.DTOs;
 using System.Security.Claims;
+using CloudinaryDotNet.Actions;
 
 namespace StackBook.Areas.Site.Controllers 
 {
@@ -134,16 +135,82 @@ namespace StackBook.Areas.Site.Controllers
         {
             if (string.IsNullOrEmpty(token))
             {
-                return BadRequest("Token is required");
+                return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token." });
             }
 
             var response = await _authService.VerifyEmail(token);
 
             if (!response.Success)
             {
-                return BadRequest(response.Message);
+                return View("Error", new ErrorViewModel { ErrorMessage = response.Message });
             }
             return View("EmailVerified", response.Data);
+        }
+        //Dang nhap bang OAuth2.0 Google
+        [HttpGet("google-redirect")]
+        public async Task<IActionResult> RedirectToGoogle()
+        {
+            try
+            {
+                var result = await _authService.RedirectGoogleConsentScreenAsync();
+                Console.WriteLine($"Redirect URL: {result.Data}");
+                if (result.Success)
+                {
+                    return Redirect(result.Data);
+                }
+                else
+                {
+                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+            }
+        }
+        [HttpGet("google-callback")]
+        public async Task<IActionResult> HandleGoogleCallback(string code)
+        {
+            try
+            {
+                var result = await _authService.LoginWithGoogle(code);
+                if (result.Success)
+                {
+                    // Ghi access token vào cookie
+                    Response.Cookies.Append("accessToken", result.AccessToken, new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = true,
+                        SameSite = SameSiteMode.Strict,
+                        Expires = DateTimeOffset.UtcNow.AddMinutes(15)
+                    });
+                    // Ghi refresh token vào cookie
+                    Response.Cookies.Append("refreshToken", result.RefreshToken, new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = true,
+                        SameSite = SameSiteMode.Strict,
+                        Expires = DateTimeOffset.UtcNow.AddDays(7)
+                    });
+                    // Nếu muốn: Ghi thêm user ID (không bắt buộc)
+                    Response.Cookies.Append("userId", result.Data.UserId.ToString(), new CookieOptions
+                    {
+                        HttpOnly = false,
+                        Secure = true,
+                        SameSite = SameSiteMode.Strict,
+                        Expires = DateTimeOffset.UtcNow.AddDays(7)
+                    });
+                    return RedirectToAction("Profile", "Account", new { area = "Customer", id = result.Data?.UserId });
+                }
+                else
+                {
+                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message });
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+            }
         }
     }
 }

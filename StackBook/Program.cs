@@ -59,6 +59,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
             await Task.CompletedTask;
         };
     });
+
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -68,7 +70,7 @@ builder.Services.Configure<EmailSettings>(
     builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddScoped<IEmailUtils, EMailUtils>();
 builder.Services.Configure<GoogleOAuthConfig>(
-    builder.Configuration.GetSection("GoogleOAuthConfig"));
+    builder.Configuration.GetSection("GoogleOAuth"));
 builder.Services.AddSingleton<StackBook.Utils.JwtUtils>();
 builder.Services.Configure<CloudinarySettings>(
     builder.Configuration.GetSection("CloudinarySettings"));

@@ -372,6 +372,7 @@ namespace StackBook.Services
             {
                 var response = new ServiceResponse<string>();
                 var url = await _oauthGoogleService.GetRedirectConsentScreenURL();
+                Console.WriteLine($"Redirect URL: {url}");
                 if (string.IsNullOrEmpty(url))
                 {
                     response.Success = false;
@@ -405,7 +406,9 @@ namespace StackBook.Services
             {
                 var accessToken = await _oauthGoogleService.GetAccessTokenAsync(code);
                 var (email, name, googleId) = await _oauthGoogleService.GetGoogleUserProfileAsync(accessToken);
-
+                Console.WriteLine($"Google ID: {googleId}");
+                Console.WriteLine($"Email: {email}");
+                Console.WriteLine($"Name: {name}");
                 var user = await _userRepository.GetUserByGoogleIdAsync(googleId);
                 if (user == null)
                 {
@@ -420,7 +423,8 @@ namespace StackBook.Services
                             GoogleId = googleId,
                             CreatedUser = DateTime.UtcNow,
                             IsEmailVerified = true,
-                            Role = false
+                            Role = false,
+                            EmailVerifiedAt = DateTime.UtcNow,
                         };
                         await _userRepository.CreateGoogleUserAsync(user);
                     }
@@ -430,10 +434,19 @@ namespace StackBook.Services
                         await _userRepository.UpdateAsync(user);
                     }
                 }
-
+                Console.WriteLine($"User found: {user.Email}");
+                Console.WriteLine($"User Google ID: {user.GoogleId}");
+                var refreshToken = _jwtUtils.GenerateRefreshToken();
+                user.RefreshToken = refreshToken;
+                user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(7);
+                await _userRepository.UpdateAsync(user);
+                await _userRepository.SaveAsync();
                 response.Success = true;
                 response.Data = user;
                 response.Message = "Login with Google successful";
+                response.AccessToken = _jwtUtils.GenerateAccessToken(user);
+                response.RefreshToken = refreshToken;
+                response.StatusCode = StatusCodes.Status200OK;
             }
             catch (Exception ex)
             {

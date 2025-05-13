@@ -50,7 +50,7 @@ namespace StackBook.Areas.Customer.Controllers
         public async Task<IActionResult> UpdateAvatar(Guid id, IFormFile image)
         {
             if (image == null || image.Length == 0)
-                return BadRequest("No image uploaded.");
+                return View("Error", new ErrorViewModel { ErrorMessage = "Image file is required." });
             var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userIdValue == null)
                 return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
@@ -65,6 +65,45 @@ namespace StackBook.Areas.Customer.Controllers
             else
             {
                 return View("Error", new ErrorViewModel { ErrorMessage = response.Message });
+            }
+        }
+        [HttpGet("GoogleLogin")]
+        public async Task<IActionResult> LoginWithGoogle(string code)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(code))
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
+
+                var result = await _authService.LoginWithGoogle(code);
+                if (result == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed." });
+
+                return RedirectToAction("Profile", new { id = result.Data?.UserId, accessToken = result.AccessToken, refreshToken = result.RefreshToken });
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+            }
+        }
+
+        [HttpGet("google-callback")]
+        public async Task<IActionResult> GoogleCallback(string code)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(code))
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
+
+                var result = await _authService.LoginWithGoogle(code);
+                if (result == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed." });
+
+                return RedirectToAction("Profile", new { id = result.Data?.UserId, accessToken = result.AccessToken, refreshToken = result.RefreshToken });
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }
     }

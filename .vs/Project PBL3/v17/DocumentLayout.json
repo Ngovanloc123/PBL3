@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|c:\\users\\dell\\onedrive - the university of technology\\desktop\\pbl3\\pbl3\\pbl3\\stackbook\\areas\\site\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\site\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|c:\\users\\dell\\onedrive - the university of technology\\desktop\\pbl3\\pbl3\\pbl3\\stackbook\\areas\\site\\views\\account\\signin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\site\\views\\account\\signin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -46,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 286,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -66,46 +70,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Areas\\Site\\Views\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "StackBook\\Areas\\Site\\Views\\Account\\Register.cshtml",
+              "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Areas\\Site\\Views\\Account\\Register.cshtml",
+              "RelativeToolTip": "StackBook\\Areas\\Site\\Views\\Account\\Register.cshtml",
+              "ViewState": "AgIAAG0AAAAAAAAAAAAcwGoAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-13T17:06:49.952Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "account.css",
               "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\wwwroot\\css\\account.css",
               "RelativeDocumentMoniker": "StackBook\\wwwroot\\css\\account.css",
               "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\wwwroot\\css\\account.css",
               "RelativeToolTip": "StackBook\\wwwroot\\css\\account.css",
-              "ViewState": "AgIAAIQAAAAAAAAAAAAAAJMAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2025-05-13T14:41:52.877Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Signin.cshtml",
               "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Areas\\Site\\Views\\Account\\Signin.cshtml",
               "RelativeDocumentMoniker": "StackBook\\Areas\\Site\\Views\\Account\\Signin.cshtml",
               "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Areas\\Site\\Views\\Account\\Signin.cshtml",
               "RelativeToolTip": "StackBook\\Areas\\Site\\Views\\Account\\Signin.cshtml",
-              "ViewState": "AgIAAK4AAAAAAAAAAAAAALwAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAAAIMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-05-13T14:41:29.037Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "login.css",
               "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\wwwroot\\css\\login.css",
               "RelativeDocumentMoniker": "StackBook\\wwwroot\\css\\login.css",
               "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\wwwroot\\css\\login.css",
               "RelativeToolTip": "StackBook\\wwwroot\\css\\login.css",
-              "ViewState": "AgIAAJgAAAAAAAAAAAAgwKsAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAABUAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2025-05-13T14:38:35.39Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "site.css",
               "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "StackBook\\wwwroot\\css\\site.css",
@@ -118,7 +135,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "AccountController.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "StackBook\\Controllers\\AccountController.cs",
@@ -130,7 +147,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "DatabaseSettings.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Configurations\\DatabaseSettings.cs",
               "RelativeDocumentMoniker": "StackBook\\Configurations\\DatabaseSettings.cs",
@@ -142,7 +159,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "AppSettings.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Configurations\\AppSettings.cs",
               "RelativeDocumentMoniker": "StackBook\\Configurations\\AppSettings.cs",
@@ -154,7 +171,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\appsettings.json",
               "RelativeDocumentMoniker": "StackBook\\appsettings.json",
@@ -166,7 +183,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "NotificationsRepository.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\DAL\\Repository\\NotificationsRepository.cs",
               "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\NotificationsRepository.cs",

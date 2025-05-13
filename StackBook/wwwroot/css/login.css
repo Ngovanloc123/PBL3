@@ -11,7 +11,7 @@
 
 .login-container {
     width: 900px;
-    height: 520px;
+    height: fit-content;
     background: #fff;
     border-radius: 16px;
     box-shadow: 0 20px 24px rgba(0,0,0,0.1);
@@ -47,25 +47,6 @@
         color: #808080;
         text-align: center;
     }
-
-/*.input-box {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-    .input-box label {
-        font-size: 14px;
-        margin-bottom: 6px;
-        color: #333;
-    }
-
-    .input-box input {
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        outline: none;
-    }*/
 
 .form-group {
     position: relative;
@@ -165,7 +146,7 @@ button {
         background: url('https://wallpapercave.com/wp/wp12279509.jpg') center/cover no-repeat;
         border-radius: 16px;
         width: 90%;
-        height: 90%;
+        height: 80%;
     }
 
 .img-bg .img-overlay {

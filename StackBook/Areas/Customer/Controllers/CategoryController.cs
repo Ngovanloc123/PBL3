@@ -17,10 +17,10 @@ namespace StackBook.Areas.Customer.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISearchService _searchService;
-        private readonly CategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
         
 
-        public CategoryController(IUnitOfWork unitOfWork, ISearchService searchService, CategoryService categoryService)
+        public CategoryController(IUnitOfWork unitOfWork, ISearchService searchService, ICategoryService categoryService)
         {
             _unitOfWork = unitOfWork;
             _searchService = searchService;

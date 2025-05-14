@@ -7,9 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using StackBook.DAL.Repository;
 
-namespace StackBook.DAL
+namespace StackBook.DAL.Repository
 {
     public class CartRepository : Repository<Cart>, ICartRepository
     {

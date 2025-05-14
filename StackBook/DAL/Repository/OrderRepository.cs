@@ -7,7 +7,7 @@ using StackBook.DAL.IRepository;
 using StackBook.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace StackBook.DAL
+namespace StackBook.DAL.Repository
 {
     public class OrderRepository : IOrderRepository
     {
@@ -100,7 +100,7 @@ namespace StackBook.DAL
             var order = await FindOrderByIdAsync(orderId);
             if (order != null)
             {
-                if(order.ShippingAddress != null)
+                if (order.ShippingAddress != null)
                 {
                     order.ShippingAddress.Address = address;
                 }

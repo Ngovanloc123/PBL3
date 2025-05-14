@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 using StackBook.Models;
 using StackBook.Data;
 using StackBook.DAL.IRepository;
-using StackBook.DAL.Repository;
 using DocumentFormat.OpenXml.InkML;
 
-namespace StackBook.DAL
+namespace StackBook.DAL.Repository
 {
     public class UserRepository : Repository<User>, IUserRepository
     {

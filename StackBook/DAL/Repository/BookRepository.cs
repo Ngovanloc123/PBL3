@@ -2,11 +2,10 @@
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Microsoft.EntityFrameworkCore;
 using StackBook.DAL.IRepository;
-using StackBook.DAL.Repository;
 using StackBook.Data;
 using StackBook.Models;
 using StackBook.ViewModels;
-namespace StackBook.DAL
+namespace StackBook.DAL.Repository
 {
     public class BookRepository : Repository<Book>, IBookRepository
     {

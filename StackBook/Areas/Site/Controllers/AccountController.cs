@@ -407,6 +407,7 @@ namespace StackBook.Areas.Site.Controllers
                 Console.WriteLine($"Redirect URL: {result.Data}");
                 if (result.Success)
                 {
+
                     return Redirect(result.Data);
                 }
                 else
@@ -452,6 +453,8 @@ namespace StackBook.Areas.Site.Controllers
                         SameSite = SameSiteMode.Strict,
                         Expires = DateTimeOffset.UtcNow.AddDays(7)
                     });
+                   
+
                     return RedirectToAction("Profile", "Account", new { area = "Customer", id = result.Data?.UserId });
                     // return RedirectToAction("Index", "Home", new { area = "Site" });
                 }

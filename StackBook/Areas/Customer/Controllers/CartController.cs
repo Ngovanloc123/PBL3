@@ -62,10 +62,10 @@ namespace StackBook.Areas.Customer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Checkout(List<SelectedBookVM> selectedBooks)
+        public async Task<IActionResult> Checkout(List<SelectedBookVM> selectedBookVMs)
         {
             // Lọc ra những sách đã được chọn
-            var selected = selectedBooks
+            var selected = selectedBookVMs
                 .Where(b => b.IsSelected)
                 .ToList();
 
@@ -77,7 +77,7 @@ namespace StackBook.Areas.Customer.Controllers
 
             var userId = Request.Cookies["userId"];
 
-            var booksWithInfo = selected
+            var selectedBooks = selected
                .Select(async s => new SelectedBook
                {
                    Book = await _UnitOfWork.Book.GetAsync(b => b.BookId == s.BookId),
@@ -89,7 +89,7 @@ namespace StackBook.Areas.Customer.Controllers
             var checkoutRequest = new CheckoutRequest
             {
                 User = await _UnitOfWork.User.GetAsync(u => u.UserId == Guid.Parse(userId), "ShippingAddresses"),
-                SelectedBooks = booksWithInfo
+                SelectedBooks = selectedBooks
             };
 
             return View("Checkout", checkoutRequest);

@@ -2,14 +2,12 @@
 
 @{
     ViewData["Title"] = "Shopping Cart";
-    var totalItems = Model.CartDetails?.Count ?? 0;
+    var totalItems = Model.CartDetails?.Sum(cd => cd.Quantity) ?? 0;
     var totalPrice = Model.CartDetails?.Sum(cd => (cd.Book?.Price ?? 0) * cd.Quantity) ?? 0;
 }
 
 <div class="container my-4">
-    <h1 class="text-center py-3 border-bottom bg-body-tertiary">
-        Shopping Cart
-    </h1>
+    <h1 class="text-center py-3 border-bottom bg-body-tertiary">Shopping Cart</h1>
 
     @if (Model.CartDetails != null && Model.CartDetails.Any())
     {
@@ -17,13 +15,13 @@
             <table class="table align-middle text-center">
                 <thead class="table-light">
                     <tr>
-                        <th scope="col">
-                            <input type="checkbox" id="select-all" class="form-check-input">
+                        <th>
+                            <input type="checkbox" id="select-all" class="form-check-input" />
                         </th>
-                        <th scope="col">Book</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
-                        <th scope="col"></th>
+                        <th>Book</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,60 +31,44 @@
                         {
                             var book = cartDetail.Book;
                             <tr>
-                                <!-- Checkbox -->
                                 <td>
-                                    <input type="checkbox" name="SelectedBooks[@i].IsSelected" value="true" class="form-check-input book-select" form="checkout-form" />
-                                    <input type="hidden" name="SelectedBooks[@i].IsSelected" value="false" form="checkout-form" />
-
-
-                                    <input type="hidden" name="SelectedBooks[@i].BookId" value="@book.BookId" form="checkout-form" />
+                                    <input type="checkbox" class="form-check-input book-select" name="SelectedBooks[@i].IsSelected" value="true" checked form="checkout-form" />
+                                    <input type="hidden" name="SelectedBooks[@i].BookId" value="@book?.BookId" form="checkout-form" />
                                     <input type="hidden" name="SelectedBooks[@i].Quantity" value="@cartDetail.Quantity" form="checkout-form" />
                                 </td>
-
-                                <!-- Image and Title -->
                                 <td class="text-start">
                                     @if (book != null)
                                     {
-                                        <img src="@book.ImageURL" alt="@book.BookTitle" style="width: 60px; height: auto;" class="rounded me-2">
+                                        <img src="@book.ImageURL" alt="@book.BookTitle" style="width: 60px; height: auto;" class="rounded me-2" />
                                         <strong>@book.BookTitle</strong>
                                     }
                                 </td>
-
-                                <!-- Quantity -->
                                 <td>
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <!-- Decrease -->
-                                        <form asp-action="UpdateQuantity" method="post" class="me-1">
+                                        <form asp-action="UpdateQuantity" method="post" class="me-1" style="display:inline;">
                                             <input type="hidden" name="userId" value="@Model.UserId" />
-                                            <input type="hidden" name="bookId" value="@book.BookId" />
+                                            <input type="hidden" name="bookId" value="@book?.BookId" />
                                             <input type="hidden" name="quantity" value="@(cartDetail.Quantity - 1)" />
                                             <button type="submit" class="btn btn-outline-primary btn-sm" @(cartDetail.Quantity <= 1 ? "disabled" : "")>-</button>
                                         </form>
-
                                         <span class="mx-2">@cartDetail.Quantity</span>
-
-                                        <!-- Increase -->
-                                        <form asp-action="UpdateQuantity" method="post" class="ms-1">
+                                        <form asp-action="UpdateQuantity" method="post" class="ms-1" style="display:inline;">
                                             <input type="hidden" name="userId" value="@Model.UserId" />
-                                            <input type="hidden" name="bookId" value="@book.BookId" />
+                                            <input type="hidden" name="bookId" value="@book?.BookId" />
                                             <input type="hidden" name="quantity" value="@(cartDetail.Quantity + 1)" />
                                             <button type="submit" class="btn btn-outline-primary btn-sm">+</button>
                                         </form>
                                     </div>
                                 </td>
-
-                                <!-- Price -->
                                 <td>
                                     <strong class="book-price">
                                         $@(book != null ? (book.Price * cartDetail.Quantity) : 0)
                                     </strong>
                                 </td>
-
-                                <!-- Delete -->
                                 <td>
                                     <form asp-action="RemoveFromCart" method="post" style="display:inline;">
                                         <input type="hidden" name="userId" value="@Model.UserId" />
-                                        <input type="hidden" name="bookId" value="@book.BookId" />
+                                        <input type="hidden" name="bookId" value="@book?.BookId" />
                                         <button type="submit" class="btn btn-danger btn-sm" title="Remove item">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -99,18 +81,21 @@
                 </tbody>
             </table>
 
-            <form asp-action="Checkout" method="post" id="checkout-form">
+            <form method="post" asp-action="Checkout" id="checkout-form">
                 <div class="bg-light border-top fixed-bottom">
                     <div class="container py-3 d-flex justify-content-between align-items-center">
                         <div>
-                            <strong>Total (<span id="total-items">@Model.CartDetails.Count</span> Books):</strong>
+                            <strong>Total (<span id="total-items">@totalItems</span> Books):</strong>
                             <span class="text-danger fs-5 ms-2" id="total-price">
-                                $@Model.CartDetails.Sum(cd => cd.Book.Price * cd.Quantity)
+                                $@totalPrice
                             </span>
-                            <div class="text-muted small">You saved: <span class="text-success">$1.25</span></div>
+                            <div class="text-muted small">
+                                You saved: <span class="text-success">$1.25</span>
+                            </div>
                         </div>
-
-                        <button type="submit" class="btn btn-danger btn-lg">Checkout</button>
+                        <div>
+                            <button type="submit" class="btn btn-danger btn-lg">Checkout</button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -134,48 +119,38 @@
 
             rows.forEach(row => {
                 const checkbox = row.querySelector('.book-select');
-                if (checkbox && checkbox.checked) {
-                    // Lấy giá từ phần tử hiển thị giá
-                    const priceText = row.querySelector('.book-price').textContent;
-                    const price = parseFloat(priceText.replace(/[^0-9.]/g, ''));
-
-                    // Lấy số lượng từ <span> số lượng
+                if (checkbox?.checked) {
+                    const priceText = row.querySelector('.book-price')?.textContent || "0";
                     const quantitySpan = row.querySelector('td:nth-child(3) span');
-                    const quantity = parseInt(quantitySpan.textContent);
+                    const price = parseFloat(priceText.replace(/[^0-9.]/g, '')) || 0;
+                    const quantity = parseInt(quantitySpan?.textContent) || 0;
 
-                    total += price; // Vì book-price đã là book.Price * Quantity
+                    total += price;
                     itemCount += quantity;
                 }
             });
 
-            // Hiển thị lại tổng số tiền và số lượng
             document.getElementById("total-price").textContent = total.toLocaleString('en-US', {
                 style: 'currency',
                 currency: 'USD'
             });
-
             document.getElementById("total-items").textContent = itemCount;
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            // Khi chọn/deselect checkbox sách
             document.querySelectorAll('.book-select').forEach(el => {
                 el.addEventListener('change', updateTotal);
             });
 
-            // Khi chọn "select all"
             const selectAllCheckbox = document.getElementById('select-all');
-            if (selectAllCheckbox) {
-                selectAllCheckbox.addEventListener('change', function () {
-                    const checked = this.checked;
-                    document.querySelectorAll('.book-select').forEach(cb => {
-                        cb.checked = checked;
-                    });
-                    updateTotal();
+            selectAllCheckbox?.addEventListener('change', function () {
+                const checked = this.checked;
+                document.querySelectorAll('.book-select').forEach(cb => {
+                    cb.checked = checked;
                 });
-            }
+                updateTotal();
+            });
 
-            // Gọi lần đầu khi trang tải
             updateTotal();
         });
     </script>

@@ -1,6 +1,5 @@
 ﻿using ClosedXML.Excel;
 using Microsoft.EntityFrameworkCore;
-using StackBook.DAL;
 using StackBook.DAL.IRepository;
 using StackBook.Data;
 using StackBook.Models;
@@ -14,6 +13,7 @@ using StackBook.Middleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using StackBook.Hubs;
 using StackBook.Areas.Customer.Controllers;
+using StackBook.DAL.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();

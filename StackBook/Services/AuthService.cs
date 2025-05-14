@@ -376,6 +376,7 @@ namespace StackBook.Services
             {
                 var response = new ServiceResponse<string>();
                 var url = await _oauthGoogleService.GetRedirectConsentScreenURL();
+                Console.WriteLine($"Redirect URL: {url}");
                 if (string.IsNullOrEmpty(url))
                 {
                     response.Success = false;

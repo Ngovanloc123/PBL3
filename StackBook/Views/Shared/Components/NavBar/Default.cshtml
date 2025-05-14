@@ -24,13 +24,13 @@
                 @* Giành cho Admin *@
                 @* @if (User.IsInRole("Admin")) *@
                 @* { *@
-                    @* <li class="nav-item dropdown"> *@
-                    @*     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Management</a> *@
-                    @*     <div class="dropdown-menu"> *@
-                    @*         <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a> *@
-                    @*         <a class="dropdown-item" asp-area="Admin" asp-controller="Book" asp-action="Index">Book</a> *@
-                    @*     </div> *@
-                    @* </li> *@
+                @* <li class="nav-item dropdown"> *@
+                @*     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Management</a> *@
+                @*     <div class="dropdown-menu"> *@
+                @*         <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a> *@
+                @*         <a class="dropdown-item" asp-area="Admin" asp-controller="Book" asp-action="Index">Book</a> *@
+                @*     </div> *@
+                @* </li> *@
                 @* } *@
                 @* Giành cho Admin *@
             </ul>
@@ -70,7 +70,8 @@
             <div class="mx-2 my-2">
                 <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-outline-light position-relative">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    @if(ViewBag.CartCount > 0) {
+                    @if (ViewBag.CartCount > 0)
+                    {
 
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             @ViewBag.CartCount

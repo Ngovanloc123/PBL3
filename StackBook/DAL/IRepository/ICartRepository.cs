@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StackBook.DAL.IRepository
 {
-    public interface ICartRepository
+    public interface ICartRepository : IRepository<Cart>
     {
         Task<Cart?> GetByUserIdAsync(Guid userId);
         Task<Cart> GetOrCreateByUserIdAsync(Guid userId);

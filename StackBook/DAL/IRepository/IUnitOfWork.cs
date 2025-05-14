@@ -6,6 +6,7 @@
         IAuthorRepository Author { get; }
         IBookRepository Book { get; }
         IUserRepository User { get; }
+        ICartRepository Cart { get; }
 
 
         Task SaveAsync();

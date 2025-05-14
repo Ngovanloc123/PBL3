@@ -50,12 +50,12 @@ namespace StackBook.Services
             // Kiểm tra email đã tồn tại chưa
             if (!string.IsNullOrEmpty(updateVM.Email))
             {
-                var emailOwner = await _context.Users.FirstOrDefaultAsync(u => u.Email == updateVM.Email && u.UserId != updateVM.UserId);//
+                var emailOwner = await _context.Users.FirstOrDefaultAsync(u => u.Email == updateVM.Email && u.UserId != updateVM.UserId); //
 
                 if (emailOwner != null)
                 {
                     response.Success = false;
-                    response.Message = "Email already exists";
+                    response.Message = "Email already exists.";
                     return response;
                 }
 

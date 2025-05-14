@@ -1,9 +1,9 @@
-﻿@model List<StackBook.Models.Book>
+﻿@model StackBook.ViewModels.CheckoutRequest
 
 @{
     ViewData["Title"] = "Checkout";
-    var totalItems = Model.Count;
-    var totalPrice = Model.Sum(book => book.Price);
+    var totalItems = Model.SelectedBooks?.Sum(b => b.Quantity) ?? 0;
+    var totalPrice = Model.SelectedBooks?.Sum(b => b.Book.Price * b.Quantity) ?? 0;
 }
 
 <div class="container my-4">
@@ -11,7 +11,7 @@
         Checkout
     </h1>
 
-    @if (Model.Any())
+    @if (Model.SelectedBooks != null && Model.SelectedBooks.Any())
     {
         <div class="row">
             <!-- Order Summary -->
@@ -21,42 +21,42 @@
                     <table class="table align-middle text-center">
                         <thead class="table-light">
                             <tr>
-                                <th scope="col">Book</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Price</th>
+                                <th>Book</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var book in Model)
+                            @foreach (var selectedBook in Model.SelectedBooks)
                             {
                                 <tr>
-                                    <!-- Book Details -->
                                     <td class="text-start">
-                                        <img src="@book.ImageURL" alt="@book.BookTitle" style="width: 60px; height: auto;" class="rounded me-2">
-                                        <strong>@book.BookTitle</strong><br />
-                                        <small>@string.Join(", ", book.Authors.Select(a => a.AuthorName))</small>
+                                        <img src="@selectedBook.Book.ImageURL" alt="@selectedBook.Book.BookTitle" style="width: 60px; height: auto;" class="rounded me-2" />
+                                        <strong>@selectedBook.Book.BookTitle</strong><br />
+                                        @* <small> *@
+                                        @*     @if (selectedBook.Book.Authors != null) *@
+                                        @*     { *@
+                                        @*         @string.Join(", ", selectedBook.Book.Authors.Select(a => a.AuthorName)) *@
+                                        @*     } *@
+                                        @* </small> *@
                                     </td>
-
-                                    <!-- Quantity -->
                                     <td>
-                                        <span>1</span>
+                                        <span>@selectedBook.Quantity</span>
                                     </td>
-
-                                    <!-- Price -->
                                     <td>
-                                        <strong>@book.Price.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</strong>
+                                        <strong>
+                                            $@(selectedBook.Book.Price * selectedBook.Quantity)
+                                        </strong>
                                     </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
-
-                <!-- Total -->
                 <div class="border-top pt-3">
-                    <h5>Total (<span id="total-items">@totalItems</span> item(s)):</h5>
+                    <h5>Total (<span id="total-items">@totalItems</span> Books):</h5>
                     <span class="text-danger fs-4" id="total-price">
-                        @totalPrice.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))
+                        $@totalPrice
                     </span>
                 </div>
             </div>
@@ -64,35 +64,29 @@
             <!-- Billing Information -->
             <div class="col-lg-6">
                 <h3 class="mb-3">Billing Information</h3>
-
-                <!-- Shipping Address -->
                 <div class="mb-4">
                     <h5>Shipping Address</h5>
                     <div id="current-address" class="border p-3 rounded">
-                        <p><strong>John Doe</strong></p>
-                        <p>123 Main Street, City, Country</p>
-                        <p>Phone: +123456789</p>
+                        <p><strong>@Model.User?.FullName</strong></p>
+                        <p>@Model.User?.Email</p>
+                        @* <p>Phone: @Model.User?.</p> *@
                         <button class="btn btn-link p-0" type="button" data-bs-toggle="modal" data-bs-target="#addressModal">
                             Change Address
                         </button>
                     </div>
                 </div>
-
                 <form method="post" asp-action="PlaceOrder">
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="Email" required>
-                    </div>
-
+                    @* <div class="mb-3"> *@
+                    @*     <label for="email" class="form-label">Email</label> *@
+                    @*     <input type="email" class="form-control" id="email" name="Email" value="@Model.User?.Email" required /> *@
+                    @* </div> *@
                     <div class="mb-3">
                         <label for="paymentMethod" class="form-label">Payment Method</label>
                         <select class="form-select" id="paymentMethod" name="PaymentMethod" required>
                             <option value="CreditCard">Credit Card</option>
-                            <option value="PayPal">PayPal</option>
                             <option value="CashOnDelivery">Cash on Delivery</option>
                         </select>
                     </div>
-
                     <button type="submit" class="btn btn-success btn-lg w-100">Place Order</button>
                 </form>
             </div>
@@ -111,13 +105,12 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addressModalLabel">Địa Chỉ Của Tôi</h5>
+                <h5 class="modal-title" id="addressModalLabel">My Address</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Address List -->
+                <!-- Danh sách địa chỉ mẫu, có thể thay bằng dữ liệu thực -->
                 <div class="list-group">
-                    <!-- Default Address -->
                     <div class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="address" id="address1" checked>
@@ -127,56 +120,18 @@
                                 <span class="text-muted">(+84) 359 757 054</span>
                             </label>
                         </div>
-                        <span class="badge bg-primary">Mặc định</span>
-                        <button class="btn btn-link btn-sm">Cập nhật</button>
+                        <span class="badge bg-primary">Default</span>
+                        <button class="btn btn-link btn-sm">Update</button>
                     </div>
-
-                    <!-- Other Address -->
-                    <div class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="address" id="address2">
-                            <label class="form-check-label" for="address2">
-                                <strong>Ngô Văn Lộc</strong> <br>
-                                34/21, Âu Cơ (cổng màu trắng), Phường Hòa Khánh Bắc, Quận Liên Chiểu, Đà Nẵng <br>
-                                <span class="text-muted">(+84) 359 757 054</span>
-                            </label>
-                        </div>
-                        <button class="btn btn-link btn-sm">Cập nhật</button>
-                    </div>
-
-                    <div class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="address" id="address3">
-                            <label class="form-check-label" for="address3">
-                                <strong>Ngô Lộc</strong> <br>
-                                Thôn Thủy Phú, Phường Hương Vinh, Thành Phố Huế, Thừa Thiên Huế <br>
-                                <span class="text-muted">(+84) 359 757 054</span>
-                            </label>
-                        </div>
-                        <button class="btn btn-link btn-sm">Cập nhật</button>
-                    </div>
-
-                    <div class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="address" id="address4">
-                            <label class="form-check-label" for="address4">
-                                <strong>NGÔ VĂN LỘC</strong> <br>
-                                Ktx Đhbk Đà Nẵng, Phường Hòa Khánh Bắc, Quận Liên Chiểu, Đà Nẵng <br>
-                                <span class="text-muted">(+84) 359 757 054</span>
-                            </label>
-                        </div>
-                        <button class="btn btn-link btn-sm">Cập nhật</button>
-                    </div>
+                    <!-- Thêm các địa chỉ khác nếu cần -->
                 </div>
-
-                <!-- Add New Address Button -->
                 <button class="btn btn-outline-primary w-100 mt-3" data-bs-toggle="modal" data-bs-target="#newAddressModal">
-                    <i class="bi bi-plus-circle"></i> Thêm Địa Chỉ Mới
+                    <i class="bi bi-plus-circle"></i> Add New Address
                 </button>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-primary">Xác nhận</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Confirm</button>
             </div>
         </div>
     </div>
@@ -187,24 +142,24 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newAddressModalLabel">Thêm Địa Chỉ Mới</h5>
+                <h5 class="modal-title" id="newAddressModalLabel">Add New Address</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <label for="newFullName" class="form-label">Họ và Tên</label>
-                        <input type="text" class="form-control" id="newFullName" required>
-                    </div>
+                    @*     <label for="newFullName" class="form-label">UserName</label> *@
+                    @*     <input type="text" class="form-control" id="newFullName" required> *@
+                    @* </div> *@
                     <div class="mb-3">
-                        <label for="newPhone" class="form-label">Số Điện Thoại</label>
+                            <label for="newPhone" class="form-label">Phone number</label>
                         <input type="tel" class="form-control" id="newPhone" required>
                     </div>
                     <div class="mb-3">
-                        <label for="newAddress" class="form-label">Địa Chỉ</label>
+                            <label for="newAddress" class="form-label">Address</label>
                         <textarea class="form-control" id="newAddress" rows="3" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Lưu Địa Chỉ</button>
+                        <button type="submit" class="btn btn-primary w-100">Save Address</button>
                 </form>
             </div>
         </div>

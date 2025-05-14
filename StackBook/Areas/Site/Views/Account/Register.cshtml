@@ -2,66 +2,95 @@
 
 @{
     ViewData["Title"] = "Register";
+    Layout = null;
 }
 
-<body>
-    <section class="d-flex justify-content-center align-items-center vh-100 bg-light">
-        <div class="card shadow-sm" style="width: 400px;">
-            <div class="card-body">
-                <h2 class="text-center mb-4">Register</h2>
-                <form method="post" asp-action="RegisterUser">
-                    <!-- Username Input -->
-                    <div class="mb-3">
-                        <label asp-for="Username" class="form-label"></label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-                            <input asp-for="Username" class="form-control" placeholder="Enter your username" />
-                        </div>
-                        <span asp-validation-for="Username" class="text-danger"></span>
+<head>
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+</head>
+
+<body class="login-body">
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-left">
+                <form asp-controller="Account" asp-action="Register" method="post">
+                    <h2>Create Account</h2>
+                    <p>Join StackBook today</p>
+
+                    <div class="form-group">
+                        <span class="form-icon">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <input asp-for="Username" type="text" placeholder="Username" required />
+                    </div>
+                    @if (ViewData["UsernameError"] != null)
+                    {
+                        <span class="text-danger">@ViewData["UsernameError"]</span>
+                    }
+
+                    <div class="form-group">
+                        <span class="form-icon">
+                            <i class="fa-regular fa-envelope"></i>
+                        </span>
+                        <input asp-for="Email" type="email" placeholder="Email" required />
+                    </div>
+                    @if (ViewData["EmailError"] != null)
+                    {
+                        <span class="text-danger">@ViewData["EmailError"]</span>
+                    }
+
+                    <div class="form-group">
+                        <span class="form-icon">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input asp-for="Password" type="password" placeholder="Password" required />
+                    </div>
+                    @if (ViewData["PasswordError"] != null)
+                    {
+                        <span class="text-danger">@ViewData["PasswordError"]</span>
+                    }
+
+                    <div class="form-group">
+                        <span class="form-icon">
+                            <i class="fa-solid fa-unlock"></i>
+                        </span>
+                        <input asp-for="Password" type="password" placeholder="Confirm Password" required />
+                    </div>
+                    @if (ViewData["PasswordError"] != null)
+                    {
+                        <span class="text-danger">@ViewData["PasswordError"]</span>
+                    }
+
+                    <button type="submit" class="login-btn">Register</button>
+
+                    <div class="divider">
+                        <span>or</span>
                     </div>
 
-                    <!-- Email Input -->
-                    <div class="mb-3">
-                        <label asp-for="Email" class="form-label"></label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
-                            <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email" />
-                        </div>
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                    <div class="social-login">
+                        <a href="Site/Account/google-redirect" class="google-btn">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/1024px-Google_Favicon_2025.svg.png" alt="Google Logo" /> Sign up with Google
+                        </a>
                     </div>
 
-                    <!-- Password Input -->
-                    <div class="mb-3">
-                        <label asp-for="Password" class="form-label"></label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-                            <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
-                        </div>
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
-
-                    <!-- Confirm Password Input -->
-                    <div class="mb-3">
-                        <label asp-for="ConfirmPassword" class="form-label"></label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fa-solid fa-unlock"></i></span>
-                            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password" />
-                        </div>
-                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary w-100">Register</button>
-
-                    <!-- Sign In Link -->
-                    <div class="text-center mt-3">
+                    <div class="register-link">
                         <p>
                             Already have an account?
-                            <a asp-area="Site" asp-controller="Account" asp-action="Signin" class="text-decoration-none">Sign In</a>
+                            <a asp-controller="Account" asp-action="Signin">Sign in</a>
                         </p>
                     </div>
                 </form>
             </div>
+
+            <div class="login-right">
+                <div class="img-bg">
+                    @* Optional: Add your logo overlay here like in the login page *@
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
 </body>

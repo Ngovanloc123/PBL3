@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StackBook.Interfaces;
 
 namespace StackBook.Areas.Customer.Controllers
 {
@@ -7,6 +8,13 @@ namespace StackBook.Areas.Customer.Controllers
     [Area("Customer")]
     public class AccountController : Controller
     {
+        private readonly IUserService _userService;
+
+        public AccountController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         public IActionResult Notifications()
         {
             return View();
@@ -16,14 +24,29 @@ namespace StackBook.Areas.Customer.Controllers
         {
             return View();
         }
-        public IActionResult Profile()
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Profile()
         {
-            return View();
+            var userId = Request.Cookies["userId"];
+
+
+            var userProfile = await _userService.GetUserById(Guid.Parse(userId));
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+
+            return View(userProfile.Data);
         }
+
         public IActionResult Vouchers()
         {
             return View();
         }
+
+
 
 
     }

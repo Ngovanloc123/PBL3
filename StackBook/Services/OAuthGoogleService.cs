@@ -52,7 +52,16 @@ namespace StackBook.Services
         {
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+            Console.WriteLine($"Access token: {accessToken}");
+            Console.WriteLine($"User info URL: {_config.UserInfoUrl}");
+            Console.WriteLine($"Authorization header: {client.DefaultRequestHeaders.Authorization}");
+            Console.WriteLine($"Accept headers: {string.Join(", ", client.DefaultRequestHeaders.Accept)}");
+            Console.WriteLine($"User info URL: {_config.UserInfoUrl}");
             var result = await client.GetStringAsync(_config.UserInfoUrl);
+            Console.WriteLine($"User info result: {result}");
             var profile = JsonSerializer.Deserialize<JsonElement>(result);
 
             return (

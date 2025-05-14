@@ -18,8 +18,10 @@ namespace StackBook.Interfaces
         Task<ServiceResponse<User>> GetUserByName(string username);//tim kiem user theo ten
         Task<ServiceResponse<User>> GetUserById(Guid userId);//tim kiem user theo id
         Task<ServiceResponse<User>> GetUserByEmail(string email);//tim kiem user theo email
-        Task<ServiceResponse<User>> UpdatePassword(UpdatePasswordDto updatePasswordDto);//doi mat khau
+        Task<ServiceResponse<User>> UpdatePassword(Guid userId, string currentPassword, string newPassword);//doi mat khau
         Task<ServiceResponse<string>> UpdateEmail(Guid userId, string newEmail);//doi email
+        //Updateusername
+        Task<ServiceResponse<string>> UpdateUsername(Guid userId, string newUsername);//doi ten
         Task<ServiceResponse<string>> LockUser(Guid userId);//khoa nguoi dung
         Task<ServiceResponse<string>> UnlockUser(Guid userId);//mo khoa nguoi dung
         Task<ServiceResponse<string>> UpdateAvatar(Guid userId, IFormFile file);

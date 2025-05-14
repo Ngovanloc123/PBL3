@@ -13,8 +13,8 @@ namespace StackBook.Interfaces
 {
     public interface IAuthService
     {
-        Task<ServiceResponse<User>> RegisterUser(RegisterDto registerDto);//dang ky thanh vien
-        Task<ServiceResponse<User>> SignInUser(SignInDto signInDto);//dang nhap thanh vien
+        Task<ServiceResponse<User>> RegisterUser(UserVM.RegisterVM registerDto);//dang ky thanh vien
+        Task<ServiceResponse<User>> SignInUser(UserVM.SignInVM signInDto);//dang nhap thanh vien
         Task<ServiceResponse<User>> LogoutUser(Guid userId);//dang xuat thanh vien
         Task<ServiceResponse<User>> ForgotPassword(UserVM.ForgotPasswordVM forgotPasswordDto);//quen mat khau
         Task<ServiceResponse<User>> ResetPassword(UserVM.ResetPasswordVM resetPasswordDto);//reset mat khau

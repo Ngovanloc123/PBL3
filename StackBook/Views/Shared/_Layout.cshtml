@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,32 +13,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 
-    
+
 </head>
 <body>
     <header>
-        <partial name="_Navbar" />
+        @* <partial name="_Navbar" /> *@
+        @await Html.PartialAsync("_Navbar")
     </header>
 
     @* ================== PHẦN BODY PAGE ================== *@
-    <div  style="margin-top: 80px;">
+    <div style="margin-top: 80px;">
         <main role="main" class="pb-3">
-            <partial name="_Notification" />
+            @* <partial name="_Notification" /> *@
+            @await Html.PartialAsync("_Notification")
             @* Hiển thị nội dung của từng View con. *@
             @RenderBody()
         </main>
     </div>
 
-    <partial name="_Footer" />
-    
+    @* <partial name="_Footer" /> *@
+    @await Html.PartialAsync("_Footer")
+
 
     @* Link SWwiperJS JS *@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.tiny.cloud/1/yyezntleek03s7fje40wjjnc78wutpig0qjp73zqym1ieknk/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-    
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

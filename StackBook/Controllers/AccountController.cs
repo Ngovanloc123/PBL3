@@ -29,7 +29,7 @@ namespace StackBook.Controllers
 
         [HttpPost("Register")]
         [AllowAnonymous]
-        public async Task<IActionResult> RegisterUser(RegisterDto registerDto)
+        public async Task<IActionResult> RegisterUser(UserVM.RegisterVM registerDto)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace StackBook.Controllers
         [AllowAnonymous]
         public IActionResult Register() => View();
         [HttpPost("SignIn")]
-        public async Task<IActionResult> SignInUser(SignInDto signInDto)
+        public async Task<IActionResult> SignInUser(UserVM.SignInVM signInDto)
         {
             try
             {
@@ -154,70 +154,6 @@ namespace StackBook.Controllers
             }
         }
 
-        [HttpPut("UpdatePassword/{userId}")]
-        [Authorize]
-        public async Task<IActionResult> UpdatePassword(Guid userId, UpdatePasswordDto updatePasswordDto)
-        {
-            try
-            {
-                if (updatePasswordDto == null)
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
-
-                // Lấy userId từ claims trong token (cookie)
-                var currentUserIdClaims = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
-                if (currentUserIdClaims == null)
-                    return Unauthorized("User not authenticated.");
-
-                var currentUserId = Guid.Parse(currentUserIdClaims);
-
-                // Kiểm tra xem người dùng có quyền thay đổi mật khẩu hay không
-                if (userId != currentUserId)
-                    return View("Error", new ErrorViewModel { ErrorMessage = "You can only update your own password." });
-
-                updatePasswordDto.UserId = userId;
-
-                // Gọi service để thay đổi mật khẩu
-                var result = await _userService.UpdatePassword(updatePasswordDto);
-
-                if (result.Success)
-                {
-                    // Cập nhật lại accessToken vào cookie
-                    Response.Cookies.Append("accessToken", result.AccessToken, new CookieOptions
-                    {
-                        HttpOnly = true,
-                        Secure = true,
-                        SameSite = SameSiteMode.Strict,
-                        Expires = DateTimeOffset.UtcNow.AddMinutes(15) // Điều chỉnh thời gian hết hạn token theo yêu cầu của bạn
-                    });
-
-                    return RedirectToAction("Profile", new { id = result.Data?.UserId });
-                }
-                else
-                {
-                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message});
-                }
-            }
-            catch (Exception ex)
-            {
-                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
-            }
-        }
-
-        // Lấy thông tin người dùng từ server và trả về profile
-        [HttpGet("Profile/{id}")]
-        [Authorize]  // Đảm bảo người dùng đã xác thực mới có thể truy cập
-        public async Task<IActionResult> GetProfile(Guid id)
-        {
-            // Lấy thông tin người dùng từ service
-            var userProfile = await _userService.GetUserById(id);
-            
-            if (userProfile == null)
-            {
-                return NotFound();  // Nếu không tìm thấy người dùng, trả về lỗi 404
-            }
-
-            return View(userProfile);  // Trả về view hiển thị hồ sơ người dùng
-        }
 
         // Phương thức đăng xuất
         [HttpGet("Logout")]

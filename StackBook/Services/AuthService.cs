@@ -36,7 +36,7 @@ namespace StackBook.Services
             _jwtUtils = jwtUtils;
             _oauthGoogleService = oauthGoogleService;
         }
-        public async Task<ServiceResponse<User>> RegisterUser(RegisterDto registerDto)
+        public async Task<ServiceResponse<User>> RegisterUser(UserVM.RegisterVM registerDto)
         {
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(registerDto.Email) || string.IsNullOrEmpty(registerDto.Password) || string.IsNullOrEmpty(registerDto.Username))
@@ -93,7 +93,7 @@ namespace StackBook.Services
                 return response;
             }
         }
-        public async Task<ServiceResponse<User>> SignInUser(SignInDto signInDto)
+        public async Task<ServiceResponse<User>> SignInUser(UserVM.SignInVM signInDto)
         {
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(signInDto.Email) || string.IsNullOrEmpty(signInDto.Password))

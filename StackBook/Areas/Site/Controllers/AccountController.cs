@@ -9,6 +9,9 @@ using StackBook.DTOs;
 using System.Security.Claims;
 using CloudinaryDotNet.Actions;
 using StackBook.ViewModels;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace StackBook.Areas.Site.Controllers 
 {
@@ -30,7 +33,7 @@ namespace StackBook.Areas.Site.Controllers
         }
 
         [HttpPost("SignIn")]
-        public async Task<IActionResult> SignInUser(SignInDto signInDto)
+        public async Task<IActionResult> SignInUser(UserVM.SignInVM signInDto)
         {
             try
             {
@@ -47,7 +50,7 @@ namespace StackBook.Areas.Site.Controllers
                     HttpOnly = true,
                     Secure = true,
                     SameSite = SameSiteMode.Strict,
-                    Expires = DateTimeOffset.UtcNow.AddMinutes(15)
+                    Expires = DateTimeOffset.UtcNow.AddMinutes(60)
                 });
 
                 // Ghi refresh token vào cookie
@@ -68,16 +71,34 @@ namespace StackBook.Areas.Site.Controllers
                     Expires = DateTimeOffset.UtcNow.AddDays(7)
                 });
                 //Check Role roi chuyen den area tuong ung
-                if(result.Data.Role == true)
+                //validate access token de lay role
+                var tokenHandler = _jwtUtils.ValidateToken(result.AccessToken);
+                if (tokenHandler == null)
+                {
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token." });
+                }
+
+                var claimsIdentity = tokenHandler.Identity as ClaimsIdentity;
+
+                if (claimsIdentity == null)
+                {
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token." });
+                }
+                var roleClaim = claimsIdentity.FindFirst(ClaimTypes.Role);
+                if (roleClaim == null)
+                {
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Role claim not found." });
+                }
+                if(roleClaim.Value == "Admin")
                 {
                     TempData["success"] = "Sign in successful.";
-                    return RedirectToAction("Index", "Statistic", new { area = "Admin" });
+                    return RedirectToAction("Index", "Home", new { area = "Admin" });
                 }
-                else if (result.Data.Role == false)
+                else if (roleClaim.Value == "User")
                 {
                     TempData["success"] = "Sign in successful.";
                     // return RedirectToAction("Index", "Home", new { area = "Site" });
-                    return RedirectToAction("Profile", "Account", new { area = "Customer", id = result.Data?.UserId });
+                    return RedirectToAction("Profile", "Account", new { area = "Customer"});
                 }
                 else
                 {
@@ -96,7 +117,7 @@ namespace StackBook.Areas.Site.Controllers
 
         [HttpPost("Register")]
         [AllowAnonymous]
-        public async Task<IActionResult> RegisterUser(RegisterDto registerDto)
+        public async Task<IActionResult> RegisterUser(UserVM.RegisterVM registerDto)
         {
             try
             {
@@ -114,6 +135,7 @@ namespace StackBook.Areas.Site.Controllers
                 return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }
+
         [HttpGet("Register")]
         [AllowAnonymous]
         public IActionResult Register() => View();
@@ -216,7 +238,7 @@ namespace StackBook.Areas.Site.Controllers
                         SameSite = SameSiteMode.Strict,
                         Expires = DateTimeOffset.UtcNow.AddDays(7)
                     });
-                    return RedirectToAction("Profile", "Account", new { area = "Customer", id = result.Data?.UserId });
+                    return RedirectToAction("Profile", "Account", new { area = "Customer"});
                     // return RedirectToAction("Index", "Home", new { area = "Site" });
                 }
                 else

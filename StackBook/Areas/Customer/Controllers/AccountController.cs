@@ -29,11 +29,10 @@ namespace StackBook.Areas.Customer.Controllers
             _jwtUtils = jwtUtils;
             _cloudinaryUtils = cloudinaryUtils;
         }
-        [HttpGet("Profile/{id}")]
+        [HttpGet("Profile")]
         [Authorize(Roles ="User")]
-        public async Task<IActionResult> Profile(Guid id)
+        public async Task<IActionResult> Profile()
         {
-            Console.WriteLine($"Profile ID: {id}");
             //User Id của người dùng hiện tại trong cookie
             var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             //Xem cookie access token có tồn tại hay không
@@ -48,14 +47,12 @@ namespace StackBook.Areas.Customer.Controllers
             if (userIdValue == null)
                 return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
             Guid userId = Guid.Parse(userIdValue);
-            if (userId != id)
-                return View("Error", new ErrorViewModel { ErrorMessage = "You do not have permission to view this profile." });
-            var response = await _userService.GetUserById(id);
+            var response = await _userService.GetUserById(userId);
             if (response == null) return NotFound();
             return View(response.Data);
         }
-        [HttpPost("UpdateAvatar/{id}")]
-        public async Task<IActionResult> UpdateAvatar(Guid id, IFormFile image)
+        [HttpPost("UpdateAvatar")]
+        public async Task<IActionResult> UpdateAvatar(IFormFile image)
         {
             if (image == null || image.Length == 0)
                 return View("Error", new ErrorViewModel { ErrorMessage = "Image file is required." });
@@ -63,70 +60,116 @@ namespace StackBook.Areas.Customer.Controllers
             if (userIdValue == null)
                 return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
             Guid userId = Guid.Parse(userIdValue);
-            if (userId != id)
-                return View("Error", new ErrorViewModel { ErrorMessage = "You do not have permission to update this profile." });
-            var response = await _userService.UpdateAvatar(id, image);
+            var response = await _userService.UpdateAvatar(userId, image);
             if (response.Success)
             {
-                return RedirectToAction("Profile", new { id });
+                return RedirectToAction("Profile");
             }
             else
             {
                 return View("Error", new ErrorViewModel { ErrorMessage = response.Message });
             }
         }
-        [HttpGet("GoogleLogin")]
-        public async Task<IActionResult> LoginWithGoogle(string code)
+        [HttpPost("Update-Username")]
+        public async Task<IActionResult> UpdateUsername(string username)
         {
-            try
+            Console.WriteLine($"UpdateUsername Username: {username}");
+            if (string.IsNullOrEmpty(username))
+                return View("Error", new ErrorViewModel { ErrorMessage = "Username is required." });
+            var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userIdValue == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
+            Guid userId = Guid.Parse(userIdValue);
+            var response = await _userService.UpdateUsername(userId, username);
+            //xoa cookie access token
+            Response.Cookies.Delete("accessToken");
+            //cap nhat lai access token vi username da bi thay doi
+            var user = await _userService.GetUserById(userId);
+            var token = _jwtUtils.GenerateAccessToken(user.Data);
+            response.AccessToken = token;
+            //cap nhat lai cookie access token
+            Response.Cookies.Append("accessToken", response.AccessToken, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTimeOffset.UtcNow.AddMinutes(60)
+            });
+            if (response.Success)
             {
-                if (string.IsNullOrEmpty(code))
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
-
-                var result = await _authService.LoginWithGoogle(code);
-                if (result == null)
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed." });
-
-                return RedirectToAction("Profile", new { id = result.Data?.UserId, accessToken = result.AccessToken, refreshToken = result.RefreshToken });
+                return RedirectToAction("Profile");
             }
-            catch (Exception ex)
+            else
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+                return View("Error", new ErrorViewModel { ErrorMessage = response.Message });
             }
         }
-
-        [HttpGet("google-callback")]
-        public async Task<IActionResult> GoogleCallback(string code)
+        [HttpPost("Update-Email")]
+        public async Task<IActionResult> UpdateEmail(string email)
         {
-            try
+            Console.WriteLine($"UpdateEmail Email: {email}");
+            if (string.IsNullOrEmpty(email))
+                return View("Error", new ErrorViewModel { ErrorMessage = "Email is required." });
+            var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userIdValue == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
+            Guid userId = Guid.Parse(userIdValue);
+            var response = await _userService.UpdateEmail(userId, email);
+            
+            if (response.Success)
             {
-                if (string.IsNullOrEmpty(code))
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
-
-                var result = await _authService.LoginWithGoogle(code);
-                if (result == null)
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed." });
-
-                return RedirectToAction("Profile", new { id = result.Data?.UserId, accessToken = result.AccessToken, refreshToken = result.RefreshToken });
+                //logout 
+                return RedirectToAction("SignOut", "Account", new { area = "Site" });
             }
-            catch (Exception ex)
+            else
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+                return View("Error", new ErrorViewModel { ErrorMessage = response.Message });
             }
         }
+        [HttpPost("Change-Password")]
+        public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword, string confirmPassword)
+        {
+            Console.WriteLine(currentPassword);
+            Console.WriteLine(newPassword);
+            Console.WriteLine(confirmPassword);
+            if(string.IsNullOrEmpty(currentPassword) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword))
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = "Email is required." }); 
+            }
+             var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userIdValue == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
+            Guid userId = Guid.Parse(userIdValue);
+            Console.WriteLine(userId);
+            if(!newPassword.Equals(confirmPassword))
+                return View("Error", new ErrorViewModel { ErrorMessage = "Not Map" });
+            var response = await _userService.UpdatePassword(userId, currentPassword, newPassword);
+            if (response.Success)
+            {
+                return RedirectToAction("SignOut", "Account", new { area = "Site" });
+            }
+            else
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = response.Message });
+            }
+        }
+        [HttpGet("Notifications")]
          public IActionResult Notifications()
         {
             return View();
         }
-
-        public IActionResult Orders()
+        [HttpGet("Orders")]
+         public IActionResult Orders()
         {
             return View();
         }
-        public IActionResult Profile()
+        [HttpGet("WishList")]
+         public IActionResult WishList()
         {
             return View();
         }
+        [HttpGet("Vouchers")]
+        [Authorize(Roles = "User")]
         public IActionResult Vouchers()
         {
             return View();

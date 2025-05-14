@@ -178,28 +178,37 @@ namespace StackBook.Services
             return response;
         }
 
-        public async Task<ServiceResponse<User>> UpdatePassword(UpdatePasswordDto updatePasswordDto)
+        public async Task<ServiceResponse<User>> UpdatePassword(Guid userId, string currentPassword, string newPassword)
         {
             var response = new ServiceResponse<User>();
 
-            if (updatePasswordDto == null || string.IsNullOrEmpty(updatePasswordDto.Password))
+            if (string.IsNullOrEmpty(currentPassword) || string.IsNullOrEmpty(newPassword))
             {
                 response.Success = false;
                 response.Message = "Invalid data";
                 return response;
             }
-
-            var user = await _userRepository.GetByIdAsync(updatePasswordDto.UserId);
+            Console.WriteLine(userId);
+            var user = await _userRepository.GetByIdAsync(userId);
+            Console.WriteLine(user.UserId);
+            Console.WriteLine(user.FullName);
             if (user == null)
             {
                 response.Success = false;
                 response.Message = "User not found";
                 return response;
             }
+            Console.WriteLine(user.Password);
+            var mapPassword = await PasswordHashedUtils.VerifyPassword(currentPassword, user.Password);
+            if(!mapPassword)
+            {
+                response.Success = false;
+                response.Message = "False current Password";
+                return response;
+            }
 
-            var hashedPassword = await PasswordHashedUtils.HashPassword(updatePasswordDto.Password);
+            var hashedPassword = await PasswordHashedUtils.HashPassword(newPassword);
             user.Password = hashedPassword;
-
             await _userRepository.UpdateAsync(user);
             await _userRepository.SaveAsync();
             var accessToken = _jwtUtils.GenerateAccessToken(user);
@@ -230,7 +239,14 @@ namespace StackBook.Services
                 response.Message = "Email already in use";
                 return response;
             }
-
+            //kiem tra neu dang nhap bang OAuthGoogle
+            var isGoogleLogin = await _userRepository.GetUserByGoogleIdAsync(user.GoogleId);
+            if (isGoogleLogin != null)
+            {
+                response.Success = false;
+                response.Message = "Cannot change email for Google login user";
+                return response;
+            }
             // Cập nhật email + yêu cầu xác minh lại
             user.Email = newEmail;
             user.IsEmailVerified = false;
@@ -238,12 +254,13 @@ namespace StackBook.Services
             user.VerificationToken = resetToken;
             user.ResetTokenExpiry = DateTime.UtcNow.AddMinutes(10);
             user.EmailVerifiedAt = null;
-
+            user.RefreshToken = null;
+            user.RefreshTokenExpiry = null;
             await _userRepository.UpdateAsync(user);
             await _userRepository.SaveAsync();
 
             // Gửi mail xác minh
-            var verificationLink = $"https://localhost:7170/auth/verify-email?token={resetToken}";
+            var verificationLink = $"https://localhost:7170/Site/Account/verify-email?token={resetToken}";
             await _emailUtils.SendEmailAsync(newEmail, "Verify your new email", $"Click here to verify: {verificationLink}");
 
             response.Data = "Verification email sent to new address";
@@ -341,6 +358,27 @@ namespace StackBook.Services
             // Ghi lại thông tin người dùng vào cookie
             var accessToken = _jwtUtils.GenerateAccessToken(user);
             response.AccessToken = accessToken;
+            return response;
+        }
+        public async Task<ServiceResponse<string>> UpdateUsername(Guid userId, string newUsername)
+        {
+            var response = new ServiceResponse<string>();
+
+            var user = await _userRepository.GetByIdAsync(userId);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "User not found";
+                return response;
+            }
+
+            user.FullName = newUsername;
+
+            await _userRepository.UpdateAsync(user);
+            await _userRepository.SaveAsync();
+
+            response.Data = "Username updated successfully";
+            response.Success = true;
             return response;
         }
     }

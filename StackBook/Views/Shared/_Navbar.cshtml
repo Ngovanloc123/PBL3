@@ -22,17 +22,18 @@
                 </li>
 
                 @* Giành cho Admin *@
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Management</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Book" asp-action="Index">Book</a>
-                    </div>
-                </li>
+                @* @if (User.IsInRole("Admin")) *@
+                @* { *@
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Management</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Book" asp-action="Index">Book</a>
+                        </div>
+                    </li>
+                @* } *@
                 @* Giành cho Admin *@
             </ul>
-
-            
 
             @* ================= SEARCH INFOR ============== *@
             <form class="d-flex" method="get" asp-area="Customer" asp-controller="Category" asp-action="Search">
@@ -44,10 +45,25 @@
 
             @* ================ ACCOUNT ================ *@
             <div class="d-grid gap-2 d-lg-flex mx-lg-2 my-sm-2">
-                <a asp-area="Site" asp-controller="Account" asp-action="Signin" class="btn btn-primary w-100 w-lg-auto" style="line-height: 1;">
-                    <span class="fw-light">Hello, sign in</span><br />
-                    <span class="fw-bold">Account</span>
-                </a>
+                @if (User.Identity!.IsAuthenticated)
+                {
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Hello, @User.Identity.Name
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                            <li><a class="dropdown-item" asp-area="Customer" asp-controller="Account" asp-action="Profile">Profile</a></li>
+                            <li><a class="dropdown-item" asp-area="Site" asp-controller="Account" asp-action="Signout">Sign out</a></li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <a asp-area="Site" asp-controller="Account" asp-action="Signin" class="btn btn-primary w-100 w-lg-auto" style="line-height: 1;">
+                        <span class="fw-light">Hello, sign in</span><br />
+                        <span class="fw-bold">Account</span>
+                    </a>
+                }
             </div>
 
             @* ============ GIỎ HÀNG ============ *@

@@ -1,11 +1,12 @@
 ﻿using StackBook.DAL;
 using StackBook.DAL.IRepository;
+using StackBook.Interfaces;
 using StackBook.Models;
 using StackBook.ViewModels;
 
 namespace StackBook.Services
 {
-    public class SearchService
+    public class SearchService : ISearchService
     {
         private readonly IUnitOfWork _unitOfWork;
         public SearchService(IUnitOfWork unitOfWork)

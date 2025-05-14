@@ -185,7 +185,7 @@ namespace StackBook.Services
             user.ResetTokenExpiry = DateTime.UtcNow.AddMinutes(15);
             await _userRepository.UpdateAsync(user);
             await _unitOfWork.SaveAsync();
-            var resetLink = $"https://localhost:7170/auth/reset-password?token={resetToken}";
+            var resetLink = $"https://localhost:7170/Site/Account/reset-password?token={resetToken}";
             var subject = "Reset Password";
             var message = $"Please reset your password by clicking this link: {resetLink}";
             await _emailSender.SendEmailAsync(user.Email, subject, message);
@@ -254,7 +254,7 @@ namespace StackBook.Services
             user.EmailVerifiedAt = DateTime.UtcNow.AddMinutes(15);
             await _userRepository.UpdateAsync(user);
             await _unitOfWork.SaveAsync();
-            var verificationLink = $"https://localhost:7170/auth/verify-email?token={verificationToken}";
+            var verificationLink = $"https://localhost:7170/Site/Account/verify-email?token={verificationToken}";
             var subject = "Email Verification";
             var message = $"Please verify your email by clicking this link: {verificationLink}";
             await _emailSender.SendEmailAsync(user.Email, subject, message);
@@ -290,7 +290,7 @@ namespace StackBook.Services
             user.EmailVerifiedAt = DateTime.UtcNow.AddMinutes(15);
             await _userRepository.UpdateAsync(user);
             await _unitOfWork.SaveAsync();
-            var verificationLink = $"https://localhost:7170/auth/verify-email?token={verificationToken}";
+            var verificationLink = $"https://localhost:7170/Site/Account/verify-email?token={verificationToken}";
             var subject = "Email Verification";
             var message = $"Please verify your email by clicking this link: {verificationLink}";
             await _emailSender.SendEmailAsync(user.Email, subject, message);
@@ -325,6 +325,49 @@ namespace StackBook.Services
             response.Data = user;
             return response;
         }
+
+        //Verify reset password token
+
+        public async Task<ServiceResponse<User>> VerifyResetPasswordToken(string token)
+
+        {
+
+            var response = new ServiceResponse<User>();
+
+            if (string.IsNullOrEmpty(token))
+
+            {
+
+                response.Success = false;
+
+                response.Message = "Token is required";
+
+                return response;
+
+            }
+
+            var user = await _userRepository.GetUserByResetTokenAsync(token);
+
+            if (user == null || user.ResetTokenExpiry < DateTime.UtcNow)
+
+            {
+
+                response.Success = false;
+
+                response.Message = "Invalid or expired token";
+
+                return response;
+
+            }
+
+            response.Success = true;
+
+            response.Message = "Token is valid";
+
+            return response;
+
+        }
+
         public async Task<ServiceResponse<User>> GetUserByRefreshTokenAsync(string refreshToken)
         {
             var response = new ServiceResponse<User>();
@@ -421,11 +464,14 @@ namespace StackBook.Services
                         {
                             UserId = Guid.NewGuid(),
                             Email = email,
+                            AvatarURL = avatarDefault,
                             FullName = name,
                             GoogleId = googleId,
                             CreatedUser = DateTime.UtcNow,
                             IsEmailVerified = true,
-                            Role = false
+                            Role = false,
+                            EmailVerifiedAt = DateTime.UtcNow,
+                            LockStatus = false,
                         };
                         await _userRepository.CreateGoogleUserAsync(user);
                     }
@@ -436,9 +482,30 @@ namespace StackBook.Services
                     }
                 }
 
+                Console.WriteLine($"User found: {user.Email}");
+
+                Console.WriteLine($"User Google ID: {user.GoogleId}");
+
+                var refreshToken = _jwtUtils.GenerateRefreshToken();
+
+                user.RefreshToken = refreshToken;
+
+                user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(7);
+
+                await _userRepository.UpdateAsync(user);
+
+                //await _userRepository.SaveAsync();
+                await _unitOfWork.SaveAsync();
+
                 response.Success = true;
                 response.Data = user;
                 response.Message = "Login with Google successful";
+
+                response.AccessToken = _jwtUtils.GenerateAccessToken(user);
+
+                response.RefreshToken = refreshToken;
+
+                response.StatusCode = StatusCodes.Status200OK;
             }
             catch (Exception ex)
             {

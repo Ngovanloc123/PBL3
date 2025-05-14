@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Authentication;
 namespace StackBook.Areas.Site.Controllers
 {
     [Area("Site")]
-    [Route("Site/Account ")]
+    //[Route("Site/Account ")]
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
@@ -104,6 +104,8 @@ namespace StackBook.Areas.Site.Controllers
                 Expires = DateTimeOffset.UtcNow.AddDays(7)
             });
 
+
+            #region Đưa vào claims
             // Giải mã Access Token để lấy role
             var tokenHandler = new JwtSecurityTokenHandler();
             var jwtToken = tokenHandler.ReadJwtToken(result.AccessToken);
@@ -125,6 +127,8 @@ namespace StackBook.Areas.Site.Controllers
 
             // Đăng nhập để lưu claims vào session/cookie
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            #endregion
+
 
             // Chuyển hướng theo role hoặc urlRedirect
             if (!string.IsNullOrEmpty(urlRedirect) && Url.IsLocalUrl(urlRedirect))
@@ -286,25 +290,7 @@ namespace StackBook.Areas.Site.Controllers
             }
         }
 
-        [HttpGet("google-callback")]
-        public async Task<IActionResult> GoogleCallback(string code)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(code))
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
-
-                var result = await _authService.LoginWithGoogle(code);
-                if (result == null)
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed." });
-
-                return RedirectToAction("Profile", new { id = result.Data?.UserId, accessToken = result.AccessToken, refreshToken = result.RefreshToken });
-            }
-            catch (Exception ex)
-            {
-                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
-            }
-        }
+        
 
         [HttpPost("reset-password")]
         [AllowAnonymous]
@@ -365,6 +351,52 @@ namespace StackBook.Areas.Site.Controllers
             }
         }
 
+        [HttpGet("Site/Account/google-callback")]
+        public async Task<IActionResult> GoogleCallback(string code)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(code))
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
+
+                var result = await _authService.LoginWithGoogle(code);
+
+                if (result == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed." });
+
+                #region Đưa vào claims
+                // Giải mã Access Token để lấy role
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadJwtToken(result.AccessToken);
+
+                var roleClaim = jwtToken.Claims.FirstOrDefault(c =>
+                    c.Type == ClaimTypes.Role || c.Type == "role" || c.Type == "Role")?.Value;
+
+                // Tạo claims để đăng nhập cookie
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, result.Data.UserId.ToString()),
+                    new Claim(ClaimTypes.Name, result.Data.FullName),
+                    new Claim(ClaimTypes.Email, result.Data.Email),
+                    new Claim(ClaimTypes.Role, roleClaim ?? "Customer")
+                };
+
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+
+                // Đăng nhập để lưu claims vào session/cookie
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                #endregion
+
+                TempData["success"] = "Sign in successful.";
+                return RedirectToAction("Index", "Home", new { id = result.Data?.UserId, accessToken = result.AccessToken, refreshToken = result.RefreshToken });
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+            }
+        }
+
         //Dang nhap bang OAuth2.0 Google
         [HttpGet("google-redirect")]
         public async Task<IActionResult> RedirectToGoogle()
@@ -384,6 +416,7 @@ namespace StackBook.Areas.Site.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }

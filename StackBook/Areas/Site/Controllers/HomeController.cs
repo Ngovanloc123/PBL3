@@ -16,10 +16,10 @@ namespace StackBook.Areas.Site.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _UnitOfWork;
-        private readonly CategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
         private readonly ICartService _cartService;
 
-        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, CategoryService categoryService, ICartService cartService)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, ICategoryService categoryService, ICartService cartService)
         {
             _logger = logger;
             _UnitOfWork = unitOfWork;

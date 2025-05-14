@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using StackBook.DAL;
 using StackBook.DAL.IRepository;
+using StackBook.DAL.Repository;
 using StackBook.Data;
 using StackBook.Models;
 using StackBook.Services;
@@ -36,6 +37,12 @@ builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<SearchService>();
 builder.Services.AddScoped<AccountController>();
 builder.Configuration.AddJsonFile("appsettings.json");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

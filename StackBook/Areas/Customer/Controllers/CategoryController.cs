@@ -25,7 +25,7 @@ namespace StackBook.Areas.Customer.Controllers
             _searchService = searchService;
             _categoryService = categoryService;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index(Guid? categoryId)
         {
             if (categoryId != null)

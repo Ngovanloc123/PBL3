@@ -230,21 +230,18 @@ namespace StackBook.Services
                 response.Message = "User not found";
                 return response;
             }
-
+            if(user.GoogleId != null)
+            {
+                response.Success = false;
+                response.Message = "Cannot update email for Google account";
+                return response;
+            }
             // Kiểm tra email đã tồn tại chưa
             var emailExists = await _userRepository.GetUserByEmailAsync(newEmail);
             if (emailExists != null)
             {
                 response.Success = false;
                 response.Message = "Email already in use";
-                return response;
-            }
-            //kiem tra neu dang nhap bang OAuthGoogle
-            var isGoogleLogin = await _userRepository.GetUserByGoogleIdAsync(user.GoogleId);
-            if (isGoogleLogin != null)
-            {
-                response.Success = false;
-                response.Message = "Cannot change email for Google login user";
                 return response;
             }
             // Cập nhật email + yêu cầu xác minh lại

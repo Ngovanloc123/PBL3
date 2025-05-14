@@ -74,7 +74,7 @@ namespace StackBook.Areas.Customer.Controllers
         [HttpPost("add")]
         [Authorize]
         [AuthorizeRole("user")]
-        public async Task<IActionResult> AdVMCart(BookInCartVM bookInCartVM)
+        public async Task<IActionResult> AddVMCart(BookInCartVM bookInCartVM)
         {
             try
             {

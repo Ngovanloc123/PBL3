@@ -115,7 +115,6 @@ namespace StackBook.Areas.Customer.Controllers
                 return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
             Guid userId = Guid.Parse(userIdValue);
             var response = await _userService.UpdateEmail(userId, email);
-            
             if (response.Success)
             {
                 //logout 

@@ -141,6 +141,7 @@ namespace StackBook.Areas.Site.Controllers
         public IActionResult Register() => View();
 
         [HttpGet("SignOut")]
+        [AllowAnonymous]
         public async Task<IActionResult> SignOut()
         {
             try

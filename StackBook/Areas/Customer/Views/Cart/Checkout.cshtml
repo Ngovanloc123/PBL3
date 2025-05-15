@@ -1,0 +1,194 @@
+@model StackBook.ViewModels.CheckoutRequest
+
+@{
+    ViewData["Title"] = "Checkout";
+    var totalItems = Model.SelectedBooks?.Sum(b => b.Quantity) ?? 0;
+    var totalPrice = Model.SelectedBooks?.Sum(b => b.Book.Price * b.Quantity) ?? 0;
+}
+
+<div class="container my-4">
+    <h1 class="text-center py-3 border-bottom bg-body-tertiary">
+        Checkout
+    </h1>
+
+    @if (Model.SelectedBooks != null && Model.SelectedBooks.Any())
+    {
+        <div class="row">
+            <!-- Order Summary -->
+            <div class="col-lg-6">
+                <h3 class="mb-3">Order Summary</h3>
+                <div class="table-responsive">
+                    <table class="table align-middle text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Book</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var selectedBook in Model.SelectedBooks)
+                            {
+                                <tr>
+                                    <td class="text-start">
+                                        <img src="@selectedBook.Book.ImageURL" alt="@selectedBook.Book.BookTitle" style="width: 60px; height: auto;" class="rounded me-2" />
+                                        <strong>@selectedBook.Book.BookTitle</strong><br />
+                                        @* <small> *@
+                                        @*     @if (selectedBook.Book.Authors != null) *@
+                                        @*     { *@
+                                        @*         @string.Join(", ", selectedBook.Book.Authors.Select(a => a.AuthorName)) *@
+                                        @*     } *@
+                                        @* </small> *@
+                                    </td>
+                                    <td>
+                                        <span>@selectedBook.Quantity</span>
+                                    </td>
+                                    <td>
+                                        <strong>
+                                            $@(selectedBook.Book.Price * selectedBook.Quantity)
+                                        </strong>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="border-top pt-3">
+                    <h5>Total (<span id="total-items">@totalItems</span> Books):</h5>
+                    <span class="text-danger fs-4" id="total-price">
+                        $@totalPrice
+                    </span>
+                </div>
+            </div>
+
+            <!-- Billing Information -->
+            <div class="col-lg-6">
+                <h3 class="mb-3">Billing Information</h3>
+                <div class="mb-4">
+                    <h5>Shipping Address</h5>
+                    <div id="current-address" class="border p-3 rounded">
+                        <p><strong>@Model.User?.FullName</strong></p>
+                        <p>@Model.User?.Email</p>
+                        @* <p>Phone: @Model.User?.</p> *@
+                        <button class="btn btn-link p-0" type="button" data-bs-toggle="modal" data-bs-target="#addressModal">
+                            Change Address
+                        </button>
+                    </div>
+                </div>
+                <form method="post" asp-action="PlaceOrder">
+                    @* <div class="mb-3"> *@
+                    @*     <label for="email" class="form-label">Email</label> *@
+                    @*     <input type="email" class="form-control" id="email" name="Email" value="@Model.User?.Email" required /> *@
+                    @* </div> *@
+                    <div class="mb-3">
+                        <label for="paymentMethod" class="form-label">Payment Method</label>
+                        <select class="form-select" id="paymentMethod" name="PaymentMethod" required>
+                            <option value="CreditCard">Credit Card</option>
+                            <option value="CashOnDelivery">Cash on Delivery</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg w-100">Place Order</button>
+                </form>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">
+            Your cart is empty. <a href="/" class="alert-link">Continue shopping</a>.
+        </div>
+    }
+</div>
+
+<!-- Address Modal -->
+<div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addressModalLabel">My Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Danh sách địa chỉ mẫu, có thể thay bằng dữ liệu thực -->
+                <div class="list-group">
+                    <div class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="address" id="address1" checked>
+                            <label class="form-check-label" for="address1">
+                                <strong>Ngô Văn Lộc</strong> <br>
+                                K82/77, Nguyễn Lương Bằng, Phường Hòa Khánh Bắc, Quận Liên Chiểu, Đà Nẵng <br>
+                                <span class="text-muted">(+84) 359 757 054</span>
+                            </label>
+                        </div>
+                        <span class="badge bg-primary">Default</span>
+                        <button class="btn btn-link btn-sm">Update</button>
+                    </div>
+                    <!-- Thêm các địa chỉ khác nếu cần -->
+                </div>
+                <button class="btn btn-outline-primary w-100 mt-3" data-bs-toggle="modal" data-bs-target="#newAddressModal">
+                    <i class="bi bi-plus-circle"></i> Add New Address
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Address Modal -->
+<div class="modal fade" id="newAddressModal" tabindex="-1" aria-labelledby="newAddressModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newAddressModalLabel">Add New Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                    @*     <label for="newFullName" class="form-label">UserName</label> *@
+                    @*     <input type="text" class="form-control" id="newFullName" required> *@
+                    @* </div> *@
+                    <div class="mb-3">
+                            <label for="newPhone" class="form-label">Phone number</label>
+                        <input type="tel" class="form-control" id="newPhone" required>
+                    </div>
+                    <div class="mb-3">
+                            <label for="newAddress" class="form-label">Address</label>
+                        <textarea class="form-control" id="newAddress" rows="3" required></textarea>
+                    </div>
+                        <button type="submit" class="btn btn-primary w-100">Save Address</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        function saveAddress() {
+            const fullName = document.getElementById('newFullName').value;
+            const phone = document.getElementById('newPhone').value;
+            const address = document.getElementById('newAddress').value;
+
+            if (fullName && phone && address) {
+                const currentAddress = document.getElementById('current-address');
+                currentAddress.innerHTML = `
+                    <p><strong>${fullName}</strong></p>
+                    <p>${address}</p>
+                    <p>Phone: ${phone}</p>
+                    <button class="btn btn-link p-0" type="button" data-bs-toggle="modal" data-bs-target="#addressModal">
+                        Change Address
+                    </button>
+                `;
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addressModal'));
+                modal.hide();
+            } else {
+                alert('Please fill out all fields.');
+            }
+        }
+    </script>
+}

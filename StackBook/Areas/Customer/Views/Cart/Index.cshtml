@@ -1,89 +1,157 @@
-﻿@model List<StackBook.Models.Book>
+﻿@model StackBook.Models.Cart
 
 @{
     ViewData["Title"] = "Shopping Cart";
+    var totalItems = Model.CartDetails?.Sum(cd => cd.Quantity) ?? 0;
+    var totalPrice = Model.CartDetails?.Sum(cd => (cd.Book?.Price ?? 0) * cd.Quantity) ?? 0;
 }
 
-<div class="container-fluid">
-    <h1 class="text-center my-4 py-2 border-bottom bg-body-tertiary">
-        Shopping Cart
-    </h1>
+<div class="container my-4">
+    <h1 class="text-center py-3 border-bottom bg-body-tertiary">Shopping Cart</h1>
 
-    <div class="row d-flex justify-content-center my-4">
-        <div class="col-md-8">
-            <div class="card mb-4">
-                <div class="card-body">
-                    @foreach (var book in Model)
-                    {
-                        <div class="row mb-4">
-                            <div class="col-2  mb-3 mb-lg-0">
-                                <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                                    <img src="@book.ImageURL" class="w-100" alt="@book.BookTitle" />
-                                    <a href="#!">
-                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-8  mb-3 mb-lg-0">
-                                <p><strong>@book.BookTitle</strong></p>
-                                <p>@string.Join(", ", book.Authors.Select(a => a.AuthorName))</p>
-                                
-
-                                <div class=" mb-4" style="max-width: 180px">
-                                    <div class="btn-group me-2" role="group" aria-label="First group">
-                                        <button class="btn btn-primary px-3 me-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <div class="form-outline">
-                                            <input min="1" name="quantity" value="1" type="number" class="form-control" />
-                                            @* <label class="form-label">Quantity</label> *@
-                                        </div>
-                                        <button class="btn btn-primary px-3 ms-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
+    @if (Model.CartDetails != null && Model.CartDetails.Any())
+    {
+        <div class="table-responsive">
+            <table class="table align-middle text-center">
+                <thead class="table-light">
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="select-all" class="form-check-input" />
+                        </th>
+                        <th>Book</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var i = 0;
+                        foreach (var cartDetail in Model.CartDetails)
+                        {
+                            var book = cartDetail.Book;
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="form-check-input book-select" name="SelectedBooks[@i].IsSelected" value="true" checked form="checkout-form" />
+                                    <input type="hidden" name="SelectedBooks[@i].BookId" value="@book?.BookId" form="checkout-form" />
+                                    <input type="hidden" name="SelectedBooks[@i].Quantity" value="@cartDetail.Quantity" form="checkout-form" />
+                                </td>
+                                <td class="text-start">
+                                    @if (book != null)
+                                    {
+                                        <img src="@book.ImageURL" alt="@book.BookTitle" style="width: 60px; height: auto;" class="rounded me-2" />
+                                        <strong>@book.BookTitle</strong>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <form asp-action="UpdateQuantity" method="post" class="me-1" style="display:inline;">
+                                            <input type="hidden" name="userId" value="@Model.UserId" />
+                                            <input type="hidden" name="bookId" value="@book?.BookId" />
+                                            <input type="hidden" name="quantity" value="@(cartDetail.Quantity - 1)" />
+                                            <button type="submit" class="btn btn-outline-primary btn-sm" @(cartDetail.Quantity <= 1 ? "disabled" : "")>-</button>
+                                        </form>
+                                        <span class="mx-2">@cartDetail.Quantity</span>
+                                        <form asp-action="UpdateQuantity" method="post" class="ms-1" style="display:inline;">
+                                            <input type="hidden" name="userId" value="@Model.UserId" />
+                                            <input type="hidden" name="bookId" value="@book?.BookId" />
+                                            <input type="hidden" name="quantity" value="@(cartDetail.Quantity + 1)" />
+                                            <button type="submit" class="btn btn-outline-primary btn-sm">+</button>
+                                        </form>
                                     </div>
-                                </div>
-                                <button type="button" class="btn btn-danger btn-sm me-1 mb-2" title="Remove item">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                </td>
+                                <td>
+                                    <strong class="book-price">
+                                        $@(book != null ? (book.Price * cartDetail.Quantity) : 0)
+                                    </strong>
+                                </td>
+                                <td>
+                                    <form asp-action="RemoveFromCart" method="post" style="display:inline;">
+                                        <input type="hidden" name="userId" value="@Model.UserId" />
+                                        <input type="hidden" name="bookId" value="@book?.BookId" />
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Remove item">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                </tbody>
+            </table>
 
-                                
-                            </div>
-
-                            <div class="col-lg-2 mb-3 mb-lg-0">
-                                <p class="text-end">
-                                    <strong>@book.Price.ToString("C")</strong>
-                                </p>
+            <form method="post" asp-action="Checkout" id="checkout-form">
+                <div class="bg-light border-top fixed-bottom">
+                    <div class="container py-3 d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Total (<span id="total-items">@totalItems</span> Books):</strong>
+                            <span class="text-danger fs-5 ms-2" id="total-price">
+                                $@totalPrice
+                            </span>
+                            <div class="text-muted small">
+                                You saved: <span class="text-success">$1.25</span>
                             </div>
                         </div>
-
-                        <hr class="my-4" />
-                    }
-                    @* Subtotal (2 items): $23.17 *@
-                    <p class="text-end">
-                        <strong>Subtotal (): $@Model.Sum(b => b.Price)</strong>
-                    </p>
+                        <div>
+                            <button type="submit" class="btn btn-danger btn-lg">Checkout</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="card mb-4">
-                <div class="card-body">
-                    <p><strong>Expected shipping delivery</strong></p>
-                    <p class="mb-0">12.10.2020 - 14.10.2020</p>
-                </div>
-            </div>
-
-            <div class="card mb-4 mb-lg-0">
-                <div class="card-body">
-                    <p><strong>We accept</strong></p>
-                    <img class="me-2" width="45px" src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg" alt="Visa" />
-                    <img class="me-2" width="45px" src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg" alt="American Express" />
-                    <!-- thêm hình thức thanh toán khác -->
-                </div>
-            </div>
+            </form>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">
+            Your cart is empty. <a href="/" class="alert-link">Continue shopping</a>.
+        </div>
+    }
 </div>
+
+
+@section Scripts {
+    <script>
+        function updateTotal() {
+            const rows = document.querySelectorAll('tbody tr');
+            let total = 0;
+            let itemCount = 0;
+
+            rows.forEach(row => {
+                const checkbox = row.querySelector('.book-select');
+                if (checkbox?.checked) {
+                    const priceText = row.querySelector('.book-price')?.textContent || "0";
+                    const quantitySpan = row.querySelector('td:nth-child(3) span');
+                    const price = parseFloat(priceText.replace(/[^0-9.]/g, '')) || 0;
+                    const quantity = parseInt(quantitySpan?.textContent) || 0;
+
+                    total += price;
+                    itemCount += quantity;
+                }
+            });
+
+            document.getElementById("total-price").textContent = total.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            });
+            document.getElementById("total-items").textContent = itemCount;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.book-select').forEach(el => {
+                el.addEventListener('change', updateTotal);
+            });
+
+            const selectAllCheckbox = document.getElementById('select-all');
+            selectAllCheckbox?.addEventListener('change', function () {
+                const checked = this.checked;
+                document.querySelectorAll('.book-select').forEach(cb => {
+                    cb.checked = checked;
+                });
+                updateTotal();
+            });
+
+            updateTotal();
+        });
+    </script>
+}

@@ -7,6 +7,10 @@ using StackBook.VMs;
 using StackBook.Interfaces;
 using StackBook.Middleware;
 using StackBook.ViewModels;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Components.RenderTree;
+using StackBook.Models;
+using StackBook.Utils;
 
 namespace StackBook.Areas.Customer.Controllers
 {
@@ -17,26 +21,80 @@ namespace StackBook.Areas.Customer.Controllers
         private readonly IUnitOfWork _UnitOfWork;
         private readonly ICartService _cartService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly JwtUtils _jwtUtils;
 
-        public CartController(IUnitOfWork unitOfWork, ICartService cartService, IHttpContextAccessor httpContextAccessor)
+        public CartController(IUnitOfWork unitOfWork, ICartService cartService, IHttpContextAccessor httpContextAccessor, JwtUtils jwtUtils)
         {
             _UnitOfWork = unitOfWork;
             _cartService = cartService;
             _httpContextAccessor = httpContextAccessor;
+            _jwtUtils = jwtUtils;
         }
 
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var books = await _UnitOfWork.Book.GetAllAsync();
-            return View(books);
+            try
+            {
+                // Lấy userId từ claims
+                var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userIdClaim))
+                {
+                    TempData["error"] = "User ID not found.";
+                    return RedirectToAction("Index", "Home", new { area = "Site" });
+                }
+
+                var userId = Guid.Parse(userIdClaim);
+
+                
+
+                // Lấy danh sách sách trong giỏ hàng
+                var cartDetails = await _cartService.GetCartDetailsAsync(userId);
+
+
+                return View(cartDetails);
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = $"Error loading cart: {ex.Message}";
+                return View("Error", new { message = "Error loading cart", error = ex.Message });
+            }
         }
 
-        //public async Task<IActionResult> Checkout() 
-        //{
-        //    var books = await _UnitOfWork.Book.GetAllAsync();
-        //    return View(books);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> Checkout(List<SelectedBookVM> selectedBookVMs)
+        {
+            // Lọc ra những sách đã được chọn
+            var selected = selectedBookVMs
+                .Where(b => b.IsSelected)
+                .ToList();
+
+            if (!selected.Any())
+            {
+                TempData["Error"] = "You have not selected any books to checkout.";
+                return RedirectToAction("Index");
+            }
+
+            var userId = Request.Cookies["userId"];
+
+            var selectedBooks = selected
+               .Select(async s => new SelectedBook
+               {
+                   Book = await _UnitOfWork.Book.GetAsync(b => b.BookId == s.BookId),
+                   Quantity = s.Quantity
+               })
+               .Select(t => t.Result)
+               .ToList();
+
+            var checkoutRequest = new CheckoutRequest
+            {
+                User = await _UnitOfWork.User.GetAsync(u => u.UserId == Guid.Parse(userId), "ShippingAddresses"),
+                SelectedBooks = selectedBooks
+            };
+
+            return View("Checkout", checkoutRequest);
+        }
+
 
         //[HttpPost]
         //public IActionResult AdVMCart(Guid bookId, int quantity = 1)
@@ -73,37 +131,56 @@ namespace StackBook.Areas.Customer.Controllers
         // Phương thức thêm sách vào giỏ hàng
         [HttpPost("add")]
         [Authorize]
-        [AuthorizeRole("user")]
-        public async Task<IActionResult> AddVMCart(BookInCartVM bookInCartVM)
+        //[AuthorizeRole("Customer")]
+        public async Task<IActionResult> AddToCart(BookInCartVM bookInCartVM)
         {
             try
             {
-                var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst("UserId")?.Value;
-                if (userIdValue == null)
+                var currentUserIdClaims = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                if (currentUserIdClaims == null)
                 {
-                    return View("Error", new { message = "User ID not found." });
+                    TempData["error"] = "User ID not found.";
+                    return RedirectToAction("Index", "Home", new { area = "Site" });
                 }
 
-                Guid userId = Guid.Parse(userIdValue);
+                Guid userId = Guid.Parse(currentUserIdClaims);
                 await _cartService.AddToCartAsync(userId, bookInCartVM.BookId, bookInCartVM.Quantity);
 
-                return View("Cart", new { message = "Book added to cart successfully", Success = true });
+                TempData["success"] = "Book added to cart successfully!";
+
+                // Lấy URL trang trước đó
+                var referer = Request.Headers["Referer"].ToString();
+                if (!string.IsNullOrEmpty(referer))
+                    return Redirect(referer);
+
+                // Nếu không có referer, về trang chủ
+                return RedirectToAction("Index", "Home", new { area = "Site" });
             }
             catch (Exception ex)
             {
-                return View("Error", new { message = "Error adding book to cart", error = ex.Message });
+                TempData["error"] = $"Error adding book to cart: {ex.Message}";
+                var referer = Request.Headers["Referer"].ToString();
+                if (!string.IsNullOrEmpty(referer))
+                    return Redirect(referer);
+
+                return RedirectToAction("Index", "Home", new { area = "Site" });
             }
         }
 
+
         // Phương thức cập nhật số lượng sách trong giỏ hàng
-        [HttpPut("update/{userId}/{bookId}")]
+        [HttpPost]
         [Authorize]
-        public async Task<IActionResult> UpdateQuantityAsync(Guid userId, Guid bookId, [FromBody] int quantity)
+        public async Task<IActionResult> UpdateQuantity(Guid userId, Guid bookId, int quantity)
         {
             try
             {
+                if (quantity < 1)
+                    quantity = 1;
+
                 await _cartService.UpdateQuantityAsync(userId, bookId, quantity);
-                return View("Cart", new { message = "Quantity updated successfully", Success = true });
+                return RedirectToAction("Index");
+
             }
             catch (Exception ex)
             {
@@ -111,15 +188,19 @@ namespace StackBook.Areas.Customer.Controllers
             }
         }
 
+
         // Phương thức xóa sách khỏi giỏ hàng
-        [HttpDelete("remove/{userId}/{bookId}")]
+        [HttpPost("remove")]
         [Authorize]
         public async Task<IActionResult> RemoveFromCart(Guid userId, Guid bookId)
         {
             try
             {
                 await _cartService.RemoveFromCartAsync(userId, bookId);
-                return View("Cart", new { message = "Book removed from cart successfully", Success = true });
+                ViewData["success"] = "Book removed from cart successfully";
+                var updatedCart = await _cartService.GetCartDetailsAsync(userId);
+
+                return View("Index", updatedCart);
             }
             catch (Exception ex)
             {
@@ -135,7 +216,8 @@ namespace StackBook.Areas.Customer.Controllers
             try
             {
                 await _cartService.ClearCartAsync(userId);
-                return View("Cart", new { message = "Cart cleared successfully", Success = true });
+                TempData["success"] = "Cart cleared successfully";
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -167,7 +249,8 @@ namespace StackBook.Areas.Customer.Controllers
             try
             {
                 var totalPrice = await _cartService.GetTotalPriceCartAsync(userId);
-                return View("Cart", new { message = "Total price retrieved successfully", Success = true, Data = totalPrice });
+                TempData["success"] = "Total price retrieved successfully";
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {

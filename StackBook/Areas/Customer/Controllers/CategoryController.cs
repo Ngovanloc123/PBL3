@@ -7,6 +7,7 @@ using StackBook.Models;
 using StackBook.ViewModels;
 using DocumentFormat.OpenXml.VariantTypes;
 using Microsoft.AspNetCore.Authorization;
+using StackBook.Interfaces;
 
 namespace StackBook.Areas.Customer.Controllers
 {
@@ -15,17 +16,17 @@ namespace StackBook.Areas.Customer.Controllers
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly SearchService _searchService;
-        private readonly CategoryService _categoryService;
+        private readonly ISearchService _searchService;
+        private readonly ICategoryService _categoryService;
         
 
-        public CategoryController(IUnitOfWork unitOfWork, SearchService searchService, CategoryService categoryService)
+        public CategoryController(IUnitOfWork unitOfWork, ISearchService searchService, ICategoryService categoryService)
         {
             _unitOfWork = unitOfWork;
             _searchService = searchService;
             _categoryService = categoryService;
         }
-        [HttpGet]
+
         public async Task<IActionResult> Index(Guid? categoryId)
         {
             if (categoryId != null)

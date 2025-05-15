@@ -44,6 +44,7 @@ namespace StackBook.Services
             var user = await _userRepository.GetByIdAsync(updateDto.UserId);
             if (user == null)
             {
+                response.StatusCode = 404;
                 response.Success = false;
                 response.Message = "User not found";
                 return response;
@@ -56,6 +57,7 @@ namespace StackBook.Services
 
                 if (emailOwner != null)
                 {
+                    response.StatusCode = 400;
                     response.Success = false;
                     response.Message = "Email already exists";
                     return response;
@@ -77,6 +79,7 @@ namespace StackBook.Services
             response.Message = "User updated successfully";
             response.Success = true;
             response.AccessToken = accessToken;
+            response.StatusCode = 200;
             return response;
         }
         public async Task<ServiceResponse<User>> DeleteUser(Guid userId)
@@ -86,6 +89,7 @@ namespace StackBook.Services
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
             {
+                response.StatusCode = 404;
                 response.Success = false;
                 response.Message = "User not found";
                 return response;
@@ -97,6 +101,7 @@ namespace StackBook.Services
             response.Data = user;
             response.Message = "User deleted successfully";
             response.Success = true;
+            response.StatusCode = 200;
 
             return response;
         }
@@ -109,6 +114,7 @@ namespace StackBook.Services
             var users = await _context.Users.ToListAsync();
             if (users == null || users.Count == 0)
             {
+                response.StatusCode = 404;
                 response.Success = false;
                 response.Message = "No users found";
                 return response;
@@ -117,6 +123,7 @@ namespace StackBook.Services
             response.Data = users;
             response.Message = "Users retrieved successfully";
             response.Success = true;
+            response.StatusCode = 200;
 
             return response;
         }
@@ -129,6 +136,7 @@ namespace StackBook.Services
             if (user == null)
             {
                 response.Success = false;
+                response.StatusCode = 404;
                 response.Message = "User not found";
                 return response;
             }
@@ -136,6 +144,7 @@ namespace StackBook.Services
             response.Data = user;
             response.Message = "User retrieved successfully";
             response.Success = true;
+            response.StatusCode = 200;
 
             return response;
         }
@@ -148,6 +157,7 @@ namespace StackBook.Services
             {
                 response.Success = false;
                 response.Message = "User not found";
+                response.StatusCode = 404;
                 return response;
             }
 
@@ -163,6 +173,7 @@ namespace StackBook.Services
             {
                 response.Success = false;
                 response.Message = "Email is required";
+                response.StatusCode = 400;
                 return response;
             }
 
@@ -171,6 +182,7 @@ namespace StackBook.Services
             {
                 response.Success = false;
                 response.Message = "User not found";
+                response.StatusCode = 404;
                 return response;
             }
 
@@ -184,16 +196,25 @@ namespace StackBook.Services
 
             if (string.IsNullOrEmpty(currentPassword) || string.IsNullOrEmpty(newPassword))
             {
+                response.StatusCode = 400;
                 response.Success = false;
                 response.Message = "Invalid data";
                 return response;
             }
             Console.WriteLine(userId);
             var user = await _userRepository.GetByIdAsync(userId);
+            if(user.GoogleId != null)
+            {
+                response.StatusCode = 400;
+                response.Success = false;
+                response.Message = "Cannot update password for Google account";
+                return response;
+            }
             Console.WriteLine(user.UserId);
             Console.WriteLine(user.FullName);
             if (user == null)
             {
+                response.StatusCode = 404;
                 response.Success = false;
                 response.Message = "User not found";
                 return response;
@@ -202,6 +223,7 @@ namespace StackBook.Services
             var mapPassword = await PasswordHashedUtils.VerifyPassword(currentPassword, user.Password);
             if(!mapPassword)
             {
+                response.StatusCode = 400;
                 response.Success = false;
                 response.Message = "False current Password";
                 return response;
@@ -216,6 +238,7 @@ namespace StackBook.Services
             response.Data = user;
             response.Message = "Password updated successfully";
             response.Success = true;
+            response.StatusCode = 200;
 
             return response;
         }
@@ -226,12 +249,14 @@ namespace StackBook.Services
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
             {
+                response.StatusCode = 404;
                 response.Success = false;
                 response.Message = "User not found";
                 return response;
             }
             if(user.GoogleId != null)
             {
+                response.StatusCode = 400;
                 response.Success = false;
                 response.Message = "Cannot update email for Google account";
                 return response;
@@ -240,6 +265,7 @@ namespace StackBook.Services
             var emailExists = await _userRepository.GetUserByEmailAsync(newEmail);
             if (emailExists != null)
             {
+                response.StatusCode = 400;
                 response.Success = false;
                 response.Message = "Email already in use";
                 return response;
@@ -263,6 +289,7 @@ namespace StackBook.Services
             response.Data = "Verification email sent to new address";
             response.Message = "Email updated. Please verify your new email.";
             response.Success = true;
+            response.StatusCode = 200;
             return response;
         }
 
@@ -273,6 +300,7 @@ namespace StackBook.Services
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
             {
+                response.StatusCode = 404;
                 response.Success = false;
                 response.Message = "User not found";
                 return response;
@@ -280,6 +308,7 @@ namespace StackBook.Services
 
             if (user.LockStatus)
             {
+                response.StatusCode = 400;
                 response.Success = false;
                 response.Message = "User is already locked";
                 return response;
@@ -293,6 +322,8 @@ namespace StackBook.Services
 
             response.Data = "User locked successfully";
             response.Success = true;
+            response.StatusCode = 200;
+
             return response;
         }
 
@@ -323,6 +354,8 @@ namespace StackBook.Services
 
             response.Data = "User unlocked successfully";
             response.Success = true;
+            response.StatusCode = 200;
+
             return response;
         }
         public async Task<ServiceResponse<string>> UpdateAvatar(Guid userId, IFormFile file)
@@ -332,6 +365,7 @@ namespace StackBook.Services
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
             {
+                response.StatusCode = 404;
                 response.Success = false;
                 response.Message = "User not found";
                 return response;
@@ -339,6 +373,7 @@ namespace StackBook.Services
 
             if (file != null && file.Length > 0)
             {
+                
                 var uploadResult = await _cloudinaryUtils.UploadImageAsync(file);
                 user.AvatarUrl = uploadResult.ToString();
                 await _userRepository.UpdateAsync(user);
@@ -349,12 +384,14 @@ namespace StackBook.Services
             }
             else
             {
+                response.StatusCode = 400;
                 response.Success = false;
                 response.Message = "Invalid file";
             }
             // Ghi lại thông tin người dùng vào cookie
             var accessToken = _jwtUtils.GenerateAccessToken(user);
             response.AccessToken = accessToken;
+            response.StatusCode = 200;
             return response;
         }
         public async Task<ServiceResponse<string>> UpdateUsername(Guid userId, string newUsername)
@@ -364,6 +401,7 @@ namespace StackBook.Services
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
             {
+                response.StatusCode = 404;
                 response.Success = false;
                 response.Message = "User not found";
                 return response;
@@ -376,6 +414,8 @@ namespace StackBook.Services
 
             response.Data = "Username updated successfully";
             response.Success = true;
+            response.StatusCode = 200;
+            
             return response;
         }
     }

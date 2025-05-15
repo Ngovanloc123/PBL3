@@ -1,49 +1,96 @@
-﻿@model StackBook.DTOs.RegisterDto
+﻿@model StackBook.ViewModels.UserVM.RegisterVM
+
 @{
     ViewData["Title"] = "Register";
+    Layout = null;
 }
 
 <head>
-    <link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 </head>
 
-<body>
-    <section>
-        <div class="account-box">
-            <form asp-area="Site" asp-controller="Account" asp-action="RegisterUser" method="post">
-                <h2>Register</h2>
+<body class="login-body">
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-left">
+                <form asp-controller="Account" asp-action="Register" method="post">
+                    <h2>Create Account</h2>
+                    <p>Join StackBook today</p>
 
-                <div class="input-box">
-                    <span class="icon"><i class="fa-solid fa-user"></i></span>
-                    <input asp-for="Username" required />
-                    <label asp-for="Username">Username</label>
+                    <div class="form-group">
+                        <span class="form-icon">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <input asp-for="Username" type="text" placeholder="Username" required />
+                    </div>
+                    @if (ViewData["UsernameError"] != null)
+                    {
+                        <span class="text-danger">@ViewData["UsernameError"]</span>
+                    }
+
+                    <div class="form-group">
+                        <span class="form-icon">
+                            <i class="fa-regular fa-envelope"></i>
+                        </span>
+                        <input asp-for="Email" type="email" placeholder="Email" required />
+                    </div>
+                    @if (ViewData["EmailError"] != null)
+                    {
+                        <span class="text-danger">@ViewData["EmailError"]</span>
+                    }
+
+                    <div class="form-group">
+                        <span class="form-icon">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input asp-for="Password" type="password" placeholder="Password" required />
+                    </div>
+                    @if (ViewData["PasswordError"] != null)
+                    {
+                        <span class="text-danger">@ViewData["PasswordError"]</span>
+                    }
+
+                    <div class="form-group">
+                        <span class="form-icon">
+                            <i class="fa-solid fa-unlock"></i>
+                        </span>
+                        <input asp-for="Password" type="password" placeholder="Confirm Password" required />
+                    </div>
+                    @if (ViewData["PasswordError"] != null)
+                    {
+                        <span class="text-danger">@ViewData["PasswordError"]</span>
+                    }
+
+                    <button type="submit" class="login-btn">Register</button>
+
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+
+                    <div class="social-login">
+                        <a href="google-redirect" class="google-btn">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/1024px-Google_Favicon_2025.svg.png" alt="Google Logo" /> Sign up with Google
+                        </a>
+                    </div>
+
+                    <div class="register-link">
+                        <p>
+                            Already have an account?
+                            <a asp-controller="Account" asp-action="Signin">Sign in</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+
+            <div class="login-right">
+                <div class="img-bg">
+                    @* Optional: Add your logo overlay here like in the login page *@
                 </div>
-
-                <div class="input-box">
-                    <span class="icon"><i class="fa-solid fa-envelope"></i></span>
-                    <input asp-for="Email" type="email" required />
-                    <label asp-for="Email">Email</label>
-                </div>
-
-                <div class="input-box">
-                    <span class="icon"><i class="fa-solid fa-lock"></i></span>
-                    <input asp-for="Password" type="password" required />
-                    <label asp-for="Password">Password</label>
-                </div>
-
-                @* Confirm password không nằm trong DTO nên bạn cần xử lý riêng *@
-                <div class="input-box">
-                    <span class="icon"><i class="fa-solid fa-unlock"></i></span>
-                    <input type="password" name="ConfirmPassword" required />
-                    <label>Confirm password</label>
-                </div>
-
-                <button type="submit">Register</button>
-
-                <div class="register-link">
-                    <p>Already have an account? <a asp-area="Site" asp-controller="Account" asp-action="Signin">Sign in</a></p>
-                </div>
-            </form>
+            </div>
         </div>
-    </section>
+    </div>
 </body>

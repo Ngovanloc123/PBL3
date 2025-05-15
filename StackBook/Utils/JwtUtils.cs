@@ -83,7 +83,7 @@ namespace StackBook.Utils
             };
         }
 
-        //Sinh access token (30 phút)
+        //Sinh access token (5 phút)
         public string GenerateAccessToken(User user)
         {
             var claims = GenerateClaimsForUser(user);

@@ -2,10 +2,12 @@
 using StackBook.Data;
 using StackBook.Models;
 using StackBook.ViewModels;
+using StackBook.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace StackBook.Services
 {
-    public class BookService
+    public class BookService: IBookService
     {
         private readonly ApplicationDbContext _context;
 
@@ -29,7 +31,33 @@ namespace StackBook.Services
             //    .ToList();
             return null;
         }
-
-
+        public async Task UpdateBookQuantity(Guid bookId, int quantity, string status)
+        {
+            var book = await _context.Books.FirstOrDefaultAsync(b => b.BookId == bookId);
+            if (book != null)
+            {
+                if(status == "pending")
+                {
+                    if(book.Stock >= quantity)
+                    {
+                        book.Stock -= quantity;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Not enough stock available.");
+                    }
+                }
+                else if (status == "returned")
+                {
+                    book.Stock += quantity;
+                }
+                else if (status == "canceled")
+                {
+                    book.Stock += quantity;
+                }
+                _context.Books.Update(book);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

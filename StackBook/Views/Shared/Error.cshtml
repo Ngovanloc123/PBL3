@@ -2,25 +2,76 @@
 
 @{
     ViewData["Title"] = "Error";
+    Layout = null;
 }
 
-<h1 class="text-danger">Error</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Error</title>
+    <!-- Nạp font Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
-@if (!string.IsNullOrEmpty(Model?.ErrorMessage))
-{
-    <div class="alert alert-danger">
-        <strong>Error Message:</strong> @Model.ErrorMessage
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #fff;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+            padding-top: 0px;
+            margin-top: 0px;
+        }
+
+        .container {
+            margin: 0 auto;
+        }
+
+        .top-image {
+            max-width: 50%;
+            height: auto;
+            margin: 0 auto 30px auto;
+            display: block;
+        }
+
+        .error-box {
+            border-radius: 10px;
+            padding: 30px 40px;
+        }
+
+        .error-box h1 {
+            font-family: "Montserrat", sans-serif;
+            font-size: 200px;
+            margin: 0;
+            color: #3f7efc;
+        }
+
+        .error-box p {
+            font-size: 30px;
+            color: gray;
+            margin: 5px 0;
+        }
+
+        .home-link {
+            display: inline-block;
+            margin-top: 80px;
+            text-decoration: none;
+            color: #3f7efc;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img class="top-image" src="~/images/UIKits/Books.png" alt="Books Image" />
+
+        <div class="error-box">
+            <h1>@Model.StatusCode</h1>
+            <p>@Model.ErrorMessage</p>
+            <a class="home-link" href="/">Go Home</a>
+        </div>
     </div>
-}
-
-@if (Model?.ShowRequestId == true)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
-
-<p>
-    <a asp-area="Site" asp-controller="Account" asp-action="Signin">Go to Sign in</a>
-</p>
+</body>
+</html>

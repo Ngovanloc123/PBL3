@@ -8,7 +8,7 @@ using StackBook.Data;
 using Microsoft.EntityFrameworkCore;
 using StackBook.VMs;
 
-namespace StackBook.DAL
+namespace StackBook.DAL.Repository
 {
     public class OrderRepository : IOrderRepository
     {

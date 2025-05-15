@@ -6,7 +6,7 @@ using StackBook.DAL.Repository;
 using StackBook.Data;
 using StackBook.Models;
 using StackBook.ViewModels;
-namespace StackBook.DAL
+namespace StackBook.DAL.Repository
 {
     public class BookRepository : Repository<Book>, IBookRepository
     {

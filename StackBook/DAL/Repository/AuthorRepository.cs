@@ -1,10 +1,9 @@
 ﻿using System.Linq.Expressions;
 using StackBook.DAL.IRepository;
-using StackBook.DAL.Repository;
 using StackBook.Data;
 using StackBook.Models;
 
-namespace StackBook.DAL
+namespace StackBook.DAL.Repository
 {
     public class AuthorRepository : Repository<Author>, IAuthorRepository
     {

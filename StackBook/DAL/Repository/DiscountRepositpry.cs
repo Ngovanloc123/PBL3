@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StackBook.DAL
+namespace StackBook.DAL.Repository
 {
     public class DiscountRepository: IDiscountRepository
     {

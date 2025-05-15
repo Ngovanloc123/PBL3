@@ -41,6 +41,7 @@ namespace StackBook.Services
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(registerDto.Email) || string.IsNullOrEmpty(registerDto.Password) || string.IsNullOrEmpty(registerDto.Username))
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Email, password and username are required";
                 return response;
@@ -48,6 +49,7 @@ namespace StackBook.Services
             var existingUser = await _userRepository.GetUserByEmailAsync(registerDto.Email);
             if (existingUser != null)
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Email already exists";
                 return response;
@@ -84,10 +86,12 @@ namespace StackBook.Services
                 response.Data = user;
                 response.Success = true;
                 response.Message = "User registered successfully";
+                response.StatusCode = StatusCodes.Status200OK;
                 return response;
             }
             else
             {
+                response.StatusCode = StatusCodes.Status500InternalServerError;
                 response.Success = false;
                 response.Message = "User registration failed";
                 return response;
@@ -98,6 +102,7 @@ namespace StackBook.Services
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(signInDto.Email) || string.IsNullOrEmpty(signInDto.Password))
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Email and password are required";
                 Console.WriteLine($"SignIn result: {response}");
@@ -107,6 +112,7 @@ namespace StackBook.Services
             Console.WriteLine($"User found: {user.Password}");
             if(user == null)
             {
+                response.StatusCode = StatusCodes.Status404NotFound;
                 response.Success = false;
                 response.Message = "User not found";
                 Console.WriteLine($"SignIn result: {response.Message}");
@@ -114,6 +120,7 @@ namespace StackBook.Services
             }
             if(user.LockStatus == true)
             {
+                response.StatusCode = StatusCodes.Status403Forbidden;
                 response.Success = false;
                 response.Message = "Account is locked";
                 Console.WriteLine($"SignIn result: {response.Message}");
@@ -121,6 +128,7 @@ namespace StackBook.Services
             }
             if(user.IsEmailVerified == false)
             {
+                response.StatusCode = StatusCodes.Status403Forbidden;
                 response.Success = false;
                 response.Message = "Email is not verified";
                 Console.WriteLine($"SignIn result: {response.Message}");
@@ -128,6 +136,7 @@ namespace StackBook.Services
             }
             if(user.Password == null)
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Password is not set";
                 Console.WriteLine($"SignIn result: {response.Message}");	
@@ -139,6 +148,7 @@ namespace StackBook.Services
             Console.WriteLine($"Input password: {signInDto.Password}");
             if(!matches)
             {
+                response.StatusCode = StatusCodes.Status401Unauthorized;
                 response.Success = false;
                 response.Message = "Invalid password";
                 Console.WriteLine($"SignIn result: {response.Message}");	
@@ -164,6 +174,7 @@ namespace StackBook.Services
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(forgotPasswordDto.Email))
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Email is required";
                 return response;
@@ -171,6 +182,21 @@ namespace StackBook.Services
             var user = await _userRepository.GetUserByEmailAsync(forgotPasswordDto.Email);
             if(user == null)
             {
+                response.StatusCode = StatusCodes.Status404NotFound;
+                response.Success = false;
+                response.Message = "User not found";
+                return response;
+            }
+            if(user.GoogleId != null)
+            {
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.Success = false;
+                response.Message = "Google account cannot be verified via email";
+                return response;
+            }
+            if(user == null)
+            {
+                response.StatusCode = StatusCodes.Status404NotFound;
                 response.Success = false;
                 response.Message = "User not found";
                 return response;
@@ -187,6 +213,7 @@ namespace StackBook.Services
             response.Success = true; 
             response.Message = "Reset password link sent to email";
             response.Data = user;
+            response.StatusCode = StatusCodes.Status200OK;
             return response;
         }
         public async Task<ServiceResponse<User>> ResetPassword(UserVM.ResetPasswordVM resetPasswordDto)
@@ -194,12 +221,14 @@ namespace StackBook.Services
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(resetPasswordDto.Token) || string.IsNullOrEmpty(resetPasswordDto.NewPassword) || string.IsNullOrEmpty(resetPasswordDto.ConfirmPassword))
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Token, new password and confirm password are required";
                 return response;
             }
             if(resetPasswordDto.NewPassword != resetPasswordDto.ConfirmPassword)
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Passwords do not match";
                 return response;
@@ -207,6 +236,7 @@ namespace StackBook.Services
             var user = await _userRepository.GetUserByResetTokenAsync(resetPasswordDto.Token);
             if(user == null || user.ResetTokenExpiry < DateTime.UtcNow)
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Invalid or expired token";
                 return response;
@@ -227,6 +257,7 @@ namespace StackBook.Services
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(email))
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Email is required";
                 return response;
@@ -234,12 +265,21 @@ namespace StackBook.Services
             var user = await _userRepository.GetUserByEmailAsync(email);
             if(user == null)
             {
+                response.StatusCode = StatusCodes.Status404NotFound;
                 response.Success = false;
                 response.Message = "User not found";
                 return response;
             }
+            if(user.GoogleId != null)
+            {
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.Success = false;
+                response.Message = "Google account cannot be verified via email";
+                return response;
+            }
             if(user.IsEmailVerified == true)
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Email is already verified";
                 return response;
@@ -256,6 +296,7 @@ namespace StackBook.Services
             response.Success = true;
             response.Message = "Verification email sent successfully";
             response.Data = user;
+            response.StatusCode = StatusCodes.Status200OK;
             return response;
         }
         public async Task<ServiceResponse<User>> ResendVerifyEmail(string email)
@@ -263,6 +304,7 @@ namespace StackBook.Services
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(email))
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Email is required";
                 return response;
@@ -270,12 +312,28 @@ namespace StackBook.Services
             var user = await _userRepository.GetUserByEmailAsync(email);
             if(user == null)
             {
+                response.StatusCode = StatusCodes.Status404NotFound;
+                response.Success = false;
+                response.Message = "User not found";
+                return response;
+            }
+            if(user.GoogleId != null)
+            {
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.Success = false;
+                response.Message = "Google account cannot be verified via email";
+                return response;
+            }
+            if(user == null)
+            {
+                response.StatusCode = StatusCodes.Status404NotFound;
                 response.Success = false;
                 response.Message = "User not found";
                 return response;
             }
             if(user.IsEmailVerified == true)
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Email is already verified";
                 return response;
@@ -292,6 +350,7 @@ namespace StackBook.Services
             response.Success = true;
             response.Message = "Verification email resent successfully";
             response.Data = user;
+            response.StatusCode = StatusCodes.Status200OK;
             return response;
         }
         public async Task<ServiceResponse<User>> VerifyEmail(string token)
@@ -300,6 +359,7 @@ namespace StackBook.Services
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(token))
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Token is required";
                 return response;
@@ -308,6 +368,7 @@ namespace StackBook.Services
             Console.WriteLine($"User found: {user.VerificationToken}");
             if(user == null || user.EmailVerifiedAt < DateTime.UtcNow)
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Invalid or expired token";
                 return response;
@@ -320,6 +381,7 @@ namespace StackBook.Services
             response.Success = true;
             response.Message = "Email verified successfully";
             response.Data = user;
+            response.StatusCode = StatusCodes.Status200OK;
             return response;
         }
         //Verify reset password token
@@ -328,6 +390,7 @@ namespace StackBook.Services
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(token))
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Token is required";
                 return response;
@@ -335,10 +398,12 @@ namespace StackBook.Services
             var user = await _userRepository.GetUserByResetTokenAsync(token);
             if(user == null || user.ResetTokenExpiry < DateTime.UtcNow)
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Invalid or expired token";
                 return response;
             }
+            response.StatusCode = StatusCodes.Status200OK;
             response.Success = true;
             response.Message = "Token is valid";
             return response;
@@ -348,6 +413,7 @@ namespace StackBook.Services
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(refreshToken))
             {
+                response.StatusCode = StatusCodes.Status400BadRequest;
                 response.Success = false;
                 response.Message = "Refresh token is required";
                 return response;
@@ -355,10 +421,19 @@ namespace StackBook.Services
             var user = await _userRepository.GetUserByRefreshTokenAsync(refreshToken);
             if(user == null)
             {
+                response.StatusCode = StatusCodes.Status404NotFound;
                 response.Success = false;
                 response.Message = "User not found";
                 return response;
             }
+            if(user.RefreshTokenExpiry < DateTime.UtcNow)
+            {
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.Success = false;
+                response.Message = "Refresh token expired";
+                return response;
+            }
+            
             response.Success = true;
             response.Data = user;
             response.RefreshToken = refreshToken;

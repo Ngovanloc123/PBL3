@@ -38,11 +38,11 @@ namespace StackBook.Areas.Site.Controllers
             try
             {
                 if (signInDto == null)
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data.", StatusCode = 400 });
 
                 var result = await _authService.SignInUser(signInDto);
                 if (result.Success == false)
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed." });
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed.", StatusCode = result.StatusCode });
 
                 // Ghi access token vào cookie
                 Response.Cookies.Append("accessToken", result.AccessToken, new CookieOptions
@@ -50,7 +50,7 @@ namespace StackBook.Areas.Site.Controllers
                     HttpOnly = true,
                     Secure = true,
                     SameSite = SameSiteMode.Strict,
-                    Expires = DateTimeOffset.UtcNow.AddMinutes(60)
+                    Expires = DateTimeOffset.UtcNow.AddMinutes(10)
                 });
 
                 // Ghi refresh token vào cookie
@@ -75,19 +75,19 @@ namespace StackBook.Areas.Site.Controllers
                 var tokenHandler = _jwtUtils.ValidateToken(result.AccessToken);
                 if (tokenHandler == null)
                 {
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token." });
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token.", StatusCode = 401 });
                 }
 
                 var claimsIdentity = tokenHandler.Identity as ClaimsIdentity;
 
                 if (claimsIdentity == null)
                 {
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token." });
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token.", StatusCode = 401 });
                 }
                 var roleClaim = claimsIdentity.FindFirst(ClaimTypes.Role);
                 if (roleClaim == null)
                 {
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Role claim not found." });
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Role claim not found.", StatusCode = 401 });
                 }
                 if(roleClaim.Value == "Admin")
                 {
@@ -102,13 +102,13 @@ namespace StackBook.Areas.Site.Controllers
                 }
                 else
                 {
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid role." });
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid role.", StatusCode = 403 });
                 }
                 // return RedirectToAction("Profile", "Account", new { area = "Customer", id = result.Data?.UserId });
             }
             catch (Exception ex)
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}", StatusCode = 500 });
             }
         }
         [HttpGet("Signin")]
@@ -122,17 +122,17 @@ namespace StackBook.Areas.Site.Controllers
             try
             {
                 if (registerDto == null)
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data.", StatusCode = 400 });
 
                 var result = await _authService.RegisterUser(registerDto);
                 if (result == null)
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Registration failed." });
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Registration failed.", StatusCode = 400 });
                 
                 return RedirectToAction("Signin", "Account", new { area = "Site" });
             }
             catch (Exception ex)
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}", StatusCode = 500 });
             }
         }
 
@@ -166,7 +166,7 @@ namespace StackBook.Areas.Site.Controllers
             }
             catch (Exception ex)
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}", StatusCode = 500 });
             }
         }
         [HttpGet("verify-email")]
@@ -174,14 +174,14 @@ namespace StackBook.Areas.Site.Controllers
         {
             if (string.IsNullOrEmpty(token))
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token." });
+                return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token.", StatusCode = 400 });
             }
 
             var response = await _authService.VerifyEmail(token);
 
             if (!response.Success)
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = response.Message });
+                return View("Error", new ErrorViewModel { ErrorMessage = response.Message, StatusCode = response.StatusCode });
             }
             return View("EmailVerified", response.Data);
         }
@@ -199,12 +199,12 @@ namespace StackBook.Areas.Site.Controllers
                 }
                 else
                 {
-                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message });
+                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message, StatusCode = result.StatusCode });
                 }
             }
             catch (Exception ex)
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}", StatusCode = 500 });
             }
         }
         [HttpGet("google-callback")]
@@ -244,12 +244,12 @@ namespace StackBook.Areas.Site.Controllers
                 }
                 else
                 {
-                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message });
+                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message, StatusCode = result.StatusCode });
                 }
             }
             catch (Exception ex)
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}", StatusCode = 500 });
             }
         }
         [HttpGet("forgot-password")]
@@ -263,7 +263,7 @@ namespace StackBook.Areas.Site.Controllers
             {
                if(!ModelState.IsValid)
                {
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data.", StatusCode = 400 });
                } 
                var result = await _authService.ForgotPassword(forgotPasswordVM);
                if (result.Success)
@@ -272,12 +272,12 @@ namespace StackBook.Areas.Site.Controllers
                }
                else
                {
-                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message });
+                    return View("Error", new ErrorViewModel { StatusCode = result.StatusCode, ErrorMessage = result.Message });
                }
             } 
             catch (Exception ex)
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}", StatusCode = 500 });
             }
         }
         [HttpGet("reset-password")]
@@ -286,7 +286,7 @@ namespace StackBook.Areas.Site.Controllers
         {
             if (string.IsNullOrEmpty(token))
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token." });
+                return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token.", StatusCode = 400 });
             }
             return View(new UserVM.ResetPasswordVM { Token = token });
         }
@@ -298,7 +298,7 @@ namespace StackBook.Areas.Site.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data.", StatusCode = 400 });
                 }
                 var result = await _authService.ResetPassword(resetPasswordVM);
                 if (result.Success)
@@ -309,12 +309,12 @@ namespace StackBook.Areas.Site.Controllers
                 else
                 {
                     ViewData["Error"] = result.Message;
-                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message });
+                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message, StatusCode = result.StatusCode });
                 }
             }
             catch (Exception ex)
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}", StatusCode = 500 });
             }
         }
     }

@@ -35,56 +35,76 @@ namespace StackBook.Areas.Customer.Controllers
         {
             //User Id của người dùng hiện tại trong cookie
             var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if(userIdValue == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
             //Xem cookie access token có tồn tại hay không
             Console.WriteLine($"AccessToken: {_httpContextAccessor.HttpContext?.Request.Cookies["accessToken"]}");
             //Xem cookie refresh token có tồn tại hay không
             Console.WriteLine($"RefreshToken: {_httpContextAccessor.HttpContext?.Request.Cookies["refreshToken"]}");
             //Sem user qua cookie
             var user = _userService.GetUserById(Guid.Parse(userIdValue));
+            if(user == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
+            if(user.Result.Data == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
             var data = user.Result.Data.RefreshToken;
             Console.WriteLine($"RefreshToken: {data}");
             Console.WriteLine($"UserIdValue: {userIdValue}");
             if (userIdValue == null)
-                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
+                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found.", StatusCode = 404 });
             Guid userId = Guid.Parse(userIdValue);
             var response = await _userService.GetUserById(userId);
             if (response == null) return NotFound();
             return View(response.Data);
         }
-        [HttpPost("UpdateAvatar")]
+
+        [HttpPost("Update-Avatar")]
         public async Task<IActionResult> UpdateAvatar(IFormFile image)
         {
             if (image == null || image.Length == 0)
-                return View("Error", new ErrorViewModel { ErrorMessage = "Image file is required." });
+                return View("Error", new ErrorViewModel { ErrorMessage = "Image file is required.", StatusCode = 400 });
             var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userIdValue == null)
-                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
+                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found.", StatusCode = 404 });
             Guid userId = Guid.Parse(userIdValue);
             var response = await _userService.UpdateAvatar(userId, image);
+            var user = await _userService.GetUserById(userId);
+            if (user.Data == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
+            var token = _jwtUtils.GenerateAccessToken(user.Data);
+            
+            Response.Cookies.Append("accessToken", token, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTimeOffset.UtcNow.AddMinutes(60)
+            });
             if (response.Success)
             {
                 return RedirectToAction("Profile");
             }
             else
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = response.Message });
+                return View("Error", new ErrorViewModel { ErrorMessage = response.Message, StatusCode = 400 });
             }
+            
         }
         [HttpPost("Update-Username")]
         public async Task<IActionResult> UpdateUsername(string username)
         {
             Console.WriteLine($"UpdateUsername Username: {username}");
             if (string.IsNullOrEmpty(username))
-                return View("Error", new ErrorViewModel { ErrorMessage = "Username is required." });
+                return View("Error", new ErrorViewModel { ErrorMessage = "Username is required.", StatusCode = 400 });
             var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userIdValue == null)
-                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
+                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found.", StatusCode = 404 });
             Guid userId = Guid.Parse(userIdValue);
             var response = await _userService.UpdateUsername(userId, username);
-            //xoa cookie access token
-            Response.Cookies.Delete("accessToken");
             //cap nhat lai access token vi username da bi thay doi
             var user = await _userService.GetUserById(userId);
+            if(user.Data == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
             var token = _jwtUtils.GenerateAccessToken(user.Data);
             response.AccessToken = token;
             //cap nhat lai cookie access token
@@ -112,7 +132,7 @@ namespace StackBook.Areas.Customer.Controllers
                 return View("Error", new ErrorViewModel { ErrorMessage = "Email is required." });
             var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userIdValue == null)
-                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
+                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found.", StatusCode = 404 });
             Guid userId = Guid.Parse(userIdValue);
             var response = await _userService.UpdateEmail(userId, email);
             if (response.Success)
@@ -122,7 +142,7 @@ namespace StackBook.Areas.Customer.Controllers
             }
             else
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = response.Message });
+                return View("Error", new ErrorViewModel { ErrorMessage = response.Message, StatusCode = response.StatusCode });
             }
         }
         [HttpPost("Change-Password")]

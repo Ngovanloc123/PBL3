@@ -3,10 +3,11 @@ using StackBook.DAL.IRepository;
 using StackBook.Data;
 using StackBook.Models;
 using StackBook.ViewModels;
+using StackBook.Interfaces;
 
 namespace StackBook.Services
 {
-    public class CategoryService
+    public class CategoryService: ICategoryService
     {
 
         private readonly IUnitOfWork _unitOfWork;

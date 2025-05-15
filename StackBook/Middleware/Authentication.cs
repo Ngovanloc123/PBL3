@@ -47,7 +47,7 @@ namespace StackBook.Middleware
                     var userRepository = context.RequestServices.GetRequiredService<IUserRepository>();
                     var existingUser = await userRepository.GetUserByRefreshTokenAsync(refreshToken);
                     //in ra thong tin user
-                    Console.WriteLine($"UserId: {existingUser?.RefreshToken}");
+                    Console.WriteLine($"Refresh token: {existingUser?.RefreshToken}");
                     if (existingUser == null)
                     {
                         context.Response.Cookies.Delete("accessToken");

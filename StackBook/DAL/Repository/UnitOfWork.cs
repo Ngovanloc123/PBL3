@@ -2,7 +2,7 @@
 using StackBook.DAL.Repository;
 using StackBook.Data;
 
-namespace StackBook.DAL
+namespace StackBook.DAL.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {

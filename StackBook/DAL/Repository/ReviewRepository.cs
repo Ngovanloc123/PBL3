@@ -3,7 +3,7 @@ using StackBook.Data;
 using StackBook.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace StackBook.DAL
+namespace StackBook.DAL.Repository
 {
     public class ReviewRepository: IReviewRepository
     {

@@ -1,93 +1,83 @@
-﻿@model StackBook.DTOs.SignInDto
+﻿@model StackBook.ViewModels.UserVM.SignInVM
+
 @{
+    Layout = null;
     ViewData["Title"] = "Sign In";
 }
 
 <head>
-    <link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 </head>
-<style>
-    .google-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #ffffff;
-        color: #444;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-weight: 500;
-        font-size: 14px;
-        width: 100%;
-        text-decoration: none;
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
 
-    .google-btn:hover {
-        background-color: #f1f1f1;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        text-decoration: none;
-    }
+<body class="login-body">
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-left">
+                <form asp-controller="Account" asp-action="SignInUser" method="post">
+                    <h2>Sign In</h2>
+                    <p>Welcome to StackBook</p>
 
-    .google-icon {
-        margin-right: 10px;
-        font-size: 18px;
-        color: #EA4335; /* Red - Google brand color */
-    }
-</style>
-
-
-<body>
-    <section>
-        <div class="account-box">
-            <form asp-controller="Account" asp-action="SignInUser" method="post">
-                <h2>Sign in</h2>
-
-                <!-- Email input -->
-                <div class="input-box">
-                    <span class="icon"><i class="fa-solid fa-envelope"></i></span>
-                    <input asp-for="Email" type="email" required />
-                    <label>Email</label>
+                    <div class="form-group">
+                        <span class="form-icon">
+                            <i class="fa-regular fa-envelope"></i>
+                        </span>
+                        <input asp-for="Email" type="email" placeholder="Email" required />
+                    </div>
                     @if (ViewData["EmailError"] != null)
                     {
                         <span class="text-danger">@ViewData["EmailError"]</span>
                     }
-                </div>
 
-                <!-- Password input -->
-                <div class="input-box">
-                    <span class="icon"><i class="fa-solid fa-lock"></i></span>
-                    <input asp-for="Password" type="password" required />
-                    <label>Password</label>
+                    <div class="form-group">
+                        <span class="form-icon">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input asp-for="Password" type="password" placeholder="Password" required />
+                    </div>
                     @if (ViewData["PasswordError"] != null)
                     {
                         <span class="text-danger">@ViewData["PasswordError"]</span>
                     }
-                </div>
 
-                <div class="remember-forgot">
-                    <label><input type="checkbox" />Remember me</label>
-                    <a asp-controller="Account" asp-action="ForgotPassword">Forgot Password?</a>
-                </div>
 
-                <!-- Nút đăng nhập Google -->
-                <div class="social-login">
-                    <p>Or sign in with</p>
-                    <a class="google-btn" href="/Site/Account/google-redirect">
-                        <i class="fa-brands fa-google google-icon"></i>
-                        Sign in with Google
-                    </a>
-                </div>
+                    <div class="remember-forgot">
+                        <label><input type="checkbox" /> Remember me</label>
+                        <a href="forgot-password">Forgot Password?</a>
+                    </div>
 
-                <button type="submit">Login</button>
+                    <button type="submit" class="login-btn">Sign In</button>
 
-                <div class="register-link">
-                    <p>Don't have an account?
-                        <a asp-controller="Account" asp-action="Register">Register</a>
-                    </p>
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+
+                    <div class="social-login">
+                        @* <a href="/Site/Account/google-redirect" class="google-btn"> *@
+                        <a asp-controller="Account" asp-action="RedirectToGoogle" class="google-btn">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/1024px-Google_Favicon_2025.svg.png" alt="Google Logo" /> Sign in with Google
+                        </a>
+                    </div>
+
+                    <div class="register-link">
+                        <p>
+                            Don't have an account?
+                            <a asp-controller="Account" asp-action="Register">Register</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+
+            <div class="login-right">
+                <div class="img-bg">
+                    @* <div class="img-overlay"> *@
+                    @*     <img src="/images/logos/Logo.png" alt="Logo" class="overlay-logo" /> *@
+                    @* </div> *@
                 </div>
-            </form>
+            </div>
         </div>
-    </section>
+    </div>
 </body>

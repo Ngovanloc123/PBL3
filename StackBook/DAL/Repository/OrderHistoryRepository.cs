@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace StackBook.DAL
+namespace StackBook.DAL.Repository
 {
     public class OrderHistoryRepository : IOrderHistoryRepository
     {

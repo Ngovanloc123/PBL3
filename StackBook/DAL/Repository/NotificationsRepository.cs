@@ -3,7 +3,7 @@ using StackBook.Data;
 using StackBook.DAL.IRepository;
 using Microsoft.EntityFrameworkCore;
 
-namespace StackBook.DAL
+namespace StackBook.DAL.Repository
 {
     public class NotificationsRepository: INotificationsRepository
     {

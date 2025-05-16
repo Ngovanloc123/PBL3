@@ -1,4 +1,5 @@
 StackBook/bin/
 StackBook/obj/
 StackBook/appsettings.json
+StackBook/appsettings.Development.json
 /.vs

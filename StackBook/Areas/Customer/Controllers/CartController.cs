@@ -11,6 +11,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Components.RenderTree;
 using StackBook.Models;
 using StackBook.Utils;
+using Newtonsoft.Json;
 
 namespace StackBook.Areas.Customer.Controllers
 {
@@ -64,36 +65,64 @@ namespace StackBook.Areas.Customer.Controllers
         //[HttpPost]
         public async Task<IActionResult> Checkout(List<SelectedBookVM> selectedBookVMs)
         {
-            // Lọc ra những sách đã được chọn
-            var selected = selectedBookVMs
-                .Where(b => b.IsSelected)
-                .ToList();
+            List<SelectedBookVM> selected;
 
-            if (!selected.Any())
+            if (selectedBookVMs != null && selectedBookVMs.Any(b => b.IsSelected))
             {
-                TempData["Error"] = "You have not selected any books to checkout.";
-                return RedirectToAction("Index");
+                selected = selectedBookVMs.Where(b => b.IsSelected).ToList();
+
+                var userId = Request.Cookies["userId"];
+                var user = await _UnitOfWork.User.GetAsync(u => u.UserId == Guid.Parse(userId), "ShippingAddresses");
+
+                var selectedBooks = new List<SelectedBook>();
+                foreach (var s in selected)
+                {
+                    var book = await _UnitOfWork.Book.GetAsync(b => b.BookId == s.BookId);
+                    selectedBooks.Add(new SelectedBook
+                    {
+                        Book = book,
+                        Quantity = s.Quantity
+                    });
+                }
+
+                var shippingAddressDefault = await _UnitOfWork.ShippingAddress.GetAsync(sa => sa.UserId == Guid.Parse(userId));
+
+                var checkoutRequestNew = new CheckoutRequest
+                {
+                    User = user,
+                    SelectedBooks = selectedBooks,
+                    shippingAddressDefault = shippingAddressDefault
+                };
+
+                var jsonSettings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+
+                HttpContext.Session.SetString("CheckoutRequest", JsonConvert.SerializeObject(checkoutRequestNew, jsonSettings));
+
+                return View("Checkout", checkoutRequestNew);
             }
 
-            var userId = Request.Cookies["userId"];
-
-            var selectedBooks = selected
-               .Select(async s => new SelectedBook
-               {
-                   Book = await _UnitOfWork.Book.GetAsync(b => b.BookId == s.BookId),
-                   Quantity = s.Quantity
-               })
-               .Select(t => t.Result)
-               .ToList();
-
-            var checkoutRequest = new CheckoutRequest
+            var sessionData = HttpContext.Session.GetString("CheckoutRequest");
+            if (string.IsNullOrEmpty(sessionData))
             {
-                User = await _UnitOfWork.User.GetAsync(u => u.UserId == Guid.Parse(userId), "ShippingAddresses"),
-                SelectedBooks = selectedBooks
-            };
+                TempData["Error"] = "No books selected for checkout.";
+                return RedirectToAction("Index", "Cart");
+            }
 
+            // Parse session thành CheckoutRequest
+            var checkoutRequest = JsonConvert.DeserializeObject<CheckoutRequest>(sessionData);
             return View("Checkout", checkoutRequest);
+            
+
+            // Handle the case where no books are selected
+            //TempData["error"] = "No books selected for checkout.";
+            //return RedirectToAction("Index");
         }
+
+
+
 
 
         //[HttpPost]

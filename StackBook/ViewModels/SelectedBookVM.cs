@@ -19,5 +19,6 @@ namespace StackBook.ViewModels
     {
         public User User { get; set; }
         public List<SelectedBook> SelectedBooks { get; set; }
+        public ShippingAddress? shippingAddressDefault { get; set; }
     }
 }

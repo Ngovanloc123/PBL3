@@ -49,19 +49,24 @@ builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Configuration.AddJsonFile("appsettings.json");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-//builder.Services.AddAuthentication("Cookies")
-//    .AddCookie("Cookies", options =>
-//    {
-//        options.Cookie.Name = "accessToken"; // hoặc tên bất kỳ, nhưng bạn cần xử lý tương ứng
-//        options.Events.OnRedirectToLogin = context =>
-//        {
-//            context.Response.StatusCode = 401;
-//            return Task.CompletedTask;
-//        };
-//    });
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
+        options.LoginPath = "/Site/Account/Signin";
+        options.AccessDeniedPath = "/AccessDenied";
+        options.SlidingExpiration = true;
+
+
         options.Cookie.Name = "accessToken";
         options.Events.OnValidatePrincipal = async context =>
         {
@@ -103,7 +108,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 // Cấu hình endpoint
 //builder.Services.AddHttpContextAccessor();

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace StackBook.DAL.Repository
 {
-    public class ShippingAddressRepository : IShippingAddressRepository
+    public class ShippingAddressRepository : Repository<ShippingAddress>, IShippingAddressRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public ShippingAddressRepository(ApplicationDbContext db)
+        public ShippingAddressRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }

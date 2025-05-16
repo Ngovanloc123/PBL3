@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using StackBook.DAL.IRepository;
+using StackBook.DAL.Repository;
 using StackBook.Data;
 using StackBook.Interfaces;
 using StackBook.Models;
+using StackBook.ViewModels;
 
 namespace StackBook.Areas.Customer.Controllers
 {
@@ -44,6 +47,44 @@ namespace StackBook.Areas.Customer.Controllers
             }
             return PartialView("_AddShippingAddressModal", shippingAddress);
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Select(Guid ShippingAddressId)
+        {
+            // Lấy dữ liệu từ session
+            var sessionData = HttpContext.Session.GetString("CheckoutRequest");
+            if (string.IsNullOrEmpty(sessionData))
+            {
+                TempData["Error"] = "No checkout data found.";
+                return RedirectToAction("Index", "Cart");
+            }
+
+            // Parse session thành CheckoutRequest
+            var checkoutRequest = JsonConvert.DeserializeObject<CheckoutRequest>(sessionData);
+
+            // Lấy thông tin địa chỉ từ database theo ID
+            var selectedAddress = await _unitOfWork.ShippingAddress.GetAsync(addr => addr.ShippingAddressId == ShippingAddressId);
+            if (selectedAddress == null)
+            {
+                TempData["Error"] = "Shipping address not found.";
+                return RedirectToAction("Checkout", "Cart");
+            }
+
+            // Cập nhật địa chỉ mặc định
+            checkoutRequest.shippingAddressDefault = selectedAddress;
+
+            // Ghi lại vào session
+            HttpContext.Session.SetString("CheckoutRequest", JsonConvert.SerializeObject(checkoutRequest));
+
+            // Quay lại trang Checkout
+            return RedirectToAction("Checkout", "Cart");
+        }
+
+
+
+
 
 
         // GET: Customer/ShippingAddresses

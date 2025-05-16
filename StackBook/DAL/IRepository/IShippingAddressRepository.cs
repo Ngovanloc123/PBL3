@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace StackBook.DAL.IRepository
 {
-    public interface IShippingAddressRepository
+    public interface IShippingAddressRepository : IRepository<ShippingAddress>
     {
         Task<ShippingAddress?> GetByIdAsync(Guid shippingAddressId);
         Task AddAsync(ShippingAddress shippingAddress);

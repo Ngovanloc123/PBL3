@@ -1,46 +1,46 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Studying\\Source\\PBL3\\",
+  "WorkspaceRootPath": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|c:\\users\\dell\\onedrive - the university of technology\\desktop\\pbl3\\pbl3\\pbl3\\stackbook\\views\\shared\\_navbar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\views\\shared\\_navbar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|c:\\users\\dell\\onedrive - the university of technology\\desktop\\pbl3\\pbl3\\pbl3\\stackbook\\wwwroot\\css\\layout.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\wwwroot\\css\\layout.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|c:\\users\\dell\\onedrive - the university of technology\\desktop\\pbl3\\pbl3\\pbl3\\stackbook\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|c:\\users\\dell\\onedrive - the university of technology\\desktop\\pbl3\\pbl3\\pbl3\\stackbook\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|c:\\users\\dell\\onedrive - the university of technology\\desktop\\pbl3\\pbl3\\pbl3\\stackbook\\areas\\site\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\site\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\irepository\\ireviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\irepository\\ireviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|c:\\users\\dell\\onedrive - the university of technology\\desktop\\pbl3\\pbl3\\pbl3\\stackbook\\configurations\\databasesettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\configurations\\databasesettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\repository\\reviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\repository\\reviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|c:\\users\\dell\\onedrive - the university of technology\\desktop\\pbl3\\pbl3\\pbl3\\stackbook\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\irepository\\ipaymentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\irepository\\ipaymentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|c:\\users\\dell\\onedrive - the university of technology\\desktop\\pbl3\\pbl3\\pbl3\\stackbook\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\irepository\\inotificationsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\irepository\\inotificationsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|c:\\users\\dell\\onedrive - the university of technology\\desktop\\pbl3\\pbl3\\pbl3\\stackbook\\wwwroot\\css\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\wwwroot\\css\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\irepository\\idiscountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\irepository\\idiscountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\repository\\notificationsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\repository\\notificationsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\studying\\source\\pbl3\\stackbook\\dal\\irepository\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\irepository\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|c:\\users\\dell\\onedrive - the university of technology\\desktop\\pbl3\\pbl3\\pbl3\\stackbook\\scaffoldingreadme.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\scaffoldingreadme.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -49,8 +49,8 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "DockedWidth": 286,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -71,112 +71,130 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\appsettings.json",
-              "RelativeDocumentMoniker": "StackBook\\appsettings.json",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\appsettings.json",
-              "RelativeToolTip": "StackBook\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-07T02:30:24.558Z",
+              "Title": "layout.css",
+              "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\wwwroot\\css\\layout.css",
+              "RelativeDocumentMoniker": "StackBook\\wwwroot\\css\\layout.css",
+              "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\wwwroot\\css\\layout.css*",
+              "RelativeToolTip": "StackBook\\wwwroot\\css\\layout.css*",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAiwKMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-16T01:23:54.746Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PaymentService.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\Services\\PaymentService.cs",
-              "RelativeDocumentMoniker": "StackBook\\Services\\PaymentService.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\Services\\PaymentService.cs",
-              "RelativeToolTip": "StackBook\\Services\\PaymentService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T02:29:43.147Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "NotificationsRepository.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\NotificationsRepository.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\NotificationsRepository.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\NotificationsRepository.cs",
-              "RelativeToolTip": "StackBook\\DAL\\Repository\\NotificationsRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:51:38.601Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ReviewRepository.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\ReviewRepository.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\ReviewRepository.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\Repository\\ReviewRepository.cs",
-              "RelativeToolTip": "StackBook\\DAL\\Repository\\ReviewRepository.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAkwCsAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:50:54.013Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\Program.cs",
-              "RelativeDocumentMoniker": "StackBook\\Program.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\Program.cs",
-              "RelativeToolTip": "StackBook\\Program.cs",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAAAEkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:49:20.127Z",
+              "Title": "_Navbar.cshtml",
+              "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Views\\Shared\\_Navbar.cshtml",
+              "RelativeDocumentMoniker": "StackBook\\Views\\Shared\\_Navbar.cshtml",
+              "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Views\\Shared\\_Navbar.cshtml*",
+              "RelativeToolTip": "StackBook\\Views\\Shared\\_Navbar.cshtml*",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-14T00:49:12.749Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ScaffoldingReadMe.txt",
+              "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\ScaffoldingReadMe.txt",
+              "RelativeDocumentMoniker": "StackBook\\ScaffoldingReadMe.txt",
+              "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\ScaffoldingReadMe.txt",
+              "RelativeToolTip": "StackBook\\ScaffoldingReadMe.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-05-15T15:42:19.162Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "StackBook\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "StackBook\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-14T00:49:14.267Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "IDiscountRepository.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
-              "RelativeToolTip": "StackBook\\DAL\\IRepository\\IDiscountRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Program.cs",
+              "RelativeDocumentMoniker": "StackBook\\Program.cs",
+              "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Program.cs",
+              "RelativeToolTip": "StackBook\\Program.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:47:17.284Z"
+              "WhenOpened": "2025-05-15T15:42:38.13Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ICategoryRepository.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\ICategoryRepository.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\ICategoryRepository.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\ICategoryRepository.cs",
-              "RelativeToolTip": "StackBook\\DAL\\IRepository\\ICategoryRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Areas\\Site\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "StackBook\\Areas\\Site\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Areas\\Site\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "StackBook\\Areas\\Site\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAANIAAAAAAAAAAAAywAUBAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:47:16.474Z"
+              "WhenOpened": "2025-05-14T01:09:20.203Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "INotificationsRepository.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\INotificationsRepository.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\INotificationsRepository.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\INotificationsRepository.cs",
-              "RelativeToolTip": "StackBook\\DAL\\IRepository\\INotificationsRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:47:02.295Z"
+              "DocumentIndex": 2,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "StackBook\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\appsettings.Development.json",
+              "RelativeToolTip": "StackBook\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-15T15:42:40.776Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "login.css",
+              "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\wwwroot\\css\\login.css",
+              "RelativeDocumentMoniker": "StackBook\\wwwroot\\css\\login.css",
+              "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\wwwroot\\css\\login.css",
+              "RelativeToolTip": "StackBook\\wwwroot\\css\\login.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-15T16:12:53.507Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\appsettings.json",
+              "RelativeDocumentMoniker": "StackBook\\appsettings.json",
+              "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\appsettings.json",
+              "RelativeToolTip": "StackBook\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-07T03:25:27.587Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "IPaymentRepository.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IPaymentRepository.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\IPaymentRepository.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IPaymentRepository.cs",
-              "RelativeToolTip": "StackBook\\DAL\\IRepository\\IPaymentRepository.cs",
+              "Title": "DatabaseSettings.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Configurations\\DatabaseSettings.cs",
+              "RelativeDocumentMoniker": "StackBook\\Configurations\\DatabaseSettings.cs",
+              "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\Configurations\\DatabaseSettings.cs",
+              "RelativeToolTip": "StackBook\\Configurations\\DatabaseSettings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T02:22:52.979Z"
+              "WhenOpened": "2025-05-07T03:30:45.284Z",
+              "EditorCaption": ""
             }
           ]
         },
@@ -205,40 +223,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "7c3bf067-887b-424b-bc5b-79a8430c8674",
-        "Display": 0,
-        "X": 1076,
-        "Y": 288,
-        "Width": 658,
-        "Height": 676,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IReviewRepository.cs",
-              "DocumentMoniker": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IReviewRepository.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\IReviewRepository.cs",
-              "ToolTip": "D:\\Studying\\Source\\PBL3\\StackBook\\DAL\\IRepository\\IReviewRepository.cs",
-              "RelativeToolTip": "StackBook\\DAL\\IRepository\\IReviewRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T01:51:59.439Z",
-              "EditorCaption": ""
             }
           ]
         }

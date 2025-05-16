@@ -11,9 +11,9 @@ namespace StackBook.Services
     {
         private readonly ApplicationDbContext _context;
 
-        private readonly AuthorService _authorService;
+        private readonly IAuthorService _authorService;
 
-        public BookService(ApplicationDbContext context, AuthorService authorService)
+        public BookService(ApplicationDbContext context, IAuthorService authorService)
         {
             _context = context;
             _authorService = authorService;

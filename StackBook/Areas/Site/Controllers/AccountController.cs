@@ -12,6 +12,7 @@ using StackBook.ViewModels;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using static StackBook.ViewModels.UserVM;
 
 namespace StackBook.Areas.Site.Controllers 
 {
@@ -33,18 +34,17 @@ namespace StackBook.Areas.Site.Controllers
         }
 
         [HttpPost("SignIn")]
-        public async Task<IActionResult> SignInUser(UserVM.SignInVM signInDto)
+        public async Task<IActionResult> SignInUser(UserVM.SignInVM signInVM)
         {
             try
             {
-                if (signInDto == null)
+                if (signInVM == null)
                     return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data.", StatusCode = 400 });
 
-                var result = await _authService.SignInUser(signInDto);
+                var result = await _authService.SignInUser(signInVM);
                 if (result.Success == false)
                     return View("Error", new ErrorViewModel { ErrorMessage = "Login failed.", StatusCode = result.StatusCode });
 
-                // Ghi access token vào cookie
                 Response.Cookies.Append("accessToken", result.AccessToken, new CookieOptions
                 {
                     HttpOnly = true,
@@ -53,7 +53,6 @@ namespace StackBook.Areas.Site.Controllers
                     Expires = DateTimeOffset.UtcNow.AddMinutes(10)
                 });
 
-                // Ghi refresh token vào cookie
                 Response.Cookies.Append("refreshToken", result.RefreshToken, new CookieOptions
                 {
                     HttpOnly = true,
@@ -62,7 +61,6 @@ namespace StackBook.Areas.Site.Controllers
                     Expires = DateTimeOffset.UtcNow.AddDays(7)
                 });
 
-                // Nếu muốn: Ghi thêm user ID (không bắt buộc)
                 Response.Cookies.Append("userId", result.Data.UserId.ToString(), new CookieOptions
                 {
                     HttpOnly = false,
@@ -70,8 +68,7 @@ namespace StackBook.Areas.Site.Controllers
                     SameSite = SameSiteMode.Strict,
                     Expires = DateTimeOffset.UtcNow.AddDays(7)
                 });
-                //Check Role roi chuyen den area tuong ung
-                //validate access token de lay role
+
                 var tokenHandler = _jwtUtils.ValidateToken(result.AccessToken);
                 if (tokenHandler == null)
                 {
@@ -79,32 +76,44 @@ namespace StackBook.Areas.Site.Controllers
                 }
 
                 var claimsIdentity = tokenHandler.Identity as ClaimsIdentity;
-
                 if (claimsIdentity == null)
                 {
                     return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token.", StatusCode = 401 });
                 }
+
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1)
+                };
+
+                //
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    authProperties);
+
+                // Kiểm tra vai trò
                 var roleClaim = claimsIdentity.FindFirst(ClaimTypes.Role);
                 if (roleClaim == null)
                 {
                     return View("Error", new ErrorViewModel { ErrorMessage = "Role claim not found.", StatusCode = 401 });
                 }
+
                 if (roleClaim.Value == "Admin")
                 {
                     TempData["success"] = "Sign in successful.";
-                    return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    return RedirectToAction("Index", "Statistic", new { area = "Admin" });
                 }
                 else if (roleClaim.Value == "User")
                 {
                     TempData["success"] = "Sign in successful.";
-                    // return RedirectToAction("Index", "Home", new { area = "Site" });
-                    return RedirectToAction("Profile", "Account", new { area = "Customer" });
+                    return RedirectToAction("Index", "Home", new { area = "Site" });
                 }
                 else
                 {
                     return View("Error", new ErrorViewModel { ErrorMessage = "Invalid role.", StatusCode = 403 });
                 }
-                // return RedirectToAction("Profile", "Account", new { area = "Customer", id = result.Data?.UserId });
             }
             catch (Exception ex)
             {
@@ -146,20 +155,17 @@ namespace StackBook.Areas.Site.Controllers
         {
             try
             {
-                // Lấy userId từ claim trong token (cookie)
                 var userId = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (userId == null)
+                if (userId != null)
                 {
-                    return Unauthorized("User not authenticated.");
+                    await _authService.LogoutUser(Guid.Parse(userId));
                 }
 
-                // Đăng xuất người dùng (thực hiện các hành động cần thiết từ phía server, ví dụ: hủy session, xóa refresh token...)
-                await _authService.LogoutUser(Guid.Parse(userId));
+                
 
-                // Xóa cookie chứa access token khi người dùng đăng xuất
-                Response.Cookies.Delete("accessToken");  // Xóa accessToken khỏi cookie
-                Response.Cookies.Delete("refreshToken"); // Xóa refreshToken khỏi cookie (nếu có)
-                Response.Cookies.Delete("userId");       // Xóa userId khỏi cookie
+                Response.Cookies.Delete("accessToken");
+                Response.Cookies.Delete("refreshToken");
+                Response.Cookies.Delete("userId");
 
                 // Chuyển hướng về trang login
                 return RedirectToAction("Signin", "Account", new { area = "Site" });
@@ -185,6 +191,74 @@ namespace StackBook.Areas.Site.Controllers
             }
             return View("EmailVerified", response.Data);
         }
+
+        [HttpGet("google-login")]
+        public async Task<IActionResult> LoginWithGoogle(string code)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(code))
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
+
+                var result = await _authService.LoginWithGoogle(code);
+                if (result == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed." });
+
+                return RedirectToAction("Profile", new { id = result.Data?.UserId, accessToken = result.AccessToken, refreshToken = result.RefreshToken });
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+            }
+        }
+
+        [HttpGet("Site/Account/google-callback")]
+        public async Task<IActionResult> GoogleCallback(string code)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(code))
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data." });
+
+                var result = await _authService.LoginWithGoogle(code);
+
+                if (result == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed." });
+
+                #region Đưa vào claims
+                // Giải mã Access Token để lấy role
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadJwtToken(result.AccessToken);
+
+                var roleClaim = jwtToken.Claims.FirstOrDefault(c =>
+                    c.Type == ClaimTypes.Role || c.Type == "role" || c.Type == "Role")?.Value;
+
+                // Tạo claims để đăng nhập cookie
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, result.Data.UserId.ToString()),
+                    new Claim(ClaimTypes.Name, result.Data.FullName),
+                    new Claim(ClaimTypes.Email, result.Data.Email),
+                    new Claim(ClaimTypes.Role, roleClaim ?? "Customer")
+                };
+
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+
+                // Đăng nhập để lưu claims vào session/cookie
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                #endregion
+
+                TempData["success"] = "Sign in successful.";
+                return View("Index", "Home");
+                //return RedirectToAction("Index", "Home", new { id = result.Data?.UserId, accessToken = result.AccessToken, refreshToken = result.RefreshToken });
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
+            }
+        }
+
         //Dang nhap bang OAuth2.0 Google
         [HttpGet("google-redirect")]
         public async Task<IActionResult> RedirectToGoogle()
@@ -195,16 +269,18 @@ namespace StackBook.Areas.Site.Controllers
                 Console.WriteLine($"Redirect URL: {result.Data}");
                 if (result.Success)
                 {
+
                     return Redirect(result.Data);
                 }
                 else
                 {
-                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message, StatusCode = result.StatusCode });
+                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message });
                 }
             }
             catch (Exception ex)
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}", StatusCode = 500 });
+                Console.WriteLine(ex.Message);
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}" });
             }
         }
         [HttpGet("google-callback")]
@@ -213,38 +289,83 @@ namespace StackBook.Areas.Site.Controllers
             try
             {
                 var result = await _authService.LoginWithGoogle(code);
-                if (result.Success)
+                if (!result.Success)
                 {
-                    // Ghi access token vào cookie
-                    Response.Cookies.Append("accessToken", result.AccessToken, new CookieOptions
-                    {
-                        HttpOnly = true,
-                        Secure = true,
-                        SameSite = SameSiteMode.Strict,
-                        Expires = DateTimeOffset.UtcNow.AddDays(1)
-                    });
-                    // Ghi refresh token vào cookie
-                    Response.Cookies.Append("refreshToken", result.RefreshToken, new CookieOptions
-                    {
-                        HttpOnly = true,
-                        Secure = true,
-                        SameSite = SameSiteMode.Strict,
-                        Expires = DateTimeOffset.UtcNow.AddDays(7)
-                    });
-                    // Nếu muốn: Ghi thêm user ID (không bắt buộc)
-                    Response.Cookies.Append("userId", result.Data.UserId.ToString(), new CookieOptions
-                    {
-                        HttpOnly = false,
-                        Secure = true,
-                        SameSite = SameSiteMode.Strict,
-                        Expires = DateTimeOffset.UtcNow.AddDays(7)
-                    });
-                    return RedirectToAction("Profile", "Account", new { area = "Customer" });
-                    // return RedirectToAction("Index", "Home", new { area = "Site" });
+                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message, StatusCode = result.StatusCode });
+                }
+
+                // Giữ JWT token trong cookie để sử dụng cho API calls
+                Response.Cookies.Append("accessToken", result.AccessToken, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTimeOffset.UtcNow.AddDays(1)
+                });
+
+                Response.Cookies.Append("refreshToken", result.RefreshToken, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTimeOffset.UtcNow.AddDays(7)
+                });
+
+                // Ghi thêm userId (không bắt buộc)
+                Response.Cookies.Append("userId", result.Data.UserId.ToString(), new CookieOptions
+                {
+                    HttpOnly = false,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTimeOffset.UtcNow.AddDays(7)
+                });
+
+                // Giải mã JWT để lấy thông tin người dùng
+                var tokenHandler = _jwtUtils.ValidateToken(result.AccessToken);
+                if (tokenHandler == null)
+                {
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token.", StatusCode = 401 });
+                }
+
+                var claimsIdentity = tokenHandler.Identity as ClaimsIdentity;
+                if (claimsIdentity == null)
+                {
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid token.", StatusCode = 401 });
+                }
+
+                // Tạo identity mới từ claims trong token
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1)
+                };
+
+                // Đăng nhập người dùng vào ASP.NET Identity
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    authProperties);
+
+                // Kiểm tra vai trò
+                var roleClaim = claimsIdentity.FindFirst(ClaimTypes.Role);
+                if (roleClaim == null)
+                {
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Role claim not found.", StatusCode = 401 });
+                }
+
+                if (roleClaim.Value == "Admin")
+                {
+                    TempData["success"] = "Sign in successful.";
+                    return RedirectToAction("Index", "Statistic", new { area = "Admin" });
+                }
+                else if (roleClaim.Value == "User")
+                {
+                    TempData["success"] = "Sign in successful.";
+                    return RedirectToAction("Index", "Home", new { area = "Site" });
                 }
                 else
                 {
-                    return View("Error", new ErrorViewModel { ErrorMessage = result.Message, StatusCode = result.StatusCode });
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Invalid role.", StatusCode = 403 });
                 }
             }
             catch (Exception ex)
@@ -252,6 +373,7 @@ namespace StackBook.Areas.Site.Controllers
                 return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}", StatusCode = 500 });
             }
         }
+
         [HttpGet("forgot-password")]
         [AllowAnonymous]
         public IActionResult ForgotPassword() => View();

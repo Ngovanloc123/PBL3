@@ -1,9 +1,10 @@
 ﻿using StackBook.Data;
+using StackBook.Interfaces;
 using StackBook.Models;
 
 namespace StackBook.Services
 {
-    public class AuthorService
+    public class AuthorService : IAuthorService
     {
         private readonly ApplicationDbContext _context;
 
@@ -12,7 +13,7 @@ namespace StackBook.Services
             _context = context;
         }
 
-        public List<Author> GetAuthorsByBookId(Guid bookId)
+        public async Task<List<Author>> GetAuthorsByBookId(Guid bookId)
         {
             return _context.Authors
                 .Where(a => a.Books.Any(b => b.BookId == bookId))

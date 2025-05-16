@@ -1,65 +1,36 @@
 ﻿@model List<StackBook.Models.Book>
 
+
 @{
-    ViewData["Title"] = '"' + ViewBag.Query + '"';
+    ViewData["Title"] = @ViewBag.Query;
 }
 
-<div class="container py-4">
-    <h2 class="text-center mb-5 border-bottom pb-3">
-        Results for "<span class="text-primary fw-semibold">@ViewBag.Query</span>"
-    </h2>
+<div class="container">
+    <h1 class="text-center my-4 py-2 border-bottom bg-body-tertiary">
+        Results for <strong class="text-primary">@ViewBag.Query</strong>
+    </h1>
+
+
+
 
     @if (Model == null || !Model.Any())
     {
         <div class="text-center my-5">
             <i class="fa-solid fa-book-open fa-3x text-secondary mb-3"></i>
-            <h4 class="text-muted">No books found</h4>
-            <p class="text-muted">Try searching with different keywords.</p>
+            <h2 class="text-muted">No books found</h2>
+            <p>Please try searching with a different keyword.</p>
         </div>
-        <div class="my-4">
-            @await Component.InvokeAsync("SliderCategory")
-        </div>
+        @await Component.InvokeAsync("SliderCategory")
     }
     else
     {
-        <div class="mb-4">
-            @await Component.InvokeAsync("SliderCategory")
-        </div>
+        @await Component.InvokeAsync("SliderCategory")
+        @* =================  CONTENT ============== *@
+        <div class="content d-flex justify-content-between mt-5 pb-2 border-bottom">
+            @await Component.InvokeAsync("Books", Model)
 
-        <div class="row g-4">
-            @foreach (var book in Model)
-            {
-                <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                    <div class="card h-100 shadow-sm position-relative">
-                        @* Ảnh bìa sách *@
-                        <img src="@book.ImageURL" alt="@book.BookTitle"
-                             class="card-img-top" style="height: 300px; object-fit: cover; transition: transform 0.3s ease-in-out;" 
-                             onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"/>
-
-                        <div class="card-body d-flex flex-column" style="font-size: 1rem;">
-                            <h5 class="card-title text-primary text-truncate" title="@book.BookTitle">
-                                @book.BookTitle
-                            </h5>
-
-                            @* Hiển thị tác giả đẹp hơn *@
-                            @if (book.Authors != null && book.Authors.Any())
-                            {
-                                <p class="card-text text-muted mb-2">
-                                    <strong>Authors:</strong><br />
-                                    <span class="d-inline-block text-wrap" style="max-width: 100%; white-space: normal;">
-                                        @string.Join(", ", book.Authors.Select(a => a.AuthorName))
-                                    </span>
-                                </p>
-                            }
-
-                            <a href="@Url.Action("BookDetail", "Category", new { area = "Customer", bookId = book.BookId })"
-                               class="mt-auto btn btn-outline-primary btn-sm">
-                                View Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            }
         </div>
     }
+
+
 </div>

@@ -1,8 +1,6 @@
 ﻿using ClosedXML.Excel;
 using Microsoft.EntityFrameworkCore;
-using StackBook.DAL;
 using StackBook.DAL.IRepository;
-using StackBook.DAL.Repository;
 using StackBook.Data;
 using StackBook.Models;
 using StackBook.Services;
@@ -14,6 +12,8 @@ using DocumentFormat.OpenXml.Bibliography;
 using StackBook.Middleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using StackBook.Hubs;
+using StackBook.Areas.Customer.Controllers;
+using StackBook.DAL.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
@@ -23,29 +23,32 @@ builder.Services.AddControllersWithViews();
 // Thêm services
 builder.Services.AddSignalR();
 
-builder.Services.AddScoped<BookService>();
-builder.Services.AddScoped<CategoryService>();
-builder.Services.AddScoped<AuthorService>();
+
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 builder.Services.AddScoped<OAuthGoogleService>();
 builder.Services.AddScoped<JwtUtils>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
+builder.Services.AddScoped<IShippingAddressService, ShippingAddressService>();
+
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
-builder.Services.AddScoped<ICartRepository, CartRepository>();
-builder.Services.AddScoped<ICartService, CartService>();
-builder.Services.AddScoped<IBookRepository, BookRepository>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IShippingAddressService, ShippingAddressService>();
 builder.Services.AddScoped<IShippingAddressRepository, ShippingAddressRepository>();
-builder.Services.AddScoped<ISearchService, SearchService>();
+
+builder.Services.AddScoped<AccountController>();
+
+
 builder.Configuration.AddJsonFile("appsettings.json");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -58,21 +61,22 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+builder.Services.AddDistributedMemoryCache();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Site/Account/Signin";
-        options.AccessDeniedPath = "/AccessDenied";
-        options.SlidingExpiration = true;
-
-
-        options.Cookie.Name = "accessToken";
-        options.Events.OnValidatePrincipal = async context =>
-        {
-            await Task.CompletedTask;
-        };
-    });
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
+.AddCookie(options =>
+{
+    options.LoginPath = "/Site/Account/Signin";
+    options.AccessDeniedPath = "/Site/Account/AccessDenied";
+    options.SlidingExpiration = true;
+    options.ExpireTimeSpan = TimeSpan.FromDays(1);
+    options.Cookie.Name = "AuthCookie"; // Đổi tên cookie để không xung đột với JWT
+});
 
 
 builder.Services.AddAuthorization();
@@ -80,19 +84,28 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddScoped<EMailUtils>();
+
 builder.Services.Configure<EmailSettings>(
     builder.Configuration.GetSection("EmailSettings"));
+
 builder.Services.AddScoped<IEmailUtils, EMailUtils>();
+
 builder.Services.Configure<GoogleOAuthConfig>(
     builder.Configuration.GetSection("GoogleOAuth"));
-builder.Services.AddSingleton<StackBook.Utils.JwtUtils>();
+
+builder.Services.AddSingleton<JwtUtils>();
+
 builder.Services.Configure<CloudinarySettings>(
     builder.Configuration.GetSection("CloudinarySettings"));
-builder.Services.AddSingleton<StackBook.Utils.CloudinaryUtils>();
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.AccessDeniedPath = "/Site/Account/AccessDenied"; // Đường dẫn chính xác
-});
+
+builder.Services.AddSingleton<CloudinaryUtils>();
+
+
+
+builder.Services.AddHttpContextAccessor();
+
+
+
 
 var app = builder.Build();
 

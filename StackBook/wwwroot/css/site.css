@@ -68,67 +68,69 @@ footer .icon-footer {
 
 
 /*============== SLIDER BOOKS ===============*/
+
+
 .card-list {
-  
 }
 
-.card-list .card-item {
-    list-style: none;
-}
+    .card-list .card-item {
+        list-style: none;
+    }
 
 
-.card-list .card-item .card-link {
-    min-height: 620px;
-    user-select: none;
-    display: block;
-    background: linear-gradient(#ffe4b3, rgb(255, 228, 179));
-    padding: 50px;
-    border-radius: 12px;
-    text-decoration: none;
-    border: 2px solid transparent;
-    box-shadow: -4px 10px 10px rgba(69, 130, 236, 0.3);
-    transition: 0.2s ease;
-}
+        .card-list .card-item .card-link {
+            min-height: 430px;
+            user-select: none;
+            display: block;
+            background: linear-gradient(#ffe4b3, rgb(255, 228, 179));
+            padding: 30px 25px;
+            border-radius: 12px;
+            text-decoration: none;
+            border: 2px solid transparent;
+            box-shadow: -4px 10px 10px rgba(69, 130, 236, 0.3);
+            transition: 0.2s ease;
+        }
 
-.card-list .card-item .card-link:hover {
-    border-color: #4582ec;
-}
+            .card-list .card-item .card-link:hover {
+                border-color: #4582ec;
+            }
 
-.card-list .card-link .card-image {
-    width: 100%;
-}
+    .card-list .card-link .card-image {
+        width: 100%;
+        object-fit: cover;
+    }
 
-.card-list .card-link .category {
-    color: #5372F0;
-    padding: 8px 16px;
-    font-size: 1.2rem;
-    font-weight: 500;
-    margin: 16px 0 18px;
-    background: #DDE4FF;
-    width: fit-content;
-    border-radius: 50px;
-}
+    .card-list .card-link .category {
+        color: #5372F0;
+        padding: 8px 16px;
+        font-size: 1rem;
+        font-weight: 500;
+        margin: 16px 0 18px;
+        background: #DDE4FF;
+        width: fit-content;
+        border-radius: 50px;
+    }
 
-.card-list .card-link .card-title {
-    font-size: 1.2rem;
-    color: #000;
-}
+    .card-list .card-link .card-title {
+        font-size: 0.8rem;
+        color: #000;
+    }
 
-.card-list .card-link .card-button {
-    color: #4582ec;
-    height: 35px;
-    width: 35px;
-    border-radius: 50%;
-    margin-top: 30px;
-    border: 2px solid #4582ec;
-    transform: rotate(-45deg);
-    transition: 0.2s ease;
-}
+    .card-list .card-link .card-button {
+        color: #4582ec;
+        height: 35px;
+        width: 35px;
+        border-radius: 50%;
+        margin-top: 30px;
+        border: 2px solid #4582ec;
+        transform: rotate(-45deg);
+        transition: 0.2s ease;
+    }
 
-.card-list .card-link:hover .card-button {
-    color: #fff;
-    background: #4582ec;
-}
+    .card-list .card-link:hover .card-button {
+        color: #fff;
+        background: #4582ec;
+    }
 
 
 /*================= BOOK LIST =============*/
@@ -136,29 +138,28 @@ footer .icon-footer {
     position: relative;
 }
 
-.container-books .card-button {
-    position: absolute;
-    top: 50%;
-    height: 50px;
-    width: 50px;
-    color: #808080;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    font-size: 2.2rem;
-    cursor: pointer;
-    border-radius: 50%;
-    transform: translateY(-50%);
-    transition: .3s ease;
-}
+    .container-books .card-button {
+        position: absolute;
+        top: 50%;
+        height: 50px;
+        width: 50px;
+        color: #808080;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        font-size: 2.2rem;
+        cursor: pointer;
+        border-radius: 50%;
+        transform: translateY(-50%);
+        transition: .3s ease;
+    }
 
-.container-books .card-button:hover {
-    background: #ffe4b3;
-}
+        .container-books .card-button:hover {
+            background: #ffe4b3;
+        }
 
-.card-button#prev-card{
-/*    left: -20px;*/
-
+.card-button#prev-card {
+    /*    left: -20px;*/
 }
 
 .card-button#next-card {
@@ -173,9 +174,10 @@ footer .icon-footer {
 }
 
 
-.book-list::-webkit-scrollbar {
-    display: none;
-}
+    .book-list::-webkit-scrollbar {
+        display: none;
+        scroll-behavior: smooth;
+    }
 
 .book-card {
     flex: 0 0 auto;
@@ -184,26 +186,62 @@ footer .icon-footer {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     padding: 10px;
+    height: 100%;
+    transition: transform 0.3s;
 }
 
-.book-card img {
-    width: 100%;
-    height: 250px;
+.category-section .book-card {
+    flex: 0 0 auto;
+    text-align: center;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    height: auto;
+    transition: transform 0.3s;
+}
+
+.book-card:hover {
+    transform: scale(1.05);
+}
+
+.book-list .book-card img {
+    height: 200px;
     object-fit: contain;
 }
 
-.book-title {
+.book-card img {
+    height: 300px;
+    object-fit: contain;
+}
+
+.book-card .book-title {
+    /*    text-align: center;*/
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px;
+}
+
+
+
+
+.book-title.book {
     text-align: center;
     font-size: 14px;
     font-weight: bold;
     margin-top: 10px;
-
     display: -webkit-box;
     -webkit-line-clamp: 2; /* Giới hạn tối đa 2 dòng */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 248px; /* Giới hạn chiều rộng */
+    width: auto;
 }
 
 .book-rating {
@@ -217,3 +255,20 @@ footer .icon-footer {
     color: #007600;
 }
 
+
+/*hover home*/
+.hover-shadow:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15) !important;
+    transform: translateY(-2px);
+    transition: all 0.2s ease-in-out;
+}
+
+.link-hover:hover {
+    color: #0d6efd !important;
+    text-decoration: underline;
+}
+
+.transition {
+    transition: all 0.3s ease;
+}
+/*hover home*/

@@ -10,10 +10,12 @@
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold">
                 <li class="nav-item">
-                    <a class="nav-link active-nav" asp-area="Site" asp-controller="Home" asp-action="Index">Home</a>
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active-nav" : "")"
+                       asp-area="Site" asp-controller="Home" asp-action="Index">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="Customer" asp-controller="Category" asp-action="Index">Category</a>
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Category" ? "active-nav" : "")"
+                    asp-area="Customer" asp-controller="Category" asp-action="Index">Category</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About & Contact</a>
@@ -78,6 +80,13 @@
             <div class="d-flex align-items-center navbar-icon">
                 <a href="#" class="btn btn-custom position-relative">
                     <i class="fa-solid fa-bell"></i>
+                    @* Thêm số thông báo  *@
+                    @* @if (ViewBag.NotiCount > 0) *@
+                    @* { *@
+                    @*     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"> *@
+                    @*         @ViewBag.NotiCount *@
+                    @*     </span> *@
+                    @* } *@
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         3
                     </span>
@@ -88,9 +97,12 @@
             <div class="d-flex align-items-center navbar-icon">
                 <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-custom position-relative">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        @ViewBag.CartCount
-                    </span>
+                    @if (ViewBag.CartCount > 0) {
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            @ViewBag.CartCount
+                        </span>
+                    }
+                    
                 </a>
             </div>
         </div>

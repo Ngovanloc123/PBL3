@@ -78,12 +78,38 @@ namespace StackBook.Areas.Customer.Controllers
             // Ghi lại vào session
             HttpContext.Session.SetString("CheckoutRequest", JsonConvert.SerializeObject(checkoutRequest));
 
+            TempData["success"] = "Change shipping address successfully!";
+
             // Quay lại trang Checkout
             return RedirectToAction("Checkout", "Cart");
         }
 
 
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Guid ShippingAddressId)
+        {
+            var shippingAddress = await _unitOfWork.ShippingAddress.GetAsync(sa => sa.ShippingAddressId == ShippingAddressId);
+            if (shippingAddress != null)
+            {
+                await _unitOfWork.ShippingAddress.DeleteAsync(shippingAddress);
+            }
+            await _unitOfWork.SaveAsync();
+            // Lấy user trên cookie
+            var userId = Request.Cookies["userId"];
+            // Lấy dữ liệu trên session
+            var sessionData = HttpContext.Session.GetString("CheckoutRequest");
+            // Chuyển sang CheckoutRequest
+            var checkoutRequest = JsonConvert.DeserializeObject<CheckoutRequest>(sessionData);
+            // Lấy lại user cùng với address để cập nhật lại address
+            checkoutRequest.User = await _unitOfWork.User.GetAsync(u => u.UserId == Guid.Parse(userId), "ShippingAddresses");
 
+            TempData["success"] = "Shipping address deleted successfully.";
+
+            return RedirectToAction("Checkout", "Cart", checkoutRequest);
+
+
+        }
 
 
 
@@ -173,7 +199,7 @@ namespace StackBook.Areas.Customer.Controllers
         //    return View(shippingAddress);
         //}
 
-        // GET: Customer/ShippingAddresses/Delete/:id
+        //GET: Customer/ShippingAddresses/Delete/:id
         //public async Task<IActionResult> Delete(Guid? id)
         //{
         //    if (id == null)
@@ -193,19 +219,7 @@ namespace StackBook.Areas.Customer.Controllers
         //}
 
         // POST: Customer/ShippingAddresses/Delete/:id
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(Guid id)
-        //{
-        //    var shippingAddress = await _context.ShippingAddresses.FindAsync(id);
-        //    if (shippingAddress != null)
-        //    {
-        //        _context.ShippingAddresses.Remove(shippingAddress);
-        //    }
 
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
 
         //private bool ShippingAddressExists(Guid id)
         //{

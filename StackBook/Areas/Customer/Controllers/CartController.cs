@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Components.RenderTree;
 using StackBook.Models;
 using StackBook.Utils;
 using Newtonsoft.Json;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace StackBook.Areas.Customer.Controllers
 {
@@ -66,12 +67,12 @@ namespace StackBook.Areas.Customer.Controllers
         public async Task<IActionResult> Checkout(List<SelectedBookVM> selectedBookVMs)
         {
             List<SelectedBookVM> selected;
-
+            var userId = Request.Cookies["userId"];
             if (selectedBookVMs != null && selectedBookVMs.Any(b => b.IsSelected))
             {
                 selected = selectedBookVMs.Where(b => b.IsSelected).ToList();
 
-                var userId = Request.Cookies["userId"];
+                
                 var user = await _UnitOfWork.User.GetAsync(u => u.UserId == Guid.Parse(userId), "ShippingAddresses");
 
                 var selectedBooks = new List<SelectedBook>();
@@ -85,6 +86,7 @@ namespace StackBook.Areas.Customer.Controllers
                     });
                 }
 
+                // Lấy shippping address đầu tiên
                 var shippingAddressDefault = await _UnitOfWork.ShippingAddress.GetAsync(sa => sa.UserId == Guid.Parse(userId));
 
                 var checkoutRequestNew = new CheckoutRequest
@@ -113,6 +115,9 @@ namespace StackBook.Areas.Customer.Controllers
 
             // Parse session thành CheckoutRequest
             var checkoutRequest = JsonConvert.DeserializeObject<CheckoutRequest>(sessionData);
+            // Lấy lại user cùng với address để cập nhật lại address
+            checkoutRequest.User = await _UnitOfWork.User.GetAsync(u => u.UserId == Guid.Parse(userId), "ShippingAddresses");
+
             return View("Checkout", checkoutRequest);
             
 

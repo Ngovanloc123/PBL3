@@ -19,7 +19,8 @@
 <body>
     <header>
         @* <partial name="_Navbar" /> *@
-        @await Html.PartialAsync("_Navbar")
+        @* @await Html.PartialAsync("_Navbar") *@
+        @await Component.InvokeAsync("Navbar")
     </header>
 
     @* ================== PHẦN BODY PAGE ================== *@

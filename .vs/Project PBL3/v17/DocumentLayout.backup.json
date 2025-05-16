@@ -3,12 +3,28 @@
   "WorkspaceRootPath": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\customer\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\customer\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\customer\\views\\cart\\checkout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\customer\\views\\cart\\checkout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\customer\\controllers\\shippingaddresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\customer\\controllers\\shippingaddresscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\customer\\views\\shared\\_addshippingaddressmodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\customer\\views\\shared\\_addshippingaddressmodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\dal\\repository\\shippingaddressrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\repository\\shippingaddressrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\customer\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\customer\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\dal\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,24 +35,8 @@
       "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\irepository\\ishippingaddressrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\dal\\repository\\shippingaddressrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\repository\\shippingaddressrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\customer\\views\\cart\\checkout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\customer\\views\\cart\\checkout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\viewmodels\\selectedbookvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\viewmodels\\selectedbookvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\dal\\repository\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\repository\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\dal\\irepository\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\dal\\irepository\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\customer\\views\\cart\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -78,10 +78,6 @@
       "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\configurations\\databasesettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\appsettings.Development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
@@ -92,7 +88,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 286,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -112,42 +108,53 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ShippingAddressController.cs",
-              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Controllers\\ShippingAddressController.cs",
-              "RelativeDocumentMoniker": "StackBook\\Areas\\Customer\\Controllers\\ShippingAddressController.cs",
-              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Controllers\\ShippingAddressController.cs",
-              "RelativeToolTip": "StackBook\\Areas\\Customer\\Controllers\\ShippingAddressController.cs",
-              "ViewState": "AgIAADQAAAAAAAAAAAAQwE4AAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T03:13:52.395Z",
+              "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "StackBook\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "StackBook\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-14T00:49:14.267Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "Checkout.cshtml",
+              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Views\\Cart\\Checkout.cshtml",
+              "RelativeDocumentMoniker": "StackBook\\Areas\\Customer\\Views\\Cart\\Checkout.cshtml",
+              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Views\\Cart\\Checkout.cshtml",
+              "RelativeToolTip": "StackBook\\Areas\\Customer\\Views\\Cart\\Checkout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-16T03:09:50.698Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "_AddShippingAddressModal.cshtml",
+              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Views\\Shared\\_AddShippingAddressModal.cshtml",
+              "RelativeDocumentMoniker": "StackBook\\Areas\\Customer\\Views\\Shared\\_AddShippingAddressModal.cshtml",
+              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Views\\Shared\\_AddShippingAddressModal.cshtml",
+              "RelativeToolTip": "StackBook\\Areas\\Customer\\Views\\Shared\\_AddShippingAddressModal.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-16T04:59:53.995Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "CartController.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Controllers\\CartController.cs",
               "RelativeDocumentMoniker": "StackBook\\Areas\\Customer\\Controllers\\CartController.cs",
-              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Controllers\\CartController.cs*",
-              "RelativeToolTip": "StackBook\\Areas\\Customer\\Controllers\\CartController.cs*",
-              "ViewState": "AgIAAFwAAAAAAAAAAAAqwHIAAABeAAAAAAAAAA==",
+              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Controllers\\CartController.cs",
+              "RelativeToolTip": "StackBook\\Areas\\Customer\\Controllers\\CartController.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAIAwwGMAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T03:05:47.486Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserRepository.cs",
-              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\DAL\\Repository\\UserRepository.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\UserRepository.cs",
-              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\DAL\\Repository\\UserRepository.cs",
-              "RelativeToolTip": "StackBook\\DAL\\Repository\\UserRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T04:15:52.404Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T03:05:47.486Z"
             },
             {
               "$type": "Document",
@@ -159,12 +166,23 @@
               "RelativeToolTip": "StackBook\\DAL\\Repository\\ShippingAddressRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T04:15:49.404Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T04:15:49.404Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
+              "Title": "ShippingAddressController.cs",
+              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Controllers\\ShippingAddressController.cs",
+              "RelativeDocumentMoniker": "StackBook\\Areas\\Customer\\Controllers\\ShippingAddressController.cs",
+              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Controllers\\ShippingAddressController.cs",
+              "RelativeToolTip": "StackBook\\Areas\\Customer\\Controllers\\ShippingAddressController.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAACUAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T03:13:52.395Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "IShippingAddressRepository.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\DAL\\IRepository\\IShippingAddressRepository.cs",
               "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\IShippingAddressRepository.cs",
@@ -172,38 +190,23 @@
               "RelativeToolTip": "StackBook\\DAL\\IRepository\\IShippingAddressRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T04:15:24.938Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "UnitOfWork.cs",
-              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\DAL\\Repository\\UnitOfWork.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\UnitOfWork.cs",
-              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\DAL\\Repository\\UnitOfWork.cs",
-              "RelativeToolTip": "StackBook\\DAL\\Repository\\UnitOfWork.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T04:13:20.835Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "IUnitOfWork.cs",
-              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\DAL\\IRepository\\IUnitOfWork.cs",
-              "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\IUnitOfWork.cs",
-              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\DAL\\IRepository\\IUnitOfWork.cs",
-              "RelativeToolTip": "StackBook\\DAL\\IRepository\\IUnitOfWork.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T04:12:50.809Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T04:15:24.938Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\DAL\\Repository\\UserRepository.cs",
+              "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\UserRepository.cs",
+              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\DAL\\Repository\\UserRepository.cs",
+              "RelativeToolTip": "StackBook\\DAL\\Repository\\UserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T04:15:52.404Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "SelectedBookVM.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\ViewModels\\SelectedBookVM.cs",
               "RelativeDocumentMoniker": "StackBook\\ViewModels\\SelectedBookVM.cs",
@@ -211,8 +214,7 @@
               "RelativeToolTip": "StackBook\\ViewModels\\SelectedBookVM.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T03:18:30.87Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T03:18:30.87Z"
             },
             {
               "$type": "Document",
@@ -224,21 +226,7 @@
               "RelativeToolTip": "StackBook\\Areas\\Customer\\Views\\Cart\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAJ4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-16T03:12:06.761Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Checkout.cshtml",
-              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Views\\Cart\\Checkout.cshtml",
-              "RelativeDocumentMoniker": "StackBook\\Areas\\Customer\\Views\\Cart\\Checkout.cshtml",
-              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Views\\Cart\\Checkout.cshtml",
-              "RelativeToolTip": "StackBook\\Areas\\Customer\\Views\\Cart\\Checkout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-16T03:09:50.698Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T03:12:06.761Z"
             },
             {
               "$type": "Document",
@@ -250,8 +238,7 @@
               "RelativeToolTip": "StackBook\\Areas\\Customer\\Controllers\\AccountController.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T03:02:04.256Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T03:02:04.256Z"
             },
             {
               "$type": "Document",
@@ -263,8 +250,7 @@
               "RelativeToolTip": "StackBook\\wwwroot\\css\\layout.css",
               "ViewState": "AgIAAAAAAAAAAAAAAAAYwBYAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-05-16T01:23:54.746Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T01:23:54.746Z"
             },
             {
               "$type": "Document",
@@ -288,20 +274,7 @@
               "RelativeToolTip": "StackBook\\ScaffoldingReadMe.txt",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-05-15T15:42:19.162Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "StackBook\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "StackBook\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-14T00:49:14.267Z"
+              "WhenOpened": "2025-05-15T15:42:19.162Z"
             },
             {
               "$type": "Document",
@@ -313,8 +286,7 @@
               "RelativeToolTip": "StackBook\\Program.cs",
               "ViewState": "AgIAADYAAAAAAAAAAAAYwDsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T15:42:38.13Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-15T15:42:38.13Z"
             },
             {
               "$type": "Document",
@@ -326,12 +298,11 @@
               "RelativeToolTip": "StackBook\\Areas\\Site\\Controllers\\AccountController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T01:09:20.203Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-14T01:09:20.203Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 19,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\appsettings.Development.json",
               "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\appsettings.Development.json",
@@ -349,8 +320,7 @@
               "RelativeToolTip": "StackBook\\wwwroot\\css\\login.css",
               "ViewState": "AgIAAKsAAAAAAAAAAAAAALgAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-05-15T16:12:53.507Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-15T16:12:53.507Z"
             },
             {
               "$type": "Document",

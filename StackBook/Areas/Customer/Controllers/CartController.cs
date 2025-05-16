@@ -61,7 +61,7 @@ namespace StackBook.Areas.Customer.Controllers
             }
         }
 
-        [HttpPost]
+        //[HttpPost]
         public async Task<IActionResult> Checkout(List<SelectedBookVM> selectedBookVMs)
         {
             // Lọc ra những sách đã được chọn

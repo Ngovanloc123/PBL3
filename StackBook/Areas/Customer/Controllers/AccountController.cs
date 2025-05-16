@@ -173,17 +173,17 @@ namespace StackBook.Areas.Customer.Controllers
             }
         }
         [HttpGet("Notifications")]
-         public IActionResult Notifications()
+            public IActionResult Notifications()
         {
             return View();
         }
         [HttpGet("Orders")]
-         public IActionResult Orders()
+            public IActionResult Orders()
         {
             return View();
         }
         [HttpGet("WishList")]
-         public IActionResult WishList()
+            public IActionResult WishList()
         {
             return View();
         }

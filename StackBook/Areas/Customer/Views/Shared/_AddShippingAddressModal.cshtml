@@ -1,0 +1,34 @@
+﻿@model StackBook.Models.ShippingAddress
+
+<form method="post" asp-action="Create" asp-controller="ShippingAddress" asp-area="Customer" id="newAddressForm">
+    <input type="hidden" asp-for="UserId" />
+
+    @* <div asp-validation-summary="All" class="text-danger"></div> *@
+
+    <div class="mb-3">
+        <label asp-for="Phone" class="form-label"></label>
+        <input asp-for="Phone" class="form-control" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Country" class="form-label"></label>
+        <input asp-for="Country" class="form-control" />
+        <span asp-validation-for="Country" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="City" class="form-label"></label>
+        <input asp-for="City" class="form-control" />
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Ward" class="form-label"></label>
+        <input asp-for="Ward" class="form-control" />
+        <span asp-validation-for="Ward" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Address" class="form-label"></label>
+        <textarea asp-for="Address" class="form-control" rows="2"></textarea>
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Add Address</button>
+</form>

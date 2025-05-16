@@ -32,9 +32,9 @@
                             var book = cartDetail.Book;
                             <tr>
                                 <td>
-                                    <input type="checkbox" class="form-check-input book-select" name="SelectedBooks[@i].IsSelected" value="true" checked form="checkout-form" />
-                                    <input type="hidden" name="SelectedBooks[@i].BookId" value="@book?.BookId" form="checkout-form" />
-                                    <input type="hidden" name="SelectedBooks[@i].Quantity" value="@cartDetail.Quantity" form="checkout-form" />
+                                    <input type="checkbox" class="form-check-input book-select" name="selectedBookVMs[@i].IsSelected" value="true" checked form="checkout-form" />
+                                    <input type="hidden" name="selectedBookVMs[@i].BookId" value="@book?.BookId" form="checkout-form" />
+                                    <input type="hidden" name="selectedBookVMs[@i].Quantity" value="@cartDetail.Quantity" form="checkout-form" />
                                 </td>
                                 <td class="text-start">
                                     @if (book != null)
@@ -110,6 +110,7 @@
 </div>
 
 
+
 @section Scripts {
     <script>
         function updateTotal() {
@@ -144,7 +145,7 @@
 
             const selectAllCheckbox = document.getElementById('select-all');
             selectAllCheckbox?.addEventListener('change', function () {
-                const checked = this.checked;
+                const checked = this.checked; //
                 document.querySelectorAll('.book-select').forEach(cb => {
                     cb.checked = checked;
                 });

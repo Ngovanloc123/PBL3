@@ -6,7 +6,7 @@ using StackBook.Models;
 
 namespace StackBook.DAL.IRepository
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository<User>
     {
         Task<User> CreateAsync(User entity);
         Task<IEnumerable<User>> GetAllAsync();

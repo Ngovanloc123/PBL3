@@ -1,5 +1,4 @@
 ﻿using StackBook.DAL.IRepository;
-using StackBook.DAL.Repository;
 using StackBook.Data;
 
 namespace StackBook.DAL.Repository
@@ -11,6 +10,7 @@ namespace StackBook.DAL.Repository
         public IAuthorRepository Author { get; private set; }
         public IBookRepository Book { get; private set; }
         public IUserRepository User { get; private set; }
+        public ICartRepository Cart { get; private set; }
 
         public UnitOfWork(ApplicationDbContext db)
         {
@@ -19,6 +19,7 @@ namespace StackBook.DAL.Repository
             Author = new AuthorRepository(_db);
             Book = new BookRepository(_db);
             User = new UserRepository(_db);
+            Cart = new CartRepository(_db);
         }
 
         public async Task SaveAsync()

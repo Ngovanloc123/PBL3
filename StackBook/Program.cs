@@ -10,7 +10,6 @@ using StackBook.Utils;
 using Microsoft.AspNetCore.Builder;
 using StackBook.Configurations;
 using StackBook.Interfaces;
-using StackBook.Controllers;
 using DocumentFormat.OpenXml.Bibliography;
 using StackBook.Middleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -30,6 +29,8 @@ builder.Services.AddScoped<AuthorService>();
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 builder.Services.AddScoped<OAuthGoogleService>();
 builder.Services.AddScoped<JwtUtils>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -41,8 +42,8 @@ builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<CategoryService>();
-builder.Services.AddScoped<SearchService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Configuration.AddJsonFile("appsettings.json");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -81,6 +82,11 @@ builder.Services.AddSingleton<StackBook.Utils.JwtUtils>();
 builder.Services.Configure<CloudinarySettings>(
     builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddSingleton<StackBook.Utils.CloudinaryUtils>();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/Site/Account/AccessDenied"; // Đường dẫn chính xác
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

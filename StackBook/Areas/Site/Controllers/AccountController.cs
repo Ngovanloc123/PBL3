@@ -89,7 +89,7 @@ namespace StackBook.Areas.Site.Controllers
                 {
                     return View("Error", new ErrorViewModel { ErrorMessage = "Role claim not found.", StatusCode = 401 });
                 }
-                if(roleClaim.Value == "Admin")
+                if (roleClaim.Value == "Admin")
                 {
                     TempData["success"] = "Sign in successful.";
                     return RedirectToAction("Index", "Home", new { area = "Admin" });
@@ -98,7 +98,7 @@ namespace StackBook.Areas.Site.Controllers
                 {
                     TempData["success"] = "Sign in successful.";
                     // return RedirectToAction("Index", "Home", new { area = "Site" });
-                    return RedirectToAction("Profile", "Account", new { area = "Customer"});
+                    return RedirectToAction("Profile", "Account", new { area = "Customer" });
                 }
                 else
                 {
@@ -127,7 +127,7 @@ namespace StackBook.Areas.Site.Controllers
                 var result = await _authService.RegisterUser(registerDto);
                 if (result == null)
                     return View("Error", new ErrorViewModel { ErrorMessage = "Registration failed.", StatusCode = 400 });
-                
+
                 return RedirectToAction("Signin", "Account", new { area = "Site" });
             }
             catch (Exception ex)
@@ -239,7 +239,7 @@ namespace StackBook.Areas.Site.Controllers
                         SameSite = SameSiteMode.Strict,
                         Expires = DateTimeOffset.UtcNow.AddDays(7)
                     });
-                    return RedirectToAction("Profile", "Account", new { area = "Customer"});
+                    return RedirectToAction("Profile", "Account", new { area = "Customer" });
                     // return RedirectToAction("Index", "Home", new { area = "Site" });
                 }
                 else
@@ -261,20 +261,20 @@ namespace StackBook.Areas.Site.Controllers
         {
             try
             {
-               if(!ModelState.IsValid)
-               {
+                if (!ModelState.IsValid)
+                {
                     return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data.", StatusCode = 400 });
-               } 
-               var result = await _authService.ForgotPassword(forgotPasswordVM);
-               if (result.Success)
-               {
+                }
+                var result = await _authService.ForgotPassword(forgotPasswordVM);
+                if (result.Success)
+                {
                     return RedirectToAction("Signin", "Account", new { area = "Site" });
-               }
-               else
-               {
+                }
+                else
+                {
                     return View("Error", new ErrorViewModel { StatusCode = result.StatusCode, ErrorMessage = result.Message });
-               }
-            } 
+                }
+            }
             catch (Exception ex)
             {
                 return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}", StatusCode = 500 });
@@ -316,6 +316,12 @@ namespace StackBook.Areas.Site.Controllers
             {
                 return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: {ex.Message}", StatusCode = 500 });
             }
+        }
+        [HttpGet]
+        public IActionResult AccessDenied(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
         }
     }
 }

@@ -6,18 +6,21 @@ using System.Linq.Expressions;
 using StackBook.Exceptions;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using StackBook.DAL.IRepository;
-using StackBook.DTOs;
-using StackBook.VMs;
+using StackBook.DAL.Repository;
+using StackBook.ViewModels;
+
 
 namespace StackBook.Services
 {
    public class CartService : ICartService
     {
         private readonly ICartRepository _cartRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CartService(ICartRepository cartRepository)
+        public CartService(ICartRepository cartRepository, IUnitOfWork unitOfWork)
         {
             _cartRepository = cartRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task CreateCartAsync(Guid userId)
@@ -47,7 +50,6 @@ namespace StackBook.Services
             {
                 var cart = await _cartRepository.GetOrCreateByUserIdAsync(userId);
                 var cartBook = await _cartRepository.GetCartBookAsync(cart.CartId, bookId);
-
                 if (cartBook != null)
                 {
                     cartBook.Quantity += quantity;
@@ -133,30 +135,28 @@ namespace StackBook.Services
             }
         }
 
-        public async Task<List<BookInCartVM>> GetCartDetailsAsync(Guid userId)
+        public async Task<Cart> GetCartDetailsAsync(Guid userId)
         {
             try
             {
-                var cart = await _cartRepository.GetByUserIdAsync(userId);
-                if (cart == null || cart.CartDetails == null)
-                    return new List<BookInCartVM>();
-
-                var result = new List<BookInCartVM>();
-                foreach (var cartBook in cart.CartDetails)
+                var cart = await _unitOfWork.Cart.GetAsync(c => c.UserId == userId, "CartDetails.Book");
+                
+                // var cart = await _cartRepository.GetByUserIdAsync(userId);
+                if (cart == null)
                 {
-                    if (cartBook.Book != null)
+                    cart = new Cart
                     {
-                        var bookDto = new BookInCartVM
-                        {
-                            BookId = cartBook.BookId,
-                            BookTitle = cartBook.Book.BookTitle,
-                            Quantity = cartBook.Quantity
-                        };
-                        result.Add(bookDto);
-                    }
+                        CartId = Guid.NewGuid(),
+                        UserId = userId,
+                        CartDetails = new List<CartDetail>()
+                    };
+                }
+                else
+                {
+                    cart.CartDetails = await _cartRepository.GetCartBooksAsync(cart.CartId);
                 }
 
-                return result;
+                return cart;
             }
             catch (Exception ex)
             {
@@ -164,29 +164,47 @@ namespace StackBook.Services
             }
         }
     
-            public async Task<double> GetTotalPriceCartAsync(Guid userId)
+        public async Task<double> GetTotalPriceCartAsync(Guid userId)
+        {
+            try
             {
-                try
-                {
-                    var cart = await _cartRepository.GetByUserIdAsync(userId);
-                    if (cart == null || cart.CartDetails == null)
-                        return 0;
+                var cart = await _cartRepository.GetByUserIdAsync(userId);
+                if (cart == null || cart.CartDetails == null)
+                    return 0;
     
-                    double totalPrice = 0;
-                    foreach (var cartBook in cart.CartDetails)
+                double totalPrice = 0;
+                foreach (var cartBook in cart.CartDetails)
+                {
+                    if (cartBook.Book != null)
                     {
-                        if (cartBook.Book != null)
-                        {
-                            totalPrice += cartBook.Quantity * cartBook.Book.Price;
-                        }
+                        totalPrice += cartBook.Quantity * cartBook.Book.Price;
                     }
+                }
     
-                    return totalPrice;
-                }
-                catch (Exception ex)
-                {
-                    throw new AppException($"Lỗi khi tính tổng giá trị giỏ hàng: {ex.Message}");
-                }
+                return totalPrice;
+            }
+            catch (Exception ex)
+            {
+                throw new AppException($"Lỗi khi tính tổng giá trị giỏ hàng: {ex.Message}");
             }
         }
+
+        public async Task<int> GetCartCount(Guid userId)
+        {
+            try
+            {
+                var cart = await _cartRepository.GetByUserIdAsync(userId);
+                if (cart == null || cart.CartDetails == null)
+                    return 0;
+
+                // Count the number of different book types in the cart.  
+                return cart.CartDetails.Count;
+            }
+            catch (Exception ex)
+            {
+                throw new AppException($"Lỗi khi lấy số loại sách trong giỏ hàng: {ex.Message}");
+            }
+        }
+
+    }
 }

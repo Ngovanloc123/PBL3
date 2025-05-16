@@ -1,0 +1,66 @@
+@{
+    Layout = null;
+    var returnUrl = ViewBag.ReturnUrl ?? "/";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Access Denied</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body {
+            background: #fdfdfd;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        img {
+            width: 120px;
+            margin-bottom: 30px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #e74c3c;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        a:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://cdn-icons-png.flaticon.com/512/463/463612.png" alt="Access Denied Icon" />
+
+    <h1>🚫 Access Denied</h1>
+    <p>You do not have permission to access this page.</p>
+
+    <p><strong>Access is restricted</strong>. Please contact the administrator if this is an error.</p>
+
+    <a href="@returnUrl">← Go Back</a>
+</body>
+</html>

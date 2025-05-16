@@ -137,6 +137,7 @@ namespace StackBook.Areas.Customer.Controllers
             try
             {
                 var currentUserIdClaims = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                Console.WriteLine(currentUserIdClaims);
                 if (currentUserIdClaims == null)
                 {
                     TempData["error"] = "User ID not found.";
@@ -145,14 +146,26 @@ namespace StackBook.Areas.Customer.Controllers
 
                 Guid userId = Guid.Parse(currentUserIdClaims);
                 await _cartService.AddToCartAsync(userId, bookInCartVM.BookId, bookInCartVM.Quantity);
-
+                // Trả về thông báo thành công
+                Console.WriteLine("Book added to cart successfully!");
                 TempData["success"] = "Book added to cart successfully!";
-
                 // Lấy URL trang trước đó
                 var referer = Request.Headers["Referer"].ToString();
                 if (!string.IsNullOrEmpty(referer))
                     return Redirect(referer);
-
+                var accessToken = Request.Cookies["accessToken"];
+                if (string.IsNullOrEmpty(accessToken))
+                {
+                    return RedirectToAction("Index", "Home", new { area = "Site" });
+                }
+                Response.Cookies.Append("accessToken", accessToken, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.None,
+                    Path = "/",
+                    Expires = DateTimeOffset.UtcNow.AddMinutes(10)	
+                });
                 // Nếu không có referer, về trang chủ
                 return RedirectToAction("Index", "Home", new { area = "Site" });
             }

@@ -11,10 +11,10 @@ using StackBook.DAL.IRepository;
 
 namespace StackBook.DAL.Repository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         private readonly ApplicationDbContext _context;
-        public UserRepository(ApplicationDbContext context)
+        public UserRepository(ApplicationDbContext context): base(context)
         {
             _context = context;
         }

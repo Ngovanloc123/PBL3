@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace StackBook.Services
 {
@@ -49,8 +50,8 @@ namespace StackBook.Services
                 var shippingAddress = await _shippingAddressRepository.GetByIdAsync(shippingAddressId);
                 if (shippingAddress == null) throw new AppException($"Địa chỉ giao hàng không tồn tại.");
 
-                var cartItems = await _cartService.GetCartDetailsAsync(userId);
-                if (!cartItems.Any()) throw new AppException("Giỏ hàng trống.");
+                var cart = await _cartService.GetCartDetailsAsync(userId);
+                if (cart == null) throw new AppException("Giỏ hàng trống.");
 
                 double totalPrice = await _cartService.GetTotalPriceCartAsync(userId);
 
@@ -77,7 +78,7 @@ namespace StackBook.Services
 
                 await _orderRepository.CreateOrderAsync(newOrder);
 
-                foreach (var cartItem in cartItems)
+                foreach (var cartItem in cart.CartDetails)
                 {
                     var orderDetail = new OrderDetail
                     {

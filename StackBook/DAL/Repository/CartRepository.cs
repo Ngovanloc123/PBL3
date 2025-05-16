@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace StackBook.DAL.Repository
 {
-    public class CartRepository : ICartRepository
+    public class CartRepository : Repository<Cart>, ICartRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public CartRepository(ApplicationDbContext db)
+        public CartRepository(ApplicationDbContext db): base(db)
         {
             _db = db;
         }

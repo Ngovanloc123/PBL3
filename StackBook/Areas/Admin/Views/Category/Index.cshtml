@@ -28,8 +28,9 @@
                         <td>@category.CategoryName</td>
                         <td>@category.DisplayOrder</td>
                         <td>
-                            <a asp-action="Edit" asp-route-CategoryId="@category.CategoryId" class="btn btn-primary btn-sm">Edit</a>
-                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-category-id="@category.CategoryId" data-category-name="@category.CategoryName">Delete</button>
+                            <a style="width: 70px;" asp-action="Edit" asp-route-CategoryId="@category.CategoryId" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i>  Edit</a>
+                            <button style="width: 70px;" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-category-id="@category.CategoryId" data-category-name="@category.CategoryName">
+                                <i class="fa-solid fa-trash"></i> Delete</button>
                         </td>
                     </tr>
                     index++;

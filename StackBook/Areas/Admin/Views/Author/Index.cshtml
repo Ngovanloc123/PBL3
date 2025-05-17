@@ -29,10 +29,10 @@
                         <td>@author.AuthorName</td>
                         <td>@author.Books.Count</td>
                         <td>
-                            <a asp-action="Edit" asp-route-AuthorId="@author.AuthorId"
-                               class="btn btn-primary btn-sm">Edit</a>
-                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-author-id="@author.AuthorId" data-author-name="@author.AuthorName">
-                                Delete
+                            <a style="width: 70px;" asp-action="Edit" asp-route-AuthorId="@author.AuthorId"
+                               class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i>  Edit</a>
+                            <button style="width: 70px;" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-author-id="@author.AuthorId" data-author-name="@author.AuthorName">
+                                <i class="fa-solid fa-trash"></i> Delete
                             </button>
                         </td>
                     </tr>

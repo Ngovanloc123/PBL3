@@ -45,36 +45,50 @@
                         </td>
                         <td>@user.FullName</td>
                         <td>@user.Email</td>
-                        <td>
+                        <td style="width: 110px;">
                             @if (user.Role)
                             {
-                                <span class="badge bg-primary">Admin</span>
+                                <span class="badge bg-primary">
+                                    <i class="fa-solid fa-user-shield"></i> Admin
+                                </span>
                             }
                             else
                             {
-                                <span class="badge bg-secondary">Customter</span>
+                                <span class="badge bg-secondary">
+                                    <i class="fa-solid fa-user"></i> Customer
+                                </span>
                             }
                         </td>
-                        <td>
+                        <td style="width: 110px;">
                             @if (user.LockStatus)
                             {
-                                <span class="badge bg-danger">Locked</span>
+                                <span class="badge bg-danger">
+                                    <i class="fa-solid fa-lock"></i> Locked
+                                </span>
                             }
                             else
                             {
-                                <span class="badge bg-success">Active</span>
+                                <span class="badge bg-success">
+                                    <i class="fa-solid fa-unlock"></i> Active
+                                </span>
                             }
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-UserId="@user.UserId" class="btn btn-primary btn-sm">Edit</a>
+                            <a style="width: 70px;" asp-action="Edit" asp-route-UserId="@user.UserId" class="btn btn-primary btn-sm">
+                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                            </a>
                             @* <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-user-id="@user.UserId" data-user-name="@user.FullName">Delete</button> *@
                             @if (user.LockStatus)
                             {
-                                <a asp-action="Unlock" asp-route-UserId="@user.UserId" class="btn btn-warning btn-sm">Unlock</a>
+                                <a style="width: 70px;" asp-action="Unlock" asp-route-UserId="@user.UserId" class="btn btn-warning btn-sm">
+                                    <i class="fa-solid fa-lock-open"></i> Unlock
+                                </a>
                             }
                             else
                             {
-                                <a asp-action="Lock" asp-route-UserId="@user.UserId" class="btn btn-danger btn-sm">Lock</a>
+                                <a style="width: 70px;" asp-action="Lock" asp-route-UserId="@user.UserId" class="btn btn-danger btn-sm">
+                                    <i class="fa-solid fa-lock"></i> Lock
+                                </a>
                             }
                         </td>
                     </tr>

@@ -1,4 +1,4 @@
-﻿@model List<StackBook.ViewModels.BookDetailViewModel>
+﻿@model List<StackBook.Models.Book>
 
 @{
 	ViewData["Title"] = "Manager Book";
@@ -21,36 +21,36 @@
 			<thead class="table-dark">
 				<tr>
 					<th>#</th>
-					<th>Title</th>
-					<th class="d-none d-md-table-cell">Authors</th>
+					<th style="width: 20%;">Title</th>
+					<th style="width: 10%;" class="d-none d-md-table-cell">Authors</th>
 					<th class="d-none d-lg-table-cell">Price</th>
 					<th>Stock</th>
 					<th class="d-none d-xl-table-cell">Publication</th>
 					<th class="d-none d-md-table-cell">Category</th>
 					<th class="d-none d-lg-table-cell">Image</th>
-					<th>Actions</th>
+					<th style="width: 10%;" >Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				@{
 					var index = 1;
-				}
+				}	
 				@foreach (var obj in Model)
 				{
 					<tr>
 						<td>@index</td>
-						<td>
-							<span title="@obj.BookTitle">
+						<td style="width: 20%;">
+							<span title="@obj.BookTitle" >
 								@obj.BookTitle
 							</span>
 						</td>
-						<td class="d-none d-md-table-cell">
+						<td style="width: 10%; class="d-none d-md-table-cell">
 							<ul class="list-unstyled mb-0">
-								@foreach (var author in obj.AuthorsName)
+								@foreach (var author in obj.Authors)
 								{
 									<li>
-										<span class="d-inline-block" title="@author">
-											@author
+										<span class="d-inline-block" title="@author.AuthorName">
+											@author.AuthorName
 										</span>
 									</li>
 								}
@@ -61,11 +61,11 @@
 						<td class="d-none d-xl-table-cell">@obj.CreatedBook.ToString("dd-MM-yyyy")</td>
 						<td class="d-none d-md-table-cell">
 							<ul class="list-unstyled mb-0">
-								@foreach (var category in obj.CategoryNames)
+								@foreach (var category in obj.Categories)
 								{
 									<li>
-										<span class="d-inline-block" title="@category">
-											@category
+										<span class="d-inline-block" title="@category.CategoryName">
+											@category.CategoryName
 										</span>
 									</li>
 								}
@@ -81,16 +81,14 @@
 								<span>No Image</span>
 							}
 						</td>
-						<td>
-							<div class="btn-group" role="group">
-								<a asp-area="Admin" asp-controller="Book" asp-action="Edit" asp-route-BookId="@obj.BookId" class="btn btn-primary btn-sm">
+						<td style="width: 15%;">
+							<a style="width: 70px;" asp-controller="Book" asp-action="Edit" asp-route-BookId="@obj.BookId" class="btn btn-primary btn-sm mb-2">
 									<i class="fa-solid fa-pen-to-square"></i> Edit
 								</a>
-								<a data-bs-id=@obj.BookId class="btn btn-danger" data-bs-toggle="modal"
+							<a style="width: 70px;" data-bs-id=@obj.BookId class="btn btn-danger btn-sm mb-2" data-bs-toggle="modal"
 								   data-bs-target="#delete-book-modal">
 									<i class="fa-solid fa-trash"></i> Delete
 								</a>
-							</div>
 						</td>
 					</tr>
 					index++;

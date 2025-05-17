@@ -3,6 +3,38 @@
   "WorkspaceRootPath": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\admin\\views\\book\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\admin\\views\\book\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\admin\\views\\book\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\admin\\views\\book\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\admin\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\admin\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\admin\\views\\user\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\admin\\views\\user\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\admin\\views\\category\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\admin\\views\\category\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\admin\\views\\book\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\admin\\views\\book\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\admin\\views\\author\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\admin\\views\\author\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|d:\\locngo\\university\\semester 2 year 2\\pbl3\\version\\identify\\dev\\pbl3\\stackbook\\areas\\site\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{838F7FEE-1A4D-46AF-9D5A-924C7CA55BBA}|StackBook\\StackBook.csproj|solutionrelative:stackbook\\areas\\site\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -157,19 +189,123 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Views\\Book\\Create.cshtml",
+              "RelativeDocumentMoniker": "StackBook\\Areas\\Admin\\Views\\Book\\Create.cshtml",
+              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Views\\Book\\Create.cshtml*",
+              "RelativeToolTip": "StackBook\\Areas\\Admin\\Views\\Book\\Create.cshtml*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-17T02:35:15.546Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Views\\Book\\Edit.cshtml",
+              "RelativeDocumentMoniker": "StackBook\\Areas\\Admin\\Views\\Book\\Edit.cshtml",
+              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Views\\Book\\Edit.cshtml*",
+              "RelativeToolTip": "StackBook\\Areas\\Admin\\Views\\Book\\Edit.cshtml*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-17T02:22:17.108Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Views\\User\\Index.cshtml",
+              "RelativeDocumentMoniker": "StackBook\\Areas\\Admin\\Views\\User\\Index.cshtml",
+              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Views\\User\\Index.cshtml",
+              "RelativeToolTip": "StackBook\\Areas\\Admin\\Views\\User\\Index.cshtml",
+              "ViewState": "AgIAACoAAAAAAAAAAAAqwEoAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-17T02:18:05.995Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Views\\Category\\Index.cshtml",
+              "RelativeDocumentMoniker": "StackBook\\Areas\\Admin\\Views\\Category\\Index.cshtml",
+              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Views\\Category\\Index.cshtml",
+              "RelativeToolTip": "StackBook\\Areas\\Admin\\Views\\Category\\Index.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAB8AAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-17T02:15:26.863Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Views\\Author\\Index.cshtml",
+              "RelativeDocumentMoniker": "StackBook\\Areas\\Admin\\Views\\Author\\Index.cshtml",
+              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Views\\Author\\Index.cshtml",
+              "RelativeToolTip": "StackBook\\Areas\\Admin\\Views\\Author\\Index.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACEAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-17T02:04:30.019Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Views\\Book\\Index.cshtml",
+              "RelativeDocumentMoniker": "StackBook\\Areas\\Admin\\Views\\Book\\Index.cshtml",
+              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Views\\Book\\Index.cshtml",
+              "RelativeToolTip": "StackBook\\Areas\\Admin\\Views\\Book\\Index.cshtml",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAFkAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-17T02:02:22.797Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BookController.cs",
+              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Controllers\\BookController.cs",
+              "RelativeDocumentMoniker": "StackBook\\Areas\\Admin\\Controllers\\BookController.cs",
+              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Controllers\\BookController.cs",
+              "RelativeToolTip": "StackBook\\Areas\\Admin\\Controllers\\BookController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T02:02:09.1Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PaymentService.cs",
+              "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Services\\PaymentService.cs",
+              "RelativeDocumentMoniker": "StackBook\\Services\\PaymentService.cs",
+              "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Services\\PaymentService.cs",
+              "RelativeToolTip": "StackBook\\Services\\PaymentService.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T15:54:35.204Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "AccountController.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Site\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "StackBook\\Areas\\Site\\Controllers\\AccountController.cs",
               "ToolTip": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Site\\Controllers\\AccountController.cs",
               "RelativeToolTip": "StackBook\\Areas\\Site\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAABoBAAAAAAAAAAAqwCYBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAFMBAAAAAAAAAAAAAGUBAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-14T01:09:20.203Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "CategoryController.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Controllers\\CategoryController.cs",
               "RelativeDocumentMoniker": "StackBook\\Areas\\Customer\\Controllers\\CategoryController.cs",
@@ -177,12 +313,11 @@
               "RelativeToolTip": "StackBook\\Areas\\Customer\\Controllers\\CategoryController.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAAAB0AAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T11:50:01.079Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T11:50:01.079Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 11,
               "Title": "UserService.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Services\\UserService.cs",
               "RelativeDocumentMoniker": "StackBook\\Services\\UserService.cs",
@@ -190,12 +325,11 @@
               "RelativeToolTip": "StackBook\\Services\\UserService.cs",
               "ViewState": "AgIAAIYBAAAAAAAAAAAkwJcBAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T11:22:04.266Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T11:22:04.266Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 12,
               "Title": "Search.cshtml",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Views\\Category\\Search.cshtml",
               "RelativeDocumentMoniker": "StackBook\\Areas\\Customer\\Views\\Category\\Search.cshtml",
@@ -203,12 +337,11 @@
               "RelativeToolTip": "StackBook\\Areas\\Customer\\Views\\Category\\Search.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-16T11:14:07.881Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T11:14:07.881Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 9,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Program.cs",
               "RelativeDocumentMoniker": "StackBook\\Program.cs",
@@ -216,12 +349,11 @@
               "RelativeToolTip": "StackBook\\Program.cs",
               "ViewState": "AgIAADkAAAAAAAAAAAAawE0AAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T15:42:38.13Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-15T15:42:38.13Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 13,
               "Title": "AuthService.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Services\\AuthService.cs",
               "RelativeDocumentMoniker": "StackBook\\Services\\AuthService.cs",
@@ -229,12 +361,11 @@
               "RelativeToolTip": "StackBook\\Services\\AuthService.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T11:01:15.474Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T11:01:15.474Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 15,
               "Title": "AuthorService.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Services\\AuthorService.cs",
               "RelativeDocumentMoniker": "StackBook\\Services\\AuthorService.cs",
@@ -242,12 +373,11 @@
               "RelativeToolTip": "StackBook\\Services\\AuthorService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T10:34:18.387Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T10:34:18.387Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 17,
               "Title": "_SideBar.cshtml",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Admin\\Views\\Shared\\_SideBar.cshtml",
               "RelativeDocumentMoniker": "StackBook\\Areas\\Admin\\Views\\Shared\\_SideBar.cshtml",
@@ -255,12 +385,11 @@
               "RelativeToolTip": "StackBook\\Areas\\Admin\\Views\\Shared\\_SideBar.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-16T10:01:14.452Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T10:01:14.452Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 14,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\appsettings.json",
               "RelativeDocumentMoniker": "StackBook\\appsettings.json",
@@ -268,12 +397,11 @@
               "RelativeToolTip": "StackBook\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-16T10:22:29.94Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T10:22:29.94Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 16,
               "Title": "BookService.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Services\\BookService.cs",
               "RelativeDocumentMoniker": "StackBook\\Services\\BookService.cs",
@@ -281,12 +409,11 @@
               "RelativeToolTip": "StackBook\\Services\\BookService.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T10:40:02.775Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T10:40:02.775Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 19,
               "Title": "_Navbar.cshtml",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Views\\Shared\\_Navbar.cshtml",
               "RelativeDocumentMoniker": "StackBook\\Views\\Shared\\_Navbar.cshtml",
@@ -294,12 +421,11 @@
               "RelativeToolTip": "StackBook\\Views\\Shared\\_Navbar.cshtml",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAAoAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-14T00:49:12.749Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-14T00:49:12.749Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 18,
               "Title": "Default.cshtml",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Views\\Shared\\Components\\NavBar\\Default.cshtml",
               "RelativeDocumentMoniker": "StackBook\\Views\\Shared\\Components\\NavBar\\Default.cshtml",
@@ -307,12 +433,11 @@
               "RelativeToolTip": "StackBook\\Views\\Shared\\Components\\NavBar\\Default.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-16T10:12:54.365Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T10:12:54.365Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 20,
               "Title": "Default.cshtml",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Views\\Shared\\Components\\Books\\Default.cshtml",
               "RelativeDocumentMoniker": "StackBook\\Views\\Shared\\Components\\Books\\Default.cshtml",
@@ -320,12 +445,11 @@
               "RelativeToolTip": "StackBook\\Views\\Shared\\Components\\Books\\Default.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-16T10:07:35.512Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T10:07:35.512Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 21,
               "Title": "site.js",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\wwwroot\\js\\site.js",
               "RelativeDocumentMoniker": "StackBook\\wwwroot\\js\\site.js",
@@ -333,12 +457,11 @@
               "RelativeToolTip": "StackBook\\wwwroot\\js\\site.js",
               "ViewState": "AgIAABgAAAAAAAAAAAAAACgAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-05-16T10:09:04.599Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T10:09:04.599Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 22,
               "Title": "site.css",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "StackBook\\wwwroot\\css\\site.css",
@@ -346,12 +469,11 @@
               "RelativeToolTip": "StackBook\\wwwroot\\css\\site.css",
               "ViewState": "AgIAAPEAAAAAAAAAAAAwwP4AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-05-16T10:08:04.509Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T10:08:04.509Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 25,
               "Title": "CartController.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Controllers\\CartController.cs",
               "RelativeDocumentMoniker": "StackBook\\Areas\\Customer\\Controllers\\CartController.cs",
@@ -359,12 +481,11 @@
               "RelativeToolTip": "StackBook\\Areas\\Customer\\Controllers\\CartController.cs",
               "ViewState": "AgIAAF4AAAAAAAAAAAAAAHAAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T03:05:47.486Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T03:05:47.486Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 24,
               "Title": "ShippingAddressController.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Controllers\\ShippingAddressController.cs",
               "RelativeDocumentMoniker": "StackBook\\Areas\\Customer\\Controllers\\ShippingAddressController.cs",
@@ -372,12 +493,11 @@
               "RelativeToolTip": "StackBook\\Areas\\Customer\\Controllers\\ShippingAddressController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAGQAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T03:13:52.395Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T03:13:52.395Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 23,
               "Title": "Checkout.cshtml",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Views\\Cart\\Checkout.cshtml",
               "RelativeDocumentMoniker": "StackBook\\Areas\\Customer\\Views\\Cart\\Checkout.cshtml",
@@ -385,12 +505,11 @@
               "RelativeToolTip": "StackBook\\Areas\\Customer\\Views\\Cart\\Checkout.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-16T03:09:50.698Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T03:09:50.698Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 29,
               "Title": "_AddShippingAddressModal.cshtml",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Views\\Shared\\_AddShippingAddressModal.cshtml",
               "RelativeDocumentMoniker": "StackBook\\Areas\\Customer\\Views\\Shared\\_AddShippingAddressModal.cshtml",
@@ -398,12 +517,11 @@
               "RelativeToolTip": "StackBook\\Areas\\Customer\\Views\\Shared\\_AddShippingAddressModal.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-16T04:59:53.995Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T04:59:53.995Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 26,
               "Title": "ShippingAddressRepository.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\DAL\\Repository\\ShippingAddressRepository.cs",
               "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\ShippingAddressRepository.cs",
@@ -411,12 +529,11 @@
               "RelativeToolTip": "StackBook\\DAL\\Repository\\ShippingAddressRepository.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAAQAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T04:15:49.404Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T04:15:49.404Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 27,
               "Title": "IShippingAddressRepository.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\DAL\\IRepository\\IShippingAddressRepository.cs",
               "RelativeDocumentMoniker": "StackBook\\DAL\\IRepository\\IShippingAddressRepository.cs",
@@ -424,12 +541,11 @@
               "RelativeToolTip": "StackBook\\DAL\\IRepository\\IShippingAddressRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T04:15:24.938Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T04:15:24.938Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 28,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "StackBook\\Views\\Shared\\_Layout.cshtml",
@@ -437,12 +553,11 @@
               "RelativeToolTip": "StackBook\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-14T00:49:14.267Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-14T00:49:14.267Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 30,
               "Title": "UserRepository.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\DAL\\Repository\\UserRepository.cs",
               "RelativeDocumentMoniker": "StackBook\\DAL\\Repository\\UserRepository.cs",
@@ -454,7 +569,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 31,
               "Title": "SelectedBookVM.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\ViewModels\\SelectedBookVM.cs",
               "RelativeDocumentMoniker": "StackBook\\ViewModels\\SelectedBookVM.cs",
@@ -466,7 +581,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 32,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Views\\Cart\\Index.cshtml",
               "RelativeDocumentMoniker": "StackBook\\Areas\\Customer\\Views\\Cart\\Index.cshtml",
@@ -478,7 +593,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 33,
               "Title": "AccountController.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Areas\\Customer\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "StackBook\\Areas\\Customer\\Controllers\\AccountController.cs",
@@ -490,7 +605,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 34,
               "Title": "layout.css",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\wwwroot\\css\\layout.css",
               "RelativeDocumentMoniker": "StackBook\\wwwroot\\css\\layout.css",
@@ -502,7 +617,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 37,
               "Title": "ScaffoldingReadMe.txt",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\ScaffoldingReadMe.txt",
               "RelativeDocumentMoniker": "StackBook\\ScaffoldingReadMe.txt",
@@ -514,7 +629,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 39,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\appsettings.Development.json",
               "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\appsettings.Development.json",
@@ -524,7 +639,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 35,
               "Title": "login.css",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\wwwroot\\css\\login.css",
               "RelativeDocumentMoniker": "StackBook\\wwwroot\\css\\login.css",
@@ -536,7 +651,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 36,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\appsettings.json",
               "ToolTip": "C:\\Users\\DELL\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\PBL3\\StackBook\\appsettings.json",
@@ -545,7 +660,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 38,
               "Title": "DatabaseSettings.cs",
               "DocumentMoniker": "D:\\LocNgo\\University\\Semester 2 year 2\\PBL3\\Version\\Identify\\dev\\PBL3\\StackBook\\Configurations\\DatabaseSettings.cs",
               "RelativeDocumentMoniker": "StackBook\\Configurations\\DatabaseSettings.cs",

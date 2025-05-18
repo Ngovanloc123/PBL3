@@ -1,7 +1,7 @@
 ﻿using StackBook.Data;
 using StackBook.Interfaces;
 using StackBook.Models;
-
+using Microsoft.EntityFrameworkCore;
 namespace StackBook.Services
 {
     public class AuthorService : IAuthorService
@@ -15,9 +15,8 @@ namespace StackBook.Services
 
         public async Task<List<Author>> GetAuthorsByBookId(Guid bookId)
         {
-            return _context.Authors
-                .Where(a => a.Books.Any(b => b.BookId == bookId))
-                .ToList();
+            return await _context.Authors
+                .Where(a => a.Books.Any(b => b.BookId == bookId)).ToListAsync();
         }
     }
 }

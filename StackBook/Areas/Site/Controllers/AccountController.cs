@@ -44,7 +44,9 @@ namespace StackBook.Areas.Site.Controllers
                 var result = await _authService.SignInUser(signInVM);
                 if (result.Success == false)
                     return View("Error", new ErrorViewModel { ErrorMessage = "Login failed.", StatusCode = result.StatusCode });
-
+                // Giữ JWT token trong cookie để sử dụng cho API calls
+                if(result.AccessToken == null || result.RefreshToken == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed.", StatusCode = 400 });
                 Response.Cookies.Append("accessToken", result.AccessToken, new CookieOptions
                 {
                     HttpOnly = true,
@@ -52,7 +54,6 @@ namespace StackBook.Areas.Site.Controllers
                     SameSite = SameSiteMode.Strict,
                     Expires = DateTimeOffset.UtcNow.AddMinutes(10)
                 });
-
                 Response.Cookies.Append("refreshToken", result.RefreshToken, new CookieOptions
                 {
                     HttpOnly = true,
@@ -60,7 +61,11 @@ namespace StackBook.Areas.Site.Controllers
                     SameSite = SameSiteMode.Strict,
                     Expires = DateTimeOffset.UtcNow.AddDays(7)
                 });
-
+                // Ghi thêm userId (không bắt buộc)
+                if(result.Data == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed.", StatusCode = 400 });
+                if (result.Data.UserId == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Login failed.", StatusCode = 400 });
                 Response.Cookies.Append("userId", result.Data.UserId.ToString(), new CookieOptions
                 {
                     HttpOnly = false,

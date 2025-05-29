@@ -117,7 +117,23 @@
                                                     }
                                                     <div>
                                                         <h6 class="mb-1">@item.Book?.BookTitle</h6>
-                                                        <small class="text-muted">@item.Book?.Authors</small>
+                                                        <small class="text-muted">
+                                                            @{
+                                                                var authors = item.Book?.Authors?.ToList();
+                                                            }
+                                                            @if (authors != null && authors.Any())
+                                                            {
+                                                                <span>By: </span>
+                                                                @for (int i = 0; i < authors.Count; i++)
+                                                                {
+                                                                    <span class="author-name">@authors[i].AuthorName</span>
+                                                                    @if (i < authors.Count - 1)
+                                                                    {
+                                                                        <span class="text-muted">, </span>
+                                                                    }
+                                                                }
+                                                            }
+                                                        </small>
                                                     </div>
                                                 </div>
                                             </td>
@@ -125,7 +141,7 @@
                                                 <strong>$@item.Book?.Price.ToString("F2")</strong>
                                             </td>
                                             <td class="text-center align-middle">
-                                                <span class="badge bg-secondary">@item.Quantity</span>
+                                                <span class="">@item.Quantity</span>
                                             </td>
                                             <td class="text-end align-middle">
                                                 <strong>$@((item.Book?.Price * item.Quantity ?? 0).ToString("F2"))</strong>
@@ -202,3 +218,15 @@
         }
     </script>
 }
+
+<style>
+    .author-name {
+        font-weight: 500;
+        color: #6c757d;
+    }
+
+        .author-name:hover {
+            color: #495057;
+            text-decoration: underline;
+        }
+</style>

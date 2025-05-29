@@ -53,6 +53,11 @@ namespace StackBook.Areas.Customer.Controllers
                 // Lấy danh sách sách trong giỏ hàng
                 var cartDetails = await _cartService.GetCartDetailsAsync(userId);
 
+                // Xóa CheckoutRequest trên Session
+                if (HttpContext.Session.Keys.Contains("CheckoutRequest"))
+                {
+                    HttpContext.Session.Remove("CheckoutRequest");
+                }
 
                 return View(cartDetails);
             }

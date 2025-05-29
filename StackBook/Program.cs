@@ -36,6 +36,8 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IShippingAddressService, ShippingAddressService>();
 
@@ -44,7 +46,12 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+builder.Services.AddScoped<IOrderHistoryRepository, OrderHistoryRepository>();
+
 builder.Services.AddScoped<IShippingAddressRepository, ShippingAddressRepository>();
+builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 
 builder.Services.AddScoped<AccountController>();
 

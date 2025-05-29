@@ -1,4 +1,5 @@
-﻿namespace StackBook.DAL.IRepository
+﻿
+namespace StackBook.DAL.IRepository
 {
     public interface IUnitOfWork
     {
@@ -13,6 +14,8 @@
         IOrderHistoryRepository OrderHistory { get; }
         IDiscountRepository Discount { get; }
         IPaymentRepository Payment { get; }
+
+        Task<IDisposable> BeginTransactionAsync();
         Task SaveAsync();
     }
 }

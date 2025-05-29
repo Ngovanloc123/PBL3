@@ -1,4 +1,5 @@
 using StackBook.Models;
+using StackBook.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ namespace StackBook.Interfaces
 {
     public interface IOrderService
     {
-        Task<Order> CreateOrderAsync(Guid userId, Guid discountId, Guid shippingAddressId);
+        Task<Order> CreateOrderAsync(Guid userId, CheckoutRequest request);
         Task<Order> GetOrderByIdAsync(Guid orderId);
         Task<List<Order>> GetOrdersByUserIdAsync(Guid userId);
         Task<List<Order>> GetAllOrdersAsync();

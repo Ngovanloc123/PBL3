@@ -273,6 +273,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using StackBook.DAL.IRepository;
+using StackBook.ViewModels;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 namespace StackBook.Services
 {
@@ -286,6 +289,8 @@ namespace StackBook.Services
         private readonly IShippingAddressRepository _shippingAddressRepository;
         private readonly IOrderHistoryRepository _orderHistoryRepository;
         private readonly IBookService _bookService;
+        
+        private readonly IUnitOfWork _unitOfWork;
 
         public OrderService(
             IOrderRepository orderRepository,
@@ -295,7 +300,8 @@ namespace StackBook.Services
             IOrderDetailRepository orderDetailRepository,
             IShippingAddressRepository shippingAddressRepository,
             IOrderHistoryRepository orderHistoryRepository,
-            IBookService bookService)
+            IBookService bookService,
+            IUnitOfWork unitOfWork)
         {
             _orderRepository = orderRepository;
             _userRepository = userRepository;
@@ -305,108 +311,156 @@ namespace StackBook.Services
             _shippingAddressRepository = shippingAddressRepository;
             _orderHistoryRepository = orderHistoryRepository;
             _bookService = bookService;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<Order> CreateOrderAsync(Guid userId, Guid discountId, Guid shippingAddressId)
-        {
+        public async Task<Order> CreateOrderAsync(Guid userId, CheckoutRequest request)
+    {
             try
             {
-                // Validate user and shipping address
-                var user = await _userRepository.GetByIdAsync(userId) ?? 
-                    throw new AppException("Người dùng không tồn tại.");
-                
-                var shippingAddress = await _shippingAddressRepository.GetByIdAsync(shippingAddressId) ?? 
-                    throw new AppException("Địa chỉ giao hàng không tồn tại.");
-
-                // Get cart details
-                var cart = await _cartService.GetCartDetailsAsync(userId) ?? 
-                    throw new AppException("Giỏ hàng trống.");
-
-                // Calculate total price
-                double totalPrice = await _cartService.GetTotalPriceCartAsync(userId);
-
-                // Apply discount if provided
-                if (discountId != Guid.Empty)
+                // Validate selected books
+                if (request.SelectedBooks == null || !request.SelectedBooks.Any())
                 {
-                    var discount = await _discountRepository.GetByIdAsync(discountId) ?? 
-                        throw new AppException("Mã giảm giá không hợp lệ.");
-                    
-                    if (discount.StartDate > DateTime.Now || discount.EndDate < DateTime.Now)
-                        throw new AppException("Mã giảm giá đã hết hạn.");
-
-                    totalPrice = Math.Max(0, totalPrice - discount.Price);
+                    throw new ArgumentException("No books selected for checkout.");
                 }
 
-                // Create new order
-                var newOrder = new Order
+                // Validate shipping address
+                if (request.shippingAddressDefault?.ShippingAddressId == null)
                 {
-                    OrderId = Guid.NewGuid(),
+                    throw new ArgumentException("Shipping address is required.");
+                }
+
+                // Calculate total and validate books
+                double totalAmount = 0;
+                var orderDetails = new List<OrderDetail>();
+
+                foreach (var selectedBook in request.SelectedBooks)
+                {
+                    var book = await _unitOfWork.Book.GetAsync(b => b.BookId == selectedBook.Book.BookId);
+                    if (book == null)
+                    {
+                        throw new ArgumentException($"Book with ID {selectedBook.Book.BookId} not found.");
+                    }
+
+                    // Check stock availability
+                    if (book.Stock < selectedBook.Quantity)
+                    {
+                        throw new InvalidOperationException($"Insufficient stock for {book.BookTitle}. Available: {book.Stock}");
+                    }
+
+                    totalAmount += book.Price * selectedBook.Quantity;
+                    orderDetails.Add(new OrderDetail
+                    {
+                        OrderDetailId = Guid.NewGuid(),
+                        BookId = selectedBook.Book.BookId,
+                        Quantity = selectedBook.Quantity
+                    });
+                }
+
+
+
+                // Đưa qua service Discount
+
+                // Xét lại thêm vào view
+                var defaultDiscount = new Discount
+                {
+                    DiscountName = "Test Discount",
+                    Price = 1.99,
+                    DiscountCode = "102230197",
+                    Description = "Mã giảm giá test",
+                    CreatedDiscount = DateTime.Now,
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now,
+
+                };
+                await _unitOfWork.Discount.AddAsync(defaultDiscount);
+                await _unitOfWork.SaveAsync();
+
+                Discount? discount = null;
+                if (!string.IsNullOrEmpty(defaultDiscount.DiscountName))
+                {
+                    discount = await _unitOfWork.Discount.GetAsync(d => d.DiscountId == defaultDiscount.DiscountId);
+                    if (discount != null)
+                    {
+                        // Validate discount dates
+                        if (discount.StartDate > DateTime.Now || discount.EndDate < DateTime.Now)
+                        {
+                            // Vì discount test nên thời gian hơi lỏ
+                            //throw new InvalidOperationException("Discount code has expired.");
+                        }
+                        //totalAmount = Math.Max(0, totalAmount - discount.Price);
+                    }
+                }
+
+
+
+
+
+               // Create order
+                var order = new Order
+                {
                     UserId = userId,
-                    DiscountId = discountId != Guid.Empty ? discountId : Guid.Empty,
-                    ShippingAddressId = shippingAddressId,
-                    TotalPrice = totalPrice,
-                    Status = 1 // Pending
+                    DiscountId = defaultDiscount!.DiscountId,
+                    ShippingAddressId = request.shippingAddressDefault.ShippingAddressId,
+                    TotalPrice = totalAmount,
+                    Status = 1, // Pending
+                                //CreatedDate = DateTime.Now
                 };
 
-                // Process order creation in transaction
-                using (var transaction = await _orderRepository.BeginTransactionAsync())
+                await _unitOfWork.Order.AddAsync(order);
+                await _unitOfWork.SaveAsync();
+
+                // Add order details
+                foreach (var detail in orderDetails)
                 {
-                    try
-                    {
-                        // Create the order
-                        await _orderRepository.CreateOrderAsync(newOrder);
-
-                        // Process each cart item
-                        foreach (var cartItem in cart.CartDetails)
-                        {
-                            // Verify book availability
-                            var book = await _bookService.GetByIdAsync(cartItem.BookId) ?? 
-                                throw new AppException($"Sách với ID {cartItem.BookId} không tồn tại.");
-                            
-                            if (book.Stock < cartItem.Quantity)
-                                throw new AppException($"Số lượng sách '{book.BookTitle}' không đủ. Chỉ còn {book.Stock} cuốn.");
-
-                            // Create order detail
-                            await _orderDetailRepository.AddAsync(new OrderDetail
-                            {
-                                OrderDetailId = Guid.NewGuid(),
-                                OrderId = newOrder.OrderId,
-                                BookId = cartItem.BookId,
-                                Quantity = cartItem.Quantity
-                            });
-
-                            // Update book quantity
-                            book.Stock -= cartItem.Quantity;
-                            await _bookService.UpdateAsync(book);
-                        }
-
-                        // Clear the cart
-                        await _cartService.ClearCartAsync(userId);
-
-                        // Add order history
-                        await _orderHistoryRepository.AddOrderHistoryAsync(new OrderHistory
-                        {
-                            OrderHistoryId = Guid.NewGuid(),
-                            OrderId = newOrder.OrderId,
-                            Status = 1, // Pending
-                            createdStatus = DateTime.Now
-                        });
-
-                        // Commit transaction
-                        await transaction.CommitAsync();
-
-                        return newOrder;
-                    }
-                    catch
-                    {
-                        await transaction.RollbackAsync();
-                        throw;
-                    }
+                    detail.OrderId = order.OrderId;
+                    await _unitOfWork.OrderDetail.AddAsync(detail);
                 }
+
+                // Update book quantities
+                foreach (var selectedBook in request.SelectedBooks)
+                {
+                    await _bookService.UpdateBookQuantity(selectedBook.Book.BookId, selectedBook.Quantity, 1);
+                }
+
+                // Create order history 
+                var orderHistory = new OrderHistory
+                {
+                    OrderHistoryId = Guid.NewGuid(),
+                    OrderId = order.OrderId,
+                    Status = 1, // Pending
+                    createdStatus = DateTime.Now
+                };
+
+                await _unitOfWork.OrderHistory.AddAsync(orderHistory);
+
+                // Create payment record
+                var payment = new Payment
+                {
+                    PaymentId = Guid.NewGuid(),
+                    OrderId = order.OrderId,
+                    PaymentMethod = request.PaymentMethod,
+                    PaymentStatus = "0", // Pending
+                    CreatedPayment = DateTime.Now
+                };
+
+                // Xóa sách khỏi giỏ hàng
+                foreach (var selectedBook in request.SelectedBooks)
+                {
+                    await _cartService.RemoveFromCartAsync(userId, selectedBook.Book.BookId);
+                }
+                
+
+
+                await _unitOfWork.Payment.AddAsync(payment);
+                await _unitOfWork.SaveAsync();     
+                return order;
+
+
             }
             catch (Exception ex)
             {
-                throw new AppException($"Lỗi khi tạo đơn hàng: {ex.Message}");
+                throw new ApplicationException($"Error creating order: {ex.Message}", ex);
             }
         }
 
@@ -511,11 +565,11 @@ namespace StackBook.Services
             }
         }
 
-        // Other methods remain largely the same, just with improved null checks and error handling
         public async Task<Order> GetOrderByIdAsync(Guid orderId)
         {
-            var order = await _orderRepository.FindOrderByIdAsync(orderId) ?? 
-                throw new AppException("Đơn hàng không tồn tại.");
+            var order = await _unitOfWork.Order.GetAsync(o => o.OrderId == orderId, "OrderDetails.Book.Authors,User,ShippingAddress");
+            if (order == null) 
+                throw new AppException("Order does not exist."); 
             return order;
         }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.Identity.Client;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Identity.Client;
 using StackBook.DAL.IRepository;
 using StackBook.Data;
 
@@ -38,6 +39,20 @@ namespace StackBook.DAL.Repository
         public async Task SaveAsync()
         {
             await _db.SaveChangesAsync();
+        }
+
+        public async Task<IDisposable> BeginTransactionAsync()
+        {
+            // Example implementation for a database transaction (e.g., using SqlConnection)
+            var connection = new SqlConnection("YourConnectionString");
+            await connection.OpenAsync();
+            var transaction = await connection.BeginTransactionAsync();
+            return transaction;
+
+            // Alternatively, if you're using Entity Framework Core:
+            // var context = new YourDbContext();
+            // var transaction = await context.Database.BeginTransactionAsync();
+            // return transaction;
         }
     }
 }

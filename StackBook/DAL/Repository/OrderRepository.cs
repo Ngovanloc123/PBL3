@@ -7,6 +7,7 @@ using StackBook.DAL.IRepository;
 using StackBook.Data;
 using Microsoft.EntityFrameworkCore;
 using StackBook.VMs;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace StackBook.DAL.Repository
 {
@@ -117,6 +118,10 @@ namespace StackBook.DAL.Repository
                 _db.Orders.Remove(order);
                 await _db.SaveChangesAsync();
             }
+        }
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            return await _db.Database.BeginTransactionAsync();
         }
         public async Task SaveChangesAsync()
         {

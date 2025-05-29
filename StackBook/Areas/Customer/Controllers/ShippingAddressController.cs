@@ -34,7 +34,7 @@ namespace StackBook.Areas.Customer.Controllers
         {
             if (ModelState.IsValid)
             {
-                _shippingAddressService.Add(shippingAddress);
+                await _shippingAddressService.Add(shippingAddress);
                 await _unitOfWork.SaveAsync();
                 ViewData["success"] = "Add shipping address successful";
 
@@ -71,7 +71,11 @@ namespace StackBook.Areas.Customer.Controllers
                 TempData["Error"] = "Shipping address not found.";
                 return RedirectToAction("Checkout", "Cart");
             }
-
+            if(checkoutRequest == null)
+            {
+                TempData["Error"] = "Checkout request not found.";
+                return RedirectToAction("Index", "Cart");
+            }
             // Cập nhật địa chỉ mặc định
             checkoutRequest.shippingAddressDefault = selectedAddress;
 
@@ -99,13 +103,35 @@ namespace StackBook.Areas.Customer.Controllers
             var userId = Request.Cookies["userId"];
             // Lấy dữ liệu trên session
             var sessionData = HttpContext.Session.GetString("CheckoutRequest");
+            if (string.IsNullOrEmpty(sessionData))
+            {
+                TempData["Error"] = "No checkout data found.";
+                return RedirectToAction("Index", "Cart");
+            }
             // Chuyển sang CheckoutRequest
             var checkoutRequest = JsonConvert.DeserializeObject<CheckoutRequest>(sessionData);
             // Lấy lại user cùng với address để cập nhật lại address
-            checkoutRequest.User = await _unitOfWork.User.GetAsync(u => u.UserId == Guid.Parse(userId), "ShippingAddresses");
-
+            if(checkoutRequest == null)
+            {
+                TempData["Error"] = "Checkout request not found.";
+                return RedirectToAction("Index", "Cart");
+            }
+            if(string.IsNullOrEmpty(userId))
+            {
+                TempData["Error"] = "User not found.";
+                return RedirectToAction("Index", "Cart");
+            }
+            var user = await _unitOfWork.User.GetAsync(u => u.UserId == Guid.Parse(userId), "ShippingAddresses");
+            if (user == null)
+            {
+                TempData["Error"] = "User not found.";
+                return RedirectToAction("Index", "Cart");
+            }
+            else
+            {
+                checkoutRequest.User = user;
+            }
             TempData["success"] = "Shipping address deleted successfully.";
-
             return RedirectToAction("Checkout", "Cart", checkoutRequest);
 
 

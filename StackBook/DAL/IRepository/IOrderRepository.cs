@@ -3,6 +3,7 @@ using StackBook.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace StackBook.DAL.IRepository
 {
@@ -17,6 +18,7 @@ namespace StackBook.DAL.IRepository
         Task UpdateOrderStatusAsync(Guid orderId, int status);
         Task UpdateAddressAsync(Guid orderId, string address);
         Task DeleteOrderAsync(Guid orderId);
+        Task<IDbContextTransaction> BeginTransactionAsync();
         Task SaveChangesAsync();
     }
 }

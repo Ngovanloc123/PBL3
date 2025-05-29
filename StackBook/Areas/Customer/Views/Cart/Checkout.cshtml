@@ -79,16 +79,120 @@
                         </button>
                     }
                 </div>
-                <form method="post" asp-action="PlaceOrder">
-                    <input type="hidden" name="ShippingAddressId" value="@defaultAddress?.ShippingAddressId" />
-                    <div class="mb-3">
-                        <label for="paymentMethod" class="form-label">Payment Method</label>
-                        <select class="form-select" id="paymentMethod" name="PaymentMethod" required>
-                            <option value="CreditCard">Credit Card</option>
-                            <option value="CashOnDelivery">Cash on Delivery</option>
-                        </select>
+
+                <!-- Payment Method Selection -->
+                <div class="mb-4">
+                    <label class="form-label">Payment Method</label>
+                    <div class="payment-methods">
+                        <!-- Cash on Delivery Option -->
+                        <div class="form-check border rounded p-3 mb-3">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="cashOnDelivery" value="CashOnDelivery" checked>
+                            <label class="form-check-label w-100" for="cashOnDelivery">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-cash-coin fs-4 me-3 text-success"></i>
+                                    <div>
+                                        <strong>Cash on Delivery</strong>
+                                        <div class="text-muted small">Pay when you receive your order</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Credit Card / VNPay Option -->
+                        <div class="form-check border rounded p-3">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" value="CreditCard">
+                            <label class="form-check-label w-100" for="creditCard">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-credit-card fs-4 me-3 text-primary"></i>
+                                    <div>
+                                        <strong>Online Payment</strong>
+                                        <div class="text-muted small">Pay securely with VNPay</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- VNPay Section (Hidden by default) -->
+                        <div id="vnpaySection" class="mt-3" style="display: none;">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <img src="https://vnpay.vn/s1/statics.vnpay.vn/2023/9/06ncktiwd6dc1694418196384.png" alt="VNPay" class="mb-3" style="height: 40px;">
+                                    <p class="mb-3">Select your bank:</p>
+                                    <div class="row g-2">
+                                        <div class="col-4">
+                                            <button type="button" class="btn btn-outline-secondary w-100 bank-btn" data-bank="VIETCOMBANK">
+                                                <img src="https://api.vietqr.io/img/VIETCOMBANK.png" alt="Vietcombank" class="bank-logo">
+                                                <small class="d-block">Vietcombank</small>
+                                            </button>
+                                        </div>
+                                        <div class="col-4">
+                                            <button type="button" class="btn btn-outline-secondary w-100 bank-btn" data-bank="TECHCOMBANK">
+                                                <img src="https://api.vietqr.io/img/TECHCOMBANK.png" alt="Techcombank" class="bank-logo">
+                                                <small class="d-block">Techcombank</small>
+                                            </button>
+                                        </div>
+                                        <div class="col-4">
+                                            <button type="button" class="btn btn-outline-secondary w-100 bank-btn" data-bank="BIDV">
+                                                <img src="https://api.vietqr.io/img/BIDV.png" alt="BIDV" class="bank-logo">
+                                                <small class="d-block">BIDV</small>
+                                            </button>
+                                        </div>
+                                        <div class="col-4">
+                                            <button type="button" class="btn btn-outline-secondary w-100 bank-btn" data-bank="AGRIBANK">
+                                                <img src="https://api.vietqr.io/img/AGRIBANK.png" alt="Agribank" class="bank-logo">
+                                                <small class="d-block">Agribank</small>
+                                            </button>
+                                        </div>
+                                        <div class="col-4">
+                                            <button type="button" class="btn btn-outline-secondary w-100 bank-btn" data-bank="SACOMBANK">
+                                                <img src="https://api.vietqr.io/img/SACOMBANK.png" alt="Sacombank" class="bank-logo">
+                                                <small class="d-block">Sacombank</small>
+                                            </button>
+                                        </div>
+                                        <div class="col-4">
+                                            <button type="button" class="btn btn-outline-secondary w-100 bank-btn" data-bank="ACB">
+                                                <img src="https://api.vietqr.io/img/ACB.png" alt="ACB" class="bank-logo">
+                                                <small class="d-block">ACB</small>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <!-- Place Order Forms -->
+                <!-- Cash on Delivery Form -->
+                <form id="codForm" method="post" asp-action="PlaceOrder" asp-controller="Order">
+                    <input type="hidden" name="PaymentMethod" value="COD" />
+                    <!-- Hidden inputs for selected books -->
+                    @for (int i = 0; i < Model.SelectedBooks.Count; i++)
+                    {
+                        <input type="hidden" name="SelectedBooks[@i].Book.BookId" value="@Model.SelectedBooks[i].Book.BookId" />
+                        <input type="hidden" name="SelectedBooks[@i].Quantity" value="@Model.SelectedBooks[i].Quantity" />
+                    }
+                    <input type="hidden" name="User.UserId" value="@Model.User?.UserId" />
+                    <input type="hidden" name="shippingAddressDefault.ShippingAddressId" value="@defaultAddress?.ShippingAddressId" />
+                    <input type="hidden" name="PaymentMethod" value="CashOnDelivery" />
                     <button type="submit" class="btn btn-success btn-lg w-100">Place Order</button>
+                </form>
+
+                <!-- VNPay Payment Form -->
+                <form id="vnpayForm" method="post" asp-action="ProcessVNPayPayment" style="display: none;">
+                    <!-- Hidden inputs for selected books -->
+                    @for (int i = 0; i < Model.SelectedBooks.Count; i++)
+                    {
+                        <input type="hidden" name="SelectedBooks[@i].Book.BookId" value="@Model.SelectedBooks[i].Book.BookId" />
+                        <input type="hidden" name="SelectedBooks[@i].Quantity" value="@Model.SelectedBooks[i].Quantity" />
+                    }
+                    <input type="hidden" name="User.UserId" value="@Model.User?.UserId" />
+                    <input type="hidden" name="shippingAddressDefault.ShippingAddressId" value="@defaultAddress?.ShippingAddressId" />
+                    <input type="hidden" name="PaymentMethod" value="CreditCard" />
+                    <input type="hidden" name="BankCode" id="selectedBankCode" value="" />
+                    <button type="submit" class="btn btn-primary btn-lg w-100" disabled id="vnpaySubmitBtn">
+                        <i class="bi bi-credit-card me-2"></i>Pay with VNPay
+                    </button>
                 </form>
             </div>
         </div>
@@ -176,7 +280,6 @@
     </div>
 }
 
-
 <!-- New Address Modal -->
 <div class="modal fade" id="newAddressModal" tabindex="-1" aria-labelledby="newAddressModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -194,21 +297,82 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <style>
+        .bank-logo {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+
+        .bank-btn {
+            padding: 10px 5px;
+            text-align: center;
+        }
+
+            .bank-btn.selected {
+                border-color: #0d6efd;
+                background-color: #e7f3ff;
+            }
+
+        .payment-methods .form-check {
+            cursor: pointer;
+        }
+
+            .payment-methods .form-check:hover {
+                background-color: #f8f9fa;
+            }
+    </style>
     <script>
-        // Khi chọn địa chỉ mới, cập nhật hidden input trong form checkout
+        // Payment method selection
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const vnpaySection = document.getElementById('vnpaySection');
+                const codForm = document.getElementById('codForm');
+                const vnpayForm = document.getElementById('vnpayForm');
+
+                if (this.value === 'CreditCard') {
+                    vnpaySection.style.display = 'block';
+                    codForm.style.display = 'none';
+                    vnpayForm.style.display = 'block';
+                } else {
+                    vnpaySection.style.display = 'none';
+                    codForm.style.display = 'block';
+                    vnpayForm.style.display = 'none';
+                }
+            });
+        });
+
+        // Bank selection
+        document.querySelectorAll('.bank-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove selected class from all buttons
+                document.querySelectorAll('.bank-btn').forEach(b => b.classList.remove('selected'));
+
+                // Add selected class to clicked button
+                this.classList.add('selected');
+
+                // Set bank code
+                const bankCode = this.getAttribute('data-bank');
+                document.getElementById('selectedBankCode').value = bankCode;
+
+                // Enable submit button
+                document.getElementById('vnpaySubmitBtn').disabled = false;
+            });
+        });
+
+        // Address selection function
         function selectAddress() {
             var selected = document.querySelector('input[name="ShippingAddressId"]:checked');
             if (selected) {
-                // Gán giá trị vào hidden input của form PlaceOrder
-                var hiddenInput = document.querySelector('form[asp-action="PlaceOrder"] input[name="ShippingAddressId"]');
-                if (hiddenInput) {
-                    hiddenInput.value = selected.value;
-                }
-                // Đóng modal
+                // Update both forms' shipping address inputs
+                document.querySelector('#codForm input[name="shippingAddressDefault.ShippingAddressId"]').value = selected.value;
+                document.querySelector('#vnpayForm input[name="shippingAddressDefault.ShippingAddressId"]').value = selected.value;
+
+                // Close modal
                 var modal = bootstrap.Modal.getInstance(document.getElementById('addressModal'));
                 modal.hide();
             }
         }
     </script>
 }
-

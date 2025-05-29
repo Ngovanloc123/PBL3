@@ -1,7 +1,7 @@
 using StackBook.Models;
 namespace StackBook.DAL.IRepository
 {
-    public interface IPaymentRepository
+    public interface IPaymentRepository : IRepository<Payment>
     {
         Task<Payment> GetByIdAsync(Guid id);
         Task<List<Payment>> GetAllAsync();

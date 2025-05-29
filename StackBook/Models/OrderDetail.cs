@@ -1,21 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿    using System.ComponentModel.DataAnnotations;
 
-namespace StackBook.Models
-{
-    public class OrderDetail
+    namespace StackBook.Models
     {
-        [Key]
-        public Guid OrderDetailId { get; set; } = Guid.NewGuid();
+        public class OrderDetail
+        {
+            [Key]
+            public Guid OrderDetailId { get; set; } = Guid.NewGuid();
 
-        [Required]
-        public Guid OrderId { get; set; }
-        public virtual Order? Order { get; set; }
+            [Required]
+            public Guid OrderId { get; set; }
+            public virtual Order? Order { get; set; }
 
-        [Required]
-        public Guid BookId { get; set; } 
-        public virtual Book? Book { get; set; }
+            [Required]
+            public Guid BookId { get; set; } 
+            public virtual Book? Book { get; set; }
 
-        [Required]
-        public int Quantity { get; set; }
+            [Required]
+            public int Quantity { get; set; }
+        }
     }
-}

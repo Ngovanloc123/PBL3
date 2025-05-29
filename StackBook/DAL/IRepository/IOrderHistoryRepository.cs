@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StackBook.DAL.IRepository
 {
-    public interface IOrderHistoryRepository
+    public interface IOrderHistoryRepository : IRepository<OrderHistory>
     {
         Task AddOrderHistoryAsync(OrderHistory orderHistory);
         Task<List<OrderHistory>> GetOrderHistoryAsync(Guid orderId);

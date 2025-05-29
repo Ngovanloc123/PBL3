@@ -1,0 +1,204 @@
+﻿@model StackBook.Models.Order
+
+@{
+    ViewData["Title"] = "Order Confirmation";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <!-- Success Alert -->
+            <div class="alert alert-success text-center mb-4">
+                <i class="fas fa-check-circle fa-3x mb-3"></i>
+                <h3 class="mb-2">Order Placed Successfully!</h3>
+                <p class="mb-0">Thank you for your order. You will pay when receiving your order.</p>
+            </div>
+
+            <!-- Order Summary Card -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="fas fa-receipt me-2"></i>Order Details</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Order ID:</strong> <span class="text-muted">@Model.OrderId</span>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Status:</strong>
+                            <span class="badge bg-warning">
+                                @switch (Model.Status)
+                                {
+                                    case 1:
+                                        <text>Pending</text>
+                                        ; break;
+                                    case 2:
+                                        <text>Shipped</text>
+                                        ; break;
+                                    case 3:
+                                        <text>Canceled</text>
+                                        ; break;
+                                    case 4:
+                                        <text>Delivered</text>
+                                        ; break;
+                                    case 5:
+                                        <text>Return</text>
+                                        ; break;
+                                    default:
+                                        <text>Unknown</text>
+                                        ; break;
+                                }
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Customer:</strong> <span class="text-muted">@Model.User?.FullName</span>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Payment Method:</strong> <span class="text-muted">Cash on Delivery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shipping Address Card -->
+            @if (Model.ShippingAddress != null)
+            {
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-truck me-2"></i>Shipping Address</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p class="mb-1"><strong>Address:</strong> @Model.ShippingAddress.Address</p>
+                                <p class="mb-1"><strong>Ward:</strong> @Model.ShippingAddress.Ward</p>
+                                <p class="mb-1"><strong>City:</strong> @Model.ShippingAddress.City</p>
+                                <p class="mb-0"><strong>Country:</strong> @Model.ShippingAddress.Country</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="mb-0"><strong>Phone:</strong> @Model.ShippingAddress.Phone</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- Order Items Card -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Order Items</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.OrderDetails != null && Model.OrderDetails.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Book</th>
+                                        <th>Price</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-end">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.OrderDetails)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    @if (!string.IsNullOrEmpty(item.Book?.ImageURL))
+                                                    {
+                                                        <img src="@item.Book.ImageURL" alt="@item.Book.BookTitle"
+                                                             class="me-3 rounded" style="width: 60px; height: 80px; object-fit: cover;">
+                                                    }
+                                                    <div>
+                                                        <h6 class="mb-1">@item.Book?.BookTitle</h6>
+                                                        <small class="text-muted">@item.Book?.Authors</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <strong>$@item.Book?.Price.ToString("F2")</strong>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <span class="badge bg-secondary">@item.Quantity</span>
+                                            </td>
+                                            <td class="text-end align-middle">
+                                                <strong>$@((item.Book?.Price * item.Quantity ?? 0).ToString("F2"))</strong>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">No items found in this order.</p>
+                    }
+                </div>
+            </div>
+
+            <!-- Order Total Card -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            @if (Model.Discount != null)
+                            {
+                                <p class="mb-2">
+                                    <strong>Discount Applied:</strong>
+                                    <span class="text-success">@Model.Discount.DiscountName</span>
+                                </p>
+                            }
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <h4 class="text-primary mb-0">
+                                <strong>Total: $@Model.TotalPrice.ToString("F2")</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="text-center mb-4">
+                <a asp-area="Customer" asp-controller="Category" asp-action="Index" class="btn btn-primary btn-lg me-3">
+                    <i class="fas fa-home me-2"></i>Continue Shopping
+                </a>
+                <a asp-area="Customer" asp-controller="Category" asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                    <i class="fas fa-list me-2"></i>View My Orders
+                </a>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="alert alert-info">
+                <h6><i class="fas fa-info-circle me-2"></i>Important Information:</h6>
+                <ul class="mb-0">
+                    <li>You will receive a confirmation email shortly</li>
+                    <li>Your order will be processed within 24 hours</li>
+                    <li>Payment will be collected upon delivery</li>
+                    <li>Estimated delivery time: 5-7 business days</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-scroll to top when page loads
+        $(document).ready(function() {
+            $('html, body').animate({scrollTop: 0}, 'slow');
+        });
+
+        // Print order functionality (optional)
+        function printOrder() {
+            window.print();
+        }
+    </script>
+}

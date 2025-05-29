@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StackBook.DAL.IRepository
 {
-    public interface IDiscountRepository
+    public interface IDiscountRepository : IRepository<Discount>
     {
         Task<Discount> GetByIdAsync(Guid id);
         Task<List<Discount>> GetAllAsync();

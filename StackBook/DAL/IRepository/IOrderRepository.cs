@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StackBook.DAL.IRepository
 {
-    public interface IOrderRepository
+    public interface IOrderRepository : IRepository<Order>
     {
         Task CreateOrderAsync(Order order);
         Task<Order?> FindOrderByIdAsync(Guid orderId);

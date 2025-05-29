@@ -8,6 +8,11 @@
         IUserRepository User { get; }
         ICartRepository Cart { get; }
         IShippingAddressRepository ShippingAddress { get; }
+        IOrderDetailRepository OrderDetail { get; }
+        IOrderRepository Order { get; }
+        IOrderHistoryRepository OrderHistory { get; }
+        IDiscountRepository Discount { get; }
+        IPaymentRepository Payment { get; }
         Task SaveAsync();
     }
 }

@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace StackBook.DAL.Repository
 {
-    public class DiscountRepository: IDiscountRepository
+    public class DiscountRepository: Repository<Discount>, IDiscountRepository
     {
         private readonly ApplicationDbContext _context;
-        public DiscountRepository(ApplicationDbContext context)
+        public DiscountRepository(ApplicationDbContext context) : base(context) 
         {
             _context = context;
         }

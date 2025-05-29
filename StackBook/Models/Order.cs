@@ -15,7 +15,7 @@ namespace StackBook.Models
         public Guid UserId { get; set; }
         public virtual User? User { get; set; }
 
-        [Required]
+        //[Required]
         public Guid DiscountId { get; set; }
         public virtual Discount? Discount { get; set; }
 

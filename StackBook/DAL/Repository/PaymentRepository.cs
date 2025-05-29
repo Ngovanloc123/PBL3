@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace StackBook.DAL.Repository
 {
-    public class PaymentRepository : IPaymentRepository
+    public class PaymentRepository : Repository<Payment>, IPaymentRepository
     {
         private readonly ApplicationDbContext _context;
-        public PaymentRepository(ApplicationDbContext context)
+        public PaymentRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }

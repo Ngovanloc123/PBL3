@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace StackBook.DAL.Repository
 {
-    public class OrderHistoryRepository : IOrderHistoryRepository
+    public class OrderHistoryRepository : Repository<OrderHistory>, IOrderHistoryRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public OrderHistoryRepository(ApplicationDbContext db)
+        public OrderHistoryRepository(ApplicationDbContext db) : base(db) 
         {
             _db = db;
         }

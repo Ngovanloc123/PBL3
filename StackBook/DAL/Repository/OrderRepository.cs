@@ -10,11 +10,11 @@ using StackBook.VMs;
 
 namespace StackBook.DAL.Repository
 {
-    public class OrderRepository : IOrderRepository
+    public class OrderRepository : Repository<Order>, IOrderRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public OrderRepository(ApplicationDbContext db)
+        public OrderRepository(ApplicationDbContext db) : base(db) 
         {
             _db = db;
         }

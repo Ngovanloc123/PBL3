@@ -11,7 +11,7 @@ using System.Security.Claims;
 namespace StackBook.Areas.Customer.Controllers 
 {
     [Area("Customer")]
-    [Authorize]
+    //[Authorize]
     [Route("Customer/Account")] // Route cơ bản
     public class AccountController : Controller
     {
@@ -173,25 +173,65 @@ namespace StackBook.Areas.Customer.Controllers
             }
         }
         [HttpGet("Notifications")]
-            public IActionResult Notifications()
+        [Authorize(Roles = "User")]
+        public IActionResult Notifications()
         {
-            return View();
+            var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userIdValue == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
+            //Xem cookie access token có tồn tại hay không
+            Console.WriteLine($"AccessToken: {_httpContextAccessor.HttpContext?.Request.Cookies["accessToken"]}");
+            //Xem cookie refresh token có tồn tại hay không
+            Console.WriteLine($"RefreshToken: {_httpContextAccessor.HttpContext?.Request.Cookies["refreshToken"]}");
+            //Sem user qua cookie
+            var user = _userService.GetUserById(Guid.Parse(userIdValue));
+            if (user == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
+            if (user.Result.Data == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
+
+            return View(user.Result.Data);
         }
-        [HttpGet("Orders")]
-            public IActionResult Orders()
-        {
-            return View();
-        }
+        
         [HttpGet("WishList")]
-            public IActionResult WishList()
+        [Authorize(Roles = "User")]
+        public IActionResult WishList()
         {
-            return View();
+            var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userIdValue == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
+            //Xem cookie access token có tồn tại hay không
+            Console.WriteLine($"AccessToken: {_httpContextAccessor.HttpContext?.Request.Cookies["accessToken"]}");
+            //Xem cookie refresh token có tồn tại hay không
+            Console.WriteLine($"RefreshToken: {_httpContextAccessor.HttpContext?.Request.Cookies["refreshToken"]}");
+            //Sem user qua cookie
+            var user = _userService.GetUserById(Guid.Parse(userIdValue));
+            if (user == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
+            if (user.Result.Data == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
+
+            return View(user.Result.Data);
         }
         [HttpGet("Vouchers")]
         [Authorize(Roles = "User")]
         public IActionResult Vouchers()
         {
-            return View();
+            var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userIdValue == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
+            //Xem cookie access token có tồn tại hay không
+            Console.WriteLine($"AccessToken: {_httpContextAccessor.HttpContext?.Request.Cookies["accessToken"]}");
+            //Xem cookie refresh token có tồn tại hay không
+            Console.WriteLine($"RefreshToken: {_httpContextAccessor.HttpContext?.Request.Cookies["refreshToken"]}");
+            //Sem user qua cookie
+            var user = _userService.GetUserById(Guid.Parse(userIdValue));
+            if (user == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
+            if (user.Result.Data == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
+
+            return View(user.Result.Data);
         }
     }
 }

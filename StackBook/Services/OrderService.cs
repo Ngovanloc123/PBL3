@@ -581,17 +581,18 @@ namespace StackBook.Services
 
         public async Task<List<Order>> GetAllOrdersAsync()
         {
-            return await _orderRepository.GetAllOrdersAsync() ?? 
-                new List<Order>();
+            return (List<Order>)(await _unitOfWork.Order.GetAllAsync("OrderDetails.Book,ShippingAddress") ??
+                new List<Order>());
         }
 
         public async Task<List<Order>> GetOrdersByStatusAsync(int status)
         {
             if (status < 1 || status > 5) 
                 throw new AppException("Trạng thái không hợp lệ.");
-            
-            return await _orderRepository.GetOrdersByStatusAsync(status) ?? 
-                new List<Order>();
+
+            var orders = await _unitOfWork.Order.GetListAsync(o => o.Status == status, "OrderDetails.Book,ShippingAddress");
+
+            return orders.ToList() ?? new List<Order>(); ;
         }
 
         public async Task UpdateShippingAddressAsync(Guid orderId, Guid shippingAddressId)

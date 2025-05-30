@@ -9,6 +9,9 @@ namespace StackBook.DAL.IRepository
 
         Task<T?> GetAsync(Expression<Func<T, bool>> filter, string? includeProperties = null);
 
+        Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> filter, string? includeProperties = null);
+
+
         Task AddAsync(T entity);
 
         Task DeleteAsync(T entity);

@@ -1,10 +1,12 @@
+@model StackBook.Models.User;
+
 <div class="col-md-3">
     <div class="text-center mb-4">
-        <img src="https://lh3.googleusercontent.com/a/ACg8ocJat_Edzo8L89RCHII0p2OWNBTYA1vKoPHJ8UwSyh-kgU0-1gyB=s240-c-rg-br100"
+        <img src="@Model.AvatarUrl"
              style="width: 100px; height: 100px;"
              class="rounded-circle img-fluid mb-3"
              alt="Customer Avatar">
-        <h5>Code FE so chill but...</h5>
+        <h5>@Model.FullName.</h5>
     </div>
     <ul class="nav flex-column nav-pills">
         <!-- Notifications -->
@@ -33,8 +35,8 @@
         <li class="nav-item">
             <a class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Orders" ? "active" : "")"
                asp-area="Customer"
-               asp-controller="Account"
-               asp-action="Orders">
+               asp-controller="Order"
+               asp-action="Index">
                 <img src="https://down-vn.img.susercontent.com/file/f0049e9df4e536bc3e7f140d071e9078"
                      class="me-2" width="20" alt="Orders"> Orders
             </a>

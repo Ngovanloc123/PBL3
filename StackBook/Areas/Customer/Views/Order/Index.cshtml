@@ -1,0 +1,37 @@
+﻿@model List<StackBook.Models.Order>;
+
+@{
+    int statusCode = ViewBag.Status;
+    string statusText = statusCode switch
+    {
+        0 => "My Orders",
+        1 => "Pending Orders",
+        2 => "Delivering Orders",
+        3 => "Completed Orders",
+        4 => "Cancelled Orders",
+        5 => "Returned Orders"
+    };
+
+    ViewData["Title"] = statusText;
+}
+
+
+<div class="container py-4">
+    <div class="row">
+        <!-- Sidebar Section -->
+        @await Html.PartialAsync("_SideBar", (User)ViewBag.User)
+
+        <!-- Tab Content Section -->
+        <div class="col-md-9">
+            <!-- Orders Section -->
+            <div class="col-md-9">
+                <div class="col-12 mb-3">
+                    @await Html.PartialAsync("_OrderTab")
+                </div>
+                <div class="col-12">
+                    @await Html.PartialAsync("_OrderList", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

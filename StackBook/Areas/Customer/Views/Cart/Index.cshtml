@@ -39,8 +39,19 @@
                                 <td class="text-start">
                                     @if (book != null)
                                     {
-                                        <img src="@book.ImageURL" alt="@book.BookTitle" style="width: 60px; height: auto;" class="rounded me-2" />
-                                        <strong>@book.BookTitle</strong>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@book.BookId">
+                                                <img src="@book.ImageURL" class="img-thumbnail me-3" alt="Book" width="80">
+                                            </a>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">
+                                                    <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@book.BookId" class="text-decoration-none text-dark">
+                                                        @book.BookTitle
+                                                    </a>
+                                                </h6>
+                                                <small>by: @string.Join(", ", book.Authors.Select(a => a.AuthorName))</small>
+                                            </div>
+                                        </div>
                                     }
                                 </td>
                                 <td>

@@ -1,54 +1,65 @@
-@model List<StackBook.Models.Category>
+@model List<StackBook.Models.Order>
 
+<div class="container mt-4">
+    
 
+    <div class="tab-content" id="orderTabsContent">
+        <!-- All Orders Tab -->
+        <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+            @foreach (var order in Model)
+            {
+                <div class="card mb-3">
+                    <div class="card-header d-flex justify-content-between">
+                        <span>Order #@order.OrderId.ToString().Substring(0, 8)</span>
 
-
-<div class="container-fluid">
-    <h1 class="text-center my-4 py-2 border-bottom bg-body-tertiary"><span class="fw-light">Explore</span> Category</h1>
-
-    @await Component.InvokeAsync("SliderCategory")
-
-    @* ===============  CONTENT ============== *@
-    <div class="content">
-        @{
-            var index = 1;
-        }
-
-        @foreach (var category in Model)
-        {
-            @* =============== Literature & Fiction =============== *@
-            <section class="category-section mb-5">
-                <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
-                    <h2 class="">@category.CategoryName</h2>
-                    <a asp-area="Customer" asp-controller="Category" asp-action="Index" asp-route-CategoryId="@category.CategoryId" class="text-decoration-none">See more</a>
-                </div>
-                <div class="container-books category@( "" + index )">
-                    <div class="book-list">
-
-                        @foreach (var book in category.Books)
+                        @if (order.Status == 1) // Pending
                         {
-                            <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@book.BookId" class="book-card text-decoration-none text-black">
-                                <img src="@book.ImageURL" alt="@book.BookTitle">
-                                <div class="book-title">@book.BookTitle</div>
-                                <div class="book-rating">⭐ 4.4 (619)</div>
-                                <div class="fs-8">
-                                    @foreach (var author in book.Authors)
-                                    {
-                                        <div>@author.AuthorName</div>
-                                    }
-                                </div>
-                                <div class="book-price">$@book.Price</div>
-
-                            </a>
+                            <form asp-action="Cancel" asp-route-id="@order.OrderId" method="post">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">Cancel</button>
+                            </form>
                         }
                     </div>
-                    <button id="prev-card" class="fa-solid fa-arrow-left card-button"></button>
-                    <button id="next-card" class="fa-solid fa-arrow-right card-button"></button>
+                    <div class="card-body">
+                        @foreach (var item in order.OrderDetails)
+                        {
+                            <div class="d-flex align-items-center mb-3">
+                                <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@item.Book.BookId">
+                                    <img src="@item.Book.ImageURL" class="img-thumbnail me-3" alt="Book" width="80">
+                                </a>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">
+                                        <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@item.Book.BookId" class="text-decoration-none text-dark">
+                                            @item.Book.BookTitle
+                                        </a>
+                                    </h6>
+                                    <p class="mb-0">$@item.Book.Price.ToString("0.00") x @item.Quantity</p>
+                                </div>
+                            </div>
+                        }
+                        <div class="d-flex justify-content-end mt-2">
+                            <strong>Total: $@order.TotalPrice.ToString("0.00")</strong>
+                        </div>
+                    </div>
                 </div>
-            </section>
-            index++;
-        }
+            }
 
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info">You don't have any orders yet.</div>
+            }
+        </div>
 
+        
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        // Activate tab based on URL hash
+        $(document).ready(function(){
+            if(window.location.hash) {
+                $('.nav-tabs button[data-bs-target="' + window.location.hash + '"]').tab('show');
+            }
+        });
+    </script>
+}

@@ -65,5 +65,26 @@ namespace StackBook.DAL.Repository
             _dbSet.Update(entity);
             return Task.FromResult(entity);
         }
+
+        public async Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> filter, string? includeProperties = null)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (!string.IsNullOrWhiteSpace(includeProperties))
+            {
+                foreach (var includeProperty in includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty.Trim());
+                }
+            }
+
+            return await query.ToListAsync();
+        }
+
     }
 }

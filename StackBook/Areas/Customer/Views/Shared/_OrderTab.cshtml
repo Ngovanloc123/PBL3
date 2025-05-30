@@ -1,20 +1,25 @@
-<ul class="nav nav-tabs" id="orderTabs" role="tablist">
+
+
+
+<h3>My Orders</h3>
+
+<ul class="nav nav-tabs mb-4" id="orderTabs" role="tablist">
     <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="all-tab" data-bs-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">All</a>
+        <a class="nav-link @(ViewBag.Status == 0 ? "active" : "")" href="/Customer/Order/Index">All</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="pending-tab" data-bs-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="false">Pending</a>
+        <a class="nav-link @(ViewBag.Status == 1 ? "active" : "")" href="/Customer/Order/Index?status=1">Pending</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="delivering-tab" data-bs-toggle="tab" href="#delivering" role="tab" aria-controls="delivering" aria-selected="false">Delivering <span class="badge bg-secondary">1</span></a>
+        <a class="nav-link @(ViewBag.Status == 2 ? "active" : "")" href="/Customer/Order/Index?status=2">Delivering</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="completed-tab" data-bs-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false">Completed</a>
+        <a class="nav-link @(ViewBag.Status == 3 ? "active" : "")" href="/Customer/Order/Index?status=3">Completed</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="cancelled-tab" data-bs-toggle="tab" href="#cancelled" role="tab" aria-controls="cancelled" aria-selected="false">Cancelled</a>
+        <a class="nav-link @(ViewBag.Status == 4 ? "active" : "")" href="/Customer/Order/Index?status=4">Cancelled</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="returns-tab" data-bs-toggle="tab" href="#returns" role="tab" aria-controls="returns" aria-selected="false">Return</a>
+        <a class="nav-link @(ViewBag.Status == 5 ? "active" : "")" href="/Customer/Order/Index?status=5">Returns</a>
     </li>
 </ul>

@@ -1,22 +1,99 @@
 @{
-    ViewData["Title"] = "Admin Dashboard";
+    ViewData["Title"] = "Dashboard";
 }
 
-<h2>📚 Admin Dashboard - Quản Lý Sách</h2>
 
-<div style="padding: 20px;">
-    <div style="margin-bottom: 20px;">
-        <h4>Tổng số sách: <strong>123</strong></h4> <!-- Thay bằng dữ liệu động nếu có -->
+<body class="">
+    <div class="wrapper ">  
+        
+        <div class="main-panel my-10" style="width: calc(100% - 40px); margin-top: 30px;" id="main-panel">
+            
+            <div class="panel-header panel-header-lg">
+                <h4 class="text-light">Monthly Revenue</h4>
+                <canvas id="bigDashboardChart"></canvas>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card card-chart">
+                            <div class="card-header">
+                                <h5 class="card-category">Daily Orders in Past 7 Days</h5>
+                                <h4 class="card-title">Order Activity</h4>
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
+                                        <i class="now-ui-icons loader_gear"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <a class="dropdown-item text-danger" href="#">Remove Data</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    <canvas id="lineChartExample"></canvas>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card card-chart">
+                            <div class="card-header">
+                                <h5 class="card-category">2018 Sales</h5>
+                                <h4 class="card-title">All products</h4>
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
+                                        <i class="now-ui-icons loader_gear"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <a class="dropdown-item text-danger" href="#">Remove Data</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    <canvas id="lineChartExampleWithNumbersAndGrid"></canvas>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card card-chart">
+                            <div class="card-header">
+                                <h5 class="card-category">Email Statistics</h5>
+                                <h4 class="card-title">24 Hours Performance</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    <canvas id="barChartSimpleGradientsNumbers"></canvas>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="now-ui-icons ui-2_time-alarm"></i> Last 7 days
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+          
+        </div>
     </div>
-
-    <div style="margin-bottom: 20px;">
-        <h4>Tổng số người dùng: <strong>45</strong></h4> <!-- Thay bằng dữ liệu động nếu có -->
-    </div>
-
-    <div style="margin-bottom: 20px;">
-        <h4>Sách được mượn hôm nay: <strong>5</strong></h4> <!-- Thay bằng dữ liệu động nếu có -->
-    </div>
-
-    <a class="btn btn-primary" href="/Admin/Books">📖 Quản lý sách</a>
-    <a class="btn btn-secondary" href="/Admin/Users" style="margin-left: 10px;">👤 Quản lý người dùng</a>
-</div>
+</body>

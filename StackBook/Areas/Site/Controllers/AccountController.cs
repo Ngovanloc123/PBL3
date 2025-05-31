@@ -108,7 +108,7 @@ namespace StackBook.Areas.Site.Controllers
                 if (roleClaim.Value == "Admin")
                 {
                     TempData["success"] = "Sign in successful.";
-                    return RedirectToAction("Index", "Statistic", new { area = "Admin" });
+                    return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
                 }
                 else if (roleClaim.Value == "User")
                 {
@@ -361,7 +361,7 @@ namespace StackBook.Areas.Site.Controllers
                 if (roleClaim.Value == "Admin")
                 {
                     TempData["success"] = "Sign in successful.";
-                    return RedirectToAction("Index", "Statistic", new { area = "Admin" });
+                    return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
                 }
                 else if (roleClaim.Value == "User")
                 {

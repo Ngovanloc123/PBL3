@@ -33,7 +33,7 @@ namespace StackBook.Areas.Site.Controllers
             {
                 if (User.IsInRole("Admin"))
                 {
-                    return RedirectToAction("Index", "Statistic", new { area = "Admin" });
+                    return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
                 }
             }
 

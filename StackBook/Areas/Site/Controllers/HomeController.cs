@@ -27,7 +27,7 @@ namespace StackBook.Areas.Site.Controllers
             _cartService = cartService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
             if (User.Identity!.IsAuthenticated)
             {
@@ -36,13 +36,6 @@ namespace StackBook.Areas.Site.Controllers
                     return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
                 }
             }
-
-            var homeVM = new HomeVM
-            {
-
-                Categories = await _UnitOfWork.Category.GetAllAsync(),
-                Books = await _UnitOfWork.Book.GetAllAsync("Authors")
-            };
 
 
             try
@@ -58,14 +51,26 @@ namespace StackBook.Areas.Site.Controllers
                     var currentUserId = Guid.Parse(currentUserIdClaims);
                     ViewBag.CartCount = await _cartService.GetCartCount(currentUserId);
                 }
+
+                var homeVM = new HomeVM
+                {
+
+                    Categories = await _UnitOfWork.Category.GetAllAsync(),
+                    Books = await _UnitOfWork.Book.GetAllAsync("Authors"),
+                    Page = page ?? 1
+
+                };
+
+                return View(homeVM);
             }
             catch (Exception ex)
             {
                 TempData["error"] = ex.Message;
                 ViewBag.CartCount = 0;
+                return View("Error");
             }
 
-            return View(homeVM);
+            
         }
             
 

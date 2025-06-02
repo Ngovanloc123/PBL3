@@ -6,5 +6,6 @@ namespace StackBook.ViewModels
     {
         public IEnumerable<Book> Books { get; set; }
         public IEnumerable<Category> Categories { get; set; }
+        public int? Page { get; set; }
     }
 }

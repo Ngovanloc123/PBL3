@@ -1,4 +1,6 @@
-﻿@model List<StackBook.Models.Book>
+﻿@model X.PagedList.IPagedList<StackBook.Models.Book>
+@using X.PagedList.Mvc.Core
+
 
 <div class="row g-5">
     @if (Model != null && Model.Any())
@@ -34,4 +36,18 @@
             </div>
         }
     }
+    <!-- Pagination -->
+    <div class="d-flex justify-content-end mt-4">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+                 new PagedListRenderOptions
+        {
+            Display = PagedListDisplayMode.IfNeeded,
+            UlElementClasses = new[] { "pagination" },
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" },
+            ActiveLiElementClass = "active",
+            PageCountAndCurrentLocationFormat = "Page {0} of {1}",
+            MaximumPageNumbersToDisplay = 5
+        })
+    </div>
 </div>

@@ -1,0 +1,143 @@
+﻿body {
+    background-color: #f8f9fa;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.header-section {
+    background: white;
+    padding: 20px 0;
+    border-bottom: 1px solid #e9ecef;
+    margin-bottom: 20px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #212529;
+    margin: 0;
+}
+
+.btn-create {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+    font-weight: 500;
+    padding: 8px 16px;
+}
+
+    .btn-create:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+
+.search-filters {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.form-select, .form-control {
+    border: 1px solid #ced4da;
+    font-size: 14px;
+}
+
+
+
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.status-pending {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.status-shipped {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+}
+
+.status-cancelled {
+    background-color: #df504f;
+    color: #fff;
+}
+
+.status-delivered {
+    background-color: #ffebee;
+    color: #3cc057;
+}
+
+.status-return {
+    background-color: #ffebee;
+    color: #f57c00;
+}
+
+.shipping-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.shipping-standard {
+    background-color: #6c757d;
+}
+
+.shipping-priority {
+    background-color: #17a2b8;
+}
+
+.shipping-express {
+    background-color: #dc3545;
+}
+
+.edit-btn {
+    color: #6c757d;
+    font-size: 16px;
+    border: none;
+    background: none;
+}
+
+    .edit-btn:hover {
+        color: #495057;
+    }
+
+.pagination-container {
+    background: white;
+    padding: 15px 20px;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pagination-info {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.pagination .page-link {
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+    padding: 6px 12px;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+}

@@ -1,0 +1,432 @@
+﻿@model StackBook.Models.Order
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="text-primary mb-0">
+                    <i class="fas fa-receipt me-2"></i>Order Details
+                </h2>
+                <div>
+                    <a asp-action="Index" class="btn btn-primary btn-sm">
+                        <i class="fas fa-arrow-left me-1"></i>Back to Orders
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- Action Buttons -->
+            <div class="text-center mb-4">
+                <a asp-action="Index" class="btn btn-primary  me-3">
+                    <i class="fas fa-list me-2"></i>All Orders
+                </a>
+                @if (Model.Status == 1) // Pending
+                {
+                    <button class="btn btn-warning  me-3" data-bs-toggle="modal" data-bs-target="#cancelModal">
+                        <i class="fas fa-times me-2"></i>Cancel Order
+                    </button>
+                }
+            </div>
+
+            <!-- Order Summary Card -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="fas fa-info-circle me-2"></i>Order Information</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Order ID:</strong> <span class="text-muted">@Model.OrderId</span>
+                        </div>
+                        @* <div class="col-md-6"> *@
+                        @*     <strong>Order Date:</strong> <span class="text-muted">@Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</span> *@
+                        @* </div> *@
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Customer:</strong> <span class="text-muted">@Model.User?.FullName</span>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Status:</strong>
+                            <span class="badge
+                                  @switch (Model.Status)
+                                  {
+                                  case 1:
+                                        <text>bg-warning</text>
+                                        ; break;
+                                    case 2:
+                                        <text>bg-info</text>
+                                        ; break;
+                                    case 3:
+                                        <text>bg-danger</text>
+                                        ; break;
+                                    case 4:
+                                        <text>bg-success</text>
+                                        ; break;
+                                    case 5:
+                                        <text>bg-secondary</text>
+                                        ; break;
+                                    default:
+                                        <text>bg-secondary</text>
+                                        ; break;
+                                }">
+                                @switch (Model.Status)
+                                {
+                                    case 1:
+                                        <text>Pending</text>
+                                        ; break;
+                                    case 2:
+                                        <text>Shipped</text>
+                                        ; break;
+                                    case 3:
+                                        <text>Canceled</text>
+                                        ; break;
+                                    case 4:
+                                        <text>Delivered</text>
+                                        ; break;
+                                    case 5:
+                                        <text>Return</text>
+                                        ; break;
+                                    default:
+                                        <text>Unknown</text>
+                                        ; break;
+                                }
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Payment Method:</strong> <span class="text-muted">Cash on Delivery</span>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Email:</strong> <span class="text-muted">@Model.User?.Email</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shipping Address Card -->
+            @if (Model.ShippingAddress != null)
+            {
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-truck me-2"></i>Shipping Address</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p class="mb-1"><strong>Address:</strong> @Model.ShippingAddress.Address</p>
+                                <p class="mb-1"><strong>Ward:</strong> @Model.ShippingAddress.Ward</p>
+                                <p class="mb-1"><strong>City:</strong> @Model.ShippingAddress.City</p>
+                                <p class="mb-0"><strong>Country:</strong> @Model.ShippingAddress.Country</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="mb-0"><strong>Phone:</strong> @Model.ShippingAddress.Phone</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- Order Items Card -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Order Items</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.OrderDetails != null && Model.OrderDetails.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Book</th>
+                                        <th>Price</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-end">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.OrderDetails)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    @if (!string.IsNullOrEmpty(item.Book?.ImageURL))
+                                                    {
+                                                        <img src="@item.Book.ImageURL" alt="@item.Book.BookTitle"
+                                                             class="me-3 rounded" style="width: 60px; height: 80px; object-fit: cover;">
+                                                    }
+                                                    <div>
+                                                        <h6 class="mb-1">
+                                                            <a asp-controller="Book" asp-action="Details" asp-route-id="@item.Book?.BookId"
+                                                               class="text-decoration-none text-primary book-title">
+                                                                @item.Book?.BookTitle
+                                                            </a>
+                                                        </h6>
+                                                        <small class="text-muted">
+                                                            @{
+                                                                var authors = item.Book?.Authors?.ToList();
+                                                            }
+                                                            @if (authors != null && authors.Any())
+                                                            {
+                                                                <span>By: </span>
+                                                                @for (int i = 0; i < authors.Count; i++)
+                                                                {
+                                                                    <span class="author-name">@authors[i].AuthorName</span>
+                                                                    @if (i < authors.Count - 1)
+                                                                    {
+                                                                        <span class="text-muted">, </span>
+                                                                    }
+                                                                }
+                                                            }
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <strong>$@item.Book?.Price.ToString("F2")</strong>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <span class="badge bg-light text-dark">@item.Quantity</span>
+                                            </td>
+                                            <td class="text-end align-middle">
+                                                <strong>$@((item.Book?.Price * item.Quantity ?? 0).ToString("F2"))</strong>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">No items found in this order.</p>
+                    }
+                </div>
+            </div>
+
+            <!-- Order Total Card -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            @if (Model.Discount != null)
+                            {
+                                <p class="mb-2">
+                                    <strong>Discount Applied:</strong>
+                                    <span class="text-success">
+                                        <i class="fas fa-tag me-1"></i>@Model.Discount.DiscountName
+                                    </span>
+                                </p>
+                            }
+                            <p class="mb-0 text-muted">
+                                <small><i class="fas fa-info-circle me-1"></i>All prices include applicable taxes</small>
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <h4 class="text-primary mb-0">
+                                <strong>Total: $@Model.TotalPrice.ToString("F2")</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Status Timeline (Optional) -->
+            @* @if (Model.Status >= 1) *@
+            @* { *@
+            @*     <div class="card shadow-sm mb-4"> *@
+            @*         <div class="card-header bg-secondary text-white"> *@
+            @*             <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Order Timeline</h5> *@
+            @*         </div> *@
+            @*         <div class="card-body"> *@
+            @*             <div class="timeline"> *@
+            @*                 <div class="timeline-item @(Model.Status >= 1 ? "completed" : "")"> *@
+            @*                     <div class="timeline-marker"></div> *@
+            @*                     @* <div class="timeline-content"> *@ 
+            @*                     @*     <h6>Order Placed</h6> *@ 
+            @*                     @*     <small class="text-muted">@Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</small> *@ 
+            @*                     @* </div> *@ 
+            @*                 </div> *@
+            @*                 <div class="timeline-item @(Model.Status >= 2 ? "completed" : "")"> *@
+            @*                     <div class="timeline-marker"></div> *@
+            @*                     <div class="timeline-content"> *@
+            @*                         <h6>Order Shipped</h6> *@
+            @*                         <small class="text-muted">@(Model.Status >= 2 ? "In transit" : "Pending")</small> *@
+            @*                     </div> *@
+            @*                 </div> *@
+            @*                 <div class="timeline-item @(Model.Status >= 4 ? "completed" : "")"> *@
+            @*                     <div class="timeline-marker"></div> *@
+            @*                     <div class="timeline-content"> *@
+            @*                         <h6>Order Delivered</h6> *@
+            @*                         <small class="text-muted">@(Model.Status >= 4 ? "Completed" : "Pending")</small> *@
+            @*                     </div> *@
+            @*                 </div> *@
+            @*             </div> *@
+            @*         </div> *@
+            @*     </div> *@
+            @* } *@
+
+            
+
+            <!-- Additional Info based on status -->
+            @if (Model.Status == 1) // Pending
+            {
+                <div class="alert alert-warning">
+                    <h6><i class="fas fa-clock me-2"></i>Order Processing:</h6>
+                    <ul class="mb-0">
+                        <li>Your order is being processed</li>
+                        <li>Processing time: 1-2 business days</li>
+                        <li>You will receive updates via email</li>
+                        <li>Payment will be collected upon delivery</li>
+                    </ul>
+                </div>
+            }
+            else if (Model.Status == 2) // Shipped
+            {
+                <div class="alert alert-info">
+                    <h6><i class="fas fa-truck me-2"></i>Order Shipped:</h6>
+                    <ul class="mb-0">
+                        <li>Your order is on its way</li>
+                        <li>Estimated delivery: 3-5 business days</li>
+                        <li>You will receive a delivery notification</li>
+                        <li>Payment will be collected upon delivery</li>
+                    </ul>
+                </div>
+            }
+            else if (Model.Status == 4) // Delivered
+            {
+                <div class="alert alert-success">
+                    <h6><i class="fas fa-check-circle me-2"></i>Order Delivered:</h6>
+                    <ul class="mb-0">
+                        <li>Your order has been successfully delivered</li>
+                        <li>Thank you for shopping with us</li>
+                        <li>Please rate your experience</li>
+                        <li>Need help? Contact our support team</li>
+                    </ul>
+                </div>
+            }
+            else if (Model.Status == 3) // Canceled
+            {
+                <div class="alert alert-danger">
+                    <h6><i class="fas fa-exclamation-triangle me-2"></i>Order Canceled:</h6>
+                    <ul class="mb-0">
+                        <li>This order has been canceled</li>
+                        <li>No payment was processed</li>
+                        <li>If you have questions, please contact support</li>
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Cancel Order Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-warning" id="cancelModalLabel">Cancel Order</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to cancel order <strong>#@Model.OrderId</strong>?</p>
+                <p class="text-muted">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <form method="post" asp-action="Cancel">
+                    <input type="hidden" name="orderId" value="@Model.OrderId" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keep Order</button>
+                    <button type="submit" class="btn btn-warning">Cancel Order</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Print order functionality
+        function printOrder() {
+            window.print();
+        }
+
+        // Auto-scroll to top when page loads
+        $(document).ready(function() {
+            $('html, body').animate({scrollTop: 0}, 'slow');
+        });
+    </script>
+}
+
+<style>
+    .author-name {
+        font-weight: 500;
+        color: #6c757d;
+    }
+
+        .author-name:hover {
+            color: #495057;
+            text-decoration: underline;
+        }
+
+    .book-title:hover {
+        text-decoration: underline !important;
+    }
+
+    /* Timeline Styles */
+    .timeline {
+        position: relative;
+        padding-left: 30px;
+    }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #dee2e6;
+        }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .timeline-marker {
+        position: absolute;
+        left: -22px;
+        top: 5px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #dee2e6;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 2px #dee2e6;
+    }
+
+    .timeline-item.completed .timeline-marker {
+        background: #28a745;
+        box-shadow: 0 0 0 2px #28a745;
+    }
+
+    .timeline-content h6 {
+        margin-bottom: 5px;
+        color: #495057;
+    }
+
+    .timeline-item.completed .timeline-content h6 {
+        color: #28a745;
+        font-weight: 600;
+    }
+    
+</style>

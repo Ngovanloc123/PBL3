@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using StackBook.Interfaces;
 using StackBook.ViewModels;
 
-namespace YourProject.Areas.Admin.Controllers
+namespace StackBook.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class DashboardController : Controller

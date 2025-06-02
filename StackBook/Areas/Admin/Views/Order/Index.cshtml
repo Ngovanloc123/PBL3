@@ -1,1 +1,123 @@
-﻿<h1>orders</h1>
+﻿@model X.PagedList.IPagedList<StackBook.Models.Order>
+@using X.PagedList.Mvc.Core
+
+
+
+@{
+    var status = ViewBag.Status?.ToString();
+}
+
+<body>
+    <link rel="stylesheet" href="~/css/order.css" asp-append-version="true" />
+</body>
+
+<div class="header-section">
+    <h1 class="text-primary text-center">Orders</h1>
+</div>
+
+<div class="container-fluid">
+    <div class="search-filters">
+        <div class="row g-3">
+           
+            <form method="get" asp-controller="Order" asp-action="Index">
+                <div class="row">
+                    <div class="col-md-3">
+                        <select name="status" class="form-select" onchange="this.form.submit()">
+                            <option value="0" selected="@(status == "0")">All</option>
+                            <option value="1" selected="@(status == "1")">Pending</option>
+                            <option value="2" selected="@(status == "2")">Shipped</option>
+                            <option value="3" selected="@(status == "3")">Cancelled</option>
+                            <option value="4" selected="@(status == "4")">Delivered</option>
+                            <option value="5" selected="@(status == "5")">Return</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Status</th>
+                    <th>Number of books</th>
+                    <th>Customer Name</th>
+                    <th>Payment Method</th>
+                    <th>Detail</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>@order.OrderId.ToString().Substring(0, 8)</td>
+                            <td>
+                                @{
+                                    string statusClass = "";
+                                    switch (order.Status)
+                                    {
+                                        case 1:
+                                            statusClass = "status-pending";
+                                            <span class="status-badge @statusClass">Pending</span>
+                                            break;
+                                        case 2:
+                                            statusClass = "status-shipped";
+                                            <span class="status-badge @statusClass">Shipped</span>
+                                            break;
+                                        case 3:
+                                            statusClass = "status-cancelled";
+                                            <span class="status-badge @statusClass">Cancelled</span>
+                                            break;
+                                        case 4:
+                                            statusClass = "status-delivered";
+                                            <span class="status-badge @statusClass">Delivered</span>
+                                            break;
+                                        default:
+                                            statusClass = "status-return";
+                                            <span class="status-badge @statusClass">Return</span>
+                                            break;
+                                    }
+                                }
+                                
+                            </td>
+                            <td>@order.OrderDetails.Count</td>
+                            <td>@order.User.FullName</td>
+                            <td>
+                                COD
+                            </td>
+                            <td>
+                                <a asp-controller="Order" asp-action="Detail" asp-route-id="@order.OrderId" class="edit-btn"><i class="fa fa-magnifying-glass"></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">No orders found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <!-- Pagination -->
+        <div class="d-flex justify-content-end mt-4">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+                     new PagedListRenderOptions
+            {
+                Display = PagedListDisplayMode.IfNeeded,
+                UlElementClasses = new[] { "pagination" },
+                LiElementClasses = new[] { "page-item" },
+                PageClasses = new[] { "page-link" },
+                ActiveLiElementClass = "active",
+                PageCountAndCurrentLocationFormat = "Page {0} of {1}",
+                MaximumPageNumbersToDisplay = 5
+            })
+        </div>
+
+    </div>
+</div>

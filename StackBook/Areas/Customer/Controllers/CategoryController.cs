@@ -42,6 +42,8 @@ namespace StackBook.Areas.Customer.Controllers
             }
         }
 
+
+
         public async Task<IActionResult> BookDetail(Guid? bookId)
         {
             var book = await _unitOfWork.Book.GetAsync(b => b.BookId == bookId, "Authors,Categories.Books.Authors");

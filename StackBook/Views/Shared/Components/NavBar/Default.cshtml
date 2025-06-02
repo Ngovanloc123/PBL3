@@ -23,16 +23,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Customer Service</a>
                 </li>
-
-                @* <li class="nav-item dropdown"> *@
-                @*     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> *@
-                @*         Management *@
-                @*     </a> *@
-                @*     <ul class="dropdown-menu"> *@
-                @*         <li><a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a></li> *@
-                @*         <li><a class="dropdown-item" asp-area="Admin" asp-controller="Book" asp-action="Index">Book</a></li> *@
-                @*     </ul> *@
-                @* </li> *@
             </ul>
 
             <!-- Search Bar -->
@@ -78,15 +68,8 @@
 
             <!-- Notification Icon -->
             <div class="d-flex align-items-center navbar-icon">
-                <a href="#" class="btn btn-custom position-relative">
+                <a asp-area="Customer" asp-controller="Account" asp-action="Notifications" class="btn btn-custom position-relative">
                     <i class="fa-solid fa-bell"></i>
-                    @* Thêm số thông báo  *@
-                    @* @if (ViewBag.NotiCount > 0) *@
-                    @* { *@
-                    @*     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"> *@
-                    @*         @ViewBag.NotiCount *@
-                    @*     </span> *@
-                    @* } *@
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         3
                     </span>

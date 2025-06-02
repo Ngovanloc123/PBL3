@@ -4,7 +4,7 @@ using StackBook.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace StackBook.Controllers
+namespace StackBook.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/[controller]")]

@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using StackBook.DAL.IRepository;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace StackBook.Areas.Admin.Controllers
 {
@@ -15,10 +17,15 @@ namespace StackBook.Areas.Admin.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
+            int pageSize = 5; // S? user m?i trang
+            int pageNumber = page ?? 1;
+
             var users = await _unitOfWork.User.GetAllAsync();
-            return View(users);
+            var pagedUsers = users.OrderBy(u => u.UserId).ToPagedList(pageNumber, pageSize);
+
+            return View(pagedUsers);
         }
     }
 }

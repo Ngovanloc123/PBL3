@@ -575,8 +575,8 @@ namespace StackBook.Services
 
         public async Task<List<Order>> GetOrdersByUserIdAsync(Guid userId)
         {
-            return await _orderRepository.FindOrdersByUserIdAsync(userId) ?? 
-                new List<Order>();
+            var orders = await _unitOfWork.Order.GetListAsync(o => o.UserId == userId, "OrderDetails.Book,ShippingAddress");
+            return orders.ToList() ?? new List<Order>(); ;
         }
 
         public async Task<List<Order>> GetAllOrdersAsync()
@@ -587,10 +587,20 @@ namespace StackBook.Services
 
         public async Task<List<Order>> GetOrdersByStatusAsync(int status)
         {
-            if (status < 1 || status > 5) 
+            if (status < 1 || status > 5)
                 throw new AppException("Trạng thái không hợp lệ.");
 
             var orders = await _unitOfWork.Order.GetListAsync(o => o.Status == status, "OrderDetails.Book,ShippingAddress");
+
+            return orders.ToList() ?? new List<Order>(); ;
+        }
+
+        public async Task<List<Order>> GetOrdersByUserIdAndStatusAsync(Guid userId, int status)
+        {
+            if (status < 1 || status > 5)
+                throw new AppException("Trạng thái không hợp lệ.");
+
+            var orders = await _unitOfWork.Order.GetListAsync(o => o.Status == status && o.UserId == userId, "OrderDetails.Book,ShippingAddress");
 
             return orders.ToList() ?? new List<Order>(); ;
         }

@@ -14,12 +14,13 @@
 
                         @if (order.Status == 1) // Pending
                         {
-                            <form asp-action="Cancel" asp-route-id="@order.OrderId" method="post">
+                            <form asp-action="Cancel" asp-route-orderId="@order.OrderId" method="post">
                                 <button type="submit" class="btn btn-outline-danger btn-sm">Cancel</button>
                             </form>
                         }
                     </div>
                     <div class="card-body">
+                        
                         @foreach (var item in order.OrderDetails)
                         {
                             <div class="d-flex align-items-center mb-3">

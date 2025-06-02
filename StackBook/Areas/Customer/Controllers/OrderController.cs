@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.Elfie;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using StackBook.DAL.IRepository;
+using StackBook.Exceptions;
 using StackBook.Interfaces;
 using StackBook.Models;
 using StackBook.Services;
@@ -141,11 +142,11 @@ namespace StackBook.Areas.Customer.Controllers
             int statusInt = Convert.ToInt32(status);
             // Lây thông tin order
             var orders = new List<Models.Order>();
-            if(statusInt == 0)
-                orders = await _orderService.GetAllOrdersAsync();
+            if (statusInt == 0)
+                orders = await _orderService.GetOrdersByUserIdAsync(Guid.Parse(userIdValue));
             else
             {
-                orders = await _orderService.GetOrdersByStatusAsync(statusInt);
+                orders = await _orderService.GetOrdersByUserIdAndStatusAsync(Guid.Parse(userIdValue), statusInt);
             }
             ViewBag.User = user.Result.Data;
             ViewBag.Status = statusInt;
@@ -153,6 +154,40 @@ namespace StackBook.Areas.Customer.Controllers
 
             return View(orders);
         }
+
+        [HttpPost]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> Cancel(Guid orderId)
+        {
+            try
+            {
+                var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userIdValue == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
+
+                // Check if access token exists in cookies  
+                Console.WriteLine($"AccessToken: {_httpContextAccessor.HttpContext?.Request.Cookies["accessToken"]}");
+                Console.WriteLine($"RefreshToken: {_httpContextAccessor.HttpContext?.Request.Cookies["refreshToken"]}");
+
+                // Retrieve user from cookie  
+                var user = _userService.GetUserById(Guid.Parse(userIdValue));
+                if (user == null || user.Result.Data == null)
+                    return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
+
+                // Cancel the order  
+                await _orderService.CancelOrderAsync(orderId);
+
+                TempData["Success"] = "Order canceled successfully.";
+                return RedirectToAction("Index", "Order");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Index", "Order");
+            }
+        }
+
+
     }
 
 }

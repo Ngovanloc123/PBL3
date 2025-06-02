@@ -1,4 +1,6 @@
-@model IEnumerable<StackBook.Models.User>
+@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<StackBook.Models.User>
+
 
 @{
     ViewData["Title"] = "User Management";
@@ -24,11 +26,11 @@
         <tbody>
             @if (Model != null && Model.Any())
             {
-                int index = 1;
+                int index = 0;
                 foreach (var user in Model)
                 {
                     <tr>
-                        <td>@index</td>
+                        <td>@((Model.PageNumber - 1) * Model.PageSize + index + 1)</td>
                         <td>
                             @if (!string.IsNullOrEmpty(user.AvatarUrl))
                             {
@@ -36,7 +38,6 @@
                                      alt="Avatar"
                                      class="img-thumbnail rounded-circle"
                                      style="width: 50px; height: 50px; object-fit: cover;" />
-
                             }
                             else
                             {
@@ -77,7 +78,6 @@
                             <a style="width: 70px;" asp-action="Edit" asp-route-UserId="@user.UserId" class="btn btn-primary btn-sm">
                                 <i class="fa-solid fa-pen-to-square"></i> Edit
                             </a>
-                            @* <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-user-id="@user.UserId" data-user-name="@user.FullName">Delete</button> *@
                             @if (user.LockStatus)
                             {
                                 <a style="width: 70px;" asp-action="Unlock" asp-route-UserId="@user.UserId" class="btn btn-warning btn-sm">
@@ -103,9 +103,24 @@
             }
         </tbody>
     </table>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-end mt-4">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+                 new PagedListRenderOptions
+        {
+            Display = PagedListDisplayMode.IfNeeded,
+            UlElementClasses = new[] { "pagination" },
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" },
+            ActiveLiElementClass = "active",
+            PageCountAndCurrentLocationFormat = "Page {0} of {1}",
+            MaximumPageNumbersToDisplay = 5
+        })
+    </div>
 </div>
 
-<!-- Bootstrap Modal for Delete Confirmation -->
+<!-- Optional Delete Modal if you re-enable Delete later -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -130,13 +145,12 @@
 @section Scripts {
     <script>
         const deleteModal = document.getElementById('deleteModal');
-        deleteModal.addEventListener('show.bs.modal', function (event) {
+        deleteModal?.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
             const userId = button.getAttribute('data-user-id');
             const userName = button.getAttribute('data-user-name');
 
             const modalTitle = deleteModal.querySelector('#userName');
-            const deleteForm = deleteModal.querySelector('#deleteForm');
             const userIdInput = deleteModal.querySelector('#userId');
 
             modalTitle.textContent = userName;

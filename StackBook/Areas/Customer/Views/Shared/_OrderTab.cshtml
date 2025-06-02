@@ -1,6 +1,5 @@
 
 
-
 <h3>My Orders</h3>
 
 <ul class="nav nav-tabs mb-4" id="orderTabs" role="tablist">
@@ -14,10 +13,10 @@
         <a class="nav-link @(ViewBag.Status == 2 ? "active" : "")" href="/Customer/Order/Index?status=2">Delivering</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link @(ViewBag.Status == 3 ? "active" : "")" href="/Customer/Order/Index?status=3">Completed</a>
+        <a class="nav-link @(ViewBag.Status == 3 ? "active" : "")" href="/Customer/Order/Index?status=3">Cancelled</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link @(ViewBag.Status == 4 ? "active" : "")" href="/Customer/Order/Index?status=4">Cancelled</a>
+        <a class="nav-link @(ViewBag.Status == 4 ? "active" : "")" href="/Customer/Order/Index?status=4">Completed</a>
     </li>
     <li class="nav-item" role="presentation">
         <a class="nav-link @(ViewBag.Status == 5 ? "active" : "")" href="/Customer/Order/Index?status=5">Returns</a>

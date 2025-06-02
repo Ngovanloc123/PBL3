@@ -11,6 +11,7 @@ namespace StackBook.Interfaces
         Task<Order> CreateOrderAsync(Guid userId, CheckoutRequest request);
         Task<Order> GetOrderByIdAsync(Guid orderId);
         Task<List<Order>> GetOrdersByUserIdAsync(Guid userId);
+        Task<List<Order>> GetOrdersByUserIdAndStatusAsync(Guid userId, int status);
         Task<List<Order>> GetAllOrdersAsync();
         Task<List<Order>> GetOrdersByStatusAsync(int status);
         Task UpdateOrderStatusAsync(Guid orderId, int status);

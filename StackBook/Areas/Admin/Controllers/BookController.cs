@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StackBook.DAL.IRepository;
 using StackBook.Models;
 using StackBook.ViewModels;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace StackBook.Areas.Admin.Controllers
 {
@@ -21,10 +24,17 @@ namespace StackBook.Areas.Admin.Controllers
         }
 
         // [GET] Admin/Book
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
             var books = await _unitOfWork.Book.GetAllAsync("Authors,Categories");
-            return View(books);
+
+            var pagedBooks = books.ToPagedList(pageNumber, pageSize);
+
+
+            return View(pagedBooks);
         }
 
         // [GET] Admin/Book/Create

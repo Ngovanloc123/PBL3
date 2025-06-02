@@ -5,6 +5,7 @@ using StackBook.Models;
 using StackBook.DAL.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using X.PagedList.Extensions;
 
 namespace StackBook.Areas.Admin.Controllers
 {
@@ -20,10 +21,15 @@ namespace StackBook.Areas.Admin.Controllers
         }
 
         // GET: Admin/Author
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
-            IEnumerable<Author> authors = await _unitOfWork.Author.GetAllAsync("Books");
-            return View(authors);
+            int pageSize = 8;
+            int pageNumber = page ?? 1;
+
+            var authors = await _unitOfWork.Author.GetAllAsync("Books");
+
+            var pagedAuthors = authors.ToPagedList(pageNumber, pageSize);
+            return View(pagedAuthors);
         }
 
         // GET: Admin/Author/Create

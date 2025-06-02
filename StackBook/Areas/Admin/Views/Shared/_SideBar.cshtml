@@ -16,6 +16,12 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
+                <li class=" @(ViewContext.RouteData.Values["controller"]?.ToString() == "Order" ? "active" : "")">
+                    <a asp-controller="Order"
+                       asp-action="Index">
+                        <i class="bi bi-people me-2"></i> Order
+                    </a>
+                </li>
                 <li class=" @(ViewContext.RouteData.Values["controller"]?.ToString() == "Book" ? "active" : "")">
                     <a asp-controller="Book"
                        asp-action="Index">
@@ -25,7 +31,7 @@
                 <li class=" @(ViewContext.RouteData.Values["controller"]?.ToString() == "Category" ? "active" : "")">
                     <a asp-controller="Category"
                        asp-action="Index">
-                        <i class="bi bi-person me-2"></i> Category
+                        <i class="bi bi-collection"></i> Category
                     </a>
                 </li>
                 <li class=" @(ViewContext.RouteData.Values["controller"]?.ToString() == "Author" ? "active" : "")">
@@ -37,7 +43,15 @@
                 <li class=" @(ViewContext.RouteData.Values["controller"]?.ToString() == "User" ? "active" : "")">
                     <a asp-controller="User"
                        asp-action="Index">
-                        <i class="bi bi-people me-2"></i> User
+                        <i class="bi bi-people me-2"></i> Users
+                    </a>
+                </li>
+                
+                <li class=" @(ViewContext.RouteData.Values["controller"]?.ToString() == "Discounts" ? "active" : "")">
+                    <a asp-controller="Discounts"
+                       asp-action="Index">
+                        <i class="bi bi-tag"></i>
+                        Discounts
                     </a>
                 </li>
                 <li class=" @(ViewContext.RouteData.Values["controller"]?.ToString() == "Statistic" ? "active" : "")">

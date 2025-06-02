@@ -1,8 +1,10 @@
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc;
 using StackBook.Interfaces;
 using StackBook.Models;
 using System;
 using System.Threading.Tasks;
+using X.PagedList.Extensions;
 
 namespace StackBook.Areas.Admin.Controllers
 {
@@ -18,16 +20,21 @@ namespace StackBook.Areas.Admin.Controllers
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
             try
             {
+                int pageSize = 8;
+                int pageNumber = page ?? 1;
+
                 var discounts = await _discountService.GetAllDiscounts();
-                return View(discounts);
+
+                var pagedDiscounts = discounts.ToPagedList(pageNumber, pageSize);
+                return View(pagedDiscounts);
             }
             catch
             {
-                TempData["ErrorMessage"] = "An error occurred while retrieving discounts.";
+                TempData["error"] = "An error occurred while retrieving discounts.";
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -70,7 +77,7 @@ namespace StackBook.Areas.Admin.Controllers
                 
                 await _discountService.CreateDiscount(discount);
                 
-                TempData["SuccessMessage"] = "Discount created successfully!";
+                TempData["success"] = "Discount created successfully!";
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -111,7 +118,7 @@ namespace StackBook.Areas.Admin.Controllers
             try
             {
                 await _discountService.UpdateDiscount(discount);
-                TempData["SuccessMessage"] = "Discount updated successfully!";
+                TempData["success"] = "Discount updated successfully!";
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -152,11 +159,11 @@ namespace StackBook.Areas.Admin.Controllers
                 if (discount != null)
                 {
                     await _discountService.DeleteDiscount(discount);
-                    TempData["SuccessMessage"] = "Discount deleted successfully!";
+                    TempData["success"] = "Discount deleted successfully!";
                 }
                 else
                 {
-                    TempData["ErrorMessage"] = "Discount not found.";
+                    TempData["error"] = "Discount not found.";
                 }
                 
                 return RedirectToAction(nameof(Index));
@@ -169,13 +176,13 @@ namespace StackBook.Areas.Admin.Controllers
 
         private IActionResult NotFoundWithRedirect(string message)
         {
-            TempData["ErrorMessage"] = message;
+            TempData["error"] = message;
             return RedirectToAction(nameof(Index));
         }
 
         private IActionResult ErrorWithRedirect(string message)
         {
-            TempData["ErrorMessage"] = message;
+            TempData["error"] = message;
             return RedirectToAction(nameof(Index));
         }
     }

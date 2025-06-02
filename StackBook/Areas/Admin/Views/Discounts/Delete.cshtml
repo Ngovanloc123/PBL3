@@ -1,0 +1,36 @@
+@model StackBook.Models.Discount;
+
+@{
+    ViewData["Title"] = "Delete Discount";
+    @* Layout = "_AdminLayout"; *@
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-danger">
+        <h6 class="m-0 font-weight-bold text-white">Delete Discount</h6>
+    </div>
+    <div class="card-body">
+        <h4 class="text-danger">Are you sure you want to delete this discount?</h4>
+        <hr />
+        
+        <dl class="row">
+            <dt class="col-sm-4">Name:</dt>
+            <dd class="col-sm-8">@Model.DiscountName</dd>
+
+            <dt class="col-sm-4">Code:</dt>
+            <dd class="col-sm-8">@Model.DiscountCode</dd>
+
+            <dt class="col-sm-4">Value:</dt>
+            <dd class="col-sm-8">@Model.Price.ToString("C")</dd>
+
+            <dt class="col-sm-4">Active Period:</dt>
+            <dd class="col-sm-8">@Model.StartDate.ToString("g") to @Model.EndDate.ToString("g")</dd>
+        </dl>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="DiscountId" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

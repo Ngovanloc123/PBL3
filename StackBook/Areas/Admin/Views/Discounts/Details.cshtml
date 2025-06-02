@@ -1,0 +1,38 @@
+@model StackBook.Models.Discount;
+
+@{
+    ViewData["Title"] = "Discount Details";
+    @* Layout = "_AdminLayout"; *@
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Discount Details</h6>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">Name:</dt>
+            <dd class="col-sm-8">@Model.DiscountName</dd>
+
+            <dt class="col-sm-4">Code:</dt>
+            <dd class="col-sm-8">@Model.DiscountCode</dd>
+
+            <dt class="col-sm-4">Value:</dt>
+            <dd class="col-sm-8">@Model.Price.ToString("C")</dd>
+
+            <dt class="col-sm-4">Description:</dt>
+            <dd class="col-sm-8">@Model.Description</dd>
+
+            <dt class="col-sm-4">Created Date:</dt>
+            <dd class="col-sm-8">@Model.CreatedDiscount.ToString("g")</dd>
+
+            <dt class="col-sm-4">Active Period:</dt>
+            <dd class="col-sm-8">@Model.StartDate.ToString("g") to @Model.EndDate.ToString("g")</dd>
+        </dl>
+
+        <div class="form-group">
+            <a asp-action="Edit" asp-route-id="@Model.DiscountId" class="btn btn-warning">Edit</a>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

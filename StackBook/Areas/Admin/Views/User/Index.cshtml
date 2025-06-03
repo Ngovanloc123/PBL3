@@ -80,13 +80,13 @@
                             </a>
                             @if (user.LockStatus)
                             {
-                                <a style="width: 70px;" asp-action="Unlock" asp-route-UserId="@user.UserId" class="btn btn-warning btn-sm">
+                                <a style="width: 70px;" asp-action="Unlock" asp-route-id="@user.UserId" class="btn btn-warning btn-sm">
                                     <i class="fa-solid fa-lock-open"></i> Unlock
                                 </a>
                             }
                             else
                             {
-                                <a style="width: 70px;" asp-action="Lock" asp-route-UserId="@user.UserId" class="btn btn-danger btn-sm">
+                                <a style="width: 70px;" asp-action="Lock" asp-route-id="@user.UserId" class="btn btn-danger btn-sm">
                                     <i class="fa-solid fa-lock"></i> Lock
                                 </a>
                             }

@@ -11,6 +11,14 @@ namespace StackBook.ViewComponents
         {
             int pageSize = 8;
             int pageNumber = page ?? 1;
+
+            // Kiểm tra books null hoặc rỗng
+            if (books == null)
+            {
+                // Trả về một danh sách rỗng thay vì null để tránh lỗi
+                books = new List<Book>();
+            }
+
             var pagedBooks = books.ToPagedList(pageNumber, pageSize);
 
             return View(pagedBooks);

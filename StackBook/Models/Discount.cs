@@ -23,7 +23,7 @@ namespace StackBook.Models
         public string? Description { get; set; }
 
         [Required]
-        public DateTime CreatedDiscount { get; set; }
+        public DateTime CreatedDiscount { get; set; } 
 
         [Required]
         public DateTime StartDate { get; set; }

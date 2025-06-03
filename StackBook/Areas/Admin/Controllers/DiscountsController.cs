@@ -83,11 +83,8 @@ namespace StackBook.Areas.Admin.Controllers
 
             try
             {
-                discount.DiscountId = Guid.NewGuid();
                 discount.CreatedDiscount = DateTime.Now;
-                
                 await _discountService.CreateDiscount(discount);
-                
                 TempData["success"] = "Discount created successfully!";
                 //Gửi thông báo đến người dùng
                 var allUsers = await _unitOfWork.User.GetAllAsync();

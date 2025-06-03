@@ -54,6 +54,8 @@ builder.Services.AddScoped<IOrderHistoryRepository, OrderHistoryRepository>();
 builder.Services.AddScoped<IShippingAddressRepository, ShippingAddressRepository>();
 builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 builder.Services.AddScoped<IDiscountService, DiscountService>();
+builder.Services.AddScoped<INotificationsRepository, NotificationsRepository>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 builder.Services.AddScoped<AccountController>();
 

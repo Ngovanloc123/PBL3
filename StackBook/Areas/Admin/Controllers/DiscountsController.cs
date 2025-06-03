@@ -1,10 +1,14 @@
 using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StackBook.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using StackBook.DAL.IRepository;
 using StackBook.Models;
-using System;
-using System.Threading.Tasks;
+using StackBook.ViewModels;
+using X.PagedList;
 using X.PagedList.Extensions;
+using StackBook.Interfaces;
+
 
 namespace StackBook.Areas.Admin.Controllers
 {
@@ -14,9 +18,16 @@ namespace StackBook.Areas.Admin.Controllers
     {
         private readonly IDiscountService _discountService;
 
-        public DiscountsController(IDiscountService discountService)
+        private readonly INotificationService _notificationService;
+        private readonly IUserService _userService;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public DiscountsController(IDiscountService discountService, INotificationService notificationService, IUserService userService, IUnitOfWork unitOfWork)
         {
             _discountService = discountService;
+            _notificationService = notificationService;
+            _userService = userService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet("")]
@@ -78,6 +89,16 @@ namespace StackBook.Areas.Admin.Controllers
                 await _discountService.CreateDiscount(discount);
                 
                 TempData["success"] = "Discount created successfully!";
+                //Gửi thông báo đến người dùng
+                var allUsers = await _unitOfWork.User.GetAllAsync();
+                //Check quyền nếu là user thì mới gửi
+                foreach (var user in allUsers)
+                {
+                    if (user.Role == false)
+                    {
+                        await _notificationService.SendNotificationAsync(user.UserId, $"New discount created: {discount.DiscountName} with code {discount.DiscountCode}");
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -113,19 +134,32 @@ namespace StackBook.Areas.Admin.Controllers
                 return NotFoundWithRedirect("Discount ID mismatch.");
 
             if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Invalid discount data.");
                 return View(discount);
+            }
 
             try
-            {
-                await _discountService.UpdateDiscount(discount);
-                TempData["success"] = "Discount updated successfully!";
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                ModelState.AddModelError("", "An error occurred while updating the discount.");
-                return View(discount);
-            }
+                {
+                    await _discountService.UpdateDiscount(discount);
+                    //Gửi thông báo đến người dùng
+                    var allUsers = await _unitOfWork.User.GetAllAsync();
+                    //Check quyền nếu là user thì mới gửi
+                    foreach (var user in allUsers)
+                    {
+                        if (user.Role == false)
+                        {
+                            await _notificationService.SendNotificationAsync(user.UserId, $"New discount update: {discount.DiscountName} with code {discount.DiscountCode}");
+                        }
+                    }
+                    TempData["success"] = "Discount updated successfully!";
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "An error occurred while updating the discount.");
+                    return View(discount);
+                }
         }
 
         [HttpGet("delete/{id}")]

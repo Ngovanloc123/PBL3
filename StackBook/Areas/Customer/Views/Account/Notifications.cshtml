@@ -1,15 +1,58 @@
-﻿@model StackBook.Models.User;
+﻿@model IEnumerable<StackBook.Models.Notification>
 
-<div class="container py-4">
-    <div class="row">
-        <!-- Sidebar Section -->
-        @await Html.PartialAsync("_SideBar", Model)
+@{
+    ViewData["Title"] = "Danh sách thông báo";
+}
 
-        <!-- Tab Content Section -->
-        <div class="col-md-9">
-                <div class="tab-pane fade show active">
-                    <h1>Notifications</h1>
-                </div>
-        </div>
+<h2 class="text-xl font-bold mb-4">Danh sách thông báo</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        Hiện tại bạn không có thông báo nào.
     </div>
-</div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nội dung</th>
+                <th>Trạng thái</th>
+                <th>Ngày tạo</th>
+                <th>Hành động</th>  <!-- thêm cột hành động -->
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var notification in Model)
+        {
+            <tr>
+                <td>@notification.Message</td>
+                <td>
+                    @if (notification.Status)
+                    {
+                        <span class="badge bg-success">Đã đọc</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning">Chưa đọc</span>
+                    }
+                </td>
+                <td>@notification.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                <td>
+                    @if (!notification.Status)
+                    {
+                        <form method="post" asp-action="MarkAsRead" asp-route-id="@notification.NotificationId" style="display:inline">
+                            <button type="submit" class="btn btn-sm btn-primary">Đánh dấu đã đọc</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

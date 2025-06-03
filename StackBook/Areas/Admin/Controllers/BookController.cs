@@ -7,6 +7,7 @@ using StackBook.Models;
 using StackBook.ViewModels;
 using X.PagedList;
 using X.PagedList.Extensions;
+using StackBook.Interfaces;
 
 namespace StackBook.Areas.Admin.Controllers
 {
@@ -16,10 +17,12 @@ namespace StackBook.Areas.Admin.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly INotificationService _notificationService;
 
-        public BookController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+        public BookController(IUnitOfWork unitOfWork, INotificationService notificationService, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _notificationService = notificationService;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -57,9 +60,17 @@ namespace StackBook.Areas.Admin.Controllers
                     .Select(c => new SelectListItem { Text = c.CategoryName, Value = c.CategoryId.ToString() });
                 viewModel.Authors = (await _unitOfWork.Author.GetAllAsync())
                     .Select(a => new SelectListItem { Text = a.AuthorName, Value = a.AuthorId.ToString() });
-
+                //Gửi thông báo đến tất cả người dùng là có sách mới
+                var allUsers = await _unitOfWork.User.GetAllAsync();
+                //Check quyền nếu là user thì mới gửi
+                foreach (var user in allUsers)
+                {
+                    if (user.Role == false)
+                    {
+                        await _notificationService.SendNotificationAsync(user.UserId, "New book added: " + viewModel.BookTitle);
+                    }
+                }
                 return View(viewModel);
-
             }
             // ok
             var book = new Book
@@ -152,6 +163,16 @@ namespace StackBook.Areas.Admin.Controllers
             await _unitOfWork.Book.UpdateAsync(book);
             await _unitOfWork.SaveAsync();
             TempData["success"] = "Book edited successfully.";
+             //Gửi thông báo đến tất cả người dùng là có cập nhật
+                var allUsers = await _unitOfWork.User.GetAllAsync();
+                //Check quyền nếu là user thì mới gửi
+                foreach (var user in allUsers)
+                {
+                    if (user.Role == false)
+                    {
+                        await _notificationService.SendNotificationAsync(user.UserId, "New book added: " + viewModel.BookTitle);
+                    }
+                }
             return RedirectToAction("Index");
         }
 

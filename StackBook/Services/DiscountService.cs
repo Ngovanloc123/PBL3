@@ -48,7 +48,6 @@ namespace StackBook.Services
                 {
                     throw new ArgumentNullException(nameof(discount), "Discount cannot be null");
                 }
-
                 await _discountRepository.AddAsync(discount);
                 return discount;
             }
@@ -91,6 +90,18 @@ namespace StackBook.Services
             catch (Exception ex)
             {
                 throw new ApplicationException($"Failed to delete discount with ID {discount?.DiscountId}. Please try again later.", ex);
+            }
+        }
+
+        public async Task<List<Discount>> GetActiveDiscounts(DateTime currentDate)
+        {
+            try
+            {
+                return await _discountRepository.GetActiveDiscountsAsync(currentDate);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to retrieve active discounts. Please try again later.", ex);
             }
         }
     }

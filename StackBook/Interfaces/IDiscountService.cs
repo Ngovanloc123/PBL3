@@ -17,5 +17,6 @@ namespace StackBook.Interfaces
         Task<Discount> CreateDiscount(Discount discount);
         Task<Discount> UpdateDiscount(Discount discount);
         Task<Discount> DeleteDiscount(Discount discount);
+        Task<List<Discount>> GetActiveDiscounts(DateTime currentDate);
     }
 }

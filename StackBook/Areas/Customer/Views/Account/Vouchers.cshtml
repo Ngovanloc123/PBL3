@@ -1,19 +1,66 @@
-﻿
+﻿@model IEnumerable<StackBook.Models.Discount>
 
-
-
-<div class="container py-4">
+<div class="container mt-4">
+    <h2 class="mb-4">Mã giảm giá hiện có</h2>
+    
     <div class="row">
-        <!-- Sidebar Section -->
-        @await Html.PartialAsync("_SideBar")
-
-        <!-- Tab Content Section -->
-        <div class="col-md-9">
-                <div class="tab-pane fade" id="vouchers" role="tabpanel" aria-labelledby="vouchers-tab">
-                    <h4>Vouchers</h4>
+        @foreach (var discount in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card discount-card @(DateTime.Now > discount.EndDate ? "expired" : "")">
+                    <div class="card-header bg-primary text-white">
+                        <h5>@discount.DiscountName</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="badge bg-info">@discount.DiscountCode</span>
+                            <span class="text-success fw-bold">@discount.Price.ToString("C")</span>
+                        </div>
+                        <p>@discount.Description</p>
+                        
+                        <div class="valid-date">
+                            <small class="text-muted">
+                                Áp dụng từ @discount.StartDate.ToString("dd/MM/yyyy") 
+                                đến @discount.EndDate.ToString("dd/MM/yyyy")
+                            </small>
+                        </div>
+                        
+                        @if (DateTime.Now > discount.EndDate)
+                        {
+                            <div class="expired-label">HẾT HẠN</div>
+                        }
+                    </div>
                 </div>
-
-
-        </div>
+            </div>
+        }
     </div>
 </div>
+
+<style>
+    .discount-card {
+        position: relative;
+        transition: all 0.3s;
+        height: 100%;
+    }
+    
+    .discount-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .expired {
+        opacity: 0.7;
+        background-color: #f8f9fa;
+    }
+    
+    .expired-label {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #dc3545;
+        color: white;
+        padding: 3px 10px;
+        border-radius: 3px;
+        font-size: 12px;
+    }
+</style>

@@ -12,8 +12,8 @@ using StackBook.Data;
 namespace StackBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250512152858_AddUserNew")]
-    partial class AddUserNew
+    [Migration("20250603173512_FixDatabaseV1")]
+    partial class FixDatabaseV1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -373,6 +373,9 @@ namespace StackBook.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
@@ -488,8 +491,8 @@ namespace StackBook.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("VerificationToken")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
 
                     b.HasKey("UserId");
 
@@ -578,13 +581,13 @@ namespace StackBook.Migrations
                     b.HasOne("StackBook.Models.ShippingAddress", "ShippingAddress")
                         .WithMany("Orders")
                         .HasForeignKey("ShippingAddressId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("StackBook.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Discount");
@@ -629,7 +632,7 @@ namespace StackBook.Migrations
                     b.HasOne("StackBook.Models.Order", "Order")
                         .WithMany("Payments")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Order");
@@ -640,13 +643,13 @@ namespace StackBook.Migrations
                     b.HasOne("StackBook.Models.Order", "Order")
                         .WithOne("ReturnOrder")
                         .HasForeignKey("StackBook.Models.ReturnOrder", "OrderId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StackBook.Models.ShippingAddress", "ShippingAddress")
                         .WithMany("ReturnOrders")
                         .HasForeignKey("ShippingAddressId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Order");
@@ -665,7 +668,7 @@ namespace StackBook.Migrations
                     b.HasOne("StackBook.Models.User", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Book");
@@ -678,7 +681,7 @@ namespace StackBook.Migrations
                     b.HasOne("StackBook.Models.User", "User")
                         .WithMany("ShippingAddresses")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");

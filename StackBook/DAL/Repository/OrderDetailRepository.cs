@@ -51,5 +51,18 @@ namespace StackBook.DAL.Repository
         {
             await _db.SaveChangesAsync();
         }
+        public async Task<bool> CanUserReviewBookAsync(Guid userId, Guid bookId)
+        {
+            if (userId == Guid.Empty || bookId == Guid.Empty)
+            {
+                throw new ArgumentException("User ID and Book ID cannot be empty");
+            }
+            var hasPurchased = await _db.OrderDetails
+                .Include(od => od.Order)
+                .AnyAsync(od => od.BookId == bookId
+                        && od.Order.UserId == userId
+                        && od.Order.Status == 4);
+            return hasPurchased;
+        }
     }
 }

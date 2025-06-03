@@ -12,10 +12,42 @@ namespace StackBook.Services
     public class ReviewService : IReviewService
     {
         private readonly IReviewRepository _reviewRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public ReviewService(IReviewRepository reviewRepository)
+        public ReviewService(IReviewRepository reviewRepository, IOrderRepository orderRepository)
         {
+            _orderRepository = orderRepository;
             _reviewRepository = reviewRepository;
+        }
+        public async Task<Review> CreateReviewFromOrderAsync(Guid orderId, Guid bookId, Guid userId, int rating, string? comment)
+        {
+            if (rating < 1 || rating > 5)
+                throw new ArgumentOutOfRangeException(nameof(rating), "Rating must be between 1 and 5");
+
+            // Lấy đơn hàng
+            var order = await _orderRepository.FindOrderByIdAsync(orderId);
+            if (order == null || order.UserId != userId)
+                throw new InvalidOperationException("Order not found or not owned by user");
+            //Kiểm tra đơn hàng đã hoàn thành
+            if (order.Status != 4) // Giả sử 3 là trạng thái "Hoàn thành"
+                throw new InvalidOperationException("Order is not completed");
+            // Kiểm tra sách có nằm trong đơn hàng không
+            var containsBook = order.OrderDetails.Any(i => i.BookId == bookId);
+            if (!containsBook)
+                throw new InvalidOperationException("Book is not part of this order");
+
+            // Tạo review
+            var review = new Review
+            {
+                ReviewId = Guid.NewGuid(),
+                BookId = bookId,
+                UserId = userId,
+                OrderId = orderId,
+                Rating = rating,
+                Comment = comment
+            };
+
+            return await _reviewRepository.AddAsync(review);
         }
 
         public async Task<Review> GetReviewByIdAsync(Guid id)
@@ -95,10 +127,10 @@ namespace StackBook.Services
                 throw new ArgumentNullException(nameof(review));
             }
 
-            if (await _reviewRepository.HasUserReviewedBookAsync(review.UserId, review.BookId))
-            {
-                throw new InvalidOperationException("User has already reviewed this book");
-            }
+            // if (await _reviewRepository.HasUserReviewedBookAsync(review.UserId, review.BookId))
+            // {
+            //     throw new InvalidOperationException("User has already reviewed this book");
+            // }
 
             if (review.Rating < 1 || review.Rating > 5)
             {

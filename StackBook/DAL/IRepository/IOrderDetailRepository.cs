@@ -13,5 +13,6 @@ namespace StackBook.DAL.IRepository
         Task UpdateAsync(OrderDetail orderDetail);
         Task DeleteAsync(OrderDetail orderDetail);
         Task SaveChangesAsync();
+        Task<bool> CanUserReviewBookAsync(Guid userId, Guid bookId);
     }
 }

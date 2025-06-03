@@ -62,7 +62,6 @@ namespace StackBook.Areas.Admin.Controllers
                 TempData["error"] = "User not found.";
                 return RedirectToAction("Index");
             }
-
             user.LockStatus = true; // Khóa người dùng
             user.DateLock = DateTime.UtcNow; // Cập nhật thời gian khóa
             user.AmountOfTime++; // Tăng số lần khóa

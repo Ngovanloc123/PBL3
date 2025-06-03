@@ -1,19 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace StackBook.Migrations
 {
     /// <inheritdoc />
-    public partial class AddUserRoleColumn : Migration
+    public partial class FixDatabaseV1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "AvatarUrl",
-                table: "Users",
-                type: "nvarchar(max)",
+            migrationBuilder.AddColumn<Guid>(
+                name: "OrderId",
+                table: "Reviews",
+                type: "uniqueidentifier",
                 nullable: true);
         }
 
@@ -21,8 +22,8 @@ namespace StackBook.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "AvatarUrl",
-                table: "Users");
+                name: "OrderId",
+                table: "Reviews");
         }
     }
 }

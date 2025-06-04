@@ -5,6 +5,14 @@
     ViewData["Title"] = @ViewBag.Query;
 }
 
+@{
+    int? page = null;
+    if (int.TryParse(Context.Request.Query["page"], out var parsedPage))
+    {
+        page = parsedPage;
+    }
+}
+
 <div class="container">
     <h1 class="text-center my-4 py-2 border-bottom bg-body-tertiary">
         Results for <strong class="text-primary">@ViewBag.Query</strong>
@@ -27,7 +35,13 @@
         @await Component.InvokeAsync("SliderCategory")
         @* =================  CONTENT ============== *@
         <div class="content d-flex justify-content-between mt-5 pb-2 border-bottom">
-            @await Component.InvokeAsync("Books", Model)
+            @* @await Component.InvokeAsync("Books", new { books = Model, page = 1 } ) *@
+            @await Component.InvokeAsync("Books", new
+                {
+                    books = Model, // List<Book>
+                    page = page
+                })
+
 
         </div>
     }

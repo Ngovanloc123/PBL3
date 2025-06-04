@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StackBook.Models;
-using StackBook.ViewModels;
+using X.PagedList;
 using X.PagedList.Extensions;
+using Microsoft.AspNetCore.Routing;
 
 namespace StackBook.ViewComponents
 {
@@ -12,14 +13,22 @@ namespace StackBook.ViewComponents
             int pageSize = 8;
             int pageNumber = page ?? 1;
 
-            // Kiểm tra books null hoặc rỗng
             if (books == null)
-            {
-                // Trả về một danh sách rỗng thay vì null để tránh lỗi
                 books = new List<Book>();
-            }
 
             var pagedBooks = books.ToPagedList(pageNumber, pageSize);
+
+            var query = HttpContext.Request.Query;
+            var routeValues = new RouteValueDictionary();
+
+            foreach (var key in query.Keys)
+            {
+                if (key != "page") 
+                    routeValues[key] = query[key].ToString();
+            }
+
+            ViewBag.RouteValues = routeValues;
+            ViewBag.ActionName = ViewContext.RouteData.Values["action"].ToString();
 
             return View(pagedBooks);
         }

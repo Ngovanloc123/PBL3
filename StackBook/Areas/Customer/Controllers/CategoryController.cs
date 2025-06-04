@@ -54,6 +54,8 @@ namespace StackBook.Areas.Customer.Controllers
 
         public async Task<IActionResult> Search(string? s)
         {
+
+
             //if (string.IsNullOrWhiteSpace(s))
             //{
             //    ViewBag.Query = string.Empty;

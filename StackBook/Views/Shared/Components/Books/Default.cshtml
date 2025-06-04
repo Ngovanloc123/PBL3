@@ -1,6 +1,11 @@
 ﻿@model X.PagedList.IPagedList<StackBook.Models.Book>
 @using X.PagedList.Mvc.Core
 
+@{
+    var routeValues = ViewBag.RouteValues as RouteValueDictionary ?? new RouteValueDictionary();
+    string action = ViewBag.ActionName as string;
+}
+
 
 <div class="row g-5">
     @if (Model != null && Model.Any())
@@ -38,7 +43,11 @@
     }
     <!-- Pagination -->
     <div class="d-flex justify-content-end mt-4">
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+        @Html.PagedListPager(Model, page =>
+                 {
+                     routeValues["page"] = page;
+                     return Url.Action(action, routeValues);
+                 },
                  new PagedListRenderOptions
         {
             Display = PagedListDisplayMode.IfNeeded,
@@ -46,7 +55,6 @@
             LiElementClasses = new[] { "page-item" },
             PageClasses = new[] { "page-link" },
             ActiveLiElementClass = "active",
-            PageCountAndCurrentLocationFormat = "Page {0} of {1}",
             MaximumPageNumbersToDisplay = 5
         })
     </div>

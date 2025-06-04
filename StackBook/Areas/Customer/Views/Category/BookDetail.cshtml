@@ -4,6 +4,14 @@
     ViewData["Title"] = @Model.BookTitle;
 }
 
+@{
+    int? page = null;
+    if (int.TryParse(Context.Request.Query["page"], out var parsedPage))
+    {
+        page = parsedPage;
+    }
+}
+
 <div class="container my-5">
     <div class="row gy-4">
         <!-- Book Image -->
@@ -82,7 +90,8 @@
             @foreach (var category in Model.Categories)
             {
                 <div class="row g-4">
-                    @await Component.InvokeAsync("Books", category.Books)
+                    @* @await Component.InvokeAsync("Books", category.Books) *@
+                    @await Component.InvokeAsync("Books", new { books = category.Books, page = page }) 
                 </div>
             }
     </div>

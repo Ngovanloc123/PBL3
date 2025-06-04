@@ -16,8 +16,24 @@
                         {
                             <form asp-action="Cancel" asp-route-orderId="@order.OrderId" method="post">
                                 <button type="submit" class="btn btn-outline-danger btn-sm">Cancel</button>
+                                <input type="hidden" name="status" value="@ViewBag.Status" />
                             </form>
                         }
+                        else if (order.Status == 2) // Shipped
+                        {
+                            <form asp-action="Received" asp-route-orderId="@order.OrderId" method="post">
+                                <button type="submit" class="btn btn-outline-success ">Received</button>
+                                <input type="hidden" name="status" value="@ViewBag.Status" />
+                            </form>
+                        }
+                        else if (order.Status == 4) // Delivered
+                        {
+                            <form asp-action="Return" asp-route-orderId="@order.OrderId" method="post">
+                                <button type="submit" class="btn btn-outline-warning">Return</button>
+                                <input type="hidden" name="status" value="@ViewBag.Status" />
+                            </form>
+                        }
+                        
                     </div>
                     <div class="card-body">
                         

@@ -52,6 +52,7 @@ namespace StackBook.Areas.Admin.Controllers
             }
         }
         [HttpGet]
+
         public async Task<IActionResult> Detail(Guid id)
         {
             try
@@ -78,6 +79,26 @@ namespace StackBook.Areas.Admin.Controllers
 
                 TempData["Success"] = "Order canceled successfully.";
                 return RedirectToAction("Index", "Order");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Index", "Order");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmOrder(Guid orderId)
+        {
+            try
+            {
+
+                // Pending  -> Delivering
+                await _orderService.UpdateOrderStatusAsync(orderId, 2);
+
+                TempData["Success"] = "Order Confirmation Successfully.";
+                return RedirectToAction("Detail", "Order", new { id = orderId });
+
             }
             catch (Exception ex)
             {

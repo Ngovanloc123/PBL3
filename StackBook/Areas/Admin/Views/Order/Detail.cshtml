@@ -8,6 +8,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <!-- Header -->
+
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="text-primary mb-0">
                     <i class="fas fa-receipt me-2"></i>Order Details
@@ -22,12 +23,21 @@
 
             <!-- Action Buttons -->
             <div class="text-center mb-4">
-                <a asp-action="Index" class="btn btn-primary  me-3">
-                    <i class="fas fa-list me-2"></i>All Orders
-                </a>
+                @if (Model.Status == 1)
+                {
+                    <form asp-action="ConfirmOrder" asp-route-orderId="@Model.OrderId" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-success me-3">
+                            <i class="bi bi-check-circle"></i>
+                            Order Confirmation
+                        </button>
+                    </form>
+                }
+                
+
+                
                 @if (Model.Status == 1) // Pending
                 {
-                    <button class="btn btn-warning  me-3" data-bs-toggle="modal" data-bs-target="#cancelModal">
+                    <button class="btn  btn-danger  me-3" data-bs-toggle="modal" data-bs-target="#cancelModal">
                         <i class="fas fa-times me-2"></i>Cancel Order
                     </button>
                 }
@@ -103,6 +113,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
+                            @* Chỉnh lại *@
                             <strong>Payment Method:</strong> <span class="text-muted">Cash on Delivery</span>
                         </div>
                         <div class="col-md-6">
@@ -166,8 +177,8 @@
                                                     }
                                                     <div>
                                                         <h6 class="mb-1">
-                                                            <a asp-controller="Book" asp-action="Details" asp-route-id="@item.Book?.BookId"
-                                                               class="text-decoration-none text-primary book-title">
+                                                            <a 
+                                                               class="text-decoration-none text-dark">
                                                                 @item.Book?.BookTitle
                                                             </a>
                                                         </h6>
@@ -345,7 +356,7 @@
                 <form method="post" asp-action="Cancel">
                     <input type="hidden" name="orderId" value="@Model.OrderId" />
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keep Order</button>
-                    <button type="submit" class="btn btn-warning">Cancel Order</button>
+                    <button type="submit" class="btn btn-danger">Cancel Order</button>
                 </form>
             </div>
         </div>
@@ -371,11 +382,6 @@
         font-weight: 500;
         color: #6c757d;
     }
-
-        .author-name:hover {
-            color: #495057;
-            text-decoration: underline;
-        }
 
     .book-title:hover {
         text-decoration: underline !important;

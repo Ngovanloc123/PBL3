@@ -36,5 +36,6 @@ namespace StackBook.Models
         [Required]
         [Range(1, 5, ErrorMessage = "The type must be between 1 and 5.")]
         public int Status { get; set; } 
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

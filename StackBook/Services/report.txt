@@ -1,0 +1,37 @@
+thống kê đơn hàng
+- tổng số đơn hàng:
++ số đơn đã hoàn thành
++ số đơn đang xử lý
++ số đơn đã hủy
++ số đơn đã trả hàng
++ số đơn đang giao
+- tổng doanh thu
+- Doanh thu theo ngày/tuần/tháng/khoảng thời gian
+- Tỷ lệ hủy đơn hàng
+- Top Khách hàng mua nhiều nhất
+- Doanh thu theo thể loại
+thống kê sách
+- số lượng sách theo thể loại
+- sách bán chạy nhất
+- sách ít bán nhất
+- sách được đánh giá cao nhất
+- sách bị đánh giá thấp nhất
+người dùng
+- tổng người dùng
+- người dùng mới trong tháng/ngày
+- người dùng có mua hàng
+- người dùng đánh giá tích cực
+- người dùng đánh giá tiêu cực
+đánh giá
+- tổng đánh giá
+- trung bình điểm đánh giá
+- tỷ lệ review tiêu cực
+- tỷ lệ review tích cực
+- sách có nhiều đánh giá nhất
+
+Them gium toi DB 2 cau nay:
+ALTER TABLE [StackBook].[dbo].[Orders]
+ADD CreatedAt DATETIME NOT NULL 
+CONSTRAINT DF_Orders_CreatedAt DEFAULT GETDATE();
+
+ALTER TABLE Reviews ADD OrderId UNIQUEIDENTIFIER NULL;

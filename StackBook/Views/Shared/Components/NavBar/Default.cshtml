@@ -3,7 +3,7 @@
         <a class="navbar-brand" asp-area="Site" asp-controller="Home" asp-action="Index">StackBooks</a>
 
         <button class="navbar-toggler text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -11,11 +11,11 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold">
                 <li class="nav-item">
                     <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active-nav" : "")"
-                       asp-area="Site" asp-controller="Home" asp-action="Index">Home</a>
+                        asp-area="Site" asp-controller="Home" asp-action="Index">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Category" ? "active-nav" : "")"
-                    asp-area="Customer" asp-controller="Category" asp-action="Index">Category</a>
+                        asp-area="Customer" asp-controller="Category" asp-action="Index">Category</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About & Contact</a>
@@ -28,7 +28,8 @@
             <!-- Search Bar -->
             <form class="d-flex me-3" method="get" asp-area="Customer" asp-controller="Category" asp-action="Search">
                 <div class="input-group custom-search-group">
-                    <input type="text" class="form-control custom-search-input" placeholder="Search books..." name="s" />
+                    <input type="text" class="form-control custom-search-input" placeholder="Search books..."
+                        name="s" />
                     <button class="btn custom-search-btn" type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
@@ -40,17 +41,20 @@
                 @if (User.Identity!.IsAuthenticated)
                 {
                     <div class="dropdown">
-                        <button class="btn btn-account dropdown-toggle" type="button" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-user"></i>  Hello, @User.Identity.Name
+                        <button class="btn btn-account dropdown-toggle" type="button" id="accountDropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-user"></i> Hello, @User.Identity.Name
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end custom-dropdown-menu" aria-labelledby="accountDropdown">
                             <li>
-                                <a class="dropdown-item custom-dropdown-item" asp-area="Customer" asp-controller="Account" asp-action="Profile">
+                                <a class="dropdown-item custom-dropdown-item" asp-area="Customer" asp-controller="Account"
+                                    asp-action="Profile">
                                     <i class="fa-solid fa-id-card me-2"></i> Profile
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item custom-dropdown-item" asp-area="Site" asp-controller="Account" asp-action="Signout">
+                                <a class="dropdown-item custom-dropdown-item" asp-area="Site" asp-controller="Account"
+                                    asp-action="Signout">
                                     <i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Sign out
                                 </a>
                             </li>
@@ -60,34 +64,51 @@
                 else
                 {
                     <a asp-area="Site" asp-controller="Account" asp-action="Signin" class="btn btn-account fw-semibold">
-                        <i class="fa-solid fa-user"></i>  Hello, sign in
+                        <i class="fa-solid fa-user"></i> Hello, sign in
                     </a>
                 }
             </div>
 
-
             <!-- Notification Icon -->
-            <div class="d-flex align-items-center navbar-icon">
-                <a asp-area="Customer" asp-controller="Account" asp-action="Notifications" class="btn btn-custom position-relative">
-                    <i class="fa-solid fa-bell"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        3
-                    </span>
-                </a>
-            </div>
 
-            <!-- Cart Icon -->
-            <div class="d-flex align-items-center navbar-icon">
-                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-custom position-relative">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    @if (ViewBag.CartCount > 0) {
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            @ViewBag.CartCount
-                        </span>
-                    }
-                    
-                </a>
+            <div class="d-flex align-items-center navbar-icon"></div>
+            <div class="dropdown"></div>
+            <a class="btn btn-custom position-relative" href="#" role="button" id="notificationDropdown"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-bell"></i>
+                @if (ViewBag.UnreadNotificationCount > 0)
+                {
+                    <span class="notification-badge">@ViewBag.UnreadNotificationCount</span>
+                }
+            </a>
+            <div class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notificationDropdown">
+                <div class="notification-header">
+                    Notifications
+                </div>
+                <div class="notifications-list">
+                    @await Component.InvokeAsync("Notifications")
+                </div>
+                <div class="notification-footer">
+                    <a asp-area="Customer" asp-controller="Account" asp-action="Notifications">See All
+                        Notifications</a>
+                </div>
             </div>
         </div>
+
+        <!-- Cart Icon -->
+        <div class="d-flex align-items-center navbar-icon"></div>
+        <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-custom position-relative">
+            <i class="fa-solid fa-cart-shopping"></i>
+            @if (ViewBag.CartCount > 0)
+            {
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    @ViewBag.CartCount
+                </span>
+            }
+
+        </a>
+
+
     </div>
+
 </nav>

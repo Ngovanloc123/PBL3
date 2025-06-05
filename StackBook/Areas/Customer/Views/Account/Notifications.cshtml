@@ -1,58 +1,265 @@
 ﻿@model IEnumerable<StackBook.Models.Notification>
 
 @{
-    ViewData["Title"] = "Danh sách thông báo";
+    ViewData["Title"] = "Notifications";
 }
 
-<h2 class="text-xl font-bold mb-4">Danh sách thông báo</h2>
+<style>
+    /* Main container */
+    @* .notifications-page {
+        max-width: 800px;
+        margin: 20px auto;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    } *@
+    /* Thêm vào phần style */
+@* .container {
+    max-width: 1200px;
+} *@
 
-@if (!Model.Any())
-{
-    <div class="alert alert-info">
-        Hiện tại bạn không có thông báo nào.
+.notifications-page {
+    margin: 0; /* Bỏ margin auto vì đã có container */
+    width: 100%; /* Chiếm toàn bộ chiều rộng của col-md-9 */
+    max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+    /* Header */
+    .notifications-header {
+        padding: 18px 24px;
+        border-bottom: 1px solid #e4e6eb;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .notifications-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #050505;
+        margin: 0;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 15px;
+    }
+
+    .mark-all-btn {
+        background: none;
+        border: none;
+        color: #1877f2;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 6px;
+    }
+
+    .mark-all-btn:hover {
+        background-color: #f0f2f5;
+    }
+
+    /* Empty state */
+    .empty-notifications {
+        padding: 50px 20px;
+        text-align: center;
+    }
+
+    .empty-icon {
+        font-size: 60px;
+        color: #d8dadf;
+        margin-bottom: 15px;
+    }
+
+    .empty-text {
+        color: #65676b;
+        font-size: 16px;
+        margin: 0;
+    }
+
+    /* Notifications list */
+    .notifications-list {
+        padding: 0;
+    }
+
+    .notification-item {
+        padding: 16px 24px;
+        border-bottom: 1px solid #e4e6eb;
+        display: flex;
+        align-items: flex-start;
+        transition: background-color 0.2s;
+        position: relative;
+    }
+
+    .notification-item:hover {
+        background-color: #f5f6f7;
+    }
+
+    .notification-item.unread {
+        background-color: #f0f8ff;
+    }
+
+    /* Unread indicator */
+    .unread-indicator {
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 8px;
+        height: 8px;
+        background-color: #1877f2;
+        border-radius: 50%;
+    }
+
+    /* Notification content */
+    .notification-content {
+        flex-grow: 1;
+        margin-left: 16px;
+    }
+
+    .notification-message {
+        font-size: 15px;
+        color: #050505;
+        margin-bottom: 4px;
+        line-height: 1.4;
+    }
+
+    .notification-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .notification-time {
+        font-size: 13px;
+        color: #65676b;
+    }
+
+    .unread-badge {
+        background-color: #1877f2;
+        color: white;
+        font-size: 11px;
+        font-weight: 500;
+        padding: 2px 8px;
+        border-radius: 10px;
+    }
+
+    /* Actions */
+    .notification-actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .action-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #65676b;
+    }
+
+    .action-btn:hover {
+        background-color: #e4e6eb;
+    }
+
+    .mark-read-btn {
+        color: #1877f2;
+    }
+
+    .mark-unread-btn {
+        color: #65676b;
+    }
+
+    .delete-btn {
+        color: #f02849;
+    }
+
+    .action-btn i {
+        font-size: 14px;
+    }
+</style>
+
+<div class="container py-4">
+    <div class="row">
+        @await Html.PartialAsync("_SideBar", ViewBag.SidebarUser as StackBook.Models.User)
+
+        <div class="notifications-page">
+            <div class="notifications-header">
+                <h2 class="notifications-title">Notification</h2>
+                <div class="header-actions">
+                    <form method="post" asp-action="MarkAllAsRead">
+                        <button type="submit" class="mark-all-btn">Mark all as read</button>
+                    </form>
+                </div>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="empty-notifications">
+                    <i class="far fa-bell empty-icon"></i>
+                    <p class="empty-text">Bạn không có thông báo nào</p>
+                </div>
+            }
+            else
+            {
+                <div class="notifications-list">
+                    @foreach (var notification in Model.OrderByDescending(n => n.CreatedAt))
+                    {
+                        <div class="notification-item @(!notification.Status ? "unread" : "")">
+                            @if (!notification.Status)
+                            {
+                                <div class="unread-indicator"></div>
+                            }
+                            
+                            <div class="notification-content">
+                                <div class="notification-message">@notification.Message</div>
+                                <div class="notification-meta">
+                                    <span class="notification-time">@notification.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</span>
+                                    @if (!notification.Status)
+                                    {
+                                        <span class="unread-badge">Unread</span>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="notification-actions">
+                                @if (!notification.Status)
+                                {
+                                    <form method="post" asp-action="MarkAsRead" asp-route-id="@notification.NotificationId">
+                                        <button type="submit" class="action-btn mark-read-btn" title="Đánh dấu đã đọc">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form method="post" asp-action="MarkAsUnread" asp-route-id="@notification.NotificationId">
+                                        <button type="submit" class="action-btn mark-unread-btn" title="Đánh dấu chưa đọc">
+                                            <i class="fas fa-undo"></i>
+                                        </button>
+
+                                    </form>
+                                }
+                                
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+            
+
+            
     </div>
-}
-else
-{
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Nội dung</th>
-                <th>Trạng thái</th>
-                <th>Ngày tạo</th>
-                <th>Hành động</th>  <!-- thêm cột hành động -->
-            </tr>
-        </thead>
-        <tbody>
-        @foreach (var notification in Model)
-        {
-            <tr>
-                <td>@notification.Message</td>
-                <td>
-                    @if (notification.Status)
-                    {
-                        <span class="badge bg-success">Đã đọc</span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-warning">Chưa đọc</span>
-                    }
-                </td>
-                <td>@notification.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
-                <td>
-                    @if (!notification.Status)
-                    {
-                        <form method="post" asp-action="MarkAsRead" asp-route-id="@notification.NotificationId" style="display:inline">
-                            <button type="submit" class="btn btn-sm btn-primary">Đánh dấu đã đọc</button>
-                        </form>
-                    }
-                    else
-                    {
-                        <span>-</span>
-                    }
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-}
+</div>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

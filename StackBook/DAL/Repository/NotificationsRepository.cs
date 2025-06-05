@@ -47,6 +47,13 @@ namespace StackBook.DAL.Repository
             _context.Notifications.Update(notification);
             await _context.SaveChangesAsync();
         }
+        public async Task MarkAsUnreadAsync(Guid notificationId)
+        {
+            var notification = await GetNotificationByIdAsync(notificationId);
+            notification.Status = false; // Đánh dấu là chưa đọc
+            _context.Notifications.Update(notification);
+            await _context.SaveChangesAsync();
+        }
         public async Task MarkAllAsReadAsync(Guid userId)
         {
             var notifications = await GetUnreadNotificationsAsync(userId);

@@ -46,11 +46,16 @@ namespace StackBook.Services
         {
             await _notificationsRepository.MarkAsReadAsync(notificationId);
         }
+        
+        public async Task MarkAsUnreadAsync(Guid notificationId)
+        {
+            await _notificationsRepository.MarkAsUnreadAsync(notificationId);
+        }
 
         public async Task MarkAllAsReadAsync(Guid userId)
         {
             await _notificationsRepository.MarkAllAsReadAsync(userId);
-    
+
         }
 
         public async Task DeleteNotificationAsync(Guid notificationId)

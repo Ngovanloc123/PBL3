@@ -13,6 +13,7 @@ namespace StackBook.Interfaces
         Task<Notification> GetNotificationByIdAsync(Guid notificationId);
         Task<List<Notification>> GetUnreadNotificationsAsync(Guid userId);
         Task MarkAsReadAsync(Guid notificationId);
+        Task MarkAsUnreadAsync(Guid notificationId);
         Task MarkAllAsReadAsync(Guid userId);
         Task DeleteNotificationAsync(Guid notificationId);
         Task<int> GetUnreadCountAsync(Guid userId);

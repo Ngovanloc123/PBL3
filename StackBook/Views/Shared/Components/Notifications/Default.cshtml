@@ -1,0 +1,120 @@
+@model IEnumerable<StackBook.Models.Notification>
+
+@if (Model.Any())
+{
+    <div class="notification-list">
+        @foreach (var notification in Model)
+        {
+            <div class="notification-item @(!notification.Status ? "unread" : "")">
+                <div class="notification-content">
+                    <div class="notification-message">@notification.Message</div>
+                    <div class="notification-meta">
+                        <span class="notification-time">@notification.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</span>
+                    </div>
+                </div>
+                <div class="notification-tick">
+                    @if (!notification.Status)
+                    {
+                        <form method="post" asp-area="Customer" asp-controller="Account" asp-action="MarkAsRead" asp-route-id="@notification.NotificationId">
+                            <button type="submit" class="btn-tick unread-tick" title="Mark as read">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="btn-tick read-tick" title="Already read">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="no-notifications">Bạn không có thông báo nào</div>
+}
+
+<style>
+    .notification-list {
+        width: 350px;
+        max-height: 400px;
+        overflow-y: auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .notification-item {
+        display: flex;
+        padding: 12px 16px;
+        border-bottom: 1px solid #f0f0f0;
+        align-items: center;
+    }
+
+    .notification-item:hover {
+        background-color: #f8f8f8;
+    }
+
+    .unread {
+        background-color: #f0f8ff;
+    }
+
+    .notification-content {
+        flex-grow: 1;
+    }
+
+    .notification-message {
+        font-size: 14px;
+        color: #050505;
+        margin-bottom: 4px;
+        line-height: 1.4;
+    }
+
+    .notification-meta {
+        display: flex;
+        align-items: center;
+    }
+
+    .notification-time {
+        font-size: 12px;
+        color: #65676b;
+    }
+
+    .notification-tick {
+        margin-left: 12px;
+    }
+
+    .btn-tick {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .unread-tick {
+        color: #1877f2;
+    }
+
+    .unread-tick:hover {
+        background-color: #e7f3ff;
+    }
+
+    .read-tick {
+        color: #a0a4ab;
+        cursor: default;
+    }
+
+    .no-notifications {
+        padding: 16px;
+        text-align: center;
+        color: #65676b;
+        font-size: 14px;
+    }
+</style>

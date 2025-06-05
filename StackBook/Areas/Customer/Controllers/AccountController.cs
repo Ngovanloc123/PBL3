@@ -195,6 +195,15 @@ namespace StackBook.Areas.Customer.Controllers
             if (userIdValue == null)
                 return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
             Guid userId = Guid.Parse(userIdValue);
+
+            ////
+            var user = _userService.GetUserById(userId);
+            if(user == null)
+                  return RedirectToAction("Login", "Account");
+             ViewBag.SidebarUser = user.Result.Data;
+
+
+
             var notifications = await _notificationService.GetUserNotificationsAsync(userId);
             if (notifications == null || notifications.Count == 0)
             {
@@ -203,7 +212,7 @@ namespace StackBook.Areas.Customer.Controllers
             }
             return View(notifications);
         }
-        [HttpPost]
+        [HttpPost("MarkAsRead/{id}")]
         public async Task<IActionResult> MarkAsRead(Guid id)
         {
             var userIdCookie = Request.Cookies["userId"];
@@ -227,6 +236,44 @@ namespace StackBook.Areas.Customer.Controllers
 
             await _notificationService.MarkAsReadAsync(id);
 
+            // return RedirectToAction("Notifications");
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+        [HttpPost("MarkAsUnread/{id}")]
+        public async Task<IActionResult> MarkAsUnread(Guid id)
+        {
+            var userIdCookie = Request.Cookies["userId"];
+            Console.WriteLine($"UserId Cookie: {userIdCookie}");
+            if (string.IsNullOrEmpty(userIdCookie))
+            {
+                return Unauthorized();
+            }
+            if (!Guid.TryParse(userIdCookie, out var userId))
+            {
+                return BadRequest("UserId không hợp lệ");
+            }
+            // Lấy notification bằng id đúng
+            Console.WriteLine($"Notification ID: {id}");
+            var notification = await _notificationService.GetNotificationByIdAsync(id);
+
+            if (notification == null || notification.UserId != userId)
+            {
+                return Forbid();
+            }
+
+            await _notificationService.MarkAsUnreadAsync(id);
+
+            // return RedirectToAction("Notifications");
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+        [HttpPost("MarkAllAsRead")]
+        public async Task<IActionResult> MarkAllAsRead()
+        {
+            var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userIdValue == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
+            Guid userId = Guid.Parse(userIdValue);
+            await _notificationService.MarkAllAsReadAsync(userId);
             return RedirectToAction("Notifications");
         }
 

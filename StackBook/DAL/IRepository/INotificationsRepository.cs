@@ -22,6 +22,8 @@ namespace StackBook.DAL.IRepository
         
         // Đánh dấu đã đọc
         Task MarkAsReadAsync(Guid notificationId);
+
+        Task MarkAsUnreadAsync(Guid notificationId);
         
         // Đánh dấu tất cả đã đọc
         Task MarkAllAsReadAsync(Guid userId);

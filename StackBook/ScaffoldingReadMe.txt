@@ -10,3 +10,10 @@ Add the following code to the Configure method in your Application's Startup cla
             pattern : "{area:exists}/{controller=Home}/{action=Index}/{id?}"
           );
         });
+        
+Them gium toi DB 2 cau nay:
+ALTER TABLE [StackBook].[dbo].[Orders]
+ADD CreatedAt DATETIME NOT NULL 
+CONSTRAINT DF_Orders_CreatedAt DEFAULT GETDATE();
+
+ALTER TABLE Reviews ADD OrderId UNIQUEIDENTIFIER NULL;

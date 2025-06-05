@@ -48,7 +48,7 @@ namespace StackBook.Areas.Customer.Controllers
 
                 var userId = Guid.Parse(userIdClaim);
 
-                
+
 
                 // Lấy danh sách sách trong giỏ hàng
                 var cartDetails = await _cartService.GetCartDetailsAsync(userId);

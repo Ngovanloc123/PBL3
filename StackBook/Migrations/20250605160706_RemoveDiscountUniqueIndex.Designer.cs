@@ -12,8 +12,8 @@ using StackBook.Data;
 namespace StackBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250603162231_FixDatabase")]
-    partial class FixDatabase
+    [Migration("20250605160706_RemoveDiscountUniqueIndex")]
+    partial class RemoveDiscountUniqueIndex
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,6 +227,9 @@ namespace StackBook.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("DiscountId")
                         .HasColumnType("uniqueidentifier");
 
@@ -244,7 +247,8 @@ namespace StackBook.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("DiscountId");
+                    b.HasIndex("DiscountId")
+                        .IsUnique();
 
                     b.HasIndex("ShippingAddressId");
 
@@ -371,6 +375,9 @@ namespace StackBook.Migrations
 
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");

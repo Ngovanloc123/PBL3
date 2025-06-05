@@ -5,7 +5,7 @@ namespace StackBook.Models
     public class Discount
     {
         [Key]
-        public Guid DiscountId { get; set; } =Guid.NewGuid();
+        public Guid DiscountId { get; set; } = Guid.NewGuid();
         public virtual Order? Order { get; set; }
 
         [Required]

@@ -142,6 +142,7 @@ namespace StackBook.Areas.Site.Controllers
                 if (result == null)
                     return View("Error", new ErrorViewModel { ErrorMessage = "Registration failed.", StatusCode = 400 });
 
+                TempData["success"] = "Register successful.";
                 return RedirectToAction("Signin", "Account", new { area = "Site" });
             }
             catch (Exception ex)
@@ -171,6 +172,8 @@ namespace StackBook.Areas.Site.Controllers
                 Response.Cookies.Delete("accessToken");
                 Response.Cookies.Delete("refreshToken");
                 Response.Cookies.Delete("userId");
+
+                TempData["success"] = "Sign out successful.";
 
                 // Chuyển hướng về trang login
                 return RedirectToAction("Signin", "Account", new { area = "Site" });

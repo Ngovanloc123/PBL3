@@ -7,6 +7,7 @@
     var shippingAddresses = Model.User?.ShippingAddresses?.ToList() ?? new List<StackBook.Models.ShippingAddress>();
     var defaultAddress = Model.shippingAddressDefault;
     var availableDiscounts = Model.discounts ?? new List<StackBook.Models.Discount>();
+    var validDiscounts = availableDiscounts.Where(d => DateTime.Now >= d.StartDate && DateTime.Now <= d.EndDate).ToList();
 }
 
 <div class="container my-4">
@@ -50,58 +51,28 @@
                 </div>
 
                 <!-- Discount Section -->
-                @if (availableDiscounts.Any())
+                @if (validDiscounts.Any())
                 {
                     <div class="border-top pt-3 mb-3">
-                        <h5>Apply Discount</h5>
-                        <div class="discount-selection">
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="radio" name="discountSelection" id="noDiscount" value="" checked>
-                                <label class="form-check-label" for="noDiscount">
-                                    No discount
-                                </label>
-                            </div>
-                            @foreach (var discount in availableDiscounts)
-                            {
-                                var isValidDate = DateTime.Now >= discount.StartDate && DateTime.Now <= discount.EndDate;
-                                <div class="form-check border rounded p-2 mb-2 @(!isValidDate ? "opacity-50" : "")">
-                                    <input class="form-check-input" type="radio" name="discountSelection" id="discount_@discount.DiscountId" value="@discount.DiscountId"
-                                           data-discount-price="@discount.Price"
-                                           data-start-date="@discount.StartDate.ToString("yyyy-MM-dd")"
-                                           data-end-date="@discount.EndDate.ToString("yyyy-MM-dd")"
-                                    @(!isValidDate ? "disabled" : "")>
-                                    <label class="form-check-label w-100" for="discount_@discount.DiscountId">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <strong>@discount.DiscountName</strong>
-                                                @if (!string.IsNullOrEmpty(discount.Description))
-                                                {
-                                                    <div class="text-muted small">@discount.Description</div>
-                                                }
-                                                <div class="text-muted small">
-                                                    Valid: @discount.StartDate.ToString("MM/dd/yyyy") - @discount.EndDate.ToString("MM/dd/yyyy")
-                                                </div>
-                                                @if (!isValidDate)
-                                                {
-                                                    <div class="text-danger small">
-                                                        @if (DateTime.Now < discount.StartDate)
-                                                        {
-                                                            <span>Not yet available</span>
-                                                        }
-                                                        else
-                                                        {
-                                                            <span>Expired</span>
-                                                        }
-                                                    </div>
-                                                }
-                                            </div>
-                                            <div class="text-end">
-                                                <span class="badge bg-success">$@discount.Price OFF</span>
-                                            </div>
-                                        </div>
-                                    </label>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5>Discount</h5>
+                            <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#discountModal">
+                                <i class="bi bi-tag"></i> Apply Discount
+                            </button>
+                        </div>
+                        <div id="selectedDiscount" class="alert alert-light d-none">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong id="selectedDiscountName">No discount selected</strong>
+                                    <div class="text-muted small" id="selectedDiscountDesc"></div>
                                 </div>
-                            }
+                                <div class="text-end">
+                                    <span class="badge bg-success" id="selectedDiscountAmount">$0 OFF</span>
+                                    <button type="button" class="btn btn-sm btn-outline-danger ms-2" onclick="removeDiscount()">
+                                        x
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 }
@@ -273,6 +244,81 @@
     }
 </div>
 
+<!-- Discount Modal -->
+<div class="modal fade" id="discountModal" tabindex="-1" aria-labelledby="discountModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="discountModalLabel">
+                    <i class="bi bi-tag text-success me-2"></i>Available Discounts
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if (validDiscounts.Any())
+                {
+                    <div class="list-group" style="max-height: 400px; overflow-y: auto;">
+                        <div class="list-group-item border-0 py-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="modalDiscountSelection" id="modalNoDiscount" value="" checked>
+                                <label class="form-check-label fw-bold" for="modalNoDiscount">
+                                    No discount
+                                </label>
+                            </div>
+                        </div>
+                        @foreach (var discount in validDiscounts)
+                        {
+                            <div class="list-group-item border rounded mb-2 discount-item" style="cursor: pointer;">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="modalDiscountSelection"
+                                           id="modalDiscount_@discount.DiscountId" value="@discount.DiscountId"
+                                           data-discount-name="@discount.DiscountName"
+                                           data-discount-desc="@discount.Description"
+                                           data-discount-price="@discount.Price"
+                                           data-start-date="@discount.StartDate.ToString("yyyy-MM-dd")"
+                                           data-end-date="@discount.EndDate.ToString("yyyy-MM-dd")">
+                                    <label class="form-check-label w-100" for="modalDiscount_@discount.DiscountId">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <i class="bi bi-tag-fill text-success me-2"></i>
+                                                    <strong>@discount.DiscountName</strong>
+                                                </div>
+                                                @if (!string.IsNullOrEmpty(discount.Description))
+                                                {
+                                                    <p class="text-muted mb-2 small">@discount.Description</p>
+                                                }
+                                                <div class="d-flex align-items-center text-muted small">
+                                                    <i class="bi bi-calendar-event me-1"></i>
+                                                    <span>Valid: @discount.StartDate.ToString("MM/dd/yyyy") - @discount.EndDate.ToString("MM/dd/yyyy")</span>
+                                                </div>
+                                            </div>
+                                            <div class="text-end ms-3">
+                                                <span class="badge bg-success fs-6">$@discount.Price OFF</span>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-4">
+                        <i class="bi bi-tag fs-1 text-muted"></i>
+                        <p class="text-muted mt-2">No discounts available at the moment.</p>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" onclick="applySelectedDiscount()">Apply Discount</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Address Modal -->
 <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -391,16 +437,23 @@
                 background-color: #f8f9fa;
             }
 
-        .discount-selection .form-check {
+        .discount-item {
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-            .discount-selection .form-check:hover {
+            .discount-item:hover {
                 background-color: #f8f9fa;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             }
 
-            .discount-selection .form-check.selected {
-                border-color: #198754;
+            .discount-item input[type="radio"]:checked + label {
+                background-color: #f0f8f4;
+            }
+
+            .discount-item.selected {
+                border-color: #198754 !important;
                 background-color: #f0f8f4;
             }
     </style>
@@ -408,11 +461,11 @@
         const originalTotal = @totalPrice;
         let currentDiscountId = '';
         let currentDiscountAmount = 0;
+        let selectedDiscountData = null;
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Set default discount selection
-            document.getElementById('noDiscount').checked = true;
+            // Initialize discount values
             document.getElementById('codDiscountId').value = '';
             document.getElementById('vnpayDiscountId').value = '';
         });
@@ -454,58 +507,105 @@
             });
         });
 
-        // Discount selection
-        document.querySelectorAll('input[name="discountSelection"]').forEach(radio => {
+        // Modal discount selection
+        document.querySelectorAll('input[name="modalDiscountSelection"]').forEach(radio => {
             radio.addEventListener('change', function() {
-                // Remove selected class from all discount options
-                document.querySelectorAll('.discount-selection .form-check').forEach(check => {
-                    check.classList.remove('selected');
+                // Remove selected class from all discount items
+                document.querySelectorAll('.discount-item').forEach(item => {
+                    item.classList.remove('selected');
                 });
 
-                const discountRow = document.getElementById('discount-row');
-                const discountAmount = document.getElementById('discount-amount');
-                const totalPriceElement = document.getElementById('total-price');
-
-                if (this.value === '') {
-                    // No discount selected
-                    currentDiscountId = '';
-                    currentDiscountAmount = 0;
-                    discountRow.style.display = 'none';
-                    totalPriceElement.textContent = '$' + originalTotal.toFixed(2);
-                } else {
-                    // Discount selected
-                    this.closest('.form-check').classList.add('selected');
-                    currentDiscountId = this.value;
-
-                    const discountPrice = parseFloat(this.getAttribute('data-discount-price'));
-                    const startDate = new Date(this.getAttribute('data-start-date'));
-                    const endDate = new Date(this.getAttribute('data-end-date'));
-                    const currentDate = new Date();
-
-                    // Check if discount is valid (within date range)
-                    if (currentDate < startDate || currentDate > endDate) {
-                        alert('This discount is not currently valid.');
-                        document.getElementById('noDiscount').checked = true;
-                        this.checked = false;
-                        return;
-                    }
-
-                    // Calculate discount amount (fixed amount discount)
-                    currentDiscountAmount = Math.min(discountPrice, originalTotal);
-
-                    // Update display
-                    discountRow.style.display = 'flex';
-                    discountAmount.textContent = '-$' + currentDiscountAmount.toFixed(2);
-
-                    const finalTotal = originalTotal - currentDiscountAmount;
-                    totalPriceElement.textContent = '$' + finalTotal.toFixed(2);
+                // Add selected class to current item (if not "no discount")
+                if (this.value !== '') {
+                    this.closest('.discount-item').classList.add('selected');
                 }
+            });
+        });
+
+        // Apply selected discount function
+        function applySelectedDiscount() {
+            const selectedRadio = document.querySelector('input[name="modalDiscountSelection"]:checked');
+
+            if (!selectedRadio) {
+                return;
+            }
+
+            const discountRow = document.getElementById('discount-row');
+            const discountAmount = document.getElementById('discount-amount');
+            const totalPriceElement = document.getElementById('total-price');
+            const selectedDiscountDiv = document.getElementById('selectedDiscount');
+
+            if (selectedRadio.value === '') {
+                // No discount selected
+                removeDiscount();
+            } else {
+                // Discount selected
+                currentDiscountId = selectedRadio.value;
+                const discountPrice = parseFloat(selectedRadio.getAttribute('data-discount-price'));
+                const discountName = selectedRadio.getAttribute('data-discount-name');
+                const discountDesc = selectedRadio.getAttribute('data-discount-desc');
+
+                // Store selected discount data
+                selectedDiscountData = {
+                    id: currentDiscountId,
+                    name: discountName,
+                    description: discountDesc,
+                    price: discountPrice
+                };
+
+                // Calculate discount amount (fixed amount discount)
+                currentDiscountAmount = Math.min(discountPrice, originalTotal);
+
+                // Update display
+                discountRow.style.display = 'flex';
+                discountAmount.textContent = '-$' + currentDiscountAmount.toFixed(2);
+
+                const finalTotal = originalTotal - currentDiscountAmount;
+                totalPriceElement.textContent = '$' + finalTotal.toFixed(2);
+
+                // Show selected discount info
+                selectedDiscountDiv.classList.remove('d-none');
+                document.getElementById('selectedDiscountName').textContent = discountName;
+                document.getElementById('selectedDiscountDesc').textContent = discountDesc || '';
+                document.getElementById('selectedDiscountAmount').textContent = '$' + discountPrice + ' OFF';
 
                 // Update hidden inputs in both forms
                 document.getElementById('codDiscountId').value = currentDiscountId;
                 document.getElementById('vnpayDiscountId').value = currentDiscountId;
+            }
+
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('discountModal'));
+            modal.hide();
+        }
+
+        // Remove discount function
+        function removeDiscount() {
+            currentDiscountId = '';
+            currentDiscountAmount = 0;
+            selectedDiscountData = null;
+
+            const discountRow = document.getElementById('discount-row');
+            const totalPriceElement = document.getElementById('total-price');
+            const selectedDiscountDiv = document.getElementById('selectedDiscount');
+
+            // Hide discount row and selected discount info
+            discountRow.style.display = 'none';
+            selectedDiscountDiv.classList.add('d-none');
+
+            // Reset total price
+            totalPriceElement.textContent = '$' + originalTotal.toFixed(2);
+
+            // Clear hidden inputs
+            document.getElementById('codDiscountId').value = '';
+            document.getElementById('vnpayDiscountId').value = '';
+
+            // Reset modal selection
+            document.getElementById('modalNoDiscount').checked = true;
+            document.querySelectorAll('.discount-item').forEach(item => {
+                item.classList.remove('selected');
             });
-        });
+        }
 
         // Address selection function
         function selectAddress() {
@@ -520,5 +620,61 @@
                 modal.hide();
             }
         }
+
+        // Handle discount item clicks to select radio button
+        document.querySelectorAll('.discount-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (e.target.type !== 'radio') {
+                    const radio = this.querySelector('input[type="radio"]');
+                    if (radio) {
+                        radio.checked = true;
+                        radio.dispatchEvent(new Event('change'));
+                    }
+                }
+            });
+        });
+
+        // Preserve selected discount when modal reopens
+        document.getElementById('discountModal').addEventListener('show.bs.modal', function() {
+            if (currentDiscountId) {
+                const targetRadio = document.getElementById('modalDiscount_' + currentDiscountId);
+                if (targetRadio) {
+                    targetRadio.checked = true;
+                    targetRadio.closest('.discount-item').classList.add('selected');
+                }
+            } else {
+                document.getElementById('modalNoDiscount').checked = true;
+                document.querySelectorAll('.discount-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+            }
+        });
+
+        // Form validation before submit
+        document.getElementById('codForm').addEventListener('submit', function(e) {
+            const addressId = document.querySelector('input[name="shippingAddressDefault.ShippingAddressId"]').value;
+            if (!addressId) {
+                e.preventDefault();
+                alert('Please select a shipping address.');
+                return false;
+            }
+        });
+
+        document.getElementById('vnpayForm').addEventListener('submit', function(e) {
+            const addressId = document.querySelector('input[name="shippingAddressDefault.ShippingAddressId"]').value;
+            const bankCode = document.getElementById('selectedBankCode').value;
+
+            if (!addressId) {
+                e.preventDefault();
+                alert('Please select a shipping address.');
+                return false;
+            }
+
+            if (!bankCode) {
+                e.preventDefault();
+                alert('Please select a bank for payment.');
+                return false;
+            }
+        });
     </script>
 }

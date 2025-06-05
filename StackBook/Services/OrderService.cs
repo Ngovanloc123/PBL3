@@ -9,6 +9,7 @@ using StackBook.DAL.IRepository;
 using StackBook.ViewModels;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 
 namespace StackBook.Services
 {
@@ -99,11 +100,11 @@ namespace StackBook.Services
                 if(discount == null)
                 // Lấy discount mặc định không giảm giá khi không chọn vào discount
                 {  
-                    discount = await _discountService.GetDiscountByCode("0");
-                    if (discount == null)
-                    {
+                    //discount = await _discountService.GetDiscountByCode("0");
+                    //if (discount == null)
+                    //{
                         discount = await _discountService.CreateDefaultDiscount();
-                    }
+                    //}
                 }
 
 
@@ -121,8 +122,15 @@ namespace StackBook.Services
                     TotalPrice = totalAmount,
                     Status = 1, 
                     CreatedAt = DateTime.Now,
-                    Discount = discount
                 };
+
+                // kiểm tra discount đã được dùng hay chưa
+                var oldOrder = await _unitOfWork.Order.GetAsync(o => o.DiscountId == discount.DiscountId);
+
+                if(oldOrder != null)
+                {
+                    throw new ApplicationException("Discount has been used");
+                }
 
                 await _unitOfWork.Order.AddAsync(order);
                 await _unitOfWork.SaveAsync();
@@ -175,7 +183,8 @@ namespace StackBook.Services
             }
             catch (Exception ex)
             {
-                throw new ApplicationException($"Error creating order: {ex.Message}", ex);
+                Console.WriteLine(ex);
+                throw new ApplicationException($"{ex.Message}", ex);
             }
         }
 

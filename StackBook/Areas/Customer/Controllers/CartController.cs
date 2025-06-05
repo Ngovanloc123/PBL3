@@ -103,7 +103,8 @@ namespace StackBook.Areas.Customer.Controllers
                     User = user,
                     SelectedBooks = selectedBooks,
                     shippingAddressDefault = shippingAddressDefault,
-                    discounts = await  _discountService.GetAllDiscounts()
+
+                    discounts = (await _UnitOfWork.Discount.GetListAsync(d => d.DiscountCode != "0")).ToList()
                 };
 
                 var jsonSettings = new JsonSerializerSettings

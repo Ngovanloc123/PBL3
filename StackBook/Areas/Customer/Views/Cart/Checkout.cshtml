@@ -6,6 +6,7 @@
     var totalPrice = Model.SelectedBooks?.Sum(b => b.Book.Price * b.Quantity) ?? 0;
     var shippingAddresses = Model.User?.ShippingAddresses?.ToList() ?? new List<StackBook.Models.ShippingAddress>();
     var defaultAddress = Model.shippingAddressDefault;
+    var availableDiscounts = Model.discounts ?? new List<StackBook.Models.Discount>();
 }
 
 <div class="container my-4">
@@ -47,11 +48,77 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Discount Section -->
+                @if (availableDiscounts.Any())
+                {
+                    <div class="border-top pt-3 mb-3">
+                        <h5>Apply Discount</h5>
+                        <div class="discount-selection">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="discountSelection" id="noDiscount" value="" checked>
+                                <label class="form-check-label" for="noDiscount">
+                                    No discount
+                                </label>
+                            </div>
+                            @foreach (var discount in availableDiscounts)
+                            {
+                                var isValidDate = DateTime.Now >= discount.StartDate && DateTime.Now <= discount.EndDate;
+                                <div class="form-check border rounded p-2 mb-2 @(!isValidDate ? "opacity-50" : "")">
+                                    <input class="form-check-input" type="radio" name="discountSelection" id="discount_@discount.DiscountId" value="@discount.DiscountId"
+                                           data-discount-price="@discount.Price"
+                                           data-start-date="@discount.StartDate.ToString("yyyy-MM-dd")"
+                                           data-end-date="@discount.EndDate.ToString("yyyy-MM-dd")"
+                                    @(!isValidDate ? "disabled" : "")>
+                                    <label class="form-check-label w-100" for="discount_@discount.DiscountId">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>@discount.DiscountName</strong>
+                                                @if (!string.IsNullOrEmpty(discount.Description))
+                                                {
+                                                    <div class="text-muted small">@discount.Description</div>
+                                                }
+                                                <div class="text-muted small">
+                                                    Valid: @discount.StartDate.ToString("MM/dd/yyyy") - @discount.EndDate.ToString("MM/dd/yyyy")
+                                                </div>
+                                                @if (!isValidDate)
+                                                {
+                                                    <div class="text-danger small">
+                                                        @if (DateTime.Now < discount.StartDate)
+                                                        {
+                                                            <span>Not yet available</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>Expired</span>
+                                                        }
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="text-end">
+                                                <span class="badge bg-success">$@discount.Price OFF</span>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
                 <div class="border-top pt-3">
-                    <h5>Total (<span id="total-items">@totalItems</span> Books):</h5>
-                    <span class="text-danger fs-4" id="total-price">
-                        $@totalPrice
-                    </span>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal (<span id="total-items">@totalItems</span> Books):</span>
+                        <span id="subtotal-price">$@totalPrice</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2" id="discount-row" style="display: none;">
+                        <span class="text-success">Discount:</span>
+                        <span class="text-success" id="discount-amount">-$0</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h5>Total:</h5>
+                        <span class="text-danger fs-4" id="total-price">$@totalPrice</span>
+                    </div>
                 </div>
             </div>
 
@@ -174,7 +241,7 @@
                     }
                     <input type="hidden" name="User.UserId" value="@Model.User?.UserId" />
                     <input type="hidden" name="shippingAddressDefault.ShippingAddressId" value="@defaultAddress?.ShippingAddressId" />
-                    <input type="hidden" name="PaymentMethod" value="CashOnDelivery" />
+                    <input type="hidden" name="DiscountId" id="codDiscountId" value="" />
                     <button type="submit" class="btn btn-success btn-lg w-100">Place Order</button>
                 </form>
 
@@ -190,6 +257,7 @@
                     <input type="hidden" name="shippingAddressDefault.ShippingAddressId" value="@defaultAddress?.ShippingAddressId" />
                     <input type="hidden" name="PaymentMethod" value="CreditCard" />
                     <input type="hidden" name="BankCode" id="selectedBankCode" value="" />
+                    <input type="hidden" name="DiscountId" id="vnpayDiscountId" value="" />
                     <button type="submit" class="btn btn-primary btn-lg w-100" disabled id="vnpaySubmitBtn">
                         <i class="bi bi-credit-card me-2"></i>Pay with VNPay
                     </button>
@@ -322,8 +390,33 @@
             .payment-methods .form-check:hover {
                 background-color: #f8f9fa;
             }
+
+        .discount-selection .form-check {
+            cursor: pointer;
+        }
+
+            .discount-selection .form-check:hover {
+                background-color: #f8f9fa;
+            }
+
+            .discount-selection .form-check.selected {
+                border-color: #198754;
+                background-color: #f0f8f4;
+            }
     </style>
     <script>
+        const originalTotal = @totalPrice;
+        let currentDiscountId = '';
+        let currentDiscountAmount = 0;
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default discount selection
+            document.getElementById('noDiscount').checked = true;
+            document.getElementById('codDiscountId').value = '';
+            document.getElementById('vnpayDiscountId').value = '';
+        });
+
         // Payment method selection
         document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
             radio.addEventListener('change', function() {
@@ -358,6 +451,59 @@
 
                 // Enable submit button
                 document.getElementById('vnpaySubmitBtn').disabled = false;
+            });
+        });
+
+        // Discount selection
+        document.querySelectorAll('input[name="discountSelection"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Remove selected class from all discount options
+                document.querySelectorAll('.discount-selection .form-check').forEach(check => {
+                    check.classList.remove('selected');
+                });
+
+                const discountRow = document.getElementById('discount-row');
+                const discountAmount = document.getElementById('discount-amount');
+                const totalPriceElement = document.getElementById('total-price');
+
+                if (this.value === '') {
+                    // No discount selected
+                    currentDiscountId = '';
+                    currentDiscountAmount = 0;
+                    discountRow.style.display = 'none';
+                    totalPriceElement.textContent = '$' + originalTotal.toFixed(2);
+                } else {
+                    // Discount selected
+                    this.closest('.form-check').classList.add('selected');
+                    currentDiscountId = this.value;
+
+                    const discountPrice = parseFloat(this.getAttribute('data-discount-price'));
+                    const startDate = new Date(this.getAttribute('data-start-date'));
+                    const endDate = new Date(this.getAttribute('data-end-date'));
+                    const currentDate = new Date();
+
+                    // Check if discount is valid (within date range)
+                    if (currentDate < startDate || currentDate > endDate) {
+                        alert('This discount is not currently valid.');
+                        document.getElementById('noDiscount').checked = true;
+                        this.checked = false;
+                        return;
+                    }
+
+                    // Calculate discount amount (fixed amount discount)
+                    currentDiscountAmount = Math.min(discountPrice, originalTotal);
+
+                    // Update display
+                    discountRow.style.display = 'flex';
+                    discountAmount.textContent = '-$' + currentDiscountAmount.toFixed(2);
+
+                    const finalTotal = originalTotal - currentDiscountAmount;
+                    totalPriceElement.textContent = '$' + finalTotal.toFixed(2);
+                }
+
+                // Update hidden inputs in both forms
+                document.getElementById('codDiscountId').value = currentDiscountId;
+                document.getElementById('vnpayDiscountId').value = currentDiscountId;
             });
         });
 

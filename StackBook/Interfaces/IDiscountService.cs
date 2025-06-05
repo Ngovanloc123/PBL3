@@ -12,6 +12,7 @@ namespace StackBook.Interfaces
 {
     public interface IDiscountService
     {
+        Task<Discount> CreateDefaultDiscount();
         Task<Discount> GetDiscountByCode(string code);
         Task<List<Discount>> GetAllDiscounts();
         Task<Discount> CreateDiscount(Discount discount);

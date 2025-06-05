@@ -22,7 +22,8 @@ namespace StackBook.Services
         private readonly IShippingAddressRepository _shippingAddressRepository;
         private readonly IOrderHistoryRepository _orderHistoryRepository;
         private readonly IBookService _bookService;
-        
+        private readonly IDiscountService _discountService;
+
         private readonly IUnitOfWork _unitOfWork;
 
         public OrderService(
@@ -34,7 +35,7 @@ namespace StackBook.Services
             IShippingAddressRepository shippingAddressRepository,
             IOrderHistoryRepository orderHistoryRepository,
             IBookService bookService,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork, IDiscountService discountService)
         {
             _orderRepository = orderRepository;
             _userRepository = userRepository;
@@ -45,10 +46,11 @@ namespace StackBook.Services
             _orderHistoryRepository = orderHistoryRepository;
             _bookService = bookService;
             _unitOfWork = unitOfWork;
+            _discountService = discountService;
         }
 
         public async Task<Order> CreateOrderAsync(Guid userId, CheckoutRequest request)
-    {
+        {
             try
             {
                 // Validate selected books
@@ -90,54 +92,36 @@ namespace StackBook.Services
                     });
                 }
 
+                // Discount
+                var discount = await _discountRepository.GetAsync(d => d.DiscountId == request.DiscountId);
 
-
-                // Đưa qua service Discount
-
-                // Xét lại thêm vào view
-                var defaultDiscount = new Discount
-                {
-                    DiscountName = "Test Discount",
-                    Price = 1.99,
-                    DiscountCode = "102230197",
-                    Description = "Mã giảm giá test",
-                    CreatedDiscount = DateTime.Now,
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Now,
-
-                };
-                await _unitOfWork.Discount.AddAsync(defaultDiscount);
-                await _unitOfWork.SaveAsync();
-
-                Discount? discount = null;
-                if (!string.IsNullOrEmpty(defaultDiscount.DiscountName))
-                {
-                    discount = await _unitOfWork.Discount.GetAsync(d => d.DiscountId == defaultDiscount.DiscountId);
-                    if (discount != null)
+                
+                if(discount == null)
+                // Lấy discount mặc định không giảm giá khi không chọn vào discount
+                {  
+                    discount = await _discountService.GetDiscountByCode("0");
+                    if (discount == null)
                     {
-                        // Validate discount dates
-                        if (discount.StartDate > DateTime.Now || discount.EndDate < DateTime.Now)
-                        {
-                            // Vì discount test nên thời gian hơi lỏ
-                            //throw new InvalidOperationException("Discount code has expired.");
-                        }
-                        //totalAmount = Math.Max(0, totalAmount - discount.Price);
+                        discount = await _discountService.CreateDefaultDiscount();
                     }
                 }
 
 
+                // Tính lại giá sau khi giảm giá
+                totalAmount = Math.Max(0, totalAmount - discount.Price);
 
 
-
-               // Create order
+                // Create order
                 var order = new Order
                 {
+                    OrderId = Guid.NewGuid(),
                     UserId = userId,
-                    DiscountId = defaultDiscount!.DiscountId,
+                    DiscountId = discount.DiscountId,
                     ShippingAddressId = request.shippingAddressDefault.ShippingAddressId,
                     TotalPrice = totalAmount,
-                    Status = 1, // Pending
-                                //CreatedDate = DateTime.Now
+                    Status = 1, 
+                    CreatedAt = DateTime.Now,
+                    Discount = discount
                 };
 
                 await _unitOfWork.Order.AddAsync(order);
@@ -182,8 +166,6 @@ namespace StackBook.Services
                 {
                     await _cartService.RemoveFromCartAsync(userId, selectedBook.Book.BookId);
                 }
-                
-
 
                 await _unitOfWork.Payment.AddAsync(payment);
                 await _unitOfWork.SaveAsync();     
@@ -300,7 +282,7 @@ namespace StackBook.Services
 
         public async Task<Order> GetOrderByIdAsync(Guid orderId)
         {
-            var order = await _unitOfWork.Order.GetAsync(o => o.OrderId == orderId, "OrderDetails.Book.Authors,User,ShippingAddress");
+            var order = await _unitOfWork.Order.GetAsync(o => o.OrderId == orderId, "OrderDetails.Book.Authors,User,ShippingAddress,Discount");
             if (order == null) 
                 throw new AppException("Order does not exist."); 
             return order;
@@ -309,13 +291,13 @@ namespace StackBook.Services
         public async Task<List<Order>> GetOrdersByUserIdAsync(Guid userId)
         {
             var orders = await _unitOfWork.Order.GetListAsync(o => o.UserId == userId, "OrderDetails.Book,ShippingAddress,User,Payments");
-            return orders.ToList() ?? new List<Order>(); ;
+            return orders.ToList().OrderByDescending(o => o.CreatedAt).ToList() ?? new List<Order>(); ;
         }
 
         public async Task<List<Order>> GetAllOrdersAsync()
         {
             var orders = await _unitOfWork.Order.GetAllAsync("OrderDetails.Book,ShippingAddress,User");
-            return orders.ToList().OrderBy(o => o.Status).ToList();
+            return orders.ToList().OrderByDescending(o => o.Status).ToList();
 
         }
 
@@ -326,7 +308,7 @@ namespace StackBook.Services
 
             var orders = await _unitOfWork.Order.GetListAsync(o => o.Status == status, "OrderDetails.Book,ShippingAddress,User");
 
-            return orders.ToList() ?? new List<Order>(); ;
+            return orders.ToList().OrderByDescending(o => o.CreatedAt).ToList() ?? new List<Order>(); ;
         }
 
         public async Task<List<Order>> GetOrdersByUserIdAndStatusAsync(Guid userId, int status)
@@ -336,7 +318,7 @@ namespace StackBook.Services
 
             var orders = await _unitOfWork.Order.GetListAsync(o => o.Status == status && o.UserId == userId, "OrderDetails.Book,ShippingAddress");
 
-            return orders.ToList() ?? new List<Order>(); ;
+            return orders.ToList().OrderByDescending(o => o.CreatedAt).ToList() ?? new List<Order>(); ;
         }
 
         public async Task UpdateShippingAddressAsync(Guid orderId, Guid shippingAddressId)

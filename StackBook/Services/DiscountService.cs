@@ -10,10 +10,30 @@ namespace StackBook.Services
     public class DiscountService : IDiscountService
     {
         private readonly IDiscountRepository _discountRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DiscountService(IDiscountRepository discountRepository)
+        public DiscountService(IDiscountRepository discountRepository, IUnitOfWork unitOfWork)
         {
             _discountRepository = discountRepository;
+            _unitOfWork = unitOfWork;
+        }
+
+        public async Task<Discount> CreateDefaultDiscount()
+        {
+            var discount = new Discount
+            {
+                DiscountId = Guid.NewGuid(),
+                DiscountName = "No discount",
+                Price = 0,
+                Description = "No discount applies",
+                DiscountCode = "0",
+                CreatedDiscount = DateTime.Now,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddYears(1) // Hi?u l?c 1 n?m
+            };
+            await _unitOfWork.Discount.AddAsync(discount);
+            await _unitOfWork.SaveAsync();
+            return discount;
         }
 
         public async Task<Discount> GetDiscountByCode(string code)

@@ -46,8 +46,6 @@ namespace StackBook.DAL.Repository
         public async Task<Discount> GetByCodeAsync(string code)
         {
             var discount = await _context.Discounts.FirstOrDefaultAsync(d => d.DiscountCode == code);
-            if(discount == null) 
-                throw new Exception("Discount not found");
             return discount;
         }
         public async Task AddAsync(Discount entity)

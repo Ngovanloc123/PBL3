@@ -21,6 +21,7 @@ namespace StackBook.ViewModels
         public List<SelectedBook> SelectedBooks { get; set; }
         public ShippingAddress? shippingAddressDefault { get; set; }
         public string PaymentMethod { get; set; }
+        public List<Discount> discounts { get; set; }
         public Guid DiscountId { get; set; }
     }
 }

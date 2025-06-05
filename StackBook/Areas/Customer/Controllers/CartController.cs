@@ -22,15 +22,17 @@ namespace StackBook.Areas.Customer.Controllers
     {
         private readonly IUnitOfWork _UnitOfWork;
         private readonly ICartService _cartService;
+        private readonly IDiscountService _discountService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly JwtUtils _jwtUtils;
 
-        public CartController(IUnitOfWork unitOfWork, ICartService cartService, IHttpContextAccessor httpContextAccessor, JwtUtils jwtUtils)
+        public CartController(IUnitOfWork unitOfWork, ICartService cartService, IHttpContextAccessor httpContextAccessor, JwtUtils jwtUtils, IDiscountService discountService)
         {
             _UnitOfWork = unitOfWork;
             _cartService = cartService;
             _httpContextAccessor = httpContextAccessor;
             _jwtUtils = jwtUtils;
+            _discountService = discountService;
         }
 
         [Authorize]
@@ -91,6 +93,8 @@ namespace StackBook.Areas.Customer.Controllers
                     });
                 }
 
+
+
                 // Lấy shippping address đầu tiên
                 var shippingAddressDefault = await _UnitOfWork.ShippingAddress.GetAsync(sa => sa.UserId == Guid.Parse(userId));
 
@@ -98,7 +102,8 @@ namespace StackBook.Areas.Customer.Controllers
                 {
                     User = user,
                     SelectedBooks = selectedBooks,
-                    shippingAddressDefault = shippingAddressDefault
+                    shippingAddressDefault = shippingAddressDefault,
+                    discounts = await  _discountService.GetAllDiscounts()
                 };
 
                 var jsonSettings = new JsonSerializerSettings

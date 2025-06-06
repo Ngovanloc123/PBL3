@@ -167,8 +167,9 @@ namespace StackBook.Areas.Site.Controllers
                     await _authService.LogoutUser(Guid.Parse(userId));
                 }
 
-                
-
+                // Xóa Auth cookies
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                // Xóa cookies chứa token
                 Response.Cookies.Delete("accessToken");
                 Response.Cookies.Delete("refreshToken");
                 Response.Cookies.Delete("userId");

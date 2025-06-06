@@ -67,35 +67,10 @@
                 <div class="d-flex align-items-center mb-3">
                     <span class="text-warning me-2">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
                     <span class="text-muted small">
-                        @{
-                            var reviewCount = 0;
-                            if (Model.Reviews != null && Model.Reviews.Any())
-                            {
-                                // Count reviews for the current book
-                                reviewCount = Model.Reviews.Count(r => r.BookId == Model.BookId);
-                            }
-                            else
-                            {
-                                // Default to 0 if no reviews exist
-                                reviewCount = 0;
-                            }
-                        }
-                        (@reviewCount ratings)
+                        @ViewData["CountRatingBook"] ratings
                     </span>
                     <span class="text-muted small ms-3">| Sold @Model.Stock</span>
                 </div>
-                <div class="debug-info" style="display: none;"></div>
-                <p>Model.Reviews is null? @(Model.Reviews == null)</p>
-                <p>Model.Reviews count: @Model.Reviews?.Count</p>
-                <p>Current BookId: @Model.BookId</p>
-                <p>All Reviews (if any):</p>
-                @if (Model.Reviews != null)
-                {
-                    foreach (var review in Model.Reviews)
-                    {
-                        <p>Review ID: @review.ReviewId, BookId: @review.BookId</p>
-                    }
-                }
             </div>
                 
                 <!-- Pricing -->

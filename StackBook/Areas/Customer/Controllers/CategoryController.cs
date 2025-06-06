@@ -18,13 +18,15 @@ namespace StackBook.Areas.Customer.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISearchService _searchService;
         private readonly ICategoryService _categoryService;
-        
+        private readonly IReviewRepository _reviewRepository;
 
-        public CategoryController(IUnitOfWork unitOfWork, ISearchService searchService, ICategoryService categoryService)
+
+        public CategoryController(IUnitOfWork unitOfWork, ISearchService searchService, ICategoryService categoryService, IReviewRepository reviewRepository)
         {
             _unitOfWork = unitOfWork;
             _searchService = searchService;
             _categoryService = categoryService;
+            _reviewRepository = reviewRepository;
         }
 
         public async Task<IActionResult> Index(Guid? categoryId)
@@ -47,7 +49,21 @@ namespace StackBook.Areas.Customer.Controllers
         public async Task<IActionResult> BookDetail(Guid? bookId)
         {
             var book = await _unitOfWork.Book.GetAsync(b => b.BookId == bookId, "Authors,Categories.Books.Authors");
-
+            ViewBag.Book = book;
+            //Kiểm tra book có bao nhiêu rating
+            if (book == null)
+            {
+                TempData["error"] = "Book not found";
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: Book not found", StatusCode = 404 });
+            }
+            if (book.Authors == null || book.Authors.Count == 0)
+            {
+                TempData["error"] = "Book has no authors";
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: Book has no authors", StatusCode = 404 });
+            }
+            var countBookRating = await _reviewRepository.GetReviewCountForBookAsync(bookId.Value);
+            Console.WriteLine($"Count book rating: {countBookRating}");
+            ViewData["CountRatingBook"] = countBookRating;
             return View(book);
         }
 

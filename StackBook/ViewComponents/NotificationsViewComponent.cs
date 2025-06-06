@@ -14,7 +14,7 @@ namespace StackBook.Components
         {
             _notificationService = notificationService;
         }
-        
+
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -27,6 +27,37 @@ namespace StackBook.Components
 
             var notifications = await _notificationService.GetUserNotificationsAsync(Guid.Parse(claim.Value));
             return View(notifications?.OrderByDescending(n => n.CreatedAt).ToList() ?? new List<Notification>());
+        }
+    }
+
+    public class NotificationCountViewComponent : ViewComponent
+    {
+        private readonly INotificationService _notificationService;
+
+        public NotificationCountViewComponent(INotificationService notificationService)
+        {
+            _notificationService = notificationService;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (claim == null)
+            {
+                return View(0);
+            }
+            
+            try
+            {
+                var count = await _notificationService.GetUnreadCountAsync(Guid.Parse(claim.Value));
+                return View(count);
+            }
+            catch
+            {
+                return View(0); // Fallback
+            }
         }
     }
 }

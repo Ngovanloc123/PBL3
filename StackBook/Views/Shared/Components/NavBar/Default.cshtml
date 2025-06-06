@@ -73,14 +73,7 @@
 
             <div class="d-flex align-items-center navbar-icon"></div>
             <div class="dropdown"></div>
-            <a class="btn btn-custom position-relative" href="#" role="button" id="notificationDropdown"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa-solid fa-bell"></i>
-                @if (ViewBag.UnreadNotificationCount > 0)
-                {
-                    <span class="notification-badge">@ViewBag.UnreadNotificationCount</span>
-                }
-            </a>
+            @await Component.InvokeAsync("NotificationCount")
             <div class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notificationDropdown">
                 <div class="notification-header">
                     Notifications

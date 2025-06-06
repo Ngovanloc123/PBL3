@@ -1,34 +1,18 @@
 ﻿
 // ================== SLIDER BOOKS ========================
 new Swiper('.card-wrapper', {
-    loop: true,
-    spaceBetween: 32,
 
     pagination: {
         el: '.swiper-pagination',
     },
 
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
 
     autoplay: {
         delay: 4000, // 4 giây
         disableOnInteraction: false // vẫn tự động sau khi người dùng tương tác
     },
 
-    breakpoints: {
-        0: {
-            slidesPerView: 2
-        },
-        768: {
-            slidesPerView: 3
-        },
-        1024: {
-            slidesPerView: 4
-        },
-    }
+    sliderPerView: 1,
 });
 
 

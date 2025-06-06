@@ -202,7 +202,7 @@ namespace StackBook.Areas.Customer.Controllers
                   return RedirectToAction("Login", "Account");
              ViewBag.SidebarUser = user.Result.Data;
 
-
+            ViewBag.UnreadNotificationCount = await _notificationService.GetUnreadCountAsync(userId);
 
             var notifications = await _notificationService.GetUserNotificationsAsync(userId);
             if (notifications == null || notifications.Count == 0)

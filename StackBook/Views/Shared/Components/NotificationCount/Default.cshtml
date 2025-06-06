@@ -1,0 +1,13 @@
+@model int
+
+<a class="btn btn-custom position-relative" href="#" role="button" id="notificationDropdown"
+   data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-bell"></i>
+    @if (Model > 0)
+    {
+        <span class="notification-badge">@Model</span>
+    }
+    @if(Model >9){
+        <span class="notification-badge">9+</span>
+    }
+</a>

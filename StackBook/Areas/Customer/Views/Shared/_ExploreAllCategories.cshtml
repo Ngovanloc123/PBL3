@@ -1,10 +1,8 @@
 ﻿@model List<StackBook.Models.Category>
 
+<link rel="stylesheet" href="~/css/category.css" asp-append-version="true" />
 
-
-
-<div class="container-fluid">
-    <h1 class="text-center my-4 py-2 border-bottom bg-body-tertiary"><span class="fw-light">Explore</span> Category</h1>
+<div class="container">
 
     @await Component.InvokeAsync("SliderCategory")
 
@@ -18,32 +16,45 @@
         {
             @* =============== Literature & Fiction =============== *@
             <section class="category-section mb-5">
-                <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
-                    <h2 class="">@category.CategoryName</h2>
-                    <a asp-area="Customer" asp-controller="Category" asp-action="Index" asp-route-CategoryId="@category.CategoryId" class="text-decoration-none">See more</a>
+                <div class="d-flex justify-content-between align-items-center mt-5 pb-2">
+                    <h2>@category.CategoryName</h2>
+                    <a asp-area="Customer" asp-controller="Category" asp-action="Index"
+                        asp-route-CategoryId="@category.CategoryId" class="view-all text-decoration-none text-muted">View all ></a>
                 </div>
                 <div class="container-books category@( "" + index )">
-                    <div class="book-list">
+                    <div class="d-flex flex-wrap">
 
-                        @foreach (var book in category.Books)
+                        @foreach (var book in category.Books.Take(8))
                         {
-                            <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@book.BookId" class="book-card text-decoration-none text-black">
-                                <img src="@book.ImageURL" alt="@book.BookTitle">
-                                <div class="book-title">@book.BookTitle</div>
-                                <div class="book-rating">⭐ 4.4 (619)</div>
-                                <div class="fs-8">
-                                    @foreach (var author in book.Authors)
-                                    {
-                                        <div>@author.AuthorName</div>
-                                    }
+                            <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@book.BookId"
+                                class="text-decoration-none text-black col-3 block p-2">
+                                <div class="h-100 w-100 border border-1 border-dark-subtle rounded-3 border-solid"
+                                    style="padding: 1.5rem 3rem">
+                                    <div class="position-relative" style="padding-top: 150%;">
+                                        <img class="object-fit-cover w-100 h-100 position-absolute top-0 left-0"
+                                            src="@book.ImageURL" alt="@book.BookTitle">
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <div class="fw-bold title">@book.BookTitle</div>
+                                        <div class="author text-muted">
+                                            @foreach (var author in book.Authors.Take(1))
+                                            {
+                                                <div>@author.AuthorName</div>
+                                            }
+                                        </div>
+                                        <div class="text-body fw-bold">$@book.Price</div>
+                                        <div class="book-rating">
+                                            @if (book.Reviews != null && book.Reviews.Any()) {
+                                                @("review here")
+                                            } else {
+                                                @("⭐⭐⭐⭐⭐")
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="book-price">$@book.Price</div>
-
                             </a>
                         }
                     </div>
-                    <button id="prev-card" class="fa-solid fa-arrow-left card-button"></button>
-                    <button id="next-card" class="fa-solid fa-arrow-right card-button"></button>
                 </div>
             </section>
             index++;

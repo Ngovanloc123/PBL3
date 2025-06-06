@@ -14,6 +14,8 @@ namespace StackBook.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/[controller]")]
+    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class DiscountsController : Controller
     {
         private readonly IDiscountService _discountService;
@@ -57,9 +59,9 @@ namespace StackBook.Areas.Admin.Controllers
             {
                 var discount = (await _discountService.GetAllDiscounts())
                     .Find(d => d.DiscountId == id);
-                
-                return discount == null 
-                    ? NotFoundWithRedirect("Discount not found.") 
+
+                return discount == null
+                    ? NotFoundWithRedirect("Discount not found.")
                     : View(discount);
             }
             catch
@@ -112,9 +114,9 @@ namespace StackBook.Areas.Admin.Controllers
             {
                 var discount = (await _discountService.GetAllDiscounts())
                     .Find(d => d.DiscountId == id);
-                
-                return discount == null 
-                    ? NotFoundWithRedirect("Discount not found.") 
+
+                return discount == null
+                    ? NotFoundWithRedirect("Discount not found.")
                     : View(discount);
             }
             catch
@@ -137,26 +139,26 @@ namespace StackBook.Areas.Admin.Controllers
             }
 
             try
+            {
+                await _discountService.UpdateDiscount(discount);
+                //Gửi thông báo đến người dùng
+                var allUsers = await _unitOfWork.User.GetAllAsync();
+                //Check quyền nếu là user thì mới gửi
+                foreach (var user in allUsers)
                 {
-                    await _discountService.UpdateDiscount(discount);
-                    //Gửi thông báo đến người dùng
-                    var allUsers = await _unitOfWork.User.GetAllAsync();
-                    //Check quyền nếu là user thì mới gửi
-                    foreach (var user in allUsers)
+                    if (user.Role == false)
                     {
-                        if (user.Role == false)
-                        {
-                            await _notificationService.SendNotificationAsync(user.UserId, $"New discount update: {discount.DiscountName} with code {discount.DiscountCode}");
-                        }
+                        await _notificationService.SendNotificationAsync(user.UserId, $"New discount update: {discount.DiscountName} with code {discount.DiscountCode}");
                     }
-                    TempData["success"] = "Discount updated successfully!";
-                    return RedirectToAction(nameof(Index));
                 }
-                catch
-                {
-                    ModelState.AddModelError("", "An error occurred while updating the discount.");
-                    return View(discount);
-                }
+                TempData["success"] = "Discount updated successfully!";
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                ModelState.AddModelError("", "An error occurred while updating the discount.");
+                return View(discount);
+            }
         }
 
         [HttpGet("delete/{id}")]
@@ -166,9 +168,9 @@ namespace StackBook.Areas.Admin.Controllers
             {
                 var discount = (await _discountService.GetAllDiscounts())
                     .Find(d => d.DiscountId == id);
-                
-                return discount == null 
-                    ? NotFoundWithRedirect("Discount not found.") 
+
+                return discount == null
+                    ? NotFoundWithRedirect("Discount not found.")
                     : View(discount);
             }
             catch
@@ -196,7 +198,7 @@ namespace StackBook.Areas.Admin.Controllers
                 {
                     TempData["error"] = "Discount not found.";
                 }
-                
+
                 return RedirectToAction(nameof(Index));
             }
             catch

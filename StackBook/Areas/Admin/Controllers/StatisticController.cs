@@ -4,8 +4,9 @@ using StackBook.ViewModels;
 
 namespace StackBook.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
     [Area("Admin")]
+    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class StatisticController : Controller
     {
         

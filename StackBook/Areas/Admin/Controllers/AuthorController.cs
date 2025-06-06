@@ -9,6 +9,7 @@ using X.PagedList.Extensions;
 
 namespace StackBook.Areas.Admin.Controllers
 {
+    [Authorize]
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class AuthorController : Controller

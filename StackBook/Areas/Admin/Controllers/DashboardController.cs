@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using StackBook.Interfaces;
 using StackBook.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StackBook.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
     {
         private readonly IDashboardService _dashboardService;
@@ -16,11 +19,11 @@ namespace StackBook.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            
+
 
             var data = new DashboardVM
             {
-                // Ch?nh l?i khi xác nh?n hang thành công => 5. thành công
+                // Ch?nh l?i khi xï¿½c nh?n hang thï¿½nh cï¿½ng => 5. thï¿½nh cï¿½ng
                 YearlyRevenue = await _dashboardService.GetYearlyRevenueByStatusAsync(1, 2025)
             };
 

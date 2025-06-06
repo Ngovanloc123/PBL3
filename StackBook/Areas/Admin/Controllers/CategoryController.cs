@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace StackBook.Areas.Admin.Controllers
 {
+    [Authorize]
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class CategoryController : Controller

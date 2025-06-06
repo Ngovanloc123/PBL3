@@ -11,6 +11,7 @@ using StackBook.Interfaces;
 
 namespace StackBook.Areas.Admin.Controllers
 {
+    [Authorize]
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class BookController : Controller

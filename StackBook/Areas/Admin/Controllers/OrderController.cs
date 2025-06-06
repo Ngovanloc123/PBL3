@@ -14,6 +14,8 @@ using X.PagedList.Extensions;
 namespace StackBook.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;

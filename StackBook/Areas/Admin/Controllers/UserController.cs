@@ -8,8 +8,9 @@ using X.PagedList.Extensions;
 
 namespace StackBook.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
     [Area("Admin")]
+    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

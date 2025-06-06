@@ -532,6 +532,15 @@ namespace StackBook.Services
                         await _userRepository.UpdateAsync(user);
                     }
                 }
+                // Check if the user is locked
+                Console.WriteLine($"User found: {user.LockStatus}");
+                if (user.LockStatus)
+                {
+                    response.Success = false;
+                    response.Message = "Account is locked";
+                    response.StatusCode = StatusCodes.Status403Forbidden;
+                    return response;
+                }
                 Console.WriteLine($"User found: {user.Email}");
                 Console.WriteLine($"User Google ID: {user.GoogleId}");
                 var refreshToken = _jwtUtils.GenerateRefreshToken();

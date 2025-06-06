@@ -57,8 +57,15 @@ namespace StackBook.Data
             .HasForeignKey(r => r.UserId)
             .OnDelete(DeleteBehavior.Cascade); // Thay NoAction bằng Cascade
 
+            // Thiết lập quan hệ 1-n giữa Book và Review là khóa ngoại và bảo toàn dữ liệu để là noaction 
+        modelBuilder.Entity<Review>()
+            .HasOne(r => r.Book)
+            .WithMany(b => b.Reviews)
+            .HasForeignKey(r => r.BookId)
+            .OnDelete(DeleteBehavior.NoAction); // Giữ nguyên NoAction để bảo toàn dữ liệu
+
         // Thiết lập quan hệ 1-n giữa User và ShippingAddress
-        modelBuilder.Entity<ShippingAddress>()
+            modelBuilder.Entity<ShippingAddress>()
             .HasOne(sa => sa.User)
             .WithMany(u => u.ShippingAddresses)
             .HasForeignKey(sa => sa.UserId)

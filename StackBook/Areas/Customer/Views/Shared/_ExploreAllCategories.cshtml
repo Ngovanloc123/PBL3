@@ -27,9 +27,9 @@
                         @foreach (var book in category.Books.Take(8))
                         {
                             <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@book.BookId"
-                                class="text-decoration-none text-black col-3 block p-2">
-                                <div class="h-100 w-100 border border-1 border-dark-subtle rounded-3 border-solid"
-                                    style="padding: 1.5rem 3rem">
+                                class="text-decoration-none text-black col-3 block p-4">
+                                <div class="h-100 w-100 border border-1 rounded-3 border-solid hover-book"
+                                    style="padding: 1.5rem 3rem;">
                                     <div class="position-relative" style="padding-top: 150%;">
                                         <img class="object-fit-cover w-100 h-100 position-absolute top-0 left-0"
                                             src="@book.ImageURL" alt="@book.BookTitle">
@@ -63,3 +63,15 @@
 
     </div>
 </div>
+
+<style>
+    .hover-book {
+        transition: all 0.3s ease-in-out;
+        border-color: #adb5bd1a !important;
+    }
+    .hover-book:hover {
+        border-color: #dbdedfb8 !important;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        transition: all 0.3s ease-in-out;
+    }
+</style>

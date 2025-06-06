@@ -34,7 +34,7 @@ namespace StackBook.Migrations
 
                     b.HasIndex("BooksBookId");
 
-                    b.ToTable("AuthorBook");
+                    b.ToTable("AuthorBook", (string)null);
                 });
 
             modelBuilder.Entity("BookCategory", b =>
@@ -49,7 +49,7 @@ namespace StackBook.Migrations
 
                     b.HasIndex("CategoriesCategoryId");
 
-                    b.ToTable("BookCategory");
+                    b.ToTable("BookCategory", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.Author", b =>
@@ -65,7 +65,7 @@ namespace StackBook.Migrations
 
                     b.HasKey("AuthorId");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.Book", b =>
@@ -97,7 +97,7 @@ namespace StackBook.Migrations
 
                     b.HasKey("BookId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.Cart", b =>
@@ -113,7 +113,7 @@ namespace StackBook.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.CartDetail", b =>
@@ -134,7 +134,7 @@ namespace StackBook.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("CartDetails");
+                    b.ToTable("CartDetails", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.Category", b =>
@@ -153,7 +153,7 @@ namespace StackBook.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.Discount", b =>
@@ -189,7 +189,7 @@ namespace StackBook.Migrations
 
                     b.HasKey("DiscountId");
 
-                    b.ToTable("Discounts");
+                    b.ToTable("Discounts", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.Notification", b =>
@@ -215,7 +215,7 @@ namespace StackBook.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Notifications");
+                    b.ToTable("Notifications", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.Order", b =>
@@ -251,7 +251,7 @@ namespace StackBook.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.OrderDetail", b =>
@@ -275,7 +275,7 @@ namespace StackBook.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetails", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.OrderHistory", b =>
@@ -297,7 +297,7 @@ namespace StackBook.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderHistories");
+                    b.ToTable("OrderHistories", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.Payment", b =>
@@ -326,7 +326,7 @@ namespace StackBook.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payments", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.ReturnOrder", b =>
@@ -358,7 +358,7 @@ namespace StackBook.Migrations
 
                     b.HasIndex("ShippingAddressId");
 
-                    b.ToTable("ReturnOrders");
+                    b.ToTable("ReturnOrders", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.Review", b =>
@@ -388,7 +388,7 @@ namespace StackBook.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.ShippingAddress", b =>
@@ -429,7 +429,7 @@ namespace StackBook.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ShippingAddresses");
+                    b.ToTable("ShippingAddresses", (string)null);
                 });
 
             modelBuilder.Entity("StackBook.Models.User", b =>
@@ -496,7 +496,7 @@ namespace StackBook.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("AuthorBook", b =>

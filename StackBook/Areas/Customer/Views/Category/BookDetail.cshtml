@@ -12,54 +12,39 @@
     }
 }
 
-<div class="container my-5">
-    <div class="row gy-4">
-        <!-- Book Image -->
+<div class="container my-4">
+    <div class="row g-4">
+        <!-- Left Column - Book Image and Purchase Options -->
         <div class="col-md-4">
-            <div class="card shadow-sm">
-                <img class="card-img-top rounded" src="@Model.ImageURL" alt="@Model.BookTitle" />
-            </div>
-        </div>
-
-        <!-- Book Info -->
-        <div class="col-md-8">
-            <div class="card shadow-sm p-4">
-                <!-- Title and Author -->
-                <h2 class="fw-bold">@Model.BookTitle</h2>
-                <p class="text-muted">
-                    <span class="fw-medium">by</span> @string.Join(", ", @Model.Authors.Select(a => a.AuthorName))
-                </p>
-                <div class="d-flex align-items-center mb-3">
-                    <span class="text-warning me-2">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                    <span class="text-muted">(5,412 ratings)</span>
+            <div class="card shadow-sm rounded-3 p-5">
+                <!-- Book Image -->
+                <div class="position-relative" style="padding-top: 150%">
+                    <img src="@Model.ImageURL" class="card-img-top rounded-2 position-absolute w-75 h-75" alt="@Model.BookTitle" style="object-fit: cover; top: 8%; left: 12.5%;" />
                 </div>
-
-                <!-- Pricing -->
-                <div class="border-top pt-3 mb-3">
-                    <h4 class="text-danger fw-bold mb-1">$@Model.Price</h4>
-                    <p class="mb-1">List Price: <span class="text-decoration-line-through">$@Model.Price</span></p>
-                    <p class="text-success mb-0">FREE International Returns</p>
-                </div>
-
+                @* <img class="card-img-top rounded-2 mb-3" src="@Model.ImageURL" alt="@Model.BookTitle" /> *@
+                
                 <!-- Stock and Quantity -->
                 <form asp-action="AddToCart" asp-controller="Cart" method="post">
                     <input type="hidden" name="bookId" value="@Model.BookId" />
                     
-                    <div class="border-top pt-3 mb-3">
-                        <h5 class="text-primary">@((Model.Stock > 0) ? "In Stock" : "Out of Stock")</h5>
+                    <div class="mb-3">
+                        <h6 class="@((Model.Stock > 0) ? "text-success" : "text-danger") mb-3">
+                            @((Model.Stock > 0) ? "In Stock" : "Out of Stock")
+                        </h6>
                         @if (Model.Stock > 0)
                         {
                             <div class="mb-3">
-                                <label class="form-label">Quantity</label>
-                                <input name="quantity" type="number" class="form-control w-50" min="1" max="@Model.Stock" value="1" />
+                                <label class="form-label fw-medium">Quantity</label>
+                                <input name="quantity" type="number" class="form-control rounded-2" min="1" max="@Model.Stock" value="1" />
                             </div>
 
                             <!-- Purchase Actions -->
-                            <div class="d-flex flex-wrap gap-2">
-                                <button type="submit" class="btn btn-warning flex-grow-1">
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-warning rounded-2 py-2">
                                     <i class="bi bi-cart-plus"></i> Add to Cart
                                 </button>
-                                <a asp-controller="Order" asp-action="BuyNow" asp-route-bookId="@Model.BookId" class="btn btn-success flex-grow-1">
+                                <a asp-controller="Order" asp-action="BuyNow" asp-route-bookId="@Model.BookId" 
+                                   class="btn btn-danger rounded-2 py-2">
                                     <i class="bi bi-bag-check"></i> Buy Now
                                 </a>
                             </div>
@@ -68,16 +53,88 @@
                 </form>
             </div>
         </div>
-    </div>
 
-    <!-- Description -->
-    <div class="row mt-5">
-        <div class="col-12">
-            <div class="card shadow-sm p-4">
-                <h3 class="mb-3">Description</h3>
-                <p style="white-space: pre-line;" class="text-secondary">
-                    @Model.Description
+        <!-- Right Column - Top: Book Info, Bottom: Details -->
+        <div class="col-md-8">
+            <!-- Top Section - Book Basic Info -->
+            <div class="card shadow-sm rounded-3 p-3 mb-4">
+                <h2 class="fw-bold mb-2">@Model.BookTitle</h2>
+                <p class="text-muted mb-3">
+                    <span class="fw-medium">by</span> @string.Join(", ", @Model.Authors.Select(a => a.AuthorName))
                 </p>
+                
+                <!-- Rating -->
+                <div class="d-flex align-items-center mb-3">
+                    <span class="text-warning me-2">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                    <span class="text-muted small">
+                        @{
+                            var reviewCount = 0;
+                            if (Model.Reviews != null && Model.Reviews.Any())
+                            {
+                                // Count reviews for the current book
+                                reviewCount = Model.Reviews.Count(r => r.BookId == Model.BookId);
+                            }
+                            else
+                            {
+                                // Default to 0 if no reviews exist
+                                reviewCount = 0;
+                            }
+                        }
+                        (@reviewCount ratings)
+                    </span>
+                    <span class="text-muted small ms-3">| Sold @Model.Stock</span>
+                </div>
+                <div class="debug-info" style="display: none;"></div>
+                <p>Model.Reviews is null? @(Model.Reviews == null)</p>
+                <p>Model.Reviews count: @Model.Reviews?.Count</p>
+                <p>Current BookId: @Model.BookId</p>
+                <p>All Reviews (if any):</p>
+                @if (Model.Reviews != null)
+                {
+                    foreach (var review in Model.Reviews)
+                    {
+                        <p>Review ID: @review.ReviewId, BookId: @review.BookId</p>
+                    }
+                }
+            </div>
+                
+                <!-- Pricing -->
+                <div class="d-flex align-items-center mb-3">
+                    <h4 class="text-danger fw-bold me-3 mb-0">@(Model.Price.ToString("N0")) đ</h4>
+                    <span class="text-decoration-line-through text-muted me-2">@((Model.Price * 1.32).ToString("N0")) đ</span>
+                    <span class="badge bg-danger">-24%</span>
+                </div>
+                
+                <!-- Stock Info -->
+                <p class="text-success mb-0">
+                    <i class="bi bi-check-circle"></i> @Model.Stock bookstores have stock
+                </p>
+            </div>
+
+            <!-- Bottom Section - Book Details -->
+            <div class="card shadow-sm rounded-3 p-3">
+                <h4 class="fw-bold mb-3">Product Details</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-2"><span class="fw-medium">Product Code:</span> @Model.BookId.ToString().Substring(0, 8)</p>
+                        <p class="mb-2"><span class="fw-medium">Supplier:</span> @Model.Authors.First().AuthorName</p>
+                        <p class="mb-2"><span class="fw-medium">Author:</span> @string.Join(", ", @Model.Authors.Select(a => a.AuthorName))</p>
+                        <p class="mb-2"><span class="fw-medium">Publisher:</span> World</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-2"><span class="fw-medium">Publish Year:</span> @Model.CreatedBook.Year</p>
+                        <p class="mb-2"><span class="fw-medium">Language:</span> Vietnamese</p>
+                        <p class="mb-2"><span class="fw-medium">Weight (g):</span> 300</p>
+                    </div>
+                </div>
+                
+                <!-- Description -->
+                <div class="mt-4">
+                    <h5 class="fw-medium">Description</h5>
+                    <p style="white-space: pre-line;" class="text-secondary mt-2">
+                        @Model.Description
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -87,13 +144,12 @@
         <div class="col-12">
             <h3 class="mb-4">Books in the Same Category</h3>
         </div>
-            @foreach (var category in Model.Categories)
-            {
-                <div class="row g-4">
-                    @* @await Component.InvokeAsync("Books", category.Books) *@
-                    @await Component.InvokeAsync("Books", new { books = category.Books, page = page }) 
-                </div>
-            }
+        @foreach (var category in Model.Categories)
+        {
+            <div class="row g-4">
+                @await Component.InvokeAsync("Books", new { books = category.Books, page = page }) 
+            </div>
+        }
     </div>
 </div>
 

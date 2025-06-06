@@ -12,8 +12,8 @@ using StackBook.Data;
 namespace StackBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250603173512_FixDatabaseV1")]
-    partial class FixDatabaseV1
+    [Migration("20250606094746_FixExistingTables")]
+    partial class FixExistingTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -226,6 +226,9 @@ namespace StackBook.Migrations
                     b.Property<Guid>("OrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("DiscountId")
                         .HasColumnType("uniqueidentifier");

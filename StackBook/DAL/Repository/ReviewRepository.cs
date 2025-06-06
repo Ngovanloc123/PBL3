@@ -41,11 +41,16 @@ namespace StackBook.DAL.Repository
             var reviews = await _context.Reviews.Where(r => r.Rating >= minRating && r.Rating <= maxRating).ToListAsync();
             return reviews;
         }
-        public async Task<double> GetAverageRatingForBookAsync(Guid bookId)
+        public async Task<double?> GetAverageRatingForBookAsync(Guid bookId)
         {
-            var averageRating = await _context.Reviews.Where(r => r.BookId == bookId).AverageAsync(r => r.Rating);
+            var averageRating = await _context.Reviews
+                .Where(r => r.BookId == bookId)
+                .Select(r => (double?)r.Rating)
+                .AverageAsync();
+
             return averageRating;
         }
+
         public async Task<int> GetReviewCountForBookAsync(Guid bookId)
         {
             var reviewCount = await _context.Reviews.Where(r => r.BookId == bookId).CountAsync();

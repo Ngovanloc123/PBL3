@@ -17,7 +17,7 @@ namespace StackBook.DAL.IRepository
         Task<List<Review>> GetByUserIdAsync(Guid userId);
         Task<List<Review>> GetByBookIdAsync(Guid bookId);
         Task<List<Review>> GetByRatingAsync(int minRating, int? maxRating = null);
-        Task<double> GetAverageRatingForBookAsync(Guid bookId);
+        Task<double?> GetAverageRatingForBookAsync(Guid bookId);
         Task<int> GetReviewCountForBookAsync(Guid bookId);
         Task<Review> AddAsync(Review review);
         Task UpdateAsync(Review review);

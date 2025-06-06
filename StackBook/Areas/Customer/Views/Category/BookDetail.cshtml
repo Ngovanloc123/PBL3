@@ -18,8 +18,8 @@
         <div class="col-md-4">
             <div class="card shadow-sm rounded-3 p-5">
                 <!-- Book Image -->
-                <div class="position-relative" style="padding-top: 150%">
-                    <img src="@Model.ImageURL" class="card-img-top rounded-2 position-absolute w-75 h-75" alt="@Model.BookTitle" style="object-fit: cover; top: 8%; left: 12.5%;" />
+                <div class="position-relative" style="padding-top: 120%">
+                    <img src="@Model.ImageURL" class="card-img-top rounded-2 position-absolute w-75" alt="@Model.BookTitle" style="object-fit: cover; top: -5%; left: 12.5%;" />
                 </div>
                 @* <img class="card-img-top rounded-2 mb-3" src="@Model.ImageURL" alt="@Model.BookTitle" /> *@
                 
@@ -65,47 +65,64 @@
                 
                 <!-- Rating -->
                 <div class="d-flex align-items-center mb-3">
-                    <span class="text-warning me-2">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                    <span class="me-1 fw-semibold">@ViewData["AverageRatingBook"]</span>
+                    @{
+                        // Lấy giá trị rating trung bình (giả sử có trong ViewData)
+                        double averageRating = ViewData["AverageRatingBook"] as double? ?? 0;
+                        int fullStars = (int)Math.Floor(averageRating);
+                        bool hasHalfStar = averageRating - fullStars >= 0.5;
+                    }
+
+                    <span class="text-warning me-2">
+                        @for (int i = 0; i < fullStars; i++) {
+                            <i class="fas fa-star"></i> <!-- Full star -->
+                        }
+                        
+                        @if (hasHalfStar) {
+                            <i class="fas fa-star-half-alt"></i> <!-- Half star -->
+                        }
+                        
+                        @for (int i = 0; i < 5 - fullStars - (hasHalfStar ? 1 : 0); i++) {
+                            <i class="far fa-star"></i> <!-- Empty star -->
+                        }
+                    </span>
                     <span class="text-muted small">
                         @ViewData["CountRatingBook"] ratings
                     </span>
-                    <span class="text-muted small ms-3">| Sold @Model.Stock</span>
+                    <span class="text-muted small ms-3">| Sold @ViewData["SoldBook"]</span>
                 </div>
-            </div>
-                
+
                 <!-- Pricing -->
                 <div class="d-flex align-items-center mb-3">
-                    <h4 class="text-danger fw-bold me-3 mb-0">@(Model.Price.ToString("N0")) đ</h4>
-                    <span class="text-decoration-line-through text-muted me-2">@((Model.Price * 1.32).ToString("N0")) đ</span>
-                    <span class="badge bg-danger">-24%</span>
+                    @{
+                        // Tính toán giá gốc và phần trăm giảm
+                        var discountPercent = 24; // 24%
+                        var originalPrice = Model.Price / (1 - discountPercent / 100.0);
+                    }
+                    <h4 class="text-danger fw-bold me-3 mb-0">@Model.Price.ToString("C")</h4>
+                    <span class="text-decoration-line-through text-muted me-2">@originalPrice.ToString("C")</span>
+                    <span class="badge bg-danger">-@discountPercent%</span>
                 </div>
                 
                 <!-- Stock Info -->
-                <p class="text-success mb-0">
-                    <i class="bi bi-check-circle"></i> @Model.Stock bookstores have stock
-                </p>
+                <div style="flex:1;margin-right:16px; cursor:pointer;" 
+                    class="product_view_bookstore_desktop product_view_msg_bookstore num_bookstore_have_stock" 
+                    onclick="bookstore_have_stock.showPopUpBookstoresHaveStock()">@Model.Stock bookstores have stock</div>
             </div>
-
+                
             <!-- Bottom Section - Book Details -->
             <div class="card shadow-sm rounded-3 p-3">
                 <h4 class="fw-bold mb-3">Product Details</h4>
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="mb-2"><span class="fw-medium">Product Code:</span> @Model.BookId.ToString().Substring(0, 8)</p>
-                        <p class="mb-2"><span class="fw-medium">Supplier:</span> @Model.Authors.First().AuthorName</p>
-                        <p class="mb-2"><span class="fw-medium">Author:</span> @string.Join(", ", @Model.Authors.Select(a => a.AuthorName))</p>
-                        <p class="mb-2"><span class="fw-medium">Publisher:</span> World</p>
-                    </div>
-                    <div class="col-md-6">
                         <p class="mb-2"><span class="fw-medium">Publish Year:</span> @Model.CreatedBook.Year</p>
-                        <p class="mb-2"><span class="fw-medium">Language:</span> Vietnamese</p>
-                        <p class="mb-2"><span class="fw-medium">Weight (g):</span> 300</p>
+                        <p class="mb-2"><span class="fw-medium">Category:</span> @ViewData["CategoriesBook"]</p>
                     </div>
                 </div>
                 
                 <!-- Description -->
                 <div class="mt-4">
-                    <h5 class="fw-medium">Description</h5>
+                    <h5>Description</h5>
                     <p style="white-space: pre-line;" class="text-secondary mt-2">
                         @Model.Description
                     </p>
@@ -115,17 +132,166 @@
     </div>
 
     <!-- Same Category -->
-    <div class="row mt-5">
-        <div class="col-12">
-            <h3 class="mb-4">Books in the Same Category</h3>
-        </div>
-        @foreach (var category in Model.Categories)
-        {
-            <div class="row g-4">
-                @await Component.InvokeAsync("Books", new { books = category.Books, page = page }) 
+    @{
+        var sameCategoryBooks = ViewData["SameCategoryBooks"] as List<Book>;
+    }
+
+    @if (sameCategoryBooks != null && sameCategoryBooks.Any())
+    {
+        <section class="category-section mb-5">
+            <div class="d-flex justify-content-between align-items-center mt-5 pb-2">
+                <h2>Books in the same Category</h2>
+                <a asp-area="Customer" asp-controller="Category" asp-action="Index"
+                asp-route-CategoryId="@Model.Categories.First().CategoryId" 
+                class="view-all text-decoration-none text-muted">View all ></a>
             </div>
-        }
+            <div class="container-books">
+                <div class="d-flex flex-wrap">
+                    @foreach (var book in sameCategoryBooks)
+                    {
+                        <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@book.BookId"
+                        class="text-decoration-none text-black col-3 block p-4">
+                            <div class="h-100 w-100 border border-1 rounded-3 border-solid hover-book"
+                                style="padding: 1.5rem 3rem;">
+                                <div class="position-relative" style="padding-top: 150%;">
+                                    <img class="object-fit-cover w-100 h-100 position-absolute top-0 left-0"
+                                        src="@book.ImageURL" alt="@book.BookTitle">
+                                </div>
+                                <div class="text-center mt-4">
+                                    <div class="fw-bold title">@book.BookTitle</div>
+                                    <div class="author text-muted">
+                                        @foreach (var author in book.Authors.Take(1))
+                                        {
+                                            <div>@author.AuthorName</div>
+                                        }
+                                    </div>
+                                    <div class="text-body fw-bold">$@book.Price</div>
+                                    <div class="book-rating">
+                                        @{
+                                            var averageRatingDictionary = ViewData["BookRatingForId"] as Dictionary<Guid, double>;
+                                            double averageRating = averageRatingDictionary != null && averageRatingDictionary.ContainsKey(book.BookId) 
+                                                ? averageRatingDictionary[book.BookId] 
+                                                : 0;
+                                            System.Console.WriteLine($"Average Rating for {book.BookTitle}: {averageRating}");
+                                            int fullStars = (int)Math.Floor(averageRating);
+                                            bool hasHalfStar = averageRating - fullStars >= 0.5;
+                                        }
+                                        <span class="text-warning">
+                                            @for (int i = 0; i < fullStars; i++) { 
+                                                <i class="fas fa-star"></i> <!-- Full star -->
+                                            }
+                                            @if (hasHalfStar) { 
+                                                <i class="fas fa-star-half-alt"></i> <!-- Half star -->
+                                            }
+                                            @for (int i = 0; i < 5 - fullStars - (hasHalfStar ? 1 : 0); i++) { 
+                                                <i class="far fa-star"></i> <!-- Empty star -->
+                                            }
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+
+
+        <!-- User Reviews Section -->
+    @{
+        var reviews = ViewData["Reviews"] as IEnumerable<Review>;
+    }
+
+    @if (reviews != null && reviews.Any())
+    {
+        <section class="mt-5">
+            <h2 class="mb-4">Customer Reviews</h2>
+            
+            @foreach (var review in reviews)
+            {
+                <div class="card mb-4 border-0 rounded-3 review-hover">
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Left Column - User Info and Rating -->
+                            <div class="col-md-3">
+                                <div class="d-flex flex-column">
+                                    @{
+                                            var avtForUsers = ViewData["AvtForUsers"] as Dictionary<Guid, string>;
+                                            string userAvatar = avtForUsers != null && avtForUsers.ContainsKey(review.UserId) 
+                                                ? avtForUsers[review.UserId] 
+                                                : "default-avatar.png"; // Fallback avatar
+                                        }
+                                    <img class="rounded-circle" src="@userAvatar" alt="User Avatar" 
+                                        style="width: 50px; height: 50px; object-fit: cover;"></img>
+                                    <h5 class="fw-bold mb-2">
+                                        @{
+                                            var userDictionary = ViewData["UserNames"] as Dictionary<Guid, string>;
+                                            string userName = userDictionary != null && userDictionary.ContainsKey(review.UserId) 
+                                                ? userDictionary[review.UserId] 
+                                                : "Unknown User";
+                                        } @userName
+                                    </h5>
+                                    
+                                    
+                                    @*                                     
+                                    <!-- Review Date -->
+                                    <div class="text-muted small">
+                                        @review.Cre.ToString("dd/MM/yyyy")
+                                    </div> *@
+                                </div>
+                            </div>
+                            
+                            <!-- Right Column - Review Content -->
+                            <div class="col-md-9">
+                                <!-- Rating Stars -->
+                                    <div class="mb-2">
+                                        @{
+                                            int rating = review.Rating;
+                                        }
+                                        <span class="text-warning">
+                                            @for (int i = 0; i < rating; i++)
+                                            {
+                                                <i class="fas fa-star"></i>
+                                            }
+                                            @for (int i = rating; i < 5; i++)
+                                            {
+                                                <i class="far fa-star"></i>
+                                            }
+                                        </span>
+                                    </div>
+                                    
+                                    <!-- Purchase Status -->
+                                    <div class="small mb-2">
+                                        <span class="text-success">
+                                            <i class="fas fa-check-circle"></i> Bought this book
+                                        </span>
+                                    </div>
+                                <div class="review-content">
+                                    <p class="mb-3">@review.Comment</p>
+                                    
+                                    @* <!-- Review Metadata -->
+                                    <div class="text-muted small">
+                                        <span>Đánh giá vào @review.CreatedDate.ToString("dd/MM/yyyy")</span>
+                                        @if (review.OrderId != null)
+                                        {
+                                            <span> - Đã dùng @(DateTime.Now.Subtract(review.CreatedDate).Days/30) tháng</span>
+                                        } 
+                                    </div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </section>
+    }
+else
+{
+    <div class="alert alert-info mt-5">
+        No reviews yet. Be the first to review this book!
     </div>
+}
 </div>
 
 <script>
@@ -147,3 +313,43 @@
         });
     });
 </script>
+
+<style>
+    .container p{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    }
+    .author {
+        font-size: 1rem;
+    }
+
+    .view-all {
+        font-size: 1rem;
+    }
+
+    .title {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+    }
+
+    .product_view_msg_bookstore {
+        padding: 8px 12px;
+        color: #2489F4;
+        background-color: #E8F3FE;
+        font-size: 1em;
+        font-weight: 600;
+        border-radius: 4px;
+        margin-bottom: 16px;
+    }
+
+    .review-hover{
+        transition: all 0.3s ease-in-out;
+        border-color: #adb5bd1a !important;
+    }
+    .review-hover:hover {
+        border-color: #dbdedfb8 !important;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        transition: all 0.3s ease-in-out;
+    }
+</style>

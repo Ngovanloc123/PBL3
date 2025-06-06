@@ -62,8 +62,93 @@ namespace StackBook.Areas.Customer.Controllers
                 return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: Book has no authors", StatusCode = 404 });
             }
             var countBookRating = await _reviewRepository.GetReviewCountForBookAsync(bookId.Value);
+            var categoriesBook = await _unitOfWork.Category.GetAsync(c => c.Books.Any(b => b.BookId == bookId), "Books.Authors");
+            if (categoriesBook == null)
+            {
+                TempData["error"] = "Book has no categories";
+                return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: Book has no categories", StatusCode = 404 });
+            }
+            var averareRatingBook = await _reviewRepository.GetAverageRatingForBookAsync(bookId.Value);
+            var soldBook = await _unitOfWork.Book.CountBooksSoldAsync(bookId.Value);
+            //hiển thị hết tất cả review của sách này
+            var reviews = await _reviewRepository.GetByBookIdAsync(bookId.Value);
+            Dictionary<Guid, string> userNames = new Dictionary<Guid, string>();
+            foreach (var review in reviews)
+            {
+                if (!userNames.ContainsKey(review.UserId))
+                {
+                    var user = await _unitOfWork.User.GetAsync(u => u.UserId == review.UserId);
+                    if (user != null)
+                    {
+                        userNames[review.UserId] = user.FullName ?? "Unknown User"; // Default to "Unknown User" if UserName is null
+                    }
+                    else
+                    {
+                        userNames[review.UserId] = "Unknown User"; // Default to "Unknown User" if user not found
+                    }
+                }
+            }
+            Dictionary<Guid, string> avtForUsers = new Dictionary<Guid, string>();
+            foreach (var user in userNames)
+            {
+                var userAvt = await _unitOfWork.User.GetAsync(u => u.UserId == user.Key);
+                if (userAvt != null && !string.IsNullOrEmpty(userAvt.AvatarUrl))
+                {
+                    avtForUsers[user.Key] = userAvt.AvatarUrl;
+                }
+                else
+                {
+                    avtForUsers[user.Key] = "/images/default-avatar.png"; // Default avatar if not found
+                }
+            }
+            Dictionary<Guid, double> bookRatingForId = new Dictionary<Guid, double>();
+            //tính rating trung bình của mỗi quyển sách trong cùng thể loại
+            foreach (var bookInCategory in categoriesBook.Books)
+            {
+                var averageRating = await _reviewRepository.GetAverageRatingForBookAsync(bookInCategory.BookId);
+                if (averageRating.HasValue)
+                {
+                    bookRatingForId[bookInCategory.BookId] = averageRating.Value;
+                }
+                else
+                {
+                    bookRatingForId[bookInCategory.BookId] = 0; // Default to 0 if no ratings
+                }
+            }
+            // Sort the books by rating in descending order
+            var sortedBooksByRating = bookRatingForId.OrderByDescending(b => b.Value).ToList();
+            //in ra các quyển sách trong cùng thể loại theo rating
+            Console.WriteLine("Books in the same category sorted by rating:");
+            foreach (var bookRating in sortedBooksByRating)
+            {
+                var bookInCategory = categoriesBook.Books.FirstOrDefault(b => b.BookId == bookRating.Key);
+                if (bookInCategory != null)
+                {
+                    Console.WriteLine($"Book: {bookInCategory.BookTitle}, Rating: {bookRating.Value}");
+                }
+            }
             Console.WriteLine($"Count book rating: {countBookRating}");
             ViewData["CountRatingBook"] = countBookRating;
+            ViewData["CategoriesBook"] = categoriesBook.CategoryName;
+            ViewData["SoldBook"] = soldBook;
+            ViewData["AverageRatingBook"] = averareRatingBook;
+            ViewData["Reviews"] = reviews;
+            ViewData["UserNames"] = userNames;
+            ViewData["AvtForUsers"] = avtForUsers;
+            ViewData["BookRatingForId"] = bookRatingForId;
+            // Get books in the same category (excluding current book)
+            var sameCategoryBooks = new List<Book>();
+            if (book.Categories != null && book.Categories.Any())
+            {
+                var category = book.Categories.First();
+                sameCategoryBooks = (await _unitOfWork.Category.GetAsync(
+                    c => c.CategoryId == category.CategoryId,
+                    "Books.Authors"))?.Books
+                    .Where(b => b.BookId != bookId)
+                    .Take(4)
+                    .ToList();
+            }
+            ViewData["SameCategoryBooks"] = sameCategoryBooks;
             return View(book);
         }
 

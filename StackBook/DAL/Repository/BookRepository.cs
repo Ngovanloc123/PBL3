@@ -190,8 +190,14 @@ namespace StackBook.DAL.Repository
         //    _db.Books.Remove(book);
         //    _db.SaveChanges();
         //}
-
-
-
+        public async Task<int> CountBooksSoldAsync(Guid bookId)
+        {
+            // Truy vấn số lượng sách đã bán dựa trên OrderDetails liên kết với Book với status là 4 trong order history
+            return await _db.Orders
+                        .Where(o => o.Status == 4) // Lọc các đơn hàng có status 4
+                        .SelectMany(o => o.OrderDetails) // Lấy tất cả OrderDetails từ các đơn hàng đó
+                        .Where(od => od.BookId == bookId) // Lọc theo BookId
+                        .SumAsync(od => od.Quantity); // Tính tổng số lượng
+        }
     }
 }

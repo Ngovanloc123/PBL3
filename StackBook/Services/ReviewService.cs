@@ -107,7 +107,7 @@ namespace StackBook.Services
                 throw new ArgumentException("Book ID cannot be empty", nameof(bookId));
             }
 
-            return await _reviewRepository.GetAverageRatingForBookAsync(bookId);
+            return await _reviewRepository.GetAverageRatingForBookAsync(bookId) ?? 0.0; // Return 0.0 if no reviews exist
         }
 
         public async Task<int> GetReviewCountForBookAsync(Guid bookId)

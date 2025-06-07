@@ -1,0 +1,13 @@
+.category-image {
+    padding-top: 100%;
+}
+.book-slide-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+.slider-image img {
+    object-position: top;
+}

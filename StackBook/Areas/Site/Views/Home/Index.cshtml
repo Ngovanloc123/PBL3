@@ -4,58 +4,87 @@
     ViewData["Title"] = "StackBook";
 }
 
-<div class="container-fluid px-4 py-3">
-    <div class="row">
+<link rel="stylesheet" href="~/css/discover.css" />
 
-        @* =========== SIDEBAR ========= *@
-        <div class="col-lg-2 col-md-3 mb-3">
-            <div class="bg-light rounded shadow-sm p-3 h-100">
-                <h5 class="text-primary mb-3">Categories</h5>
-                <ul class="list-unstyled">
-                    @foreach (var Category in Model.Categories)
-                    {
-                        <li class="mb-2">
-                            <a asp-area="Customer" asp-controller="Category" asp-action="Index" asp-route-CategoryId="@Category.CategoryId" class="fw-semibold text-dark text-decoration-none link-hover">
-                                @Category.CategoryName
-                            </a>
-                        </li>
-                    }
-                </ul>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 flex">
+            <div class="row">
+                <div class="col-7 d-flex flex-column justify-content-center">
+                    <div>
+                        <h2>New Release This Week</h2>
+                        <p>It's time to update your reading list with some of the latest and greatest releases in the literary world. From heart-pumping thrillers to captivating memoirs, this week's new releases offer something for everyone</p>
+                        <button class="btn btn-primary rounded-2 py-2 fw-semibold w-fit">
+                            Subscribe
+                        </button>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="position-relative">
+                        @{
+                            var imageUrl = "https://blog-cdn.reedsy.com/directories/gallery/248/large_65b0ae90317f7596d6f95bfdd6131398.jpg";
+                        }
+                        <img class="img-fluid position-relative z-3" src="@imageUrl" alt="New Release Image" />
+                        @for(var i = 0; i < 2; i++)
+                        {   
+                            var index = i == 0 ? "z-2" : "z-1";
+                            var style = i == 0 ? "transform: scale(0.9);left: 20%" : "transform: scale(0.8); left: 40%";
+                            <img class="img-fluid position-absolute top-0 left-0 @index" src="@imageUrl" alt="New Release Image @i" style="@style" />
+                        }
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
 
-        @* ========= MAIN CONTENT ========== *@
-        <div class="col-lg-10 col-md-9">
-            @* ========== SLIDER =========== *@
-            <div class="row g-3 mb-4">
-                <div class="col-6 col-md-3">
-                    <a href="#">
-                        <img class="img-fluid rounded shadow-sm" src="~/images/sliders/slider1.jpg" alt="slider image" />
-                    </a>
-                </div>
-                <div class="col-6 col-md-3">
-                    <a href="#">
-                        <img class="img-fluid rounded shadow-sm" src="~/images/sliders/slider2.jpg" alt="slider image" />
-                    </a>
-                </div>
-                <div class="col-6 col-md-3">
-                    <a href="#">
-                        <img class="img-fluid rounded shadow-sm" src="~/images/sliders/slider3.jpg" alt="slider image" />
-                    </a>
-                </div>
-                <div class="col-6 col-md-3">
-                    <a href="#">
-                        <img class="img-fluid rounded shadow-sm" src="~/images/sliders/slider4.jpg" alt="slider image" />
-                    </a>
-                </div>
+
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="mb-4">Discover</h2>
+            <div class="row">
+                @foreach (var category in Model.Categories)
+                {
+                    <div class="discover-item col-3 p-3">
+                        <a asp-area="Customer" asp-controller="Category" asp-action="Index"
+                            asp-route-CategoryId="@category.CategoryId" class="text-decoration-none text-dark d-flex gap-2 flex-column">
+                            <div class="category-image rounded-circle position-relative overflow-hidden flex-1">
+                                @{
+                                    var imageUrl = category.Books.FirstOrDefault()?.ImageURL;
+                                    imageUrl = "https://blog-cdn.reedsy.com/directories/gallery/248/large_65b0ae90317f7596d6f95bfdd6131398.jpg";
+                                }
+                                @if (imageUrl != null)
+                                {
+                                    <img class="img-fluid position-absolute top-0 left-0 object-fit-contain w-100 h-100" src="@imageUrl"
+                                        alt="@category.CategoryName" />
+                                }
+                            </div>
+                            <div class="text-center fw-semibold">
+                                @category.CategoryName
+                            </div>
+                        </a>
+                    </div>
+                }
             </div>
+        </div>
+    </div>
 
-            <h3 class="text-primary mb-4">📚 Best Sellers</h3>
-            @* ============ BOOKS =========== *@
+    <div class="row mb-5">
+        <div class="col-12">
+            <h3 class="mb-4">Best Sellers</h3>
             @await Component.InvokeAsync("Books", new { books = Model.BestSellerBooks, page = Model.Page })
-            <h3 class="text-primary mb-4">📚 Recommend </h3>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12">
+            <h3 class="mb-4">Recommend </h3>
             @await Component.InvokeAsync("Books", new { books = Model.RecommendBooks, page = Model.Page })
-            <h3 class="text-primary mb-4">📚 New Release</h3>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12">
+            <h3 class="mb-4">New Release</h3>
             @await Component.InvokeAsync("Books", new { books = Model.NewReleaseBooks, page = Model.Page })
         </div>
     </div>

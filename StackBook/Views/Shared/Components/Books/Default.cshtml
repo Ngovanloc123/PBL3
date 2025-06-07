@@ -6,89 +6,124 @@
     string action = ViewBag.ActionName as string;
 }
 
+@* <!-- Add to head -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
-<div class="row g-5">
+<!-- Add before closing body -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> *@
+
+
+<div class="row swiper">
     @if (Model != null && Model.Any())
     {
-        if(Model.Count == 1) {
-            var bookRating = Model[0];
-            <a asp-area="Customer" asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@bookRating.Book?.BookId"
-               class="h-66 book-card text-decoration-none text-black d-block " style="
-    height: 450px;
-        ">
+        <div class="books-slider">
+            <!-- Navigation buttons -->
+            <div class="swiper-button-prev">
+                <i class="fa-solid fa-chevron-left"></i>
+            </div>
+            <div class="swiper-button-next">
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
 
-                <img src="@bookRating.Book?.ImageURL" alt="@bookRating.Book?.BookTitle" class="img-fluid" />
+            <ul class="swiper-wrapper">
+                @foreach (var bookRating in Model)
+                {
+                    <li class="swiper-slide col-4">
+                        <a asp-area="Customer" asp-controller="Category" asp-action="BookDetail"
+                            asp-route-bookId="@bookRating?.Book.BookId"
+                            class="text-decoration-none text-black d-flex gap-4 h-100">
 
-                <div class="book book-title fw-bold mt-2">@bookRating.Book?.BookTitle</div>
+                            <div class="slider-image postion-relative col-5">
+                                <img src="@bookRating?.Book.ImageURL" alt="@bookRating?.Book.BookTitle"
+                                    class="w-100 h-100 object-fit-cover" />
+                            </div>
 
-                <div class="book-rating text-warning mb-1">⭐ @bookRating.AverageRating</div>
+                            <div class="col-6">
+                                <div class="d-flex flex-column h-100 justify-content-between pt-4">
+                                    <h3 class="book-slide-title fw-semibold">@bookRating?.Book.BookTitle</h3>
 
-                <div class="fs-8 text-muted">
-                    @if (bookRating.Book!.Authors != null && bookRating.Book.Authors.Any())
-                    {
-                        foreach (var author in bookRating.Book.Authors)
-                        {
-                            <div>@author.AuthorName</div>
-                        }
-                    }
-                </div>
+                                    <div class="fs-8 text-muted">
+                                        @if (bookRating?.Book!.Authors != null && bookRating.Book.Authors.Any())
+                                        {
+                                            foreach (var author in bookRating.Book.Authors.Take(1))
+                                            {
+                                                <div>@author.AuthorName</div>
+                                            }
+                                        }
+                                    </div>
 
+                                    <div class="book-price text-danger fw-semibold">
+                                        $@bookRating?.Book?.Price
+                                    </div>
 
-                <div class="book-price text-danger fw-semibold mt-1">
-                    $@bookRating.Book.?.Price
-                </div>
-
-            </a>
-        }
-        else {
-            foreach (var bookRating in Model)
-            {
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <a asp-area="Customer" asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@bookRating?.Book.BookId"
-                       class="h-66 book-card text-decoration-none text-black d-block ">
-
-                        <img src="@bookRating?.Book.ImageURL" alt="    @bookRating?.Book.BookTitle" class="img-fluid" />
-
-                        <div class="book book-title fw-bold mt-2">@bookRating?.Book.BookTitle</div>
-
-                        <div class="book-rating text-warning mb-1">⭐ @bookRating.AverageRating</div>
-
-                        <div class="fs-8 text-muted">
-                            @if (bookRating.Book!.Authors != null && bookRating.Book.Authors.Any())
-                            {
-                                foreach (var author in bookRating.Book.Authors)
-                                {
-                                    <div>@author.AuthorName</div>
-                                }
-                            }
-                        </div>
-
-
-                        <div class="book-price text-danger fw-semibold mt-1">
-                            $@bookRating.Book?.Price
-                        </div>
-
-                    </a>
-                </div>
-            }
-        }
-        
+                                    <form class="w-100" method="post" action="/add">
+                                        <input type="hidden" name="bookId" value="34780479-6493-46df-ba28-10c14c4711d6">
+                                        <button type="submit" class="btn btn-primary rounded-2 py-2 text-uppercase fw-bold">
+                                            <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
     }
-    <!-- Pagination -->
-    <div class="d-flex justify-content-end mt-4">
-        @Html.PagedListPager(Model, page =>
-                 {
-                     routeValues["page"] = page;
-                     return Url.Action(action, routeValues);
-                 },
-                 new PagedListRenderOptions
-        {
-            Display = PagedListDisplayMode.IfNeeded,
-            UlElementClasses = new[] { "pagination" },
-            LiElementClasses = new[] { "page-item" },
-            PageClasses = new[] { "page-link" },
-            ActiveLiElementClass = "active",
-            MaximumPageNumbersToDisplay = 5
-        })
-    </div>
 </div>
+
+
+<style>
+    @* .swiper {
+        width: 100%;
+        padding: 20px 0;
+    }
+
+    .swiper-slide {
+        height: auto;
+    } *@
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+        z-index: 10;
+        cursor: pointer;
+    }
+
+    .swiper-button-prev {
+        left: 10px;
+    }
+
+    .swiper-button-next {
+        right: 10px;
+    }
+
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+        display: none;
+    }
+</style>
+@* 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var swiper = new Swiper('.swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    });
+</script> *@

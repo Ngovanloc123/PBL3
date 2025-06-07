@@ -1,7 +1,6 @@
 ﻿
 // ================== SLIDER BOOKS ========================
 new Swiper('.card-wrapper', {
-
     pagination: {
         el: '.swiper-pagination',
     },
@@ -15,6 +14,14 @@ new Swiper('.card-wrapper', {
     sliderPerView: 1,
 });
 
+new Swiper('.books-slider', {
+    slidesPerView: "auto",
+    spaceBetween: 40,
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+})
 
 /*============================= BOOK LIST =============================*/
 

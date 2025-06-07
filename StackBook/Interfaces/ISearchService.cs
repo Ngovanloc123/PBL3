@@ -1,9 +1,10 @@
 using StackBook.Models;
+using StackBook.ViewModels;
 
 namespace StackBook.Interfaces
 {
     public interface ISearchService
     {
-        Task<List<Book>> SearchBooksAsync(string query);
+        Task<List<BookRatingViewModel>> SearchBooksAsync(string query);
     }
 }

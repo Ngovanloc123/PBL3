@@ -21,7 +21,7 @@
 
                 <div class="book book-title fw-bold mt-2">@bookRating.Book?.BookTitle</div>
 
-                <div class="book-rating text-warning mb-1">⭐ 4.4 (619)</div>
+                <div class="book-rating text-warning mb-1">⭐ @bookRating.AverageRating</div>
 
                 <div class="fs-8 text-muted">
                     @if (bookRating.Book!.Authors != null && bookRating.Book.Authors.Any())

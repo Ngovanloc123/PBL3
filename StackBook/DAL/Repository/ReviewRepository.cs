@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace StackBook.DAL.Repository
 {
-    public class ReviewRepository : IReviewRepository
+    public class ReviewRepository : Repository<Review>,  IReviewRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public ReviewRepository(ApplicationDbContext context)
+        public ReviewRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }

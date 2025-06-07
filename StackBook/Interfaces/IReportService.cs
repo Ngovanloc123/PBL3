@@ -32,6 +32,8 @@ namespace StackBook.Interfaces
         Task<int> GetUsersWithOrdersAsync();
         Task<int> GetPositiveReviewUsersAsync();
         Task<int> GetNegativeReviewUsersAsync();
+
+
         Task<int> GetTotalReviewsAsync();
         Task<double> GetAverageRatingAsync();
         Task<double> GetPositiveReviewRatePercentAsync();

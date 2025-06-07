@@ -232,25 +232,47 @@ namespace StackBook.Services
         //th?ng k� s�ch s? l??ng s�ch theo th? lo?i:
         public async Task<List<BookCountByCategoryViewModel>> GetBookCountByCategoryAsync(DateTime? start, DateTime? end)
         {
-            var books = await _bookRepository.GetAllAsync();
-            if (books == null || !books.Any())
+            var orders = await _unitOfWork.Order.GetAllAsync("OrderDetails.Book.Categories");
+            if (start.HasValue && end.HasValue)
             {
-                throw new Exception("No books found.");
+                orders = orders.Where(o => o.CreatedAt >= start.Value && o.CreatedAt <= end.Value && o.Status == 4).ToList();
+            }
+            if (orders == null || !orders.Any())
+            {
+                //throw new Exception("No orders placed.");
             }
 
-            var bookCountByCategory = new List<BookCountByCategoryViewModel>();
+            var books = await _bookRepository.GetAllAsync();
             var categories = await _categoryRepository.GetAllAsync();
+
+            var categoryCounts = new List<BookCountByCategoryViewModel>();
 
             foreach (var category in categories)
             {
-                var bookCount = books.Count(b => b.Categories.Any(c => c.CategoryId == category.CategoryId));
-                bookCountByCategory.Add(new BookCountByCategoryViewModel
+                int count = 0;
+
+                foreach (var order in orders)
+                {
+                    if (order.OrderDetails == null) continue;
+
+                    foreach (var detail in order.OrderDetails)
+                    {
+                        var book = books.FirstOrDefault(b => b.BookId == detail.BookId);
+                        if (book != null && book.Categories.Any(c => c.CategoryId == category.CategoryId))
+                        {
+                            count += detail.Quantity; // tính theo s? l??ng t?ng sách
+                        }
+                    }
+                }
+
+                categoryCounts.Add(new BookCountByCategoryViewModel
                 {
                     CategoryName = category.CategoryName,
-                    BookCount = bookCount
+                    BookCount = count
                 });
             }
-            return bookCountByCategory;
+
+            return categoryCounts;
         }
         //th?ng k� s�ch b�n ch?y nh?t
         public async Task<List<BookSaleInfoViewModel>> GetBestSellingBooksAsync(DateTime? start, DateTime? end, int topCount)
@@ -478,7 +500,7 @@ namespace StackBook.Services
         //th?ng k� s�ch c� nhi?u ?�nh gi� nh?t
         public async Task<MostReviewedBookViewModel?> GetMostReviewedBookAsync()
         {
-            var reviews = await _reviewRepository.GetAllAsync();
+            var reviews  = await _unitOfWork.Review.GetAllAsync("Book");
             if (reviews == null || !reviews.Any())
             {
                 throw new Exception("No reviews found.");
@@ -488,6 +510,7 @@ namespace StackBook.Services
                 .Select(g => new MostReviewedBookViewModel
                 {
                     BookId = g.Key,
+                    Image = g.First().Book?.ImageURL,
                     Title = g.First().Book?.BookTitle ?? "Unknown",
                     TotalReviews = g.Count(),
                     AverageRating = g.Average(r => r.Rating)

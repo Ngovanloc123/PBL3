@@ -14,6 +14,7 @@ namespace StackBook.DAL.IRepository
         IOrderHistoryRepository OrderHistory { get; }
         IDiscountRepository Discount { get; }
         IPaymentRepository Payment { get; }
+        IReviewRepository Review { get; }
 
         Task<IDisposable> BeginTransactionAsync();
         Task SaveAsync();

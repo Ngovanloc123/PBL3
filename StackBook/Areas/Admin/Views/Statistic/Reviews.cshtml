@@ -1,0 +1,199 @@
+@model StackBook.ViewModels.ReviewStatisticsVM
+@{
+    ViewData["Title"] = "Review Statistics";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-success">Review Statistics</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Modern Statistics Cards -->
+            <div class="row mb-4">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="info-box shadow-sm">
+                        <span class="info-box-icon bg-gradient-info elevation-1">
+                            <i class="fas fa-comments"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Total Reviews</span>
+                            <span class="info-box-number">
+                                @Model.TotalReviews.ToString("N0")
+                            </span>
+                            <div ></div>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" style="width: 100%"></div>
+                            </div>
+                            <span class="progress-description">All time reviews</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="info-box shadow-sm">
+                        <span class="info-box-icon bg-gradient-success elevation-1">
+                            <i class="fas fa-star"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Average Rating</span>
+                            <span class="info-box-number">
+                                @Model.AverageRating.ToString("F1")
+                                <small class="text-warning">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        if (i <= Math.Floor(Model.AverageRating))
+                                        {
+                                            <i class="fas fa-star"></i>
+                                        }
+                                        else if (i - 0.5 <= Model.AverageRating)
+                                        {
+                                            <i class="fas fa-star-half-alt"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="far fa-star"></i>
+                                        }
+                                    }
+                                </small>
+                            </span>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" style="width: @((Model.AverageRating / 5) * 100)%"></div>
+                            </div>
+                            <span class="progress-description">Out of 5.0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="info-box shadow-sm">
+                        <span class="info-box-icon bg-gradient-warning elevation-1">
+                            <i class="fas fa-thumbs-up"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Positive Reviews</span>
+                            <span class="info-box-number">
+                                @Model.PositiveReviewRatePercent.ToString("F1")%
+                            </span>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" style="width: @Model.PositiveReviewRatePercent%"></div>
+                            </div>
+                            <span class="progress-description">
+                                Rating <span>&ge;</span>
+                                4 stars
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="info-box shadow-sm">
+                        <span class="info-box-icon bg-gradient-danger elevation-1">
+                            <i class="fas fa-thumbs-down"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Negative Reviews</span>
+                            <span class="info-box-number">
+                                @Model.NegativeReviewRatePercent.ToString("F1")%
+                            </span>
+                            <div class="progress">
+                                <div class="progress-bar bg-danger" style="width: @Model.NegativeReviewRatePercent%"></div>
+                            </div>
+                            <span class="progress-description">Rating &le; 2 stars</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Most Reviewed Book Section -->
+            @if (Model.MostReviewedBook != null)
+            {
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card card-primary card-outline shadow">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-trophy text-warning mr-2"></i>
+                                    Most Reviewed Book
+                                </h3>
+                                @* <div class="card-tools"> *@
+                                @*     <span class="badge badge-primary">Featured</span> *@
+                                @* </div> *@
+                            </div>
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2">
+
+                                        <img src="@Model.MostReviewedBook.Image" class="img-thumbnail me-3" alt="Book" width="80" />
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h4 class="text-dark mb-2">@Model.MostReviewedBook.Title</h4>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <p class="mb-1">
+                                                    <i class="fas fa-comments text-info mr-2"></i>
+                                                    <strong>Total Reviews:</strong>
+                                                    <span class="">@Model.MostReviewedBook.TotalReviews</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p class="mb-1">
+                                                    <i class="fas fa-star text-warning mr-2"></i>
+                                                    <strong>Average Rating:</strong>
+                                                    <span class="">@Model.MostReviewedBook.AverageRating.ToString("F1")</span>
+                                                    <small class="text-warning ml-2">
+                                                        @for (int i = 1; i <= 5; i++)
+                                                        {
+                                                            if (i <= Math.Floor(Model.MostReviewedBook.AverageRating))
+                                                            {
+                                                                <i class="fas fa-star"></i>
+                                                            }
+                                                            else if (i - 0.5 <= Model.MostReviewedBook.AverageRating)
+                                                            {
+                                                                <i class="fas fa-star-half-alt"></i>
+                                                            }
+                                                            else
+                                                            {
+                                                                <i class="far fa-star"></i>
+                                                            }
+                                                        }
+                                                    </small>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body text-center py-5">
+                                <i class="fas fa-book-open fa-3x text-muted mb-3"></i>
+                                <h4 class="text-muted">No Reviews Available</h4>
+                                <p class="text-muted">There are currently no reviews to display.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            
+
+            
+        </div>
+    </section>
+</div>

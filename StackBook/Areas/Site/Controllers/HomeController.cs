@@ -42,7 +42,7 @@ namespace StackBook.Areas.Site.Controllers
                     return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
                 }
             }
-
+            var homeVM = new HomeVM();
             try
             {
                 // Lấy userId từ claims
@@ -102,7 +102,7 @@ namespace StackBook.Areas.Site.Controllers
                     }
                 }
                 var newReleaseBooks = await _bookService.GetBookNewReleasesAsync(3);
-                var homeVM = new HomeVM
+                homeVM = new HomeVM
                 {
                     Categories = await _UnitOfWork.Category.GetAllAsync(),
                     BestSellerBooks = bestSellingBooks,
@@ -111,16 +111,16 @@ namespace StackBook.Areas.Site.Controllers
                     Page = page ?? 1
                 };
                 //
-                return View(homeVM);
+                
             }
             catch (Exception ex)
             {
                 TempData["error"] = ex.Message;
                 ViewBag.CartCount = 0;
-                return View("Error");
+                return View(homeVM);
             }
 
-            
+            return View(homeVM);
         }
             
 

@@ -10,6 +10,7 @@ namespace StackBook.Models
         public virtual ICollection<OrderDetail>? OrderDetails { get; set; }
         public virtual ICollection<Payment>? Payments { get; set; }
         public virtual ICollection<OrderHistory>? OrderHistories { get; set; }
+        public virtual ICollection<Review>? Reviews { get; set; }
 
         [Required]
         public Guid UserId { get; set; }

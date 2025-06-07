@@ -51,9 +51,12 @@
             </div>
 
             <h3 class="text-primary mb-4">📚 Best Sellers</h3>
-
             @* ============ BOOKS =========== *@
-            @await Component.InvokeAsync("Books", new { books = Model.Books, page = Model.Page })
+            @await Component.InvokeAsync("Books", new { books = Model.BestSellerBooks, page = Model.Page })
+            <h3 class="text-primary mb-4">📚 Recommend </h3>
+            @await Component.InvokeAsync("Books", new { books = Model.RecommendBooks, page = Model.Page })
+            <h3 class="text-primary mb-4">📚 New Release</h3>
+            @await Component.InvokeAsync("Books", new { books = Model.NewReleaseBooks, page = Model.Page })
 
         </div>
     </div>

@@ -19,29 +19,38 @@ namespace StackBook.Services
             _orderRepository = orderRepository;
             _reviewRepository = reviewRepository;
         }
-        public async Task<Review> CreateReviewFromOrderAsync(Guid orderId, Guid bookId, Guid userId, int rating, string? comment)
+        public async Task<Review> CreateReviewFromOrderAsync(Guid orderId, Guid bookId, Guid userId, int rating, string? comment = null)
         {
+            Console.WriteLine($"Creating review for Order ID: {orderId}, Book ID: {bookId}, User ID: {userId}, Rating: {rating}, Comment: {comment}");
+            if (orderId == Guid.Empty)
+            {
+                throw new ArgumentException("Order ID cannot be empty", nameof(orderId));
+            }
+
+            if (bookId == Guid.Empty)
+            {
+                throw new ArgumentException("Book ID cannot be empty", nameof(bookId));
+            }
+
+            if (userId == Guid.Empty)
+            {
+                throw new ArgumentException("User ID cannot be empty", nameof(userId));
+            }
+
             if (rating < 1 || rating > 5)
+            {
                 throw new ArgumentOutOfRangeException(nameof(rating), "Rating must be between 1 and 5");
+            }
 
-            // Lấy đơn hàng
             var order = await _orderRepository.FindOrderByIdAsync(orderId);
-            if (order == null || order.UserId != userId)
-                throw new InvalidOperationException("Order not found or not owned by user");
-            //Kiểm tra đơn hàng đã hoàn thành
-            if (order.Status != 4) // Giả sử 3 là trạng thái "Hoàn thành"
-                throw new InvalidOperationException("Order is not completed");
-            // Kiểm tra sách có nằm trong đơn hàng không
-            var containsBook = order.OrderDetails.Any(i => i.BookId == bookId);
-            if (!containsBook)
-                throw new InvalidOperationException("Book is not part of this order");
-
-            // Tạo review
+            if (order == null)
+            {
+                throw new InvalidOperationException("Order not found");
+            }
             var review = new Review
             {
-                ReviewId = Guid.NewGuid(),
-                BookId = bookId,
                 UserId = userId,
+                BookId = bookId,
                 OrderId = orderId,
                 Rating = rating,
                 Comment = comment
@@ -178,6 +187,33 @@ namespace StackBook.Services
             }
 
             return await _reviewRepository.HasUserReviewedBookAsync(userId, bookId);
+        }
+        public async Task<bool> GetReviewByUserIdBookIdOrderIdAsync(Guid userId, Guid bookId, Guid orderId)
+        {
+            try
+            {
+                if (userId == Guid.Empty)
+                {
+                    throw new ArgumentException("User ID cannot be empty", nameof(userId));
+                }
+
+                if (bookId == Guid.Empty)
+                {
+                    throw new ArgumentException("Book ID cannot be empty", nameof(bookId));
+                }
+
+                if (orderId == Guid.Empty)
+                {
+                    throw new ArgumentException("Order ID cannot be empty", nameof(orderId));
+                }
+                Console.WriteLine($"Retrieving review for User ID: {userId}, Book ID: {bookId}, Order ID: {orderId}");
+                return await _reviewRepository.GetByUserIdBookIdOrderIdAsync(userId, bookId, orderId);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (not implemented here)
+                throw new InvalidOperationException("An error occurred while retrieving the review", ex);
+            }
         }
     }
 }

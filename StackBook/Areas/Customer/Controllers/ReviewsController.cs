@@ -1,31 +1,61 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using StackBook.DAL.IRepository;
-using StackBook.DAL.Repository;
-using StackBook.Data;
-using StackBook.Interfaces;
 using StackBook.Models;
-using StackBook.ViewModels;
 using System.Security.Claims;
+using StackBook.Data;
+using Microsoft.EntityFrameworkCore;
 
-namespace StackBook.Areas.Customer.Controllers
+namespace StackBook.Controllers
 {
     [Area("Customer")]
+    [Route("Customer/Order/[controller]/[action]")]
     public class ReviewsController : Controller
     {
-        private readonly IReviewService _reviewService;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ApplicationDbContext _context;
 
-        public ReviewsController(IUnitOfWork unitOfWork, IReviewService reviewService)
+        public ReviewsController(ApplicationDbContext context)
         {
-            _unitOfWork = unitOfWork;
-            _reviewService = reviewService;
+            _context = context;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SubmitReview(Review review)
+        {
+            if (ModelState.IsValid)
+            {
+                // Get current user ID
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (userId == null)
+                {
+                    return Unauthorized();
+                }
+
+                // Check if the user has already reviewed this book in this order
+                var existingReview = await _context.Reviews
+                    .FirstOrDefaultAsync(r => r.UserId == Guid.Parse(userId)
+                    && r.BookId == review.BookId
+                    && r.OrderId == review.OrderId);
+
+                if (existingReview != null)
+                {
+                    TempData["ErrorMessage"] = "You have already reviewed this book from this order.";
+                    return RedirectToAction("Index", "Order", new { status = 4 }); // Redirect to delivered orders
+                }
+
+                // Set review details
+                review.UserId = Guid.Parse(userId);
+                review.ReviewId = Guid.NewGuid();
+
+                // Save review
+                _context.Reviews.Add(review);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Thank you for your review!";
+                return RedirectToAction("Index", "Order", new { status = 4 }); // Redirect to delivered orders
+            }
+
+            // If we got this far, something failed
+            TempData["ErrorMessage"] = "There was an error submitting your review.";
+            return RedirectToAction("Index", "Order", new { status = 4 }); // Redirect to delivered orders
         }
     }
 }

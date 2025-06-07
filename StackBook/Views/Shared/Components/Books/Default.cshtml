@@ -1,4 +1,4 @@
-﻿@model X.PagedList.IPagedList<StackBook.Models.Book>
+﻿@model X.PagedList.IPagedList<StackBook.ViewModels.BookRatingViewModel>
 @using X.PagedList.Mvc.Core
 
 @{
@@ -11,22 +11,22 @@
     @if (Model != null && Model.Any())
     {
         if(Model.Count == 1) {
-            var book = Model[0];
-            <a asp-area="Customer" asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@book?.BookId"
+            var bookRating = Model[0];
+            <a asp-area="Customer" asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@bookRating.Book?.BookId"
                class="h-66 book-card text-decoration-none text-black d-block " style="
     height: 450px;
         ">
 
-                <img src="@book?.ImageURL" alt="@book?.BookTitle" class="img-fluid" />
+                <img src="@bookRating.Book?.ImageURL" alt="@bookRating.Book?.BookTitle" class="img-fluid" />
 
-                <div class="book book-title fw-bold mt-2">@book?.BookTitle</div>
+                <div class="book book-title fw-bold mt-2">@bookRating.Book?.BookTitle</div>
 
                 <div class="book-rating text-warning mb-1">⭐ 4.4 (619)</div>
 
                 <div class="fs-8 text-muted">
-                    @if (book!.Authors != null && book.Authors.Any())
+                    @if (bookRating.Book!.Authors != null && bookRating.Book.Authors.Any())
                     {
-                        foreach (var author in book.Authors)
+                        foreach (var author in bookRating.Book.Authors)
                         {
                             <div>@author.AuthorName</div>
                         }
@@ -35,28 +35,28 @@
 
 
                 <div class="book-price text-danger fw-semibold mt-1">
-                    $@book?.Price
+                    $@bookRating.Book.?.Price
                 </div>
 
             </a>
         }
         else {
-            foreach (var book in Model)
+            foreach (var bookRating in Model)
             {
                 <div class="col-sm-6 col-md-4 col-lg-3">
-                    <a asp-area="Customer" asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@book?.BookId"
+                    <a asp-area="Customer" asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@bookRating?.Book.BookId"
                        class="h-66 book-card text-decoration-none text-black d-block ">
 
-                        <img src="@book?.ImageURL" alt="    @book?.BookTitle" class="img-fluid" />
+                        <img src="@bookRating?.Book.ImageURL" alt="    @bookRating?.Book.BookTitle" class="img-fluid" />
 
-                        <div class="book book-title fw-bold mt-2">@book?.BookTitle</div>
+                        <div class="book book-title fw-bold mt-2">@bookRating?.Book.BookTitle</div>
 
-                        <div class="book-rating text-warning mb-1">⭐ 4.4 (619)</div>
+                        <div class="book-rating text-warning mb-1">⭐ @bookRating.AverageRating</div>
 
                         <div class="fs-8 text-muted">
-                            @if (book!.Authors != null && book.Authors.Any())
+                            @if (bookRating.Book!.Authors != null && bookRating.Book.Authors.Any())
                             {
-                                foreach (var author in book.Authors)
+                                foreach (var author in bookRating.Book.Authors)
                                 {
                                     <div>@author.AuthorName</div>
                                 }
@@ -65,7 +65,7 @@
 
 
                         <div class="book-price text-danger fw-semibold mt-1">
-                            $@book?.Price
+                            $@bookRating.Book?.Price
                         </div>
 
                     </a>

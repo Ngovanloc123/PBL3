@@ -7,6 +7,7 @@ namespace StackBook.Interfaces
 {
     public interface IReviewService
     {
+        Task<Review> CreateReviewFromOrderAsync(Guid orderId, Guid bookId, Guid userId, int rating, string? comment = null);
         Task<Review> GetReviewByIdAsync(Guid id);
         Task<List<Review>> GetAllReviewsAsync();
         Task<List<Review>> GetReviewsByUserIdAsync(Guid userId);
@@ -19,5 +20,6 @@ namespace StackBook.Interfaces
         Task DeleteReviewAsync(Guid id);
         Task<bool> ReviewExistsAsync(Guid id);
         Task<bool> HasUserReviewedBookAsync(Guid userId, Guid bookId);
+        Task<bool> GetReviewByUserIdBookIdOrderIdAsync(Guid userId, Guid bookId, Guid orderId);
     }
 }

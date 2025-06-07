@@ -24,5 +24,6 @@ namespace StackBook.DAL.IRepository
         Task DeleteAsync(Guid id);
         Task<bool> ExistsAsync(Guid id);
         Task<bool> HasUserReviewedBookAsync(Guid userId, Guid bookId);
+        Task<bool> GetByUserIdBookIdOrderIdAsync(Guid userId, Guid bookId, Guid orderId);
     }
 }

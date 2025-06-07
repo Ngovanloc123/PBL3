@@ -50,7 +50,7 @@ namespace StackBook.Services
             _reviewService = reviewService;
             _unitOfWork = unitOfWork;
         }
-        //th?ng kê t?ng s? ??n hàng
+        //th?ng kï¿½ t?ng s? ??n hï¿½ng
         public async Task<int> GetTotalOrdersAsync(DateTime? start, DateTime? end)
         {
             var orders = await _orderRepository.GetAllOrdersAsync();
@@ -70,7 +70,7 @@ namespace StackBook.Services
             }
             return orders;
         }
-        //th?ng kê ??n hàng theo status
+        //th?ng kï¿½ ??n hï¿½ng theo status
         //status: 1. Pending, 2. Shipped, 3. Canceled, 4. Delivered, 5. Return
         public async Task<List<Order>> GetOrdersByStatusAsync(int status, DateTime? start, DateTime? end)
         {
@@ -85,32 +85,32 @@ namespace StackBook.Services
             }
             return orders;
         }
-        //th?ng kê ??n hàng ?ã hoàn thành
+        //th?ng kï¿½ ??n hï¿½ng ?ï¿½ hoï¿½n thï¿½nh
         public async Task<List<Order>> GetCompletedOrdersAsync(DateTime? start, DateTime? end)
         {
             return await GetOrdersByStatusAsync(4, start, end); // 4. Delivered
         }
-        //th?ng kê ??n hàng ?ang x? lý
+        //th?ng kï¿½ ??n hï¿½ng ?ang x? lï¿½
         public async Task<List<Order>> GetProcessingOrdersAsync(DateTime? start, DateTime? end)
         {
             return await GetOrdersByStatusAsync(1, start, end); // 1. Pending
         }
-        //th?ng kê ??n hàng ?ã h?y
+        //th?ng kï¿½ ??n hï¿½ng ?ï¿½ h?y
         public async Task<List<Order>> GetCanceledOrdersAsync(DateTime? start, DateTime? end)
         {
             return await GetOrdersByStatusAsync(3, start, end); // 3. Canceled
         }
-        //th?ng kê ??n hàng ?ã tr?
+        //th?ng kï¿½ ??n hï¿½ng ?ï¿½ tr?
         public async Task<List<Order>> GetReturnedOrdersAsync(DateTime? start, DateTime? end)
         {
             return await GetOrdersByStatusAsync(5, start, end); // 5. Return
         }
-        //th?ng kê ??n hàng ?ang giao
+        //th?ng kï¿½ ??n hï¿½ng ?ang giao
         public async Task<List<Order>> GetShippingOrdersAsync(DateTime? start, DateTime? end)
         {
             return await GetOrdersByStatusAsync(2, start, end); // 2. Shipped
         }
-        //th?ng kê doanh thu t?ng
+        //th?ng kï¿½ doanh thu t?ng
         public async Task<double> GetTotalRevenueAsync(DateTime? start, DateTime? end)
         {
             var orders = await _orderRepository.GetAllOrdersAsync();
@@ -124,7 +124,7 @@ namespace StackBook.Services
             }
             return orders.Sum(o => o.TotalPrice);
         }
-        //th?ng kê doanh thu theo ngày/tu?n/tháng/kho?ng th?i gian
+        //th?ng kï¿½ doanh thu theo ngï¿½y/tu?n/thï¿½ng/kho?ng th?i gian
         public async Task<List<RevenueByDateViewModel>> GetRevenueByDateAsync(DateTime? start, DateTime? end, TimeRangeType rangeType)
         {
             var orders = await _orderRepository.GetAllOrdersAsync();
@@ -170,18 +170,18 @@ namespace StackBook.Services
             }
             return revenueByDate;
         }
-        //th?ng kê t? l? h?y ??n hàng
+        //th?ng kï¿½ t? l? h?y ??n hï¿½ng
         public async Task<double> GetCancelRateAsync(DateTime? start, DateTime? end)
         {
             var canceledOrders = await GetCanceledOrdersAsync(start, end);
             var totalOrders = await GetTotalOrdersAsync(start, end);
             if (totalOrders == 0)
             {
-                return 0; // Tránh chia cho 0
+                return 0; // Trï¿½nh chia cho 0
             }
             return (double)canceledOrders.Count / totalOrders * 100; // T? l? ph?n tr?m
         }
-        //th?ng kê top khách hàng mua nhi?u nh?t
+        //th?ng kï¿½ top khï¿½ch hï¿½ng mua nhi?u nh?t
         public async Task<List<TopCustomerViewModel>> GetTopCustomersAsync(DateTime? start, DateTime? end, int topCount)
         {
             var orders = await _orderRepository.GetAllOrdersAsync();
@@ -201,7 +201,7 @@ namespace StackBook.Services
                 }).OrderByDescending(o => o.TotalSpent).Take(topCount).ToList();
             return topCustomers;
         }
-        //th?ng kê doanh thu theo th? lo?i sách
+        //th?ng kï¿½ doanh thu theo th? lo?i sï¿½ch
         public async Task<List<RevenueByCategoryViewModel>> GetRevenueByCategoryAsync(DateTime? start, DateTime? end)
         {
             var orders = await _orderRepository.GetAllOrdersAsync();
@@ -229,7 +229,7 @@ namespace StackBook.Services
             }
             return categoryRevenues;
         }
-        //th?ng kê sách s? l??ng sách theo th? lo?i:
+        //th?ng kï¿½ sï¿½ch s? l??ng sï¿½ch theo th? lo?i:
         public async Task<List<BookCountByCategoryViewModel>> GetBookCountByCategoryAsync(DateTime? start, DateTime? end)
         {
             var books = await _bookRepository.GetAllAsync();
@@ -252,13 +252,13 @@ namespace StackBook.Services
             }
             return bookCountByCategory;
         }
-        //th?ng kê sách bán ch?y nh?t
+        //th?ng kï¿½ sï¿½ch bï¿½n ch?y nh?t
         public async Task<List<BookSaleInfoViewModel>> GetBestSellingBooksAsync(DateTime? start, DateTime? end, int topCount)
         {
             var orders = await _orderRepository.GetAllOrdersAsync();
             if (start.HasValue && end.HasValue)
             {
-                orders = orders.Where(o => o.CreatedAt >= start.Value && o.CreatedAt <= end.Value).ToList();
+                orders = orders.Where(o => o.CreatedAt >= start.Value && o.CreatedAt <= end.Value && o.Status == 4).ToList();
             }
             if (orders == null || !orders.Any())
             {
@@ -283,7 +283,7 @@ namespace StackBook.Services
             }
             return bookSales.OrderByDescending(bs => bs.QuantitySold).Take(topCount).ToList();
         }
-        //th?ng kê sách ít bán nh?t
+        //th?ng kï¿½ sï¿½ch ï¿½t bï¿½n nh?t
         public async Task<List<BookSaleInfoViewModel>> GetLeastSellingBooksAsync(DateTime? start, DateTime? end, int topCount)
         {
             var orders = await _orderRepository.GetAllOrdersAsync();
@@ -314,7 +314,7 @@ namespace StackBook.Services
             }
             return bookSales.OrderBy(bs => bs.QuantitySold).Take(topCount).ToList();
         }
-        //th?ng kê sách ???c ?ánh giá cao nh?t
+        //th?ng kï¿½ sï¿½ch ???c ?ï¿½nh giï¿½ cao nh?t
         public async Task<List<BookRatingInfoViewModel>> GetHighestRatedBooksAsync(DateTime? start, DateTime? end, int topCount)
         {
             var reviews = await _reviewRepository.GetAllAsync();
@@ -344,7 +344,7 @@ namespace StackBook.Services
             }
             return bookRatings.OrderByDescending(br => br.AverageRating).Take(topCount).ToList();
         }
-        //th?ng kê sách b? ?ánh giá th?p nh?t
+        //th?ng kï¿½ sï¿½ch b? ?ï¿½nh giï¿½ th?p nh?t
         public async Task<List<BookRatingInfoViewModel>> GetLowestRatedBooksAsync(DateTime? start, DateTime? end, int topCount)
         {
             var reviews = await _reviewRepository.GetAllAsync();
@@ -373,7 +373,7 @@ namespace StackBook.Services
             }
             return bookRatings.OrderBy(br => br.AverageRating).Take(topCount).ToList();
         }
-        //th?ng kê t?ng s? ng??i dùng
+        //th?ng kï¿½ t?ng s? ng??i dï¿½ng
         public async Task<int> GetTotalUsersAsync()
         {
             var users = await _userRepository.GetAllAsync();
@@ -383,7 +383,7 @@ namespace StackBook.Services
             }
             return users.Count();
         }
-        //th?ng kê ng??i dùng m?i trong ngày
+        //th?ng kï¿½ ng??i dï¿½ng m?i trong ngï¿½y
         public async Task<int> GetNewUsersTodayAsync()
         {
             var users = await _userRepository.GetAllAsync();
@@ -393,7 +393,7 @@ namespace StackBook.Services
             }
             return users.Count(u => u.CreatedUser.Date == DateTime.UtcNow.Date);
         }
-        //th?ng kê ng??i dùng m?i trong tháng
+        //th?ng kï¿½ ng??i dï¿½ng m?i trong thï¿½ng
         public async Task<int> GetNewUsersThisMonthAsync()
         {
             var users = await _userRepository.GetAllAsync();
@@ -403,7 +403,7 @@ namespace StackBook.Services
             }
             return users.Count(u => u.CreatedUser.Year == DateTime.UtcNow.Year && u.CreatedUser.Month == DateTime.UtcNow.Month);
         }
-        //th?ng kê ng??i dùng có phát sinh ??n hàng
+        //th?ng kï¿½ ng??i dï¿½ng cï¿½ phï¿½t sinh ??n hï¿½ng
         public async Task<int> GetUsersWithOrdersAsync()
         {
             var orders = await _orderRepository.GetAllOrdersAsync();
@@ -413,7 +413,7 @@ namespace StackBook.Services
             }
             return orders.Select(o => o.UserId).Distinct().Count();
         }
-        //th?ng kê ng??i dùng có ?ánh giá tích c?c
+        //th?ng kï¿½ ng??i dï¿½ng cï¿½ ?ï¿½nh giï¿½ tï¿½ch c?c
         public async Task<int> GetPositiveReviewUsersAsync()
         {
             var reviews = await _reviewRepository.GetAllAsync();
@@ -423,7 +423,7 @@ namespace StackBook.Services
             }
             return reviews.Where(r => r.Rating >= 4).Select(r => r.UserId).Distinct().Count();
         }
-        //th?ng kê ng??i dùng có ?ánh giá tiêu c?c
+        //th?ng kï¿½ ng??i dï¿½ng cï¿½ ?ï¿½nh giï¿½ tiï¿½u c?c
         public async Task<int> GetNegativeReviewUsersAsync()
         {
             var reviews = await _reviewRepository.GetAllAsync();
@@ -433,7 +433,7 @@ namespace StackBook.Services
             }
             return reviews.Where(r => r.Rating <= 2).Select(r => r.UserId).Distinct().Count();
         }
-        //thong kê t?ng s? ?ánh giá
+        //thong kï¿½ t?ng s? ?ï¿½nh giï¿½
         public async Task<int> GetTotalReviewsAsync()
         {
             var reviews = await _reviewRepository.GetAllAsync();
@@ -443,7 +443,7 @@ namespace StackBook.Services
             }
             return reviews.Count();
         }
-        //th?ng kê ?ánh giá trung bình
+        //th?ng kï¿½ ?ï¿½nh giï¿½ trung bï¿½nh
         public async Task<double> GetAverageRatingAsync()
         {
             var reviews = await _reviewRepository.GetAllAsync();
@@ -453,7 +453,7 @@ namespace StackBook.Services
             }
             return reviews.Average(r => r.Rating);
         }
-        //th?ng kê t? l? ?ánh giá tích c?c
+        //th?ng kï¿½ t? l? ?ï¿½nh giï¿½ tï¿½ch c?c
         public async Task<double> GetPositiveReviewRatePercentAsync()
         {
             var reviews = await _reviewRepository.GetAllAsync();
@@ -464,7 +464,7 @@ namespace StackBook.Services
             var positiveReviews = reviews.Count(r => r.Rating >= 4);
             return (double)positiveReviews / reviews.Count * 100; // T? l? ph?n tr?m
         }
-        //th?ng kê t? l? ?ánh giá tiêu c?c
+        //th?ng kï¿½ t? l? ?ï¿½nh giï¿½ tiï¿½u c?c
         public async Task<double> GetNegativeReviewRatePercentAsync()
         {
             var reviews = await _reviewRepository.GetAllAsync();
@@ -475,7 +475,7 @@ namespace StackBook.Services
             var negativeReviews = reviews.Count(r => r.Rating <= 2);
             return (double)negativeReviews / reviews.Count * 100; // T? l? ph?n tr?m
         }
-        //th?ng kê sách có nhi?u ?ánh giá nh?t
+        //th?ng kï¿½ sï¿½ch cï¿½ nhi?u ?ï¿½nh giï¿½ nh?t
         public async Task<MostReviewedBookViewModel?> GetMostReviewedBookAsync()
         {
             var reviews = await _reviewRepository.GetAllAsync();

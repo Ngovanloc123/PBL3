@@ -12,11 +12,13 @@ namespace StackBook.Services
         private readonly ApplicationDbContext _context;
 
         private readonly IAuthorService _authorService;
+        private readonly IReviewService _reviewService;
 
-        public BookService(ApplicationDbContext context, IAuthorService authorService)
+        public BookService(ApplicationDbContext context, IAuthorService authorService, IReviewService reviewService)
         {
             _context = context;
             _authorService = authorService;
+            _reviewService = reviewService;
         }
 
         public List<BookWithAuthors> GetListBookAuthorsByCategoryId(Guid categoryId)
@@ -108,6 +110,26 @@ namespace StackBook.Services
                 .Include(b => b.Categories)
                 .Where(b => b.Authors.Any(a => a.AuthorId == authorId))
                 .ToListAsync();
+        }
+        public async Task<List<BookRatingViewModel>> GetBookNewReleasesAsync(int top = 3)
+        {
+            List<Book> newReleaseBooks = await _context.Books
+                .Include(b => b.Authors)
+                .OrderByDescending(b => b.CreatedBook)
+                .Take(top)
+                .ToListAsync();
+            List<BookRatingViewModel> bookRatingViewModels = new List<BookRatingViewModel>();
+            foreach (var book in newReleaseBooks)
+            {
+                double averageRating = await _reviewService.GetAverageRatingForBookAsync(book.BookId);
+
+                bookRatingViewModels.Add(new BookRatingViewModel
+                {
+                    Book = book,
+                    AverageRating = averageRating
+                });
+            }
+            return bookRatingViewModels;
         }
     }
 }

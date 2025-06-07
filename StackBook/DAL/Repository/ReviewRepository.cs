@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace StackBook.DAL.Repository
 {
-    public class ReviewRepository: IReviewRepository
+    public class ReviewRepository : IReviewRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -34,7 +34,7 @@ namespace StackBook.DAL.Repository
         {
             var reviews = await _context.Reviews.Where(r => r.BookId == bookId).ToListAsync();
             return reviews;
-        
+
         }
         public async Task<List<Review>> GetByRatingAsync(int minRating, int? maxRating = null)
         {
@@ -77,9 +77,34 @@ namespace StackBook.DAL.Repository
         {
             return await _context.Reviews.AnyAsync(r => r.ReviewId == id);
         }
-        public async  Task<bool> HasUserReviewedBookAsync(Guid userId, Guid bookId)
+        public async Task<bool> HasUserReviewedBookAsync(Guid userId, Guid bookId)
         {
             return await _context.Reviews.AnyAsync(r => r.UserId == userId && r.BookId == bookId);
+        }
+        public async Task<bool> GetByUserIdBookIdOrderIdAsync(Guid userId, Guid bookId, Guid orderId)
+        {
+            // Console.WriteLine($"Searching for review with UserId: {userId}, BookId: {bookId}, OrderId: {orderId}");
+            // var review = await _context.Reviews.FirstOrDefaultAsync(r => r.UserId == userId && r.BookId == bookId && r.OrderId == orderId);
+            // Console.WriteLine($"Review found: {review.BookId}");
+            // return review ?? throw new Exception("Review not found for the specified user, book, and order.");
+            try
+            {
+                var review = await _context.Reviews
+                    .FirstOrDefaultAsync(r => r.UserId == userId &&
+                                            r.BookId == bookId &&
+                                            r.OrderId == orderId);
+
+                if (review == null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Log lỗi
+                throw new Exception(ex.Message); // Hoặc return null/giá trị mặc định
+            }
         }
     }
 }

@@ -18,13 +18,19 @@ namespace StackBook.Areas.Site.Controllers
         private readonly IUnitOfWork _UnitOfWork;
         private readonly ICategoryService _categoryService;
         private readonly ICartService _cartService;
+        private readonly IReportService _reportService;
+        private readonly IReviewService _reviewService;
+        private readonly IBookService _bookService;
 
-        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, ICategoryService categoryService, ICartService cartService)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, ICategoryService categoryService, ICartService cartService, IReportService reportService, IReviewService reviewService, IBookService bookService)
         {
             _logger = logger;
             _UnitOfWork = unitOfWork;
             _categoryService = categoryService;
             _cartService = cartService;
+            _reportService = reportService;
+            _reviewService = reviewService;
+            _bookService = bookService;
         }
 
         public async Task<IActionResult> Index(int? page)
@@ -36,7 +42,6 @@ namespace StackBook.Areas.Site.Controllers
                     return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
                 }
             }
-
 
             try
             {
@@ -51,16 +56,61 @@ namespace StackBook.Areas.Site.Controllers
                     var currentUserId = Guid.Parse(currentUserIdClaims);
                     ViewBag.CartCount = await _cartService.GetCartCount(currentUserId);
                 }
-
+                //Lấy sách theo số lượng sách đã bán nhiều nhất trong order
+                var bestSellingBooksReport = await _reportService.GetBestSellingBooksAsync(null, null, 6);
+                //chuyển thành List<Book> để truyền vào ViewComponent
+                List<BookRatingViewModel> bestSellingBooks = new List<BookRatingViewModel>();
+                foreach (var b in bestSellingBooksReport)
+                {
+                    var bookData = await _UnitOfWork.Book.GetAsync(c => c.BookId == b.BookId, "Authors");
+                    if (bookData != null)
+                    {
+                        bestSellingBooks.Add(new BookRatingViewModel
+                        {
+                            Book = new Book
+                            {
+                                BookId = b.BookId,
+                                BookTitle = b.Title,
+                                ImageURL = bookData.ImageURL,
+                                Authors = bookData.Authors,
+                                Price = bookData.Price
+                            },
+                            AverageRating = await _reviewService.GetAverageRatingForBookAsync(b.BookId)
+                        });
+                    }
+                }
+                var recommendBooksReport = await _reportService.GetHighestRatedBooksAsync(null, null, 6);
+                //chuyển thành List<Book> để truyền vào ViewComponent
+                List<BookRatingViewModel> recommendBooks = new List<BookRatingViewModel>();
+                foreach (var b in recommendBooksReport)
+                {
+                    var bookData = await _UnitOfWork.Book.GetAsync(c => c.BookId == b.BookId, "Authors");
+                    if (bookData != null)
+                    {
+                        recommendBooks.Add(new BookRatingViewModel
+                        {
+                            Book = new Book
+                            {
+                                BookId = b.BookId,
+                                BookTitle = b.Title,
+                                ImageURL = bookData.ImageURL,
+                                Authors = bookData.Authors,
+                                Price = bookData.Price
+                            },
+                            AverageRating = await _reviewService.GetAverageRatingForBookAsync(b.BookId)
+                        });
+                    }
+                }
+                var newReleaseBooks = await _bookService.GetBookNewReleasesAsync(3);
                 var homeVM = new HomeVM
                 {
-
                     Categories = await _UnitOfWork.Category.GetAllAsync(),
-                    Books = await _UnitOfWork.Book.GetAllAsync("Authors"),
+                    BestSellerBooks = bestSellingBooks,
+                    RecommendBooks = recommendBooks,
+                    NewReleaseBooks = newReleaseBooks,
                     Page = page ?? 1
-
                 };
-
+                //
                 return View(homeVM);
             }
             catch (Exception ex)

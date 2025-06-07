@@ -12,7 +12,7 @@ using StackBook.Data;
 namespace StackBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250606094746_FixExistingTables")]
+    [Migration("20250607043618_FixExistingTables")]
     partial class FixExistingTables
     {
         /// <inheritdoc />
@@ -376,6 +376,9 @@ namespace StackBook.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid?>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
@@ -388,6 +391,8 @@ namespace StackBook.Migrations
                     b.HasKey("ReviewId");
 
                     b.HasIndex("BookId");
+
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("UserId");
 
@@ -665,8 +670,13 @@ namespace StackBook.Migrations
                     b.HasOne("StackBook.Models.Book", "Book")
                         .WithMany("Reviews")
                         .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.HasOne("StackBook.Models.Order", "Order")
+                        .WithMany("Reviews")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("StackBook.Models.User", "User")
                         .WithMany("Reviews")
@@ -675,6 +685,8 @@ namespace StackBook.Migrations
                         .IsRequired();
 
                     b.Navigation("Book");
+
+                    b.Navigation("Order");
 
                     b.Navigation("User");
                 });
@@ -718,6 +730,8 @@ namespace StackBook.Migrations
                     b.Navigation("Payments");
 
                     b.Navigation("ReturnOrder");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("StackBook.Models.ShippingAddress", b =>

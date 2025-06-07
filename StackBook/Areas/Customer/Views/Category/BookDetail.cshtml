@@ -16,18 +16,18 @@
     <div class="row g-4">
         <!-- Left Column - Book Image and Purchase Options -->
         <div class="col-md-4">
-            <div class="card shadow-sm rounded-3 p-5">
+            <div class="card shadow-sm rounded-3 p-5 align-items-center">
                 <!-- Book Image -->
-                <div class="position-relative" style="padding-top: 120%">
-                    <img src="@Model.ImageURL" class="card-img-top rounded-2 position-absolute w-75" alt="@Model.BookTitle" style="object-fit: cover; top: -5%; left: 12.5%;" />
+                <div class="position-relative w-100" style="padding-top: 150%; max-width: 250px;">
+                    <img src="@Model.ImageURL" class="card-img-top rounded-2 position-absolute w-100 h-100 top-0 left-0 object-fit-cover" alt="@Model.BookTitle" />
                 </div>
                 @* <img class="card-img-top rounded-2 mb-3" src="@Model.ImageURL" alt="@Model.BookTitle" /> *@
                 
                 <!-- Stock and Quantity -->
-                <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                <form class="w-100 mt-5" asp-action="AddToCart" asp-controller="Cart" method="post">
                     <input type="hidden" name="bookId" value="@Model.BookId" />
                     
-                    <div class="mb-3">
+                    <div>
                         <h6 class="@((Model.Stock > 0) ? "text-success" : "text-danger") mb-3">
                             @((Model.Stock > 0) ? "In Stock" : "Out of Stock")
                         </h6>
@@ -40,11 +40,11 @@
 
                             <!-- Purchase Actions -->
                             <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-warning rounded-2 py-2">
-                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                <button type="submit" class="btn btn-primary rounded-2 py-2 text-uppercase fw-bold">
+                                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
                                 </button>
                                 <a asp-controller="Order" asp-action="BuyNow" asp-route-bookId="@Model.BookId" 
-                                   class="btn btn-danger rounded-2 py-2">
+                                   class="btn btn-dark rounded-2 py-2 text-uppercase fw-bold">
                                     <i class="bi bi-bag-check"></i> Buy Now
                                 </a>
                             </div>
@@ -215,7 +215,7 @@
                         <div class="row">
                             <!-- Left Column - User Info and Rating -->
                             <div class="col-md-3">
-                                <div class="d-flex flex-column">
+                                <div class="d-flex align-items-center gap-2">
                                     @{
                                             var avtForUsers = ViewData["AvtForUsers"] as Dictionary<Guid, string>;
                                             string userAvatar = avtForUsers != null && avtForUsers.ContainsKey(review.UserId) 

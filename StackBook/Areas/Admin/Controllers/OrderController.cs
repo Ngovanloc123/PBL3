@@ -78,8 +78,9 @@ namespace StackBook.Areas.Admin.Controllers
 
                 // Cancel the order  
                 await _orderService.CancelOrderAsync(orderId);
-
+                await _orderService.CreateOrderHistoryAsync(orderId, 3);
                 TempData["Success"] = "Order canceled successfully.";
+                
                 return RedirectToAction("Index", "Order");
             }
             catch (Exception ex)

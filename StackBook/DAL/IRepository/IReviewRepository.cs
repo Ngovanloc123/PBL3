@@ -10,7 +10,7 @@ using StackBook.DAL.IRepository;
 
 namespace StackBook.DAL.IRepository
 {
-    public interface IReviewRepository
+    public interface IReviewRepository: IRepository<Review>
     {
         Task<Review> GetByIdAsync(Guid id);
         Task<List<Review>> GetAllAsync();

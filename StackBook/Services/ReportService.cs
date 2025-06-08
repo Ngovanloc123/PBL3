@@ -79,10 +79,10 @@ namespace StackBook.Services
             {
                 orders = orders.Where(o => o.CreatedAt >= start.Value && o.CreatedAt <= end.Value).ToList();
             }
-            if (orders == null || !orders.Any())
-            {
-                throw new Exception($"No orders found with status {status}.");
-            }
+            // if (orders == null || !orders.Any())
+            // {
+            //     throw new Exception($"No orders found with status {status}.");
+            // }
             return orders;
         }
         //th?ng k� ??n h�ng ?� ho�n th�nh
@@ -232,65 +232,75 @@ namespace StackBook.Services
         //th?ng k� s�ch s? l??ng s�ch theo th? lo?i:
         public async Task<List<BookCountByCategoryViewModel>> GetBookCountByCategoryAsync(DateTime? start, DateTime? end)
         {
-            var books = await _bookRepository.GetAllAsync();
-            if (books == null || !books.Any())
+            // Lấy tất cả đơn hàng đã hoàn thành (Status = 4) cùng với OrderDetails, Book và Categories
+            var orders = await _unitOfWork.Order.GetAllAsync("OrderDetails.Book.Categories");
+
+            // Lọc theo khoảng thời gian (nếu có)
+            if (start.HasValue && end.HasValue)
             {
-                throw new Exception("No books found.");
+                orders = orders
+                    .Where(o => o.CreatedAt >= start.Value && o.CreatedAt <= end.Value && o.Status == 4)
+                    .ToList();
+            }
+            else
+            {
+                orders = orders.Where(o => o.Status == 4).ToList();
             }
 
-            var bookCountByCategory = new List<BookCountByCategoryViewModel>();
-            var categories = await _categoryRepository.GetAllAsync();
+            // Lấy tất cả OrderDetails hợp lệ (có Book và Categories)
+            var orderDetails = orders
+                .Where(o => o.OrderDetails != null)
+                .SelectMany(o => o.OrderDetails)
+                .Where(od => od.Book != null && od.Book.Categories != null)
+                .ToList();
 
-            foreach (var category in categories)
-            {
-                var bookCount = books.Count(b => b.Categories.Any(c => c.CategoryId == category.CategoryId));
-                bookCountByCategory.Add(new BookCountByCategoryViewModel
+            // Nhóm số lượng sách bán theo từng thể loại
+            var categoryCounts = orderDetails
+                .SelectMany(od => od.Book.Categories.Select(c => new
                 {
-                    CategoryName = category.CategoryName,
-                    BookCount = bookCount
-                });
+                    CategoryName = c.CategoryName,
+                    Quantity = od.Quantity
+                }))
+                .GroupBy(x => x.CategoryName)
+                .Select(g => new BookCountByCategoryViewModel
+                {
+                    CategoryName = g.Key,
+                    BookCount = g.Sum(x => x.Quantity) // Tổng số lượng sách bán
+                })
+                .ToList();
+
+            // Lấy tất cả thể loại để đảm bảo kết quả trả về đủ (kể cả thể loại không bán được sách nào)
+            var allCategories = await _categoryRepository.GetAllAsync();
+            var result = allCategories
+                .Select(c => new BookCountByCategoryViewModel
+                {
+                    CategoryName = c.CategoryName,
+                    BookCount = categoryCounts.FirstOrDefault(cc => cc.CategoryName == c.CategoryName)?.BookCount ?? 0
+                })
+                .ToList();
+            // In ra để kiểm tra
+            foreach (var category in result)
+            {
+                Console.WriteLine($"Category: {category.CategoryName}, BookCount: {category.BookCount}");
             }
-            return bookCountByCategory;
+            return result;
         }
+
         //th?ng k� s�ch b�n ch?y nh?t
         public async Task<List<BookSaleInfoViewModel>> GetBestSellingBooksAsync(DateTime? start, DateTime? end, int topCount)
         {
-            var orders = await _orderRepository.GetAllOrdersAsync();
-            if (start.HasValue && end.HasValue)
-            {
-                orders = orders.Where(o => o.CreatedAt >= start.Value && o.CreatedAt <= end.Value && o.Status == 4).ToList();
-            }
-            if (orders == null || !orders.Any())
-            {
-                throw new Exception("No orders found.");
-            }
-
-            var bookSales = new List<BookSaleInfoViewModel>();
-            var books = await _bookRepository.GetAllAsync();
-
-            foreach (var book in books)
-            {
-                var quantitySold = orders.Sum(o => o.OrderDetails?.Where(od => od.BookId == book.BookId).Sum(od => od.Quantity) ?? 0);
-                if (quantitySold > 0)
-                {
-                    bookSales.Add(new BookSaleInfoViewModel
-                    {
-                        BookId = book.BookId,
-                        Title = book.BookTitle,
-                        QuantitySold = quantitySold
-                    });
-                }
-            }
-            return bookSales.OrderByDescending(bs => bs.QuantitySold).Take(topCount).ToList();
-        }
-        //th?ng k� s�ch �t b�n nh?t
-        public async Task<List<BookSaleInfoViewModel>> GetLeastSellingBooksAsync(DateTime? start, DateTime? end, int topCount)
-        {
+            // in ra ngày để check
+            Console.WriteLine($"Start: {start}, End: {end}, TopCount: {topCount}");
             var orders = await _orderRepository.GetAllOrdersAsync();
             if (start.HasValue && end.HasValue)
             {
                 orders = orders.Where(o => o.CreatedAt >= start.Value && o.CreatedAt <= end.Value).ToList();
             }
+            //in ra để kiểm tra
+            foreach (var order in orders)
+            {
+                Console.WriteLine($"OrderId: {order.OrderId}, CreatedAt: {order.CreatedAt}, Status: {order.Status}");
+            }
             if (orders == null || !orders.Any())
             {
                 throw new Exception("No orders found.");
@@ -312,8 +322,66 @@ namespace StackBook.Services
                     });
                 }
             }
-            return bookSales.OrderBy(bs => bs.QuantitySold).Take(topCount).ToList();
+            //in ra để kiểm tra
+            // foreach (var bookSale in bookSales)
+            // {
+            //     Console.WriteLine($"BookId: {bookSale.BookId}, Title: {bookSale.Title}, QuantitySold: {bookSale.QuantitySold}");
+            // }
+            var bookBestSelling = bookSales.OrderByDescending(bs => bs.QuantitySold).Take(topCount).ToList();
+            //in ra để kiểm tra
+            // foreach (var bookSale in bookBestSelling)
+            // {
+            //     Console.WriteLine($"Least Selling Book - BookId: {bookSale.BookId}, Title: {bookSale.Title}, QuantitySold: {bookSale.QuantitySold}");
+            // }
+            return bookBestSelling;
         }
+        //th?ng k� s�ch �t b�n nh?t
+        public async Task<List<BookSaleInfoViewModel>> GetLeastSellingBooksAsync(DateTime? start, DateTime? end, int topCount)
+        {
+            Console.WriteLine($"Start: {start}, End: {end}, TopCount: {topCount}");
+
+            var orders = await _orderRepository.GetAllOrdersAsync();
+
+            if (start.HasValue && end.HasValue)
+            {
+                orders = orders.Where(o => o.CreatedAt >= start.Value && o.CreatedAt <= end.Value).ToList();
+            }
+
+            foreach (var order in orders)
+            {
+                Console.WriteLine($"OrderId: {order.OrderId}, CreatedAt: {order.CreatedAt}, Status: {order.Status}");
+            }
+
+            var books = await _bookRepository.GetAllAsync();
+
+            if (books == null || !books.Any())
+            {
+                throw new Exception("No books found.");
+            }
+
+            var bookSales = books.Select(book =>
+            {
+                var quantitySold = orders.Sum(o => 
+                    o.OrderDetails?.Where(od => od.BookId == book.BookId).Sum(od => od.Quantity) ?? 0
+                );
+
+                return new BookSaleInfoViewModel
+                {
+                    BookId = book.BookId,
+                    Title = book.BookTitle,
+                    QuantitySold = quantitySold
+                };
+            }).ToList();
+
+            var bookLeastSelling = bookSales
+                .OrderBy(bs => bs.QuantitySold)
+                .ThenBy(bs => bs.Title)
+                .Take(topCount)
+                .ToList();
+
+            return bookLeastSelling;
+        }
+
         //th?ng k� s�ch ???c ?�nh gi� cao nh?t
         public async Task<List<BookRatingInfoViewModel>> GetHighestRatedBooksAsync(DateTime? start, DateTime? end, int topCount)
         {
@@ -478,7 +546,7 @@ namespace StackBook.Services
         //th?ng k� s�ch c� nhi?u ?�nh gi� nh?t
         public async Task<MostReviewedBookViewModel?> GetMostReviewedBookAsync()
         {
-            var reviews = await _reviewRepository.GetAllAsync();
+            var reviews  = await _unitOfWork.Review.GetAllAsync("Book");
             if (reviews == null || !reviews.Any())
             {
                 throw new Exception("No reviews found.");
@@ -488,6 +556,7 @@ namespace StackBook.Services
                 .Select(g => new MostReviewedBookViewModel
                 {
                     BookId = g.Key,
+                    Image = g.First().Book?.ImageURL,
                     Title = g.First().Book?.BookTitle ?? "Unknown",
                     TotalReviews = g.Count(),
                     AverageRating = g.Average(r => r.Rating)

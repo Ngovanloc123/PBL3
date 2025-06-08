@@ -16,4 +16,11 @@ namespace StackBook.ViewModels
         public IEnumerable<Category> Categories { get; set; }
         public int? Page { get; set; }
     }
+
+    public class CategoryVM
+    {
+        public Guid CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public IEnumerable<BookRatingViewModel> BookRatings { get; set; }
+    }
 }

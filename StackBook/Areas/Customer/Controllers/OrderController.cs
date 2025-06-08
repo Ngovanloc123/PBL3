@@ -205,6 +205,9 @@ namespace StackBook.Areas.Customer.Controllers
 
                 // Cancel the order  
                 await _orderService.CancelOrderAsync(orderId);
+                // Tạo History
+                await _orderService.CreateOrderHistoryAsync(orderId, 3);
+
 
                 TempData["Success"] = "Order canceled successfully.";
                 return RedirectToAction("Index", new { status = status });
@@ -237,6 +240,8 @@ namespace StackBook.Areas.Customer.Controllers
 
                 // Shipped -> Delivered
                 await _orderService.UpdateOrderStatusAsync(orderId, 4);
+                // Tạo History
+                await _orderService.CreateOrderHistoryAsync(orderId, 4);
 
                 TempData["Success"] = "Order canceled successfully.";
                 return RedirectToAction("Index", new { status = status });
@@ -270,6 +275,8 @@ namespace StackBook.Areas.Customer.Controllers
 
                 // Delivered -> Return
                 await _orderService.UpdateOrderStatusAsync(orderId, 5);
+                // Tạo History
+                await _orderService.CreateOrderHistoryAsync(orderId, 5);
 
                 TempData["Success"] = "Order canceled successfully.";
                 return RedirectToAction("Index", new { status = status });

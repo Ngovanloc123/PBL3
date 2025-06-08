@@ -96,14 +96,14 @@ namespace StackBook.Services
                 // Discount
                 var discount = await _discountRepository.GetAsync(d => d.DiscountId == request.DiscountId);
 
-                
-                if(discount == null)
+
+                if (discount == null)
                 // Lấy discount mặc định không giảm giá khi không chọn vào discount
-                {  
+                {
                     //discount = await _discountService.GetDiscountByCode("0");
                     //if (discount == null)
                     //{
-                        discount = await _discountService.CreateDefaultDiscount();
+                    discount = await _discountService.CreateDefaultDiscount();
                     //}
                 }
 
@@ -120,14 +120,14 @@ namespace StackBook.Services
                     DiscountId = discount.DiscountId,
                     ShippingAddressId = request.shippingAddressDefault.ShippingAddressId,
                     TotalPrice = totalAmount,
-                    Status = 1, 
+                    Status = 1,
                     CreatedAt = DateTime.Now,
                 };
 
                 // kiểm tra discount đã được dùng hay chưa
                 var oldOrder = await _unitOfWork.Order.GetAsync(o => o.DiscountId == discount.DiscountId);
 
-                if(oldOrder != null)
+                if (oldOrder != null)
                 {
                     throw new ApplicationException("Discount has been used");
                 }
@@ -149,15 +149,16 @@ namespace StackBook.Services
                 }
 
                 // Create order history 
-                var orderHistory = new OrderHistory
-                {
-                    OrderHistoryId = Guid.NewGuid(),
-                    OrderId = order.OrderId,
-                    Status = 1, // Pending
-                    createdStatus = DateTime.Now
-                };
+                // var orderHistory = new OrderHistory
+                // {
+                //    OrderHistoryId = Guid.NewGuid(),
+                //    OrderId = order.OrderId,
+                //    Status = 1, // Pending
+                //    createdStatus = DateTime.Now
+                // };
+                var orderHistory =  await CreateOrderHistoryAsync(order.OrderId, 1); // status = 1. Pending
 
-                await _unitOfWork.OrderHistory.AddAsync(orderHistory);
+                //await _unitOfWork.OrderHistory.AddAsync(orderHistory);
 
                 // Create payment record
                 var payment = new Payment
@@ -176,7 +177,7 @@ namespace StackBook.Services
                 }
 
                 await _unitOfWork.Payment.AddAsync(payment);
-                await _unitOfWork.SaveAsync();     
+                await _unitOfWork.SaveAsync();
                 return order;
 
 
@@ -191,11 +192,11 @@ namespace StackBook.Services
         public async Task UpdateOrderStatusAsync(Guid orderId, int status)
         {
             // Validate status (1-5)
-            if (status < 1 || status > 5) 
+            if (status < 1 || status > 5)
                 throw new AppException("Trạng thái không hợp lệ.");
 
             // Get order or throw exception if not found
-            var order = await _orderRepository.FindOrderByIdAsync(orderId) ?? 
+            var order = await _orderRepository.FindOrderByIdAsync(orderId) ??
                 throw new AppException("Đơn hàng không tồn tại.");
 
             // If status is not changing, do nothing
@@ -249,10 +250,10 @@ namespace StackBook.Services
 
         public async Task CancelOrderAsync(Guid orderId)
         {
-            var order = await _orderRepository.FindOrderByIdAsync(orderId) ?? 
+            var order = await _orderRepository.FindOrderByIdAsync(orderId) ??
                 throw new AppException("Đơn hàng không tồn tại.");
 
-            if (order.Status != 1) 
+            if (order.Status != 1)
                 throw new AppException("Chỉ có thể huỷ đơn hàng khi ở trạng thái chờ xử lý.");
 
             await UpdateOrderStatusAsync(orderId, 3); // Canceled status
@@ -282,7 +283,7 @@ namespace StackBook.Services
                 {
                     if (book.Stock < detail.Quantity)
                         throw new AppException($"Số lượng sách '{book.BookTitle}' không đủ. Chỉ còn {book.Stock} cuốn.");
-                    
+
                     book.Stock -= detail.Quantity;
                     await _bookService.UpdateAsync(book);
                 }
@@ -292,8 +293,8 @@ namespace StackBook.Services
         public async Task<Order> GetOrderByIdAsync(Guid orderId)
         {
             var order = await _unitOfWork.Order.GetAsync(o => o.OrderId == orderId, "OrderDetails.Book.Authors,User,ShippingAddress,Discount");
-            if (order == null) 
-                throw new AppException("Order does not exist."); 
+            if (order == null)
+                throw new AppException("Order does not exist.");
             return order;
         }
 
@@ -332,10 +333,10 @@ namespace StackBook.Services
 
         public async Task UpdateShippingAddressAsync(Guid orderId, Guid shippingAddressId)
         {
-            var order = await _orderRepository.FindOrderByIdAsync(orderId) ?? 
+            var order = await _orderRepository.FindOrderByIdAsync(orderId) ??
                 throw new AppException("Đơn hàng không tồn tại.");
 
-            var shippingAddress = await _shippingAddressRepository.GetByIdAsync(shippingAddressId) ?? 
+            var shippingAddress = await _shippingAddressRepository.GetByIdAsync(shippingAddressId) ??
                 throw new AppException("Địa chỉ giao hàng không tồn tại.");
 
             order.ShippingAddressId = shippingAddressId;
@@ -344,20 +345,36 @@ namespace StackBook.Services
 
         public async Task<List<OrderDetail>> GetOrderDetailsAsync(Guid orderId)
         {
-            _ = await _orderRepository.FindOrderByIdAsync(orderId) ?? 
+            _ = await _orderRepository.FindOrderByIdAsync(orderId) ??
                 throw new AppException("Đơn hàng không tồn tại.");
-            
-            return await _orderDetailRepository.GetByOrderIdAsync(orderId) ?? 
+
+            return await _orderDetailRepository.GetByOrderIdAsync(orderId) ??
                 new List<OrderDetail>();
         }
 
         public async Task<List<OrderHistory>> GetOrderHistoryAsync(Guid orderId)
         {
-            var order = await _orderRepository.FindOrderByIdAsync(orderId) ?? 
+            var order = await _orderRepository.FindOrderByIdAsync(orderId) ??
                 throw new AppException("Đơn hàng không tồn tại.");
-            
-            return await _orderHistoryRepository.GetOrderHistoryAsync(orderId) ?? 
+
+            return await _orderHistoryRepository.GetOrderHistoryAsync(orderId) ??
                 new List<OrderHistory>();
+        }
+
+        public async Task<OrderHistory> CreateOrderHistoryAsync(Guid orderId, int status)
+        {
+            // Create order history 
+            var orderHistory = new OrderHistory
+            {
+                OrderHistoryId = Guid.NewGuid(),
+                OrderId = orderId,
+                Status = status, // Pending
+                createdStatus = DateTime.Now
+            };
+
+            await _unitOfWork.OrderHistory.AddAsync(orderHistory);
+            await _unitOfWork.SaveAsync();
+            return orderHistory;
         }
     }
 }

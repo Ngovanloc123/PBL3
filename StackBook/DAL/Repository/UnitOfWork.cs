@@ -19,6 +19,7 @@ namespace StackBook.DAL.Repository
         public IOrderDetailRepository OrderDetail { get; private set; }
         public IDiscountRepository Discount { get; private set; }
         public IPaymentRepository Payment { get; private set; }
+        public IReviewRepository Review { get; private set; }
 
         public UnitOfWork(ApplicationDbContext db)
         {
@@ -34,6 +35,7 @@ namespace StackBook.DAL.Repository
             OrderDetail = new OrderDetailRepository(_db);
             Discount = new DiscountRepository(_db);
             Payment = new PaymentRepository(_db);
+            Review = new ReviewRepository(_db);
         }
 
         public async Task SaveAsync()

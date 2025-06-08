@@ -12,8 +12,7 @@
                 <li class=" @(ViewContext.RouteData.Values["controller"]?.ToString() == "Dashboard" ? "active" : "")">
                     <a asp-controller="Dashboard"
                        asp-action="Index">
-                        <i class="now-ui-icons design_app"></i>
-                        <p>Dashboard</p>
+                        <i class="now-ui-icons design_app"></i> Dashboard
                     </a>
                 </li>
                 <li class=" @(ViewContext.RouteData.Values["controller"]?.ToString() == "Order" ? "active" : "")">
@@ -54,12 +53,30 @@
                         Discounts
                     </a>
                 </li>
-                <li class=" @(ViewContext.RouteData.Values["controller"]?.ToString() == "Statistic" ? "active" : "")">
-                    <a asp-controller="Statistic"
-                       asp-action="Index">
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#statisticSubmenu" role="button" aria-expanded="false" aria-controls="statisticSubmenu">
                         <i class="bi bi-bar-chart me-2"></i> Statistic
+                        <i class="bi bi-caret-down ms-auto"></i>
                     </a>
+                    <div class="collapse ps-4" id="statisticSubmenu">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Statistic" asp-action="Books">Books</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Statistic" asp-action="Orders">Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Statistic" asp-action="Users">Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Statistic" asp-action="Reviews">Reviews</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
+
+
                 <li>
                     <a class=" @(ViewContext.RouteData.Values["controller"]?.ToString() == "Profile" ? "active" : "")"
                        asp-area="Customer" asp-controller="Account"
@@ -71,7 +88,6 @@
                     <a class="" asp-area="Site" asp-controller="Account" asp-action="Signout">
                         <i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Sign out
                     </a>
-                </li>
                 </li>
             </ul>
         </div>

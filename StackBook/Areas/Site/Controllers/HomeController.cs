@@ -56,8 +56,29 @@ namespace StackBook.Areas.Site.Controllers
                     var currentUserId = Guid.Parse(currentUserIdClaims);
                     ViewBag.CartCount = await _cartService.GetCartCount(currentUserId);
                 }
+                //Thêm vào mới nha bà già Nhi
+                //Lấy 1 quyển sách đầu tiên theo category
+                Dictionary<Guid, Book> firstBooksByCategory = new Dictionary<Guid, Book>();
+                var categories = await _UnitOfWork.Category.GetAllAsync();
+                //book và category quan hệ nhiều - nhiều
+                foreach (var category in categories)
+                {
+                    //Lấy sách đầu tiên trong mỗi category
+                    var firstBook = await _UnitOfWork.Book.GetAsync(c => c.Categories.Any(cat => cat.CategoryId == category.CategoryId), "Authors");
+                    if (firstBook != null)
+                    {
+                        firstBooksByCategory[category.CategoryId] = firstBook;
+                    }
+                }
+                ViewData["FirstBooksByCategory"] = firstBooksByCategory;
+                //Hết rồi nha bé Nhi
                 //Lấy sách theo số lượng sách đã bán nhiều nhất trong order
                 var bestSellingBooksReport = await _reportService.GetBestSellingBooksAsync(null, null, 6);
+                //in ra để debug
+                foreach (var book in bestSellingBooksReport)
+                {
+                    Console.WriteLine($"BookId: {book.BookId}, Title: {book.Title}, TotalSold: {book.QuantitySold}");
+                }
                 //chuyển thành List<Book> để truyền vào ViewComponent
                 List<BookRatingViewModel> bestSellingBooks = new List<BookRatingViewModel>();
                 foreach (var b in bestSellingBooksReport)
@@ -119,12 +140,6 @@ namespace StackBook.Areas.Site.Controllers
                 ViewBag.CartCount = 0;
                 return View("Error");
             }
-
-            
         }
-            
-
-
-        
     }
 }

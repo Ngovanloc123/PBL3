@@ -1,4 +1,4 @@
-﻿@model List<StackBook.Models.Category>
+﻿@model List<StackBook.ViewModels.CategoryVM>
 
 <link rel="stylesheet" href="~/css/category.css" asp-append-version="true" />
 
@@ -24,32 +24,45 @@
                 <div class="container-books category@( "" + index )">
                     <div class="d-flex flex-wrap">
 
-                        @foreach (var book in category.Books.Take(8))
+                        @foreach (var bookRating in category.BookRatings.Take(8))
                         {
-                            <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@book.BookId"
+                            <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@bookRating.Book.BookId"
                                 class="text-decoration-none text-black col-3 block p-4">
                                 <div class="h-100 w-100 border border-1 rounded-3 border-solid hover-book"
                                     style="padding: 1.5rem 3rem;">
                                     <div class="position-relative" style="padding-top: 150%;">
                                         <img class="object-fit-cover w-100 h-100 position-absolute top-0 left-0"
-                                            src="@book.ImageURL" alt="@book.BookTitle">
+                                             src="@bookRating.Book.ImageURL" alt="@bookRating.Book.BookTitle">
                                     </div>
                                     <div class="text-center mt-4">
-                                        <div class="fw-bold title">@book.BookTitle</div>
+                                        <div class="fw-bold title">@bookRating.Book.BookTitle</div>
                                         <div class="author text-muted">
-                                            @foreach (var author in book.Authors.Take(1))
+                                            @foreach (var author in bookRating.Book.Authors.Take(1))
                                             {
                                                 <div>@author.AuthorName</div>
                                             }
                                         </div>
-                                        <div class="text-body fw-bold">$@book.Price</div>
                                         <div class="book-rating">
-                                            @if (book.Reviews != null && book.Reviews.Any()) {
-                                                @("review here")
-                                            } else {
-                                                @("⭐⭐⭐⭐⭐")
-                                            }
+                                            <small class="text-warning">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= Math.Floor(bookRating.AverageRating))
+                                                    {
+                                                        <i class="fas fa-star"></i>
+                                                    }
+                                                    else if (i - 0.5 <= bookRating.AverageRating)
+                                                    {
+                                                        <i class="fas fa-star-half-alt"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="far fa-star"></i>
+                                                    }
+                                                }
+                                            </small>
                                         </div>
+                                        <div class="text-body fw-bold">$@bookRating.Book.Price</div>
+                                        
                                     </div>
                                 </div>
                             </a>

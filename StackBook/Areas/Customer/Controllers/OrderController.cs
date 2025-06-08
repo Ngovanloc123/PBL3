@@ -179,8 +179,34 @@ namespace StackBook.Areas.Customer.Controllers
             ViewData["OrderReviews"] = orderReviews;
             ViewBag.User = user.Result.Data;
             ViewBag.Status = statusInt;
-
-
+            //check xem có quá thời gian trả hàng hay không
+            Dictionary<Guid, bool> hasOrderReturn = new Dictionary<Guid, bool>();
+            var orderReceived = await _orderService.GetOrdersByStatusAsync(4);
+            foreach (var order in orderReceived)
+            {
+                //sang orderHistory để xem lịch sử cập nhật trạng thái 4
+                var orderHistories = await _orderService.GetOrderHistoryAsync(order.OrderId);
+                //lấy thời gian cập nhật trạng thái 4
+                var orderHistory = orderHistories.FirstOrDefault(oh => oh.Status == 4);
+                if (orderHistory != null)
+                {
+                    //kiểm tra thời gian cập nhật trạng thái 4 có quá 7 ngày hay không
+                    var timeSinceReceived = DateTime.Now - orderHistory.createdStatus;
+                    if (timeSinceReceived.TotalDays <= 2)
+                    {
+                        hasOrderReturn[order.OrderId] = true; // Có thể trả hàng
+                    }
+                    else
+                    {
+                        hasOrderReturn[order.OrderId] = false; // Không thể trả hàng
+                    }
+                }
+                else
+                {
+                    hasOrderReturn[order.OrderId] = false; // Không có lịch sử cập nhật trạng thái 4
+                }
+            }                                                                                                                                                                                                                              
+            ViewData["OrderStatusChangeTimes"] = hasOrderReturn;
             return View(orders);
         }
 

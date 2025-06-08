@@ -23,19 +23,18 @@
 
     @if (Model == null || !Model.Any())
     {
+        @await Component.InvokeAsync("SliderCategory")
         <div class="text-center my-5">
             <i class="fa-solid fa-book-open fa-3x text-secondary mb-3"></i>
             <h2 class="text-muted">No books found</h2>
             <p>Please try searching with a different keyword.</p>
         </div>
-        @await Component.InvokeAsync("SliderCategory")
     }
     else
     {
         @await Component.InvokeAsync("SliderCategory")
         @* =================  CONTENT ============== *@
-        <div class="content d-flex justify-content-between mt-5 pb-2 border-bottom">
-            @* @await Component.InvokeAsync("Books", new { books = Model, page = 1 } ) *@
+        @* <div class="content d-flex justify-content-between mt-5 pb-2 border-bottom">
             @await Component.InvokeAsync("Books", new
                 {
                     books = Model, // List<Book>
@@ -43,8 +42,82 @@
                 })
 
 
-        </div>
+        </div> *@
+        <div class="container-books">
+                    <div class="d-flex flex-wrap">
+
+                        @foreach (var bookRating in Model.Take(8))
+                        {
+                            <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@bookRating.Book.BookId"
+                                class="text-decoration-none text-black col-3 block p-4">
+                                <div class="h-100 w-100 border border-1 rounded-3 border-solid hover-book"
+                                    style="padding: 1.5rem 3rem;">
+                                    <div class="position-relative" style="padding-top: 150%;">
+                                        <img class="object-fit-cover w-100 h-100 position-absolute top-0 left-0"
+                                             src="@bookRating.Book.ImageURL" alt="@bookRating.Book.BookTitle">
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <div class="fw-bold title">@bookRating.Book.BookTitle</div>
+                                        <div class="author text-muted">
+                                            @foreach (var author in bookRating.Book.Authors.Take(1))
+                                            {
+                                                <div>@author.AuthorName</div>
+                                            }
+                                        </div>
+                                        <div class="book-rating">
+                                            <small class="text-warning">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= Math.Floor(bookRating.AverageRating))
+                                                    {
+                                                        <i class="fas fa-star"></i>
+                                                    }
+                                                    else if (i - 0.5 <= bookRating.AverageRating)
+                                                    {
+                                                        <i class="fas fa-star-half-alt"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="far fa-star"></i>
+                                                    }
+                                                }
+                                            </small>
+                                        </div>
+                                        <div class="text-body fw-bold">$@bookRating.Book.Price</div>
+                                        
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
     }
 
 
 </div>
+
+<style>
+    .hover-book {
+        transition: all 0.3s ease-in-out;
+        border-color: #adb5bd1a !important;
+    }
+    .hover-book:hover {
+        border-color: #dbdedfb8 !important;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        transition: all 0.3s ease-in-out;
+    }
+    .author {
+    font-size: 1rem;
+}
+
+.view-all {
+    font-size: 1rem;
+}
+
+.title {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+</style>

@@ -25,6 +25,10 @@ body {
     /* margin-bottom: 60px; */
 }
 
+.container p{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
 /*=========== ACTIVE NAVBAR ==========*/
 .btn-nav {
     color: #1c6ec2 !important;

@@ -302,6 +302,17 @@ namespace StackBook.Areas.Customer.Controllers
         [Authorize(Roles = "User")]
         public async Task<IActionResult> Vouchers()
         {
+            //Xem tất cả thông báo của người dùng
+            var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userIdValue == null)
+                return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
+            Guid userId = Guid.Parse(userIdValue);
+
+            ////
+            var user = _userService.GetUserById(userId);
+            if(user == null)
+                  return RedirectToAction("Login", "Account");
+             ViewBag.SidebarUser = user.Result.Data;
             // Lấy tất cả mã giảm giá từ dịch vụ check ngày hệ thống
             var discounts = await _discountService.GetActiveDiscounts(DateTime.Now);
             // Kiểm tra nếu không có mã giảm giá nào

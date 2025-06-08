@@ -270,14 +270,10 @@
                                 <div class="review-content">
                                     <p class="mb-3">@review.Comment</p>
                                     
-                                    @* <!-- Review Metadata -->
+                                    <!-- Review Metadata -->
                                     <div class="text-muted small">
-                                        <span>Đánh giá vào @review.CreatedDate.ToString("dd/MM/yyyy")</span>
-                                        @if (review.OrderId != null)
-                                        {
-                                            <span> - Đã dùng @(DateTime.Now.Subtract(review.CreatedDate).Days/30) tháng</span>
-                                        } 
-                                    </div>*@
+                                        <span>Review at @review.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

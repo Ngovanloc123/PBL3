@@ -7,29 +7,33 @@
         0 => "My Orders",
         1 => "Pending Orders",
         2 => "Delivering Orders",
-        3 => "Completed Orders",
-        4 => "Cancelled Orders",
-        5 => "Returned Orders"
+        3 => "Cancelled Orders",
+        4 => "Delivered Orders",
+        5 => "Returned Orders",
+        _ => "My Orders"
     };
 
     ViewData["Title"] = statusText;
 }
-
 
 <div class="container py-4">
     <div class="row">
         <!-- Sidebar Section -->
         @await Html.PartialAsync("_SideBar", (User)ViewBag.User)
 
-        <!-- Tab Content Section -->
+        <!-- Main Content Section -->
         <div class="col-md-9">
-            <!-- Orders Section -->
-            <div class="col-md-9">
-                <div class="col-12 mb-3">
-                    @await Html.PartialAsync("_OrderTab")
-                </div>
-                <div class="col-12">
-                    @await Html.PartialAsync("_OrderList", Model)
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <!-- Orders Tab -->
+                    <div class="mb-4">
+                        @await Html.PartialAsync("_OrderTab")
+                    </div>
+                    
+                    <!-- Orders List -->
+                    <div>
+                        @await Html.PartialAsync("_OrderList", Model)
+                    </div>
                 </div>
             </div>
         </div>

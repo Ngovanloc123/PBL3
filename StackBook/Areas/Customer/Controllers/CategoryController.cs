@@ -284,6 +284,7 @@ namespace StackBook.Areas.Customer.Controllers
                 return View("Error", new ErrorViewModel { ErrorMessage = $"Internal error: Book has no categories", StatusCode = 404 });
             }
             var averareRatingBook = await _reviewRepository.GetAverageRatingForBookAsync(bookId.Value);
+            averareRatingBook = averareRatingBook.HasValue ? Math.Round((double)averareRatingBook.Value, 1) : 0;
             var soldBook = await _unitOfWork.Book.CountBooksSoldAsync(bookId.Value);
             //hiển thị hết tất cả review của sách này
             var reviews = await _reviewRepository.GetByBookIdAsync(bookId.Value);

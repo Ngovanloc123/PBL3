@@ -1,66 +1,199 @@
 ﻿@model IEnumerable<StackBook.Models.Discount>
+@{
+    ViewData["Title"] = "Vouchers";
+    ViewData["ActivePage"] = "Vouchers";
+}
+@* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"> *@
 
-<div class="container mt-4">
-    <h2 class="mb-4">Mã giảm giá hiện có</h2>
-    
+<div class="container py-4">
     <div class="row">
-        @foreach (var discount in Model)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card discount-card @(DateTime.Now > discount.EndDate ? "expired" : "")">
-                    <div class="card-header bg-primary text-white">
-                        <h5>@discount.DiscountName</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="badge bg-info">@discount.DiscountCode</span>
-                            <span class="text-success fw-bold">@discount.Price.ToString("C")</span>
+        <!-- Sidebar -->
+        @await Html.PartialAsync("_SideBar", ViewBag.SidebarUser as StackBook.Models.User)
+
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <div class="voucher-page">
+                <h2 class="mb-4">Vouchers</h2>
+
+                <div class="row">
+                    @foreach (var discount in Model)
+                    {
+                        <div class="col-sm-6 mb-4">
+                            <div
+                                class="coupon bg-white rounded mb-3 d-flex justify-content-between @(DateTime.Now > discount.EndDate ? "expired" : "")">
+                                <div class="kiri p-3">
+                                    <div class="icon-container">
+                                        <div class="icon-container_box">
+                                            <i class="fa-solid fa-percent" style="font-size: 2.5em; color: #c33434;"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tengah py-3 d-flex w-100 justify-content-start">
+                                    <div>
+                                        <span
+                                            class="time font-weight-light d-block fst-italic">@discount.StartDate.ToString("dd/MM/yyyy")
+                                            - @discount.EndDate.ToString("dd/MM/yyyy")</span>
+
+                                        <h3 class="lead">@discount.DiscountName</h3>
+                                        <small class="description text-muted mb-1">@discount.Description</small>
+                                        <p class="text-muted fw-semibold">
+                                            Code: @discount.DiscountCode
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="kanan">
+                                    <div class="info m-3 ">
+                                        <div class="w-100">
+                                            @* COI LẠI LOGIC CHECK VALID Ở ĐÂY THEO SỐ LƯỢT DÙNG, CHỖ NI ĐANG CHECK THEO DATE THÔI *@
+                                            <span
+                                                class="badge @(DateTime.Now > discount.EndDate ? "bg-secondary" : "bg-success")">
+                                                @(DateTime.Now > discount.EndDate ? "Unvalid" : "Valid")
+                                            </span>
+
+                                            <div class="discount-price text-center py-2 px-1 rounded">
+                                                <!-- #region >làm tròn 2 chữ số thập phân-->
+                                                $@Math.Round(discount.Price, 2)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
                         </div>
-                        <p>@discount.Description</p>
-                        
-                        <div class="valid-date">
-                            <small class="text-muted">
-                                Áp dụng từ @discount.StartDate.ToString("dd/MM/yyyy") 
-                                đến @discount.EndDate.ToString("dd/MM/yyyy")
-                            </small>
-                        </div>
-                        
-                        @if (DateTime.Now > discount.EndDate)
-                        {
-                            <div class="expired-label">HẾT HẠN</div>
-                        }
-                    </div>
+                    }
                 </div>
             </div>
-        }
+        </div>
     </div>
 </div>
 
 <style>
-    .discount-card {
+    body {
+        background: #f8f9fa;
+    }
+
+    .voucher-page {
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    /* New CSS for description truncation */
+    .description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 3em;
+        /* Adjust based on your line-height */
+        line-height: 1.5em;
+        /* Standard line height */
+        margin-bottom: 0.5rem;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        max-width: 250px;
+    }
+
+    .tengah {
+        border-left: 1px dashed #ddd;
+        padding-left: 10px;
+    }
+
+    /* Adjust layout for better text display */
+    .tengah>div {
+        width: 100%;
+        padding-right: 10px;
+    }
+
+    .discount-price {
+        background: #ffeaea;
+        color: #c33434;
+        font-size: 1.4rem;
+        font-weight: bold;
+        border: 1px dashed #c33434;
+        margin-top: 10px;
+    }
+
+
+    .coupon {
+        border: 1px solid #ddd;
         position: relative;
+        overflow: hidden;
         transition: all 0.3s;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         height: 100%;
     }
-    
-    .discount-card:hover {
+
+    .coupon:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
-    
-    .expired {
+
+    .coupon.expired {
         opacity: 0.7;
         background-color: #f8f9fa;
     }
-    
-    .expired-label {
+
+    .coupon .kanan {
+        border-left: 1px dashed #ddd;
+        width: 40% !important;
+        position: relative;
+    }
+
+    .coupon .kanan .info::after,
+    .coupon .kanan .info::before {
+        content: '';
         position: absolute;
-        top: 10px;
-        right: 10px;
-        background: #dc3545;
+        width: 20px;
+        height: 20px;
+        background: #dfdfe6;
+        border-radius: 100%;
+    }
+
+    .coupon .kanan .info::before {
+        top: -10px;
+        left: -10px;
+    }
+
+    .coupon .kanan .info::after {
+        bottom: -10px;
+        left: -10px;
+    }
+
+    .coupon .time {
+        font-size: 1rem;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin: 0.5rem 0 0.5rem;
+        color: black;
+    }
+
+    .icon-container {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff5f5;
+        border-radius: 50%;
+    }
+
+    .btn-outline-danger {
+        color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .btn-outline-danger:hover {
         color: white;
-        padding: 3px 10px;
-        border-radius: 3px;
-        font-size: 12px;
+        background-color: #dc3545;
     }
 </style>

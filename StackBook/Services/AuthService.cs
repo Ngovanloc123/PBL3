@@ -108,8 +108,9 @@ namespace StackBook.Services
                 Console.WriteLine($"SignIn result: {response}");
                 return response;
             }
+            Console.WriteLine(signInDto.Email);
             var user = await _userRepository.GetUserByEmailAsync(signInDto.Email);
-            Console.WriteLine($"User found: {user.Password}");
+            
             if(user == null)
             {
                 response.StatusCode = StatusCodes.Status404NotFound;
@@ -118,7 +119,7 @@ namespace StackBook.Services
                 Console.WriteLine($"SignIn result: {response.Message}");
                 return response;
             }
-            if(user.LockStatus == true)
+            if (user.LockStatus == true)
             {
                 response.StatusCode = StatusCodes.Status403Forbidden;
                 response.Success = false;

@@ -38,14 +38,9 @@ namespace StackBook.Areas.Customer.Controllers
                 await _unitOfWork.SaveAsync();
                 ViewData["success"] = "Add shipping address successful";
 
-                // Lấy URL trang trước (nếu có)
-                var referer = Request.Headers["Referer"].ToString();
-                if (!string.IsNullOrEmpty(referer))
-                    return Redirect(referer);
-
-                return RedirectToAction("Index", "Home", new { area = "Customer" });
+                return RedirectToAction("Checkout", "Cart");
             }
-            return PartialView("_AddShippingAddressModal", shippingAddress);
+            return RedirectToAction("Checkout", "Cart");
         }
 
 
@@ -71,7 +66,7 @@ namespace StackBook.Areas.Customer.Controllers
                 TempData["Error"] = "Shipping address not found.";
                 return RedirectToAction("Checkout", "Cart");
             }
-            if(checkoutRequest == null)
+            if (checkoutRequest == null)
             {
                 TempData["Error"] = "Checkout request not found.";
                 return RedirectToAction("Index", "Cart");
@@ -97,159 +92,27 @@ namespace StackBook.Areas.Customer.Controllers
             if (shippingAddress != null)
             {
                 await _unitOfWork.ShippingAddress.DeleteAsync(shippingAddress);
+                await _unitOfWork.SaveAsync();
             }
-            await _unitOfWork.SaveAsync();
-            // Lấy user trên cookie
+
             var userId = Request.Cookies["userId"];
-            // Lấy dữ liệu trên session
+            if (string.IsNullOrEmpty(userId))
+            {
+                TempData["Error"] = "User not found.";
+                return RedirectToAction("Index", "Cart");
+            }
+
+            // Cập nhật lại dữ liệu session
             var sessionData = HttpContext.Session.GetString("CheckoutRequest");
             if (string.IsNullOrEmpty(sessionData))
             {
                 TempData["Error"] = "No checkout data found.";
                 return RedirectToAction("Index", "Cart");
             }
-            // Chuyển sang CheckoutRequest
-            var checkoutRequest = JsonConvert.DeserializeObject<CheckoutRequest>(sessionData);
-            // Lấy lại user cùng với address để cập nhật lại address
-            if(checkoutRequest == null)
-            {
-                TempData["Error"] = "Checkout request not found.";
-                return RedirectToAction("Index", "Cart");
-            }
-            if(string.IsNullOrEmpty(userId))
-            {
-                TempData["Error"] = "User not found.";
-                return RedirectToAction("Index", "Cart");
-            }
-            var user = await _unitOfWork.User.GetAsync(u => u.UserId == Guid.Parse(userId), "ShippingAddresses");
-            if (user == null)
-            {
-                TempData["Error"] = "User not found.";
-                return RedirectToAction("Index", "Cart");
-            }
-            else
-            {
-                checkoutRequest.User = user;
-            }
+
             TempData["success"] = "Shipping address deleted successfully.";
-            return RedirectToAction("Checkout", "Cart", checkoutRequest);
-
-
+            return RedirectToAction("Checkout", "Cart");
         }
 
-
-
-        // GET: Customer/ShippingAddresses
-        //public async Task<IActionResult> Index()
-        //{
-        //    var applicationDbContext = _context.ShippingAddresses.Include(s => s.User);
-        //    return View(await applicationDbContext.ToListAsync());
-        //}
-
-        // GET: Customer/ShippingAddresses/Details/:id
-        //public async Task<IActionResult> Details(Guid? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var shippingAddress = await _context.ShippingAddresses
-        //        .Include(s => s.User)
-        //        .FirstOrDefaultAsync(m => m.ShippingAddressId == id);
-        //    if (shippingAddress == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(shippingAddress);
-        //}
-
-        // GET: Customer/ShippingAddresses/Create
-        //public IActionResult Create()
-        //{
-        //    ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
-        //    return View();
-        //}
-
-
-
-
-        // GET: Customer/ShippingAddresses/Edit/:id
-        //public async Task<IActionResult> Edit(Guid? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var shippingAddress = await _context.ShippingAddresses.FindAsync(id);
-        //    if (shippingAddress == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", shippingAddress.UserId);
-        //    return View(shippingAddress);
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(Guid id, ShippingAddress shippingAddress)
-        //{
-        //    if (id != shippingAddress.ShippingAddressId)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(shippingAddress);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!ShippingAddressExists(shippingAddress.ShippingAddressId))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", shippingAddress.UserId);
-        //    return View(shippingAddress);
-        //}
-
-        //GET: Customer/ShippingAddresses/Delete/:id
-        //public async Task<IActionResult> Delete(Guid? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var shippingAddress = await _context.ShippingAddresses
-        //        .Include(s => s.User)
-        //        .FirstOrDefaultAsync(m => m.ShippingAddressId == id);
-        //    if (shippingAddress == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(shippingAddress);
-        //}
-
-        // POST: Customer/ShippingAddresses/Delete/:id
-
-
-        //private bool ShippingAddressExists(Guid id)
-        //{
-        //    return _context.ShippingAddresses.Any(e => e.ShippingAddressId == id);
-        //}
     }
 }

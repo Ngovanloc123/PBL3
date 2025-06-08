@@ -14,7 +14,7 @@ namespace StackBook.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var category = await _unitOfWork.Category.GetAllAsync("Books");
+            var category = await _unitOfWork.Category.GetAllAsync("Books.Authors");
             return View(category);
         }
     }

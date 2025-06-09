@@ -137,7 +137,9 @@
                                 <div class="p-3 border-bottom">
                                     <div class="d-flex align-items-center">
                                         <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@item.Book.BookId">
-                                            <img src="@item.Book.ImageURL" class="me-3 rounded" alt="Book" width="80">
+                                            <div class="image-container" style="width: 80px; height: 120px; overflow: hidden; margin-right: 1.5rem;">
+                                                <img src="@item.Book.ImageURL" alt="Book" style="width: 100%; height: 100%; object-fit: cover;">
+                                            </div>
                                         </a>
                                         <div class="flex-grow-1">
                                             <h6 class="mb-1">

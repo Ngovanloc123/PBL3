@@ -29,12 +29,12 @@
 
                             <div class="slider-image postion-relative col-5">
                                 <img src="@bookRating?.Book.ImageURL" alt="@bookRating?.Book.BookTitle"
-                                     class="w-100 h-100 object-fit-cover" />
+                                     class="w-100 h-100 object-fit-cover rounded-1" />
                             </div>
 
                             <div class="col-6">
-                                <div class="d-flex flex-column h-100 pt-4">
-                                    <h3 class="book-slide-title fw-semibold">@bookRating?.Book.BookTitle</h3>
+                                <div class="d-flex flex-column h-100 pt-4 justify-content-end">
+                                    <h5 class="book-slide-title fw-semibold">@bookRating?.Book.BookTitle</h5>
 
                                     <div class="book-rating text-warning mb-1">
                                         <small class="text-warning">
@@ -61,7 +61,7 @@
                                         {
                                             foreach (var author in bookRating.Book.Authors.Take(1))
                                             {
-                                                <div>@author.AuthorName</div>
+                                                <medium>@author.AuthorName</medium>
                                             }
                                         }
                                     </div>
@@ -69,15 +69,38 @@
 
 
                                     <div class="book-price text-danger fw-semibold">
-                                        $@bookRating?.Book?.Price
+                                        @* $@bookRating?.Book?.Price *@
+                                        @{
+                                            // Tính toán giá gốc và phần trăm giảm
+                                            var discountPercent = 24; // 24%
+                                            var originalPrice = bookRating?.Book?.Price / (1 - discountPercent / 100.0);
+                                        }
+
+                                        <h6 class="me-3 mb-0">
+                                            @bookRating?.Book?.Price.ToString("C")
+                                            <span class="text-decoration-line-through text-muted ms-1 fw-light fs-6">@originalPrice?.ToString("C")</span>
+                                        </h6>
+
                                     </div>
 
-                                    @* <form class="w-100" method="post" action="/add">
-                                        <input type="hidden" name="bookId" value="34780479-6493-46df-ba28-10c14c4711d6">
-                                        <button type="submit" class="btn btn-primary rounded-2 py-2 text-uppercase fw-bold">
-                                            <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                                        </button>
-                                    </form> *@
+                                    <form class="w-100 mt-4" asp-area="Customer" asp-action="AddToCart" asp-controller="Cart" method="post">
+                                        <input type="hidden" name="bookId" value="@bookRating?.Book.BookId">
+                                        @if (bookRating?.Book.Stock > 0)
+                                        {
+                                            <input type="hidden" name="quantity" value="1">
+                                            <button type="submit" class="btn btn-primary rounded-2 py-2 fw-medium">
+                                                <i class="fa-solid fa-cart-shopping pe-1"></i> Add to Cart
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <input type="hidden" name="quantity" value="0">
+                                            <button type="submit" class="btn btn-danger rounded-2 py-2 fw-medium" disabled>
+                                                <i class="fa-solid fa-fire"></i> Out of Stock
+                                            </button>
+                                        }
+
+                                    </form>
                                 </div>
                             </div>
                         </a>
@@ -90,17 +113,9 @@
 
 
 <style>
-    @* .swiper {
-        width: 100%;
-        padding: 20px 0;
-    }
-
-    .swiper-slide {
-        height: auto;
-    } *@
     .book-slide-title {
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
@@ -136,16 +151,3 @@
             display: none;
         }
 </style>
-@* 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var swiper = new Swiper('.swiper', {
-            slidesPerView: 'auto',
-            spaceBetween: 20,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
-    });
-</script> *@

@@ -45,19 +45,6 @@ namespace StackBook.Areas.Customer.Controllers
             _notificationService = notificationService;
         }
 
-        //[Authorize(Roles = "Customer")]
-        //[Area("Customer")]
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-
-        public IActionResult BuyNow(Guid bookId)
-        {
-            // Logic xử lý mua ngay
-            TempData["Message"] = "Proceeding to checkout!";
-            return RedirectToAction("Checkout", "Order");
-        }
 
         [HttpPost]
         public async Task<IActionResult> PlaceOrder(CheckoutRequest request)

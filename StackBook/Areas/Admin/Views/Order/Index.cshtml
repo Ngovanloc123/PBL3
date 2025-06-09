@@ -18,7 +18,7 @@
 <div class="container-fluid">
     <div class="search-filters">
         <div class="row g-3">
-           
+
             <form method="get" asp-controller="Order" asp-action="Index">
                 <div class="row">
                     <div class="col-md-3">
@@ -52,6 +52,7 @@
             <tbody>
                 @if (Model != null)
                 {
+                    Dictionary<Guid, string> paymentMethods = ViewData["PaymentMethods"] as Dictionary<Guid, string> ?? new Dictionary<Guid, string>();
                     foreach (var order in Model)
                     {
                         <tr>
@@ -83,12 +84,15 @@
                                             break;
                                     }
                                 }
-                                
+
                             </td>
                             <td>@order.OrderDetails.Count</td>
                             <td>@order.User.FullName</td>
                             <td>
-                                COD
+                                @{
+                                    string method = string.Empty;
+                                    method = paymentMethods[order.OrderId].ToString();
+                                } @method
                             </td>
                             <td>
                                 <a asp-controller="Order" asp-action="Detail" asp-route-id="@order.OrderId" class="edit-btn"><i class="fa fa-magnifying-glass"></i></a>

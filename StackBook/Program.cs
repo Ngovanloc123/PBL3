@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using StackBook.Hubs;
 using StackBook.Areas.Customer.Controllers;
 using StackBook.DAL.Repository;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
@@ -118,7 +119,14 @@ builder.Services.AddSingleton<CloudinaryUtils>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
-builder.Services.AddScoped<IVnpayService, VnpayService>();
+builder.Services.AddScoped<IVnPayService, VnPayService>();
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownNetworks.Clear(); // Cho phép tất cả IP
+    options.KnownProxies.Clear();
+});
 
 var app = builder.Build();
 
@@ -135,6 +143,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSession();
+
+app.UseForwardedHeaders();
+
 app.UseRouting();
 // Cấu hình endpoint
 //builder.Services.AddHttpContextAccessor();
@@ -147,6 +158,10 @@ app.MapControllers();
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Site}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "about",
+    pattern: "{area=Site}/{controller=About}/{action=Index}/{id?}");
 
 using (var scope = app.Services.CreateScope())
 {

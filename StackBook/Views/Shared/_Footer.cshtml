@@ -1,57 +1,182 @@
 ﻿@* ================== PHẦN FOOTER PAGE ================== *@
-<footer class="border-top bg-body-tertiary text-dark py-4">
+<footer class="border-top bg-dark text-white py-5">
     <div class="container">
-        <div class="row">
-            <!-- Column 1: About Us -->
-            <div class="col-md-3">
-                <h5 class="fw-bold">About Us</h5>
+        <div class="row g-4">
+            <!-- Column 1: About StackBook -->
+            <div class="col-lg-2 col-md-6">
+                <h5>
+                    <a asp-area="Site" asp-controller="About" asp-action="Index" class="fw-bold text-primary mb-4">
+                        About
+                        StackBook
+                    </a>
+                </h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-primary text-decoration-none">Introduction to StackBooks Bookstore</a></li>
-                    <li><a href="#" class="text-primary text-decoration-none">Customer Loyalty Program</a></li>
-                    <li><a href="#" class="text-primary text-decoration-none">StackBooks Bookstore System</a></li>
-                    <li><a href="#" class="text-primary text-decoration-none">Terms of Use</a></li>
-                    <li><a href="#" class="text-primary text-decoration-none">Privacy Policy</a></li>
-                    <li><a href="#" class="text-primary text-decoration-none">Sales Policy</a></li>
-                    <li><a href="#" class="text-primary text-decoration-none">Shipping Methods</a></li>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a asp-area="Site" asp-controller="About" asp-action="Index"
+                               asp-fragment="our-story" class="text-white text-decoration-none hover-gold">
+                                Our
+                                Story
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-area="Site" asp-controller="About" asp-action="Index"
+                               asp-fragment="loyalty-program"
+                               class="text-white text-decoration-none hover-gold">Loyalty Program</a>
+                        </li>
+                        <li class="mb-2">
+                            <a asp-area="Site" asp-controller="About" asp-action="Index"
+                               asp-fragment="privacy-policy" class="text-white text-decoration-none hover-gold">
+                                Privacy
+                                Policy
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="Site" asp-controller="About" asp-action="Index" asp-fragment="privacy-policy"
+                               class="text-white text-decoration-none hover-gold">Terms of Service</a>
+                        </li>
+                    </ul>
+            </div>
+
+            <!-- Column 2: Discover -->
+            <div class="col-lg-2 col-md-6">
+                <h5>
+                    <a asp-area="Site" asp-controller="Home" asp-action="Index"
+                       class="fw-bold text-primary mb-4">Discover Home</a>
+                </h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <a asp-area="Site" asp-controller="Home" asp-action="Index" asp-fragment="#new"
+                           class="text-white text-decoration-none hover-gold">New Releases</a>
+                    </li>
+                    <li class="mb-2">
+                        <a asp-area="Site" asp-controller="Home" asp-action="Index" asp-fragment="discover"
+                           class="text-white text-decoration-none hover-gold">Discover</a>
+                    </li>
+                    <li class="mb-2">
+                        <a asp-area="Site" asp-controller="Home" asp-action="Index" asp-fragment="best"
+                           class="text-white text-decoration-none hover-gold">Bestsellers</a>
+                    </li>
+                    <li class="mb-2">
+                        <a asp-area="Site" asp-controller="Home" asp-action="Index"
+                           asp-fragment="recommend" class="text-white text-decoration-none hover-gold">Bestsellers</a>
+                    </li>
                 </ul>
             </div>
 
-            <!-- Column 2: My Account -->
-            <div class="col-md-3">
-                <h5 class="fw-bold">My Account</h5>
+            <!-- NEW Column: Our Teams -->
+            <div class="col-lg-2 col-md-6">
+                <h5 class="fw-bold text-primary mb-4">Our Teams</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-primary text-decoration-none">Sign in</a></li>
-                    <li><a href="#" class="text-primary text-decoration-none">Create an Account</a></li>
+                    <li class="mb-2">
+                        <span class="text-white">Hà Đức Kiên</span>
+                        <div class="d-flex mt-1">
+                            <a href="#" class="text-white me-2"><i class="bi bi-linkedin fs-6 hover-gold"></i></a>
+                            <a href="#" class="text-white"><i class="bi bi-github fs-6 hover-gold"></i></a>
+                        </div>
+                    </li>
+                    <li class="mb-2">
+                        <span class="text-white">Huỳnh Thảo Nhi</span>
+                        <div class="d-flex mt-1">
+                            <a href="#" class="text-white me-2"><i class="bi bi-linkedin fs-6 hover-gold"></i></a>
+                            <a href="#" class="text-white"><i class="bi bi-github fs-6 hover-gold"></i></a>
+                        </div>
+                    </li>
+                    <li class="mb-2">
+                        <span class="text-white">Ngô Văn Lộc</span>
+                        <div class="d-flex mt-1">
+                            <a href="#" class="text-white me-2"><i class="bi bi-linkedin fs-6 hover-gold"></i></a>
+                            <a href="#" class="text-white"><i class="bi bi-github fs-6 hover-gold"></i></a>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="text-white">Nguyễn Hiếu</span>
+                        <div class="d-flex mt-1">
+                            <a href="#" class="text-white me-2"><i class="bi bi-linkedin fs-6 hover-gold"></i></a>
+                            <a href="#" class="text-white"><i class="bi bi-github fs-6 hover-gold"></i></a>
+                        </div>
+                    </li>
                 </ul>
             </div>
 
-            <!-- Column 3: Customer Support -->
-            <div class="col-md-3">
-                <h5 class="fw-bold">Customer Support</h5>
+            <!-- Column 3: Support -->
+            <div class="col-lg-3 col-md-6">
+                <h5 class="fw-bold text-primary mb-4">Support</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-primary text-decoration-none">Frequently Asked Questions</a></li>
-                    <li><a href="#" class="text-primary text-decoration-none">Return/Exchange Policy</a></li>
-                    <li><a href="#" class="text-primary text-decoration-none">Commenting Rules</a></li>
+                    <li class="mb-2">
+                        <a href="mailto:StackBook@gmail.com" class="text-white text-decoration-none hover-gold">
+                            Contact Us: StackBook@gmail.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tel:0796852345" class="text-white text-decoration-none hover-gold">
+                            Hotline: 0796 852 345
+                        </a>
+                    </li>
                 </ul>
+
             </div>
 
-            <!-- Column 4: Contact Us -->
-            <div class="col-md-3">
-                <h5 class="fw-bold">Contact Us</h5>
-                <p class="mb-1">Hotline: 1900 6656</p>
-                <p>Email: hotro@StackBooks.com</p>
-                <div>
-                    <a href="#" class="me-2"><i class="bi bi-facebook icon-footer"></i></a>
-                    <a href="#" class="me-2"><i class="bi bi-instagram icon-footer"></i></a>
-                    <a href="#" class="me-2"><i class="bi bi-youtube icon-footer"></i></a>
-                    <a href="#" class="me-2"><i class="bi bi-linkedin icon-footer"></i></a>
-                    <a href="#" class="me-2"><i class="bi bi-tiktok icon-footer"></i></a>
+            <!-- Column 4: Newsletter -->
+            <div class="col-lg-3 col-md-6">
+                <h5 class="fw-bold text-primary mb-4">Stay Connected</h5>
+                <p class="mb-3">Subscribe to our newsletter for book recommendations and exclusive offers!</p>
+                <div class="input-group mb-4">
+                    <input type="email" class="form-control" placeholder="Your email">
+                    <button class="btn btn-primary" type="button">Subscribe</button>
+                </div>
+                <div class="social-icons">
+                    <div class="social-links">
+                        <a href="#fac" class="text-white me-3 fs-5 hover-blue">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-white me-3 fs-5 hover-blue">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-white me-3 fs-5 hover-blue">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                        <a href="#" class="text-white me-3 fs-5 hover-blue">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                        <a href="#" class="text-white fs-5 hover-blue">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                    </div>
+
+
                 </div>
             </div>
         </div>
 
-        <div class="text-center mt-4">
-            <p class="mb-0">&copy; 2024 - Copyright by StackBooks Retail Co., Ltd - <a href="#" class="text-dark">StackBooks.com</a></p>
+        <hr class="my-4 bg-secondary">
+
+        <div class="row">
+            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                <p class="mb-0">&copy; 2024 StackBook. All rights reserved.</p>
+            </div>
         </div>
     </div>
 </footer>
+
+<style>
+    .hover-blue:hover {
+        color: #0a74da !important;
+        transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+        transform: translateY(-3px);
+        transition: transform 0.3s ease;
+    }
+
+    .payment-methods i:hover {
+        color: #042646 !important;
+        transition: color 0.3s ease;
+    }
+
+    footer a {
+        text-decoration: none !important;
+    }
+
+</style>

@@ -200,7 +200,7 @@
                             </h4>
                             @if (Model.Discount?.DiscountCode != "0")
                             {
-                                <p class="text-muted"><small>Original: <del>$@((Model.TotalPrice + Model.Discount.Price).ToString("F2"))</del></small></p>
+                                <p class="text-muted"><small class="text-danger">Original: <del>$@((Model.TotalPrice + Model.Discount.Price).ToString("F2"))</del></small></p>
                             }
                         </div>
                     </div>

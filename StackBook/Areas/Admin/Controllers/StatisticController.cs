@@ -80,7 +80,7 @@ namespace StackBook.Areas.Admin.Controllers
             try
             {
                 data.BestSellingBooks = await _reportService.GetBestSellingBooksAsync(startDate, endDate, topCount);
-               
+                data.LeastSellingBooks = await _reportService.GetLeastSellingBooksAsync(startDate, endDate, topCount);
                 data.HighestRatedBooks = await _reportService.GetHighestRatedBooksAsync(startDate, endDate, topCount);
                 data.LowestRatedBooks = await _reportService.GetLowestRatedBooksAsync(startDate, endDate, topCount);
 

@@ -3,191 +3,60 @@
 @{
     ViewData["Title"] = "Notifications";
 }
+@using System.Text.RegularExpressions
+@using Microsoft.AspNetCore.Html
+@functions {
+    public IHtmlContent FormatNotificationMessage(string message)
+    {
+        // Xử lý trường hợp có URL
+        var urlPattern = @"(https?:\/\/[^\s]+)";
+        var urlMatch = Regex.Match(message, urlPattern);
+        if (urlMatch.Success)
+        {
+            var url = urlMatch.Value;
+            var formatted = Regex.Replace(message, urlPattern,
+                $"<a href='{url}' style='color: #1877f2; text-decoration: none; font-weight: 500;'>View Book</a>");
+            return Html.Raw(formatted);
+        }
 
-<style>
-        /* Main container */
-    @* .notifications-page {
-        max-width: 800px;
-        margin: 20px auto;
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    } *@
-        /* Thêm vào phần style */
-    @* .container {
-    max-width: 1200px;
-} *@
+        // Xử lý trường hợp có ID (UUID)
+        var idPattern = @"\b[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\b";
+        var idMatch = Regex.Match(message, idPattern);
+        if (idMatch.Success)
+        {
+            var id = idMatch.Value;
 
-    .notifications-page {
-        margin: 0; /* Bỏ margin auto vì đã có container */
-        width: 100%; /* Chiếm toàn bộ chiều rộng của col-md-9 */
-        max-width: 800px;
-        margin: 2rem auto;
-        padding: 0 1rem;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            // Kiểm tra xem có phải là thông báo đơn hàng không
+            if (message.Contains("order", StringComparison.OrdinalIgnoreCase) &&
+                message.Contains("ID", StringComparison.OrdinalIgnoreCase))
+            {
+                //chỉ lấy 6 kí tự ID đầu tiên
+                var shortId = id.Substring(0, 8);
+                var orderUrl = $"/Customer/Order";
+                return Html.Raw(Regex.Replace(message, idPattern,
+                    $"<a href='{orderUrl}' style='color: #1877f2; text-decoration: none; font-weight: 500;'>#{shortId}</a>"));
+            }
+
+            // Kiểm tra xem có phải là thông báo sách không
+            if (message.Contains("book", StringComparison.OrdinalIgnoreCase) &&
+                message.Contains("ID", StringComparison.OrdinalIgnoreCase))
+            {
+                var bookUrl = $"/Customer/Category/BookDetail?bookId={id}";
+                return Html.Raw(Regex.Replace(message, idPattern,
+                    $"<a href='{bookUrl}' style='color: #1877f2; text-decoration: none; font-weight: 500;'>{id}</a>"));
+            }
+
+            // Mặc định cho các ID khác
+            return Html.Raw(Regex.Replace(message, idPattern,
+                $"<span style='color: #1877f2; font-weight: 500;'>{id}</span>"));
+        }
+
+        // Trường hợp không có URL hoặc ID đặc biệt
+        return Html.Raw(message);
     }
+}
 
-        /* Header */
-        .notifications-header {
-            padding: 18px 24px;
-            border-bottom: 1px solid #e4e6eb;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
 
-        .notifications-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #050505;
-            margin: 0;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 15px;
-        }
-
-        .mark-all-btn {
-            background: none;
-            border: none;
-            color: #1877f2;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 6px;
-        }
-
-        .mark-all-btn:hover {
-            background-color: #f0f2f5;
-        }
-
-        /* Empty state */
-        .empty-notifications {
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        .empty-icon {
-            font-size: 60px;
-            color: #d8dadf;
-            margin-bottom: 15px;
-        }
-
-        .empty-text {
-            color: #65676b;
-            font-size: 16px;
-            margin: 0;
-        }
-
-        /* Notifications list */
-        .notifications-list {
-            padding: 30px 0 30px;
-        }
-
-        .notification-item {
-            padding: 16px 24px;
-            border-bottom: 1px solid #e4e6eb;
-            display: flex;
-            align-items: flex-start;
-            transition: background-color 0.2s;
-            position: relative;
-        }
-
-        .notification-item:hover {
-            background-color: #f5f6f7;
-        }
-
-        .notification-item.unread {
-            background-color: #f0f8ff;
-        }
-
-        /* Unread indicator */
-        .unread-indicator {
-            position: absolute;
-            left: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 8px;
-            height: 8px;
-            background-color: #1877f2;
-            border-radius: 50%;
-        }
-
-        /* Notification content */
-        .notification-content {
-            flex-grow: 1;
-            margin-left: 16px;
-        }
-
-        .notification-message {
-            font-size: 15px;
-            color: #050505;
-            margin-bottom: 4px;
-            line-height: 1.4;
-        }
-
-        .notification-meta {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .notification-time {
-            font-size: 13px;
-            color: #65676b;
-        }
-
-        .unread-badge {
-            background-color: #1877f2;
-            color: white;
-            font-size: 11px;
-            font-weight: 500;
-            padding: 2px 8px;
-            border-radius: 10px;
-        }
-
-        /* Actions */
-        .notification-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .action-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #65676b;
-        }
-
-        .action-btn:hover {
-            background-color: #e4e6eb;
-        }
-
-        .mark-read-btn {
-            color: #1877f2;
-        }
-
-        .mark-unread-btn {
-            color: #65676b;
-        }
-
-        .delete-btn {
-            color: #f02849;
-        }
-
-        .action-btn i {
-            font-size: 14px;
-        }
-</style>
 
 <div class="container py-4">
     <div class="row">
@@ -222,7 +91,7 @@
                             }
 
                             <div class="notification-content">
-                                <div class="notification-message">@notification.Message</div>
+                                <div class="notification-message" style="width: 90%;">@FormatNotificationMessage(notification.Message)</div>
                                 <div class="notification-meta">
                                     <span class="notification-time">@notification.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</span>
                                     @if (!notification.Status)
@@ -265,3 +134,188 @@
 
 <!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    /* Main container */
+    @* .notifications-page {
+        max-width: 800px;
+        margin: 20px auto;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    } *@
+    /* Thêm vào phần style */
+    @* .container {
+    max-width: 1200px;
+} *@
+
+    .notifications-page {
+        margin: 0; /* Bỏ margin auto vì đã có container */
+        width: 100%; /* Chiếm toàn bộ chiều rộng của col-md-9 */
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Header */
+    .notifications-header {
+        padding: 18px 24px;
+        border-bottom: 1px solid #e4e6eb;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .notifications-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #050505;
+        margin: 0;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 15px;
+    }
+
+    .mark-all-btn {
+        background: none;
+        border: none;
+        color: #1877f2;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 6px;
+    }
+
+        .mark-all-btn:hover {
+            background-color: #f0f2f5;
+        }
+
+    /* Empty state */
+    .empty-notifications {
+        padding: 50px 20px;
+        text-align: center;
+    }
+
+    .empty-icon {
+        font-size: 60px;
+        color: #d8dadf;
+        margin-bottom: 15px;
+    }
+
+    .empty-text {
+        color: #65676b;
+        font-size: 16px;
+        margin: 0;
+    }
+
+    /* Notifications list */
+    .notifications-list {
+        padding: 30px 0 30px;
+    }
+
+    .notification-item {
+        padding: 16px 24px;
+        border-bottom: 1px solid #e4e6eb;
+        display: flex;
+        align-items: flex-start;
+        transition: background-color 0.2s;
+        position: relative;
+    }
+
+        .notification-item:hover {
+            background-color: #f5f6f7;
+        }
+
+        .notification-item.unread {
+            background-color: #f0f8ff;
+        }
+
+    /* Unread indicator */
+    .unread-indicator {
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 8px;
+        height: 8px;
+        background-color: #1877f2;
+        border-radius: 50%;
+    }
+
+    /* Notification content */
+    .notification-content {
+        flex-grow: 1;
+        margin-left: 16px;
+    }
+
+    .notification-message {
+        font-size: 15px;
+        color: #050505;
+        margin-bottom: 4px;
+        line-height: 1.4;
+    }
+
+    .notification-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .notification-time {
+        font-size: 13px;
+        color: #65676b;
+    }
+
+    .unread-badge {
+        background-color: #1877f2;
+        color: white;
+        font-size: 11px;
+        font-weight: 500;
+        padding: 2px 8px;
+        border-radius: 10px;
+    }
+
+    /* Actions */
+    .notification-actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .action-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #65676b;
+    }
+
+        .action-btn:hover {
+            background-color: #e4e6eb;
+        }
+
+    .mark-read-btn {
+        color: #1877f2;
+    }
+
+    .mark-unread-btn {
+        color: #65676b;
+    }
+
+    .delete-btn {
+        color: #f02849;
+    }
+
+    .action-btn i {
+        font-size: 14px;
+    }
+</style>

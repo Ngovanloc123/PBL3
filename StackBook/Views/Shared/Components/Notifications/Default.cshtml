@@ -1,4 +1,56 @@
 @model IEnumerable<StackBook.Models.Notification>
+@using System.Text.RegularExpressions
+@using Microsoft.AspNetCore.Html
+@functions {
+    public IHtmlContent FormatNotificationMessage(string message)
+    {
+        // Xử lý trường hợp có URL
+        var urlPattern = @"(https?:\/\/[^\s]+)";
+        var urlMatch = Regex.Match(message, urlPattern);
+        if (urlMatch.Success)
+        {
+            var url = urlMatch.Value;
+            var formatted = Regex.Replace(message, urlPattern,
+                $"<a href='{url}' style='color: #1877f2; text-decoration: none; font-weight: 500;'>View Book</a>");
+            return Html.Raw(formatted);
+        }
+
+        // Xử lý trường hợp có ID (UUID)
+        var idPattern = @"\b[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\b";
+        var idMatch = Regex.Match(message, idPattern);
+        if (idMatch.Success)
+        {
+            var id = idMatch.Value;
+
+            // Kiểm tra xem có phải là thông báo đơn hàng không
+            if (message.Contains("order", StringComparison.OrdinalIgnoreCase) &&
+                message.Contains("ID", StringComparison.OrdinalIgnoreCase))
+            {
+                //chỉ lấy 6 kí tự ID đầu tiên
+                var shortId = id.Substring(0, 8);
+                var orderUrl = $"/Customer/Order";
+                return Html.Raw(Regex.Replace(message, idPattern,
+                    $"<a href='{orderUrl}' style='color: #1877f2; text-decoration: none; font-weight: 500;'>#{shortId}</a>"));
+            }
+
+            // Kiểm tra xem có phải là thông báo sách không
+            if (message.Contains("book", StringComparison.OrdinalIgnoreCase) &&
+                message.Contains("ID", StringComparison.OrdinalIgnoreCase))
+            {
+                var bookUrl = $"/Customer/Category/BookDetail?bookId={id}";
+                return Html.Raw(Regex.Replace(message, idPattern,
+                    $"<a href='{bookUrl}' style='color: #1877f2; text-decoration: none; font-weight: 500;'>{id}</a>"));
+            }
+
+            // Mặc định cho các ID khác
+            return Html.Raw(Regex.Replace(message, idPattern,
+                $"<span style='color: #1877f2; font-weight: 500;'>{id}</span>"));
+        }
+
+        // Trường hợp không có URL hoặc ID đặc biệt
+        return Html.Raw(message);
+    }
+}
 
 @if (Model.Any())
 {
@@ -7,7 +59,7 @@
         {
             <div class="notification-item @(!notification.Status ? "unread" : "")">
                 <div class="notification-content">
-                    <div class="notification-message">@notification.Message</div>
+                    <div class="notification-message">@FormatNotificationMessage(notification.Message)</div>
                     <div class="notification-meta">
                         <span class="notification-time">@notification.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</span>
                     </div>
@@ -52,9 +104,9 @@ else
         align-items: center;
     }
 
-    .notification-item:hover {
-        background-color: #f8f8f8;
-    }
+        .notification-item:hover {
+            background-color: #f8f8f8;
+        }
 
     .unread {
         background-color: #f0f8ff;
@@ -102,9 +154,9 @@ else
         color: #1877f2;
     }
 
-    .unread-tick:hover {
-        background-color: #e7f3ff;
-    }
+        .unread-tick:hover {
+            background-color: #e7f3ff;
+        }
 
     .read-tick {
         color: #a0a4ab;

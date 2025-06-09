@@ -114,7 +114,7 @@ namespace StackBook.Areas.Admin.Controllers
             {
                 if (user.Role == false)
                 {
-                    await _notificationService.SendNotificationAsync(user.UserId, $"New Book Name: {book.BookTitle} - https://localhost:7170/Customer/Category/BookDetail?bookId={book.BookId}");
+                    await _notificationService.SendNotificationAsync(user.UserId, $"A new book has arrived! Discover {book.BookTitle} today - https://localhost:7170/Customer/Category/BookDetail?bookId={book.BookId}");
                 }
             }
             TempData["success"] = "Book created successfully.";
@@ -185,16 +185,16 @@ namespace StackBook.Areas.Admin.Controllers
             await _unitOfWork.Book.UpdateAsync(book);
             await _unitOfWork.SaveAsync();
             TempData["success"] = "Book edited successfully.";
-             //Gửi thông báo đến tất cả người dùng là có cập nhật
-                var allUsers = await _unitOfWork.User.GetAllAsync();
-                //Check quyền nếu là user thì mới gửi
-                foreach (var user in allUsers)
+            //Gửi thông báo đến tất cả người dùng là có cập nhật
+            var allUsers = await _unitOfWork.User.GetAllAsync();
+            //Check quyền nếu là user thì mới gửi
+            foreach (var user in allUsers)
+            {
+                if (user.Role == false)
                 {
-                    if (user.Role == false)
-                    {
-                        await _notificationService.SendNotificationAsync(user.UserId, "New book added: " + viewModel.BookTitle);
-                    }
+                    await _notificationService.SendNotificationAsync(user.UserId, "New book added: " + viewModel.BookTitle);
                 }
+            }
             return RedirectToAction("Index");
         }
 

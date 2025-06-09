@@ -94,7 +94,8 @@ namespace StackBook.Areas.Site.Controllers
                                 BookTitle = b.Title,
                                 ImageURL = bookData.ImageURL,
                                 Authors = bookData.Authors,
-                                Price = bookData.Price
+                                Price = bookData.Price,
+                                Stock = bookData.Stock
                             },
                             AverageRating = await _reviewService.GetAverageRatingForBookAsync(b.BookId)
                         });
@@ -116,7 +117,8 @@ namespace StackBook.Areas.Site.Controllers
                                 BookTitle = b.Title,
                                 ImageURL = bookData.ImageURL,
                                 Authors = bookData.Authors,
-                                Price = bookData.Price
+                                Price = bookData.Price,
+                                Stock = bookData.Stock
                             },
                             AverageRating = await _reviewService.GetAverageRatingForBookAsync(b.BookId)
                         });

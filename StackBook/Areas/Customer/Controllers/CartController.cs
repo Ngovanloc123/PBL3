@@ -13,6 +13,7 @@ using StackBook.Models;
 using StackBook.Utils;
 using Newtonsoft.Json;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.IdentityModel.Tokens;
 
 namespace StackBook.Areas.Customer.Controllers
 {
@@ -25,14 +26,16 @@ namespace StackBook.Areas.Customer.Controllers
         private readonly IDiscountService _discountService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly JwtUtils _jwtUtils;
+        private readonly IOrderService _orderService;
 
-        public CartController(IUnitOfWork unitOfWork, ICartService cartService, IHttpContextAccessor httpContextAccessor, JwtUtils jwtUtils, IDiscountService discountService)
+        public CartController(IUnitOfWork unitOfWork, ICartService cartService, IHttpContextAccessor httpContextAccessor, JwtUtils jwtUtils, IDiscountService discountService, IOrderService orderService)
         {
             _UnitOfWork = unitOfWork;
             _cartService = cartService;
             _httpContextAccessor = httpContextAccessor;
             _jwtUtils = jwtUtils;
             _discountService = discountService;
+            _orderService = orderService;
         }
 
         [Authorize]
@@ -95,7 +98,7 @@ namespace StackBook.Areas.Customer.Controllers
 
 
                 var shippingAddressDefault = await _UnitOfWork.ShippingAddress.GetAsync(sa => sa.UserId == Guid.Parse(userId));
-
+                
                 var checkoutRequestNew = new CheckoutRequest
                 {
                     User = user,
@@ -109,6 +112,47 @@ namespace StackBook.Areas.Customer.Controllers
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 };
+
+                //tìm ra discount có thể sử dụng
+
+                Dictionary<Guid, bool> validDiscount = new Dictionary<Guid, bool>();
+
+                var discounts = await _discountService.GetActiveDiscounts(DateTime.Now);
+
+                foreach (var discount in discounts)
+
+                {
+
+                    var order = await _orderService.GetOrderByDiscountIdAsync(discount.DiscountId);
+
+                    if (order == null || order.DiscountId != discount.DiscountId)
+
+                    {
+
+                        validDiscount[discount.DiscountId] = true; // Discount is valid
+
+                    }
+
+                    else
+
+                    {
+
+                        validDiscount[discount.DiscountId] = false; // Discount is not valid
+
+                    }
+
+                }
+
+                //in ra validDiscount để kiểm tra
+
+                foreach (var kvp in validDiscount)
+                {
+
+                    Console.WriteLine($"DiscountId: {kvp.Key}, IsValid: {kvp.Value}");
+
+                }
+
+                ViewData["ValidDiscounts"] = validDiscount;
 
                 HttpContext.Session.SetString("CheckoutRequest", JsonConvert.SerializeObject(checkoutRequestNew, jsonSettings));
 
@@ -129,50 +173,19 @@ namespace StackBook.Areas.Customer.Controllers
             var address = await _UnitOfWork.ShippingAddress.GetListAsync(ad => ad.UserId == userIdGuid);
             // Lấy lại user cùng với address để cập nhật lại address
 
-            // Fix for the problematic line in the Checkout method  
-            checkoutRequest.shippingAddressDefault = address?.FirstOrDefault();
+            //checkoutRequest.shippingAddressDefault = address?.FirstOrDefault();
 
             // Fix for CS0266: Explicitly convert IEnumerable to ICollection  
             checkoutRequest.User.ShippingAddresses = address.ToList();
 
-            return View("Checkout", checkoutRequest);
+            return View(checkoutRequest);
         }
 
 
 
 
 
-        //[HttpPost]
-        //public IActionResult AdVMCart(Guid bookId, int quantity = 1)
-        //{
-        //    TempData["Message"] = "Book added to cart successfully!";
-        //    return View();
-        //}
-
-        // Phương thức tạo giỏ hàng
-        //[HttpPost("create")]
-        //[Authorize]
-        //public async Task<IActionResult> CreateCart()
-        //{
-        //    try
-        //    {
-        //        var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst("UserId")?.Value;
-        //        if (userIdValue == null)
-        //        {
-        //            return View("Error", new { message = "User ID not found." });
-        //        }
-
-        //        Guid userId = Guid.Parse(userIdValue);
-        //        await _cartService.CreateCartAsync(userId);
-
-        //        // Trả về View với thông điệp thành công
-        //        return View("Cart", new { message = "Cart created successfully", Success = true });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return View("Error", new { message = "Error creating cart", error = ex.Message });
-        //    }
-        //}
+        
 
         // Phương thức thêm sách vào giỏ hàng
         [HttpPost("add")]
@@ -259,7 +272,7 @@ namespace StackBook.Areas.Customer.Controllers
                 ViewData["success"] = "Book removed from cart successfully";
                 var updatedCart = await _cartService.GetCartDetailsAsync(userId);
 
-                return View("Index", updatedCart);
+                return RedirectToAction("Index", updatedCart);
             }
             catch (Exception ex)
             {

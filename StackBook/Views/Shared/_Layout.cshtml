@@ -20,9 +20,10 @@
     <link rel="stylesheet" href="~/StackBook.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-
+    
 
 </head>
+
 <body>
     <header>
         @* <partial name="_Navbar" /> *@
@@ -35,8 +36,14 @@
         <main role="main" class="pb-3" style="background-color: #e7e4e436;">
             @* <partial name="_Notification" /> *@
             @await Html.PartialAsync("_Notification")
+            
             @* Hiển thị nội dung của từng View con. *@
             @RenderBody()
+            <a asp-area="Customer" asp-action="Index" asp-controller="Recommend">
+                <div class="ChatAI">
+                    <img class="" src="~/images/KIEN2.jpg" />
+                </div>
+            </a>
         </main>
     </div>
 
@@ -54,3 +61,28 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+<style>
+    .ChatAI {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: #007bff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 1000;
+    }
+
+    .ChatAI img {
+        width: 58px; /* Chiều rộng ảnh nhỏ lại */
+        height: 58px; /* Chiều cao ảnh nhỏ lại */
+            border-radius: 50%;
+        object-fit: contain; /* Đảm bảo không bị méo */
+    }
+
+</style>

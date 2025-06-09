@@ -33,7 +33,8 @@
                             {
                                 <tr>
                                     <td class="text-start">
-                                        <img src="@selectedBook.Book.ImageURL" alt="@selectedBook.Book.BookTitle" style="width: 60px; height: auto;" class="rounded me-2" />
+                                        <img src="@selectedBook.Book.ImageURL" alt="@selectedBook.Book.BookTitle"
+                                             style="width: 60px; height: auto;" class="rounded me-2" />
                                         <strong>@selectedBook.Book.BookTitle</strong>
                                     </td>
                                     <td>
@@ -56,7 +57,8 @@
                     <div class="border-top pt-3 mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5>Discount</h5>
-                            <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#discountModal">
+                            <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#discountModal">
                                 <i class="bi bi-tag"></i> Apply Discount
                             </button>
                         </div>
@@ -68,9 +70,10 @@
                                 </div>
                                 <div class="text-end">
                                     <span class="badge bg-success" id="selectedDiscountAmount">$0 OFF</span>
-                                    <button type="button" class="btn btn-sm btn-outline-danger ms-2" onclick="removeDiscount()">
+                                    @* <button type="button" class="btn btn-sm btn-outline-danger ms-2" onclick="removeDiscount()">
                                         x
-                                    </button>
+                                    </button> *@
+                                    <i class="fa-solid fa-circle-xmark text-danger ms-2" onclick="removeDiscount()"></i>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +107,8 @@
                             <p><strong>@Model.User?.FullName</strong></p>
                             <p>@defaultAddress.Address, @defaultAddress.Ward, @defaultAddress.City, @defaultAddress.Country</p>
                             <p>Phone: @defaultAddress.Phone</p>
-                            <button class="btn btn-link p-0" type="button" data-bs-toggle="modal" data-bs-target="#addressModal">
+                            <button class="btn btn-link p-0" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#addressModal">
                                 Change Address
                             </button>
                         </div>
@@ -124,7 +128,8 @@
                     <div class="payment-methods">
                         <!-- Cash on Delivery Option -->
                         <div class="form-check border rounded p-3 mb-3">
-                            <input class="form-check-input" type="radio" name="paymentMethod" id="cashOnDelivery" value="CashOnDelivery" checked>
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="cashOnDelivery"
+                                   value="CashOnDelivery" checked>
                             <label class="form-check-label w-100" for="cashOnDelivery">
                                 <div class="d-flex align-items-center">
                                     <i class="bi bi-cash-coin fs-4 me-3 text-success"></i>
@@ -138,7 +143,8 @@
 
                         <!-- Credit Card / VNPay Option -->
                         <div class="form-check border rounded p-3">
-                            <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" value="CreditCard">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard"
+                                   value="CreditCard">
                             <label class="form-check-label w-100" for="creditCard">
                                 <div class="d-flex align-items-center">
                                     <i class="bi bi-credit-card fs-4 me-3 text-primary"></i>
@@ -153,20 +159,25 @@
                         <div id="vnpaySection" class="mt-4" style="display: none;">
                             <div class="card shadow-sm border-0">
                                 <div class="card-body text-start">
-                                    <form method="post" asp-controller="Payment" asp-action="CreateOrder">
-                                        <!-- hidden inputs để truyền PaymentInformationModel -->
-                                        <input type="hidden" name="amount" value="100" />
-                                        <input type="hidden" name="orderInfo" value="Thanh toan don hang StackBook" />
-                                        @* <input type="hidden" name="OrderType" value="other" /> <!-- THÊM --> *@
-                                        @* <input type="hidden" name="Name" value="Nguyen Van A" /> *@
+                                   <form method="post" asp-controller="Payment" asp-action="CreatePaymentUrlVnpay">
 
+                                        @* <input type="hidden" name="Amount" value="100000" /> *@
+                                        <input type="hidden" name="Amount" id="vnpayAmount" value="@(totalPrice * 26000)" />
+                                        bb
+                                        <input type="hidden" name="OrderDescription" value="Thanh toan don hang StackBook" />
+
+                                        <input type="hidden" name="OrderType" value="other" />
+
+                                        <input type="hidden" name="Name" value="Nguyen Van A" />
                                         <button type="submit" class="btn btn-light border rounded-2 px-4 py-2">
+
                                             <img src="https://vnpay.vn/s1/statics.vnpay.vn/2023/9/06ncktiwd6dc1694418196384.png"
                                                  alt="VNPay Logo"
                                                  style="height: 40px;">
-                                        </button>
-                                    </form>
 
+                                        </button>
+
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -185,12 +196,13 @@
                         <input type="hidden" name="SelectedBooks[@i].Quantity" value="@Model.SelectedBooks[i].Quantity" />
                     }
                     <input type="hidden" name="User.UserId" value="@Model.User?.UserId" />
-                    <input type="hidden" name="shippingAddressDefault.ShippingAddressId" value="@defaultAddress?.ShippingAddressId" />
+                    <input type="hidden" name="shippingAddressDefault.ShippingAddressId"
+                           value="@defaultAddress?.ShippingAddressId" />
                     <input type="hidden" name="DiscountId" id="codDiscountId" value="" />
                     <button type="submit" class="btn btn-success btn-lg w-100">Place Order</button>
                 </form>
 
-                
+
 
             </div>
         </div>
@@ -219,7 +231,8 @@
                     <div class="list-group" style="max-height: 400px; overflow-y: auto;">
                         <div class="list-group-item border-0 py-2">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="modalDiscountSelection" id="modalNoDiscount" value="" checked>
+                                <input class="form-check-input" type="radio" name="modalDiscountSelection"
+                                       id="modalNoDiscount" value="" checked>
                                 <label class="form-check-label fw-bold" for="modalNoDiscount">
                                     No discount
                                 </label>
@@ -231,8 +244,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="modalDiscountSelection"
                                            id="modalDiscount_@discount.DiscountId" value="@discount.DiscountId"
-                                           data-discount-name="@discount.DiscountName"
-                                           data-discount-desc="@discount.Description"
+                                           data-discount-name="@discount.DiscountName" data-discount-desc="@discount.Description"
                                            data-discount-price="@discount.Price"
                                            data-start-date="@discount.StartDate.ToString("yyyy-MM-dd")"
                                            data-end-date="@discount.EndDate.ToString("yyyy-MM-dd")">
@@ -249,7 +261,10 @@
                                                 }
                                                 <div class="d-flex align-items-center text-muted small">
                                                     <i class="bi bi-calendar-event me-1"></i>
-                                                    <span>Valid: @discount.StartDate.ToString("MM/dd/yyyy") - @discount.EndDate.ToString("MM/dd/yyyy")</span>
+                                                    <span>
+                                                        Valid: @discount.StartDate.ToString("MM/dd/yyyy") -
+                                                        @discount.EndDate.ToString("MM/dd/yyyy")
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div class="text-end ms-3">
@@ -272,7 +287,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-success" onclick="applySelectedDiscount()">Apply Discount</button>
+                <button type="button" class="btn btn-success" onclick="applySelectedDiscount()"
+                        data-bs-dismiss="modal">
+                    Apply Discount
+                </button>
             </div>
         </div>
     </div>
@@ -282,7 +300,8 @@
 <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <form method="post" asp-action="Select" asp-controller="ShippingAddress" asp-area="Customer" id="addressSelectForm">
+            <form method="post" asp-action="Select" asp-controller="ShippingAddress" asp-area="Customer"
+                  id="addressSelectForm">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addressModalLabel">Select Shipping Address</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -295,22 +314,25 @@
                             {
                                 <div class="list-group-item d-flex justify-content-between align-items-center">
                                     <div class="form-check flex-grow-1">
-                                        <input class="form-check-input" type="radio" name="ShippingAddressId" id="address_@addr.ShippingAddressId" value="@addr.ShippingAddressId" @(addr.ShippingAddressId == defaultAddress?.ShippingAddressId ? "checked" : "")>
+                                        <input class="form-check-input" type="radio" name="ShippingAddressId"
+                                               id="address_@addr.ShippingAddressId" value="@addr.ShippingAddressId"
+                                        @(addr.ShippingAddressId == defaultAddress?.ShippingAddressId ? "checked" : "")>
                                         <label class="form-check-label" for="address_@addr.ShippingAddressId">
                                             <strong>@Model.User?.FullName</strong> <br>
                                             @addr.Address, @addr.Ward, @addr.City, @addr.Country <br>
                                             <span class="text-muted">@addr.Phone</span>
                                         </label>
                                     </div>
-                                    <button type="button" class="btn btn-outline-danger btn-sm"
-                                            data-bs-toggle="modal" data-bs-target="#deleteAddressModal_@addr.ShippingAddressId">
+                                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#deleteAddressModal_@addr.ShippingAddressId">
                                         <i class="bi bi-trash"></i> Delete
                                     </button>
                                 </div>
                             }
                         </div>
                     }
-                    <button type="button" class="btn btn-outline-primary w-100 mt-3" data-bs-toggle="modal" data-bs-target="#newAddressModal">
+                    <button type="button" class="btn btn-outline-primary w-100 mt-3" data-bs-toggle="modal"
+                            data-bs-target="#newAddressModal">
                         <i class="bi bi-plus-circle"></i> Add New Address
                     </button>
                 </div>
@@ -326,7 +348,8 @@
 <!-- Delete Address Confirmation Modals -->
 @foreach (var addr in shippingAddresses)
 {
-    <div class="modal fade" id="deleteAddressModal_@addr.ShippingAddressId" tabindex="-1" aria-labelledby="deleteAddressModalLabel_@addr.ShippingAddressId" aria-hidden="true">
+    <div class="modal fade" id="deleteAddressModal_@addr.ShippingAddressId" tabindex="-1"
+         aria-labelledby="deleteAddressModalLabel_@addr.ShippingAddressId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form method="post" asp-action="Delete" asp-controller="ShippingAddress" asp-area="Customer">
@@ -362,60 +385,67 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                @await Html.PartialAsync("_AddShippingAddressModal", new StackBook.Models.ShippingAddress { UserId = Model.User.UserId })
+                @await Html.PartialAsync("_AddShippingAddressModal", new StackBook.Models.ShippingAddress
+           {
+               UserId =
+                Model.User.UserId
+           })
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    .bank-logo {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+        margin-bottom: 5px;
+    }
+
+    .bank-btn {
+        padding: 10px 5px;
+        text-align: center;
+    }
+
+        .bank-btn.selected {
+            border-color: #0d6efd;
+            background-color: #e7f3ff;
+        }
+
+    .payment-methods .form-check {
+        cursor: pointer;
+    }
+
+        .payment-methods .form-check:hover {
+            background-color: #f8f9fa;
+        }
+
+    .discount-item {
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+        .discount-item:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .discount-item input[type="radio"]:checked + label {
+            background-color: #f0f8f4;
+        }
+
+        .discount-item.selected {
+            border-color: #198754 !important;
+            background-color: #f0f8f4;
+        }
+</style>
+
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <style>
-        .bank-logo {
-            width: 30px;
-            height: 30px;
-            object-fit: contain;
-            margin-bottom: 5px;
-        }
 
-        .bank-btn {
-            padding: 10px 5px;
-            text-align: center;
-        }
-
-            .bank-btn.selected {
-                border-color: #0d6efd;
-                background-color: #e7f3ff;
-            }
-
-        .payment-methods .form-check {
-            cursor: pointer;
-        }
-
-            .payment-methods .form-check:hover {
-                background-color: #f8f9fa;
-            }
-
-        .discount-item {
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-            .discount-item:hover {
-                background-color: #f8f9fa;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            }
-
-            .discount-item input[type="radio"]:checked + label {
-                background-color: #f0f8f4;
-            }
-
-            .discount-item.selected {
-                border-color: #198754 !important;
-                background-color: #f0f8f4;
-            }
-    </style>
     <script>
         const originalTotal = @totalPrice;
         let currentDiscountId = '';
@@ -423,7 +453,7 @@
         let selectedDiscountData = null;
 
         // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Initialize discount values
             document.getElementById('codDiscountId').value = '';
             document.getElementById('vnpayDiscountId').value = '';
@@ -431,7 +461,7 @@
 
         // Payment method selection
         document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
-            radio.addEventListener('change', function() {
+            radio.addEventListener('change', function () {
                 const vnpaySection = document.getElementById('vnpaySection');
                 const codForm = document.getElementById('codForm');
                 const vnpayForm = document.getElementById('vnpayForm');
@@ -450,7 +480,7 @@
 
         // Bank selection
         document.querySelectorAll('.bank-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 // Remove selected class from all buttons
                 document.querySelectorAll('.bank-btn').forEach(b => b.classList.remove('selected'));
 
@@ -468,7 +498,7 @@
 
         // Modal discount selection
         document.querySelectorAll('input[name="modalDiscountSelection"]').forEach(radio => {
-            radio.addEventListener('change', function() {
+            radio.addEventListener('change', function () {
                 // Remove selected class from all discount items
                 document.querySelectorAll('.discount-item').forEach(item => {
                     item.classList.remove('selected');
@@ -488,11 +518,6 @@
             if (!selectedRadio) {
                 return;
             }
-
-            const discountRow = document.getElementById('discount-row');
-            const discountAmount = document.getElementById('discount-amount');
-            const totalPriceElement = document.getElementById('total-price');
-            const selectedDiscountDiv = document.getElementById('selectedDiscount');
 
             if (selectedRadio.value === '') {
                 // No discount selected
@@ -516,29 +541,36 @@
                 currentDiscountAmount = Math.min(discountPrice, originalTotal);
 
                 // Update display
-                discountRow.style.display = 'flex';
-                discountAmount.textContent = '-$' + currentDiscountAmount.toFixed(2);
-
-                const finalTotal = originalTotal - currentDiscountAmount;
-                totalPriceElement.textContent = '$' + finalTotal.toFixed(2);
-
-                // Show selected discount info
-                selectedDiscountDiv.classList.remove('d-none');
-                document.getElementById('selectedDiscountName').textContent = discountName;
-                document.getElementById('selectedDiscountDesc').textContent = discountDesc || '';
-                document.getElementById('selectedDiscountAmount').textContent = '$' + discountPrice + ' OFF';
-
-                // Update hidden inputs in both forms
-                document.getElementById('codDiscountId').value = currentDiscountId;
-                document.getElementById('vnpayDiscountId').value = currentDiscountId;
+                updateDiscountDisplay(discountName, discountDesc, discountPrice);
             }
+        }
 
-            // Close modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('discountModal'));
-            modal.hide();
+        // Function to update discount display
+        function updateDiscountDisplay(discountName, discountDesc, discountPrice) {
+            const discountRow = document.getElementById('discount-row');
+            const discountAmount = document.getElementById('discount-amount');
+            const totalPriceElement = document.getElementById('total-price');
+            const selectedDiscountDiv = document.getElementById('selectedDiscount');
+
+            discountRow.style.display = 'flex';
+            discountAmount.textContent = '-$' + currentDiscountAmount.toFixed(2);
+
+            const finalTotal = originalTotal - currentDiscountAmount;
+            totalPriceElement.textContent = '$' + finalTotal.toFixed(2);
+
+            // Show selected discount info
+            selectedDiscountDiv.classList.remove('d-none');
+            document.getElementById('selectedDiscountName').textContent = discountName;
+            document.getElementById('selectedDiscountDesc').textContent = discountDesc || '';
+            document.getElementById('selectedDiscountAmount').textContent = '$' + discountPrice + ' OFF';
+
+            // Update hidden inputs in both forms
+            document.getElementById('codDiscountId').value = currentDiscountId;
+            document.getElementById('vnpayDiscountId').value = currentDiscountId;
         }
 
         // Remove discount function
+        // Function to handle when clicking the X button to remove discount
         function removeDiscount() {
             currentDiscountId = '';
             currentDiscountAmount = 0;
@@ -547,6 +579,7 @@
             const discountRow = document.getElementById('discount-row');
             const totalPriceElement = document.getElementById('total-price');
             const selectedDiscountDiv = document.getElementById('selectedDiscount');
+            const discountAmount = document.getElementById('discount-amount');
 
             // Hide discount row and selected discount info
             discountRow.style.display = 'none';
@@ -557,9 +590,10 @@
 
             // Clear hidden inputs
             document.getElementById('codDiscountId').value = '';
-            document.getElementById('vnpayDiscountId').value = '';
+        @* document.getElementById('vnpayDiscountId').value = ''; *@
+            discountAmount.textContent = '-$0 OFF';
 
-            // Reset modal selection
+            // Reset modal selection to "No discount"
             document.getElementById('modalNoDiscount').checked = true;
             document.querySelectorAll('.discount-item').forEach(item => {
                 item.classList.remove('selected');
@@ -580,9 +614,10 @@
             }
         }
 
+
         // Handle discount item clicks to select radio button
         document.querySelectorAll('.discount-item').forEach(item => {
-            item.addEventListener('click', function(e) {
+            item.addEventListener('click', function (e) {
                 if (e.target.type !== 'radio') {
                     const radio = this.querySelector('input[type="radio"]');
                     if (radio) {
@@ -593,8 +628,10 @@
             });
         });
 
-        // Preserve selected discount when modal reopens
-        document.getElementById('discountModal').addEventListener('show.bs.modal', function() {
+        // Khi mở modal
+        document.getElementById('discountModal').addEventListener('show.bs.modal', () => {
+            document.querySelectorAll('.discount-item').forEach(item => item.classList.remove('selected'));
+
             if (currentDiscountId) {
                 const targetRadio = document.getElementById('modalDiscount_' + currentDiscountId);
                 if (targetRadio) {
@@ -603,14 +640,26 @@
                 }
             } else {
                 document.getElementById('modalNoDiscount').checked = true;
-                document.querySelectorAll('.discount-item').forEach(item => {
-                    item.classList.remove('selected');
-                });
             }
         });
 
+        // Khi đóng modal
+        document.getElementById('discountModal').addEventListener('hidden.bs.modal', () => {
+            if (!currentDiscountId) return;
+
+            const selectedRadio = document.querySelector('input[name="modalDiscountSelection"]:checked');
+            if (!selectedRadio) {
+                const prevRadio = document.getElementById('modalDiscount_' + currentDiscountId);
+                if (prevRadio) {
+                    prevRadio.checked = true;
+                    prevRadio.dispatchEvent(new Event('change'));
+                }
+            }
+        });
+
+
         // Form validation before submit
-        document.getElementById('codForm').addEventListener('submit', function(e) {
+        document.getElementById('codForm').addEventListener('submit', function (e) {
             const addressId = document.querySelector('input[name="shippingAddressDefault.ShippingAddressId"]').value;
             if (!addressId) {
                 e.preventDefault();
@@ -619,7 +668,7 @@
             }
         });
 
-        document.getElementById('vnpayForm').addEventListener('submit', function(e) {
+        document.getElementById('vnpayForm').addEventListener('submit', function (e) {
             const addressId = document.querySelector('input[name="shippingAddressDefault.ShippingAddressId"]').value;
             const bankCode = document.getElementById('selectedBankCode').value;
 

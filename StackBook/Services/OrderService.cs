@@ -131,6 +131,16 @@ namespace StackBook.Services
                 {
                     throw new ApplicationException("Discount has been used");
                 }
+                //
+                var shippingAddressId = request.shippingAddressDefault.ShippingAddressId;
+
+                //var shippingAddress = await _unitOfWork.ShippingAddress.GetAsync(
+                //    s => s.ShippingAddressId == shippingAddressId);
+
+                //if (shippingAddress == null)
+                //{
+                //    throw new ArgumentException("Shipping address does not exist.");
+                //}
 
                 await _unitOfWork.Order.AddAsync(order);
                 await _unitOfWork.SaveAsync();
@@ -163,9 +173,10 @@ namespace StackBook.Services
                 // Create payment record
                 var payment = new Payment
                 {
-                    PaymentId = Guid.NewGuid(),
+                    //PaymentId = Guid.NewGuid(),
                     OrderId = order.OrderId,
                     PaymentMethod = request.PaymentMethod,
+                    //PaymentMethod = "hahaha",
                     PaymentStatus = "0", // Pending
                     CreatedPayment = DateTime.Now
                 };

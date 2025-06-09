@@ -1,69 +1,77 @@
-//using Microsoft.AspNetCore.Mvc;
-//using StackBook.Services.Interfaces;
-//using StackBook.ViewModels;
-//using StackBook.Services.Interfaces;
-//using StackBook.ViewModels;
-
-//namespace StackBook.Controllers
-//{
-//    [Area("Customer")]
-//    public class PaymentController : Controller
-//    {
-//        private readonly IVnPayService _vnPayService;
-
-//        public PaymentController(IVnPayService vnPayService)
-//        {
-//            _vnPayService = vnPayService;
-//        }
-
-//        public IActionResult CreatePaymentUrlVnpay(PaymentInformationModel model)
-//        {
-//            var url = _vnPayService.CreatePaymentUrl(model, HttpContext);
-//            return Redirect(url);
-//        }
-
-//        [HttpGet]
-//        public IActionResult PaymentCallbackVnpay()
-//        {
-//            var response = _vnPayService.PaymentExecute(Request.Query);
-//            return Json(response);
-//        }
-//    }
-//}
-
-using Azure.Core;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using StackBook.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using System.Security.Cryptography;
+using System.Text;
 using StackBook.Interfaces;
+using StackBook.ViewModels;
+using System.Security.Claims;
+using Newtonsoft.Json;
+using Azure.Core;
+using DocumentFormat.OpenXml.Office2016.Excel;
+using StackBook.Models;
 
-
-namespace StackBook.Controllers
+namespace MyMvcApp.Controllers
 {
     [Area("Customer")]
-    public class PaymentController : ControllerBase
+    public class PaymentController : Controller
     {
-        private readonly IVnpayService _vnpayService;
-
-
-        public PaymentController(IVnpayService vnpayService)
+        private readonly IVnPayService _vnPayService;
+        public PaymentController(IVnPayService vnPayService)
         {
-            _vnpayService = vnpayService;
+            _vnPayService = vnPayService;
         }
-
-        [HttpPost]
-        public IActionResult CreateOrder(int amount, string orderInfo)
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            string url = _vnpayService.CreateOrder(Request, amount, orderInfo, "https://localhost:7170/");
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreatePaymentUrlVnpay(PaymentInformationModel model)
+        {
+            var url = _vnPayService.CreatePaymentUrl(model, HttpContext);
+            Console.WriteLine($"Payment URL: {url}");
             return Redirect(url);
         }
-
-        [HttpGet("return")]
-        public IActionResult OrderReturn()
+        [HttpGet]
+        public async Task<IActionResult> PaymentCallbackVnpay()
         {
-            int result = _vnpayService.OrderReturn(Request);
-            return Ok(new { status = result });
+            var response = _vnPayService.PaymentExecute(Request.Query);
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!Guid.TryParse(userIdString, out Guid userId))
+            {
+                return NotFound("Invalid user.");
+            }
+
+            var sessionData = HttpContext.Session.GetString("CheckoutRequest");
+            if (string.IsNullOrEmpty(sessionData))
+            {
+                TempData["Error"] = "No checkout data found.";
+                return RedirectToAction("Index", "Cart");
+            }
+            var checkoutRequest = JsonConvert.DeserializeObject<CheckoutRequest>(sessionData);
+
+            if (response.Success)
+            {
+                TempData["CheckoutRequest"] = JsonConvert.SerializeObject(checkoutRequest);
+                return RedirectToAction("RedirectToPostPlaceOrder");
+            }
+
+            TempData["Error"] = "Payment failed.";
+            return RedirectToAction("Index", "Cart");
+        }
+
+        public IActionResult RedirectToPostPlaceOrder()
+        {
+            if (TempData["CheckoutRequest"] is string checkoutRequestJson)
+            {
+                var checkoutRequest = JsonConvert.DeserializeObject<CheckoutRequest>(checkoutRequestJson);
+                return View("RedirectToPost", checkoutRequest);
+            }
+
+            TempData["Error"] = "Checkout data missing.";
+            return RedirectToAction("Index", "Cart");
         }
     }
 }
-
-

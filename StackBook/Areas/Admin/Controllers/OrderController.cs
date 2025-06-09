@@ -49,7 +49,16 @@ namespace StackBook.Areas.Admin.Controllers
 
                 ViewBag.Status = status.ToString();
 
-
+                Dictionary<Guid, string> paymentMethods = new Dictionary<Guid, string>();
+                foreach (var order in orders)
+                {
+                    // Get the first payment for the order (if any)
+                    var payments = await _unitOfWork.Payment.GetByOrderIdAsync(order.OrderId);
+                    var paymentMethod = payments.FirstOrDefault()?.PaymentMethod ?? "COD";
+                    paymentMethods[order.OrderId] = paymentMethod;
+                }
+                
+                ViewData["PaymentMethods"] = paymentMethods;
                 var pagedOrders = orders.ToPagedList(pageNumber, pageSize);
                 return View(pagedOrders);
             }

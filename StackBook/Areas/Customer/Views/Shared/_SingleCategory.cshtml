@@ -16,7 +16,7 @@
         <section class="category-section mb-5">
             <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
                 <h2 class="">Popular</h2>
-                <a asp-controller="Category" asp-action="Books" class="view-all text-decoration-none text-muted">View all</a>
+                @* <a asp-controller="Category" asp-action="Books" class="view-all text-decoration-none text-muted">View all ></a> *@
             </div>
             <div class="container-books category1">
                 <button id="prev-card" class="fa-solid fa-arrow-left card-button"></button>
@@ -66,7 +66,7 @@
         <section class="category-section mb-5">
             <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
                 <h2 class="">Deals</h2>
-                <a asp-controller="Category" asp-action="Books" class="text-decoration-none">See more</a>
+                @* <a asp-controller="Category" asp-action="Books" class="view-all text-decoration-none text-muted">View all ></a> *@
             </div>
             <div class="container-books category2">
                 <button id="prev-card" class="fa-solid fa-arrow-left card-button"></button>
@@ -115,7 +115,7 @@
         <section class="category-section mb-5">
             <div class="d-flex justify-content-between mt-5 pb-2 border-bottom">
                 <h2 class="">New releases</h2>
-                <a asp-controller="Category" asp-action="Books" class="text-decoration-none">See more</a>
+                @* <a asp-controller="Category" asp-action="Books" class="view-all text-decoration-none text-muted">View all ></a> *@
             </div>
             <div class="container-books category3">
 
@@ -168,7 +168,7 @@
         </div>
         @* ============ CONTENT ========= *@ 
         <div class="row g-4">
-            @await Component.InvokeAsync("Books", Model)
+            @await Component.InvokeAsync("Books", new { books  = Model })
         </div>
     </div>
 </div>

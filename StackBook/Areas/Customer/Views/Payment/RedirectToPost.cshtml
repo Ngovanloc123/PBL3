@@ -1,0 +1,59 @@
+﻿@model StackBook.ViewModels.CheckoutRequest
+
+@{
+    // Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+</head>
+<body>
+    <form id="redirectForm" method="post" action="@Url.Action("PlaceOrder", "Order")">
+
+        <!-- User -->
+        <input type="hidden" name="User.UserId" value="@Model.User.UserId" />
+        <input type="hidden" name="User.FullName" value="@Model.User.FullName" />
+        <input type="hidden" name="User.Email" value="@Model.User.Email" />
+        <!-- Thêm các thuộc tính cần thiết khác từ User nếu có -->
+        <!-- Shipping Address -->
+        @if (Model.shippingAddressDefault != null)
+        {
+            <input type="hidden" name="shippingAddressDefault.ShippingAddressId" value="@Model.shippingAddressDefault.ShippingAddressId" />
+            <input type="hidden" name="shippingAddressDefault.Address" value="@Model.shippingAddressDefault.Address" />
+            <input type="hidden" name="shippingAddressDefault.City" value="@Model.shippingAddressDefault.City" />
+            <input type="hidden" name="shippingAddressDefault.Phone" value="@Model.shippingAddressDefault.Phone" />
+            <!-- Thêm thuộc tính khác nếu có -->
+        }
+
+        <!-- Payment Method -->
+        <input type="hidden" name="PaymentMethod" value="ONLINE" />
+
+        <!-- Discount -->
+        <input type="hidden" name="DiscountId" value="@Model.DiscountId" />
+
+        @for (int i = 0; i < Model.discounts.Count; i++)
+        {
+            <input type="hidden" name="discounts[@i].DiscountId" value="@Model.discounts[i].DiscountId" />
+            <input type="hidden" name="discounts[@i].DiscountCode" value="@Model.discounts[i].DiscountCode" />
+            <!-- Thêm các thuộc tính khác nếu cần -->
+        }
+
+        <!-- Selected Books -->
+        @for (int i = 0; i < Model.SelectedBooks.Count; i++)
+        {
+            <input type="hidden" name="SelectedBooks[@i].Book.BookId" value="@Model.SelectedBooks[i].Book.BookId" />
+            <input type="hidden" name="SelectedBooks[@i].Book.BookTitle" value="@Model.SelectedBooks[i].Book.BookTitle" />
+            <input type="hidden" name="SelectedBooks[@i].Quantity" value="@Model.SelectedBooks[i].Quantity" />
+            <!-- Thêm các thuộc tính khác của Book nếu cần -->
+        }
+
+    </form>
+
+    <script>
+        document.getElementById("redirectForm").submit();
+    </script>
+</body>
+</html>

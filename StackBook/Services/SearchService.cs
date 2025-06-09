@@ -20,9 +20,9 @@ namespace StackBook.Services
         {
 
             var books = await _unitOfWork.Book.GetAllAsync("Authors");
+            var bookSearch = new List<BookRatingViewModel>();
             if (string.IsNullOrEmpty(query))
             {
-                var bookSearch = new List<BookRatingViewModel>();
                 foreach (var book in books)
                 {
                     bookSearch.Add(new BookRatingViewModel
@@ -33,20 +33,24 @@ namespace StackBook.Services
                 }
 
             }
-            var result = new List<BookRatingViewModel>();
-            foreach (var book in books)
+            else
             {
-                if (book.BookTitle.Contains(query, StringComparison.OrdinalIgnoreCase) ||
-                    book.Authors.Any(a => a.AuthorName.Contains(query, StringComparison.OrdinalIgnoreCase)))
+                bookSearch = new List<BookRatingViewModel>();
+                foreach (var book in books)
                 {
-                    result.Add(new BookRatingViewModel
+                    if (book.BookTitle.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                        book.Authors.Any(a => a.AuthorName.Contains(query, StringComparison.OrdinalIgnoreCase)))
                     {
-                        Book = book,
-                        AverageRating = await _reviewService.GetAverageRatingForBookAsync(book.BookId)
-                    });
+                        bookSearch.Add(new BookRatingViewModel
+                        {
+                            Book = book,
+                            AverageRating = await _reviewService.GetAverageRatingForBookAsync(book.BookId)
+                        });
+                    }
                 }
             }
-            return result;
+            
+            return bookSearch;
         }
     }
 }

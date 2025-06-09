@@ -40,7 +40,7 @@ namespace StackBook.Areas.Admin.Controllers
                 int pageSize = 8;
                 int pageNumber = page ?? 1;
 
-                var discounts = await _discountService.GetAllDiscounts();
+                var discounts = (await _discountService.GetAllDiscounts()).Where(d => d.DiscountCode != "0").ToList();
 
                 var pagedDiscounts = discounts.ToPagedList(pageNumber, pageSize);
                 return View(pagedDiscounts);

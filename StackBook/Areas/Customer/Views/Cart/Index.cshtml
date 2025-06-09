@@ -73,7 +73,7 @@
                                 </td>
                                 <td>
                                     <strong class="book-price">
-                                        $@(book != null ? (book.Price * cartDetail.Quantity) : 0)
+                                        $@(book != null ? Math.Round(book.Price * cartDetail.Quantity, 2) : 0)
                                     </strong>
                                 </td>
                                 <td>
@@ -100,9 +100,9 @@
                             <span class="text-danger fs-5 ms-2" id="total-price">
                                 $@totalPrice
                             </span>
-                            <div class="text-muted small">
-                                You saved: <span class="text-success">$1.25</span>
-                            </div>
+                            @* <div class="text-muted small"> *@
+                            @*     You saved: <span class="text-success">$1.25</span> *@
+                            @* </div> *@
                         </div>
                         <div>
                             <button type="submit" class="btn btn-danger btn-lg">Checkout</button>

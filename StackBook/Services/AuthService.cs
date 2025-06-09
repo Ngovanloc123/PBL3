@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using VNPAY.NET;
 using StackBook.ViewModels;
+using static StackBook.ViewModels.UserVM;
 
 namespace StackBook.Services
 {
@@ -36,7 +37,7 @@ namespace StackBook.Services
             _jwtUtils = jwtUtils;
             _oauthGoogleService = oauthGoogleService;
         }
-        public async Task<ServiceResponse<User>> RegisterUser(UserVM.RegisterVM registerDto)
+        public async Task<ServiceResponse<User>> RegisterUser(RegisterVM registerDto)
         {
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(registerDto.Email) || string.IsNullOrEmpty(registerDto.Password) || string.IsNullOrEmpty(registerDto.Username))
@@ -97,7 +98,7 @@ namespace StackBook.Services
                 return response;
             }
         }
-        public async Task<ServiceResponse<User>> SignInUser(UserVM.SignInVM signInDto)
+        public async Task<ServiceResponse<User>> SignInUser(SignInVM signInDto)
         {
             var response = new ServiceResponse<User>();
             if(string.IsNullOrEmpty(signInDto.Email) || string.IsNullOrEmpty(signInDto.Password))

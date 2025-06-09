@@ -316,7 +316,10 @@ namespace StackBook.Areas.Customer.Controllers
                 return RedirectToAction("Login", "Account");
             ViewBag.SidebarUser = user.Result.Data;
             // Lấy tất cả mã giảm giá từ dịch vụ check ngày hệ thống
-            var discounts = await _discountService.GetActiveDiscounts(DateTime.Now);
+            var discounts = (await _discountService.GetActiveDiscounts(DateTime.Now))
+                .Where(d => d.DiscountCode != "0")
+                .ToList();
+
             // Kiểm tra nếu không có mã giảm giá nào
             if (discounts == null || discounts.Count == 0)
             {

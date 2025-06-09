@@ -34,7 +34,7 @@ namespace StackBook.Areas.Site.Controllers
         }
 
         [HttpPost("SignIn")]
-        public async Task<IActionResult> SignInUser(UserVM.SignInVM signInVM)
+        public async Task<IActionResult> SignInUser(SignInVM signInVM)
         {
             try
             {
@@ -131,7 +131,7 @@ namespace StackBook.Areas.Site.Controllers
 
         [HttpPost("Register")]
         [AllowAnonymous]
-        public async Task<IActionResult> RegisterUser(UserVM.RegisterVM registerDto)
+        public async Task<IActionResult> RegisterUser(RegisterVM registerDto)
         {
             try
             {
@@ -139,8 +139,11 @@ namespace StackBook.Areas.Site.Controllers
                     return View("Error", new ErrorViewModel { ErrorMessage = "Invalid data.", StatusCode = 400 });
 
                 var result = await _authService.RegisterUser(registerDto);
-                if (result == null)
-                    return View("Error", new ErrorViewModel { ErrorMessage = "Registration failed.", StatusCode = 400 });
+                if (!result.Success)
+                {
+                    TempData["error"] = result.Message;
+                    return View("Register");
+                }
 
                 TempData["success"] = "Register successful.";
                 return RedirectToAction("Signin", "Account", new { area = "Site" });

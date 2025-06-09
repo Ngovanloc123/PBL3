@@ -408,7 +408,7 @@ footer .icon-footer {
     }
 
 /* Badge cho số thông báo chưa đọc */
-.notification-badge {
+.notification-badge, .cart-badge {
     position: absolute;
     top: -5px;
     right: -5px;

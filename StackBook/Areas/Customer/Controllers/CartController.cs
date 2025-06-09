@@ -94,7 +94,6 @@ namespace StackBook.Areas.Customer.Controllers
 
 
 
-                // Lấy shippping address đầu tiên
                 var shippingAddressDefault = await _UnitOfWork.ShippingAddress.GetAsync(sa => sa.UserId == Guid.Parse(userId));
 
                 var checkoutRequestNew = new CheckoutRequest

@@ -181,6 +181,8 @@ using StackBook.ViewModels;
 using DocumentFormat.OpenXml.VariantTypes;
 using Microsoft.AspNetCore.Authorization;
 using StackBook.Interfaces;
+using StackBook.DAL.Repository;
+using Newtonsoft.Json;
 
 namespace StackBook.Areas.Customer.Controllers
 {
@@ -383,10 +385,46 @@ namespace StackBook.Areas.Customer.Controllers
             return View(booksSearch);
         }
 
-        //public async Task<IActionResult> BuyNow(Guid bookId)
-        //{
 
-        //}
+        public async Task<IActionResult> BuyNow(Guid bookId, int quantity)
+        {
+            try
+            {
+                var userId = Request.Cookies["userId"];
+                var user = await _unitOfWork.User.GetAsync(u => u.UserId == Guid.Parse(userId), "ShippingAddresses");
 
-    }
+                var selectedBooks = new List<SelectedBook>();
+                var book = await _unitOfWork.Book.GetAsync(b => b.BookId == bookId);
+                selectedBooks.Add(new SelectedBook
+                {
+                    Book = book,
+                    Quantity = quantity
+                });
+
+                var shippingAddressDefault = await _unitOfWork.ShippingAddress.GetAsync(sa => sa.UserId == Guid.Parse(userId));
+                var checkoutRequestNew = new CheckoutRequest
+                {
+                    User = user,
+                    SelectedBooks = selectedBooks,
+                    shippingAddressDefault = shippingAddressDefault,
+
+                    discounts = (await _unitOfWork.Discount.GetListAsync(d => d.DiscountCode != "0")).ToList()
+                };
+
+                var jsonSettings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+
+                HttpContext.Session.SetString("CheckoutRequest", JsonConvert.SerializeObject(checkoutRequestNew, jsonSettings));
+
+                return RedirectToAction("Checkout", "Cart");
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new { message = "Buy now error", error = ex.Message });
+            }
+        }
+
+        }
 }

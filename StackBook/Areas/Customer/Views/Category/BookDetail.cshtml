@@ -35,7 +35,7 @@
                         {
                             <div class="mb-3">
                                 <label class="form-label fw-medium">Quantity</label>
-                                <input name="quantity" type="number" class="form-control rounded-2" min="1" max="@Model.Stock" value="1" />
+                                <input name="quantity" id="quantityInput" type="number" class="form-control rounded-2" min="1" max="@Model.Stock" value="1" />
                             </div>
 
                             <!-- Purchase Actions -->
@@ -43,10 +43,12 @@
                                 <button type="submit" class="btn btn-primary rounded-2 py-2 text-uppercase fw-bold">
                                     <i class="fa-solid fa-cart-shopping"></i> Add to Cart
                                 </button>
-                                @* <a asp-controller="Order" asp-action="BuyNow" asp-route-bookId="@Model.BookId" *@
-                                @*    class="btn btn-dark rounded-2 py-2 text-uppercase fw-bold"> *@
-                                @*     <i class="bi bi-bag-check"></i> Buy Now *@
-                                @* </a> *@
+                                <a id="buyNowLink" asp-controller="Category" asp-action="BuyNow"
+                                   asp-route-bookId="@Model.BookId"
+                                   asp-route-quantity="1"
+                                   class="btn btn-dark rounded-2 py-2 text-uppercase fw-bold">
+                                    <i class="bi bi-bag-check"></i> Buy Now
+                                </a>
                             </div>
                         }
                     </div>
@@ -298,25 +300,37 @@
     }
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const quantityInputs = document.querySelectorAll("input[type='number']");
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const quantityInput = document.getElementById("quantityInput");
+            const buyNowLink = document.getElementById("buyNowLink");
 
-        quantityInputs.forEach(input => {
-            input.addEventListener("input", function () {
-                const max = parseInt(this.max);
-                const min = parseInt(this.min);
-                let value = parseInt(this.value);
-
-                if (value > max) {
-                    this.value = max;
-                } else if (value < min) {
-                    this.value = min;
+            // Function to update the Buy Now link
+            function updateBuyNowLink() {
+                let quantity = quantityInput.value;
+                // Ensure quantity is within valid range
+                if (quantity < 1) {
+                    quantity = 1;
+                    quantityInput.value = 1;
+                } else if (quantity > @Model.Stock) {
+                    quantity = @Model.Stock;
+                    quantityInput.value = @Model.Stock;
                 }
-            });
+
+                // Update Buy Now link
+                buyNowLink.href = `@Url.Action("BuyNow", "Category")?bookId=@Model.BookId&quantity=${quantity}`;
+            }
+
+            // Add event listeners
+            quantityInput.addEventListener("input", updateBuyNowLink);
+            quantityInput.addEventListener("change", updateBuyNowLink);
+
+            // Initialize the link on page load
+            updateBuyNowLink();
         });
-    });
-</script>
+    </script>
+}
 
 <style>
     .container p {

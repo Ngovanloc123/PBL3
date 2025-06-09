@@ -17,47 +17,8 @@ namespace StackBook.Areas.Admin.Controllers
             _reportService = reportService;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            DateTime now = DateTime.Now;
-
-            DateTime startOfCurrentMonth = new DateTime(now.Year, now.Month, 1);
-            DateTime endOfCurrentMonth = startOfCurrentMonth.AddMonths(1).AddDays(-1);
-
-            DateTime startOfLastMonth = startOfCurrentMonth.AddMonths(-1);
-            DateTime endOfLastMonth = startOfCurrentMonth.AddDays(-1);
-
-
-            // Tháng hiện tại
-            List<BookCountByCategoryViewModel> bookCountByCategory = await _reportService.GetBookCountByCategoryAsync(startOfCurrentMonth, endOfCurrentMonth);
-            var categoryCurrentMonth = new ChartVM(bookCountByCategory);
-
-            // Tháng hiện tại
-            bookCountByCategory = await _reportService.GetBookCountByCategoryAsync(startOfLastMonth, endOfLastMonth);
-            var categoryLastMonth = new ChartVM(bookCountByCategory);
-
-            var booksSaleRaw = await _reportService.GetBestSellingBooksAsync(startOfCurrentMonth, endOfCurrentMonth);
-            var booksSale = new ChartVM(booksSaleRaw);
-
-            var data = new BookChart
-            {
-                CategoryLastMonth = categoryLastMonth,
-                CategoryCurrentMonth = categoryCurrentMonth,
-                BooksSale = booksSale
-            };
-
-
-            return View(data);
-        }
-
         public async Task<IActionResult> Orders(DateTime? startDate, DateTime? endDate, TimeRangeType timeRangeType = TimeRangeType.Daily)
         {
-            // Thiết lập ngày mặc định nếu không có
-            if (!startDate.HasValue || !endDate.HasValue)
-            {
-                endDate = DateTime.Now.Date;
-                startDate = endDate.Value.AddDays(-30);
-            }
 
             var model = new OrderStatisticsVM
             {
@@ -108,12 +69,6 @@ namespace StackBook.Areas.Admin.Controllers
 
         public async Task<IActionResult> Books(DateTime? startDate, DateTime? endDate, int topCount = 5)
         {
-            // Thiết lập ngày mặc định nếu không có
-            if (!startDate.HasValue || !endDate.HasValue)
-            {
-                endDate = DateTime.Now.Date;
-                startDate = endDate.Value.AddDays(-30);
-            }
 
             var data = new BookStatisticsVM
             {
@@ -124,15 +79,8 @@ namespace StackBook.Areas.Admin.Controllers
 
             try
             {
-                Console.WriteLine($"StartDate: {startDate}, EndDate: {endDate}, TopCount: {topCount}");
                 data.BestSellingBooks = await _reportService.GetBestSellingBooksAsync(startDate, endDate, topCount);
-                //in ra để debug
-                foreach (var book in data.BestSellingBooks)
-                {
-                    Console.WriteLine($"BookId: {book.BookId}, Title: {book.Title}, TotalSold: {book.QuantitySold}");
-                }
-                data.LeastSellingBooks = await _reportService.GetLeastSellingBooksAsync(startDate, endDate, topCount);
-
+               
                 data.HighestRatedBooks = await _reportService.GetHighestRatedBooksAsync(startDate, endDate, topCount);
                 data.LowestRatedBooks = await _reportService.GetLowestRatedBooksAsync(startDate, endDate, topCount);
 

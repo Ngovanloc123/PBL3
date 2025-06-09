@@ -103,10 +103,13 @@ namespace StackBook.Services
                 if (cart == null) throw new AppException("Giỏ hàng không tồn tại.");
 
                 var cartBook = await _cartRepository.GetCartBookAsync(cart.CartId, bookId);
-                if (cartBook == null) throw new AppException("Không tìm thấy sách trong giỏ hàng.");
+                if (cartBook != null)
+                {
+                    await _cartRepository.RemoveCartBookAsync(cartBook);
+                    await _cartRepository.SaveAsync();
+                }
 
-                await _cartRepository.RemoveCartBookAsync(cartBook);
-                await _cartRepository.SaveAsync();
+               
             }
             catch (Exception ex)
             {

@@ -8,7 +8,7 @@ using StackBook.Utils;
 using StackBook.DTOs;
 using System.Security.Claims;
 
-namespace StackBook.Areas.Customer.Controllers 
+namespace StackBook.Areas.Customer.Controllers
 {
     [Area("Customer")]
     //[Authorize]
@@ -34,12 +34,12 @@ namespace StackBook.Areas.Customer.Controllers
             _cloudinaryUtils = cloudinaryUtils;
         }
         [HttpGet("Profile")]
-        [Authorize(Roles ="User")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Profile()
         {
             //User Id của người dùng hiện tại trong cookie
             var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if(userIdValue == null)
+            if (userIdValue == null)
                 return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
             //Xem cookie access token có tồn tại hay không
             Console.WriteLine($"AccessToken: {_httpContextAccessor.HttpContext?.Request.Cookies["accessToken"]}");
@@ -47,9 +47,9 @@ namespace StackBook.Areas.Customer.Controllers
             Console.WriteLine($"RefreshToken: {_httpContextAccessor.HttpContext?.Request.Cookies["refreshToken"]}");
             //Sem user qua cookie
             var user = _userService.GetUserById(Guid.Parse(userIdValue));
-            if(user == null)
+            if (user == null)
                 return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
-            if(user.Result.Data == null)
+            if (user.Result.Data == null)
                 return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
             var data = user.Result.Data.RefreshToken;
             Console.WriteLine($"RefreshToken: {data}");
@@ -74,15 +74,15 @@ namespace StackBook.Areas.Customer.Controllers
             var response = await _userService.UpdateAvatar(userId, image);
             var user = await _userService.GetUserById(userId);
             if (user.Data == null)
-                return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });    
+                return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
             var token = _jwtUtils.GenerateAccessToken(user.Data);
-            
+
             Response.Cookies.Append("accessToken", token, new CookieOptions
             {
-                    HttpOnly = true,
-                    Secure = true,
-                    SameSite = SameSiteMode.Strict,
-                    Expires = DateTimeOffset.UtcNow.AddMinutes(60)
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.AddMinutes(60)
             });
             if (response.Success)
             {
@@ -95,7 +95,7 @@ namespace StackBook.Areas.Customer.Controllers
             {
                 return View("Error", new ErrorViewModel { ErrorMessage = response.Message, StatusCode = 400 });
             }
-            
+
         }
         [HttpPost("Update-Username")]
         public async Task<IActionResult> UpdateUsername(string username)
@@ -110,17 +110,17 @@ namespace StackBook.Areas.Customer.Controllers
             var response = await _userService.UpdateUsername(userId, username);
             //cap nhat lai access token vi username da bi thay doi
             var user = await _userService.GetUserById(userId);
-            if(user.Data == null)
+            if (user.Data == null)
                 return View("Error", new ErrorViewModel { ErrorMessage = "User not found.", StatusCode = 404 });
             var token = _jwtUtils.GenerateAccessToken(user.Data);
             response.AccessToken = token;
             //cap nhat lai cookie access token
             Response.Cookies.Append("accessToken", response.AccessToken, new CookieOptions
-                {
-                    HttpOnly = true,
-                    Secure = true,
-                    SameSite = SameSiteMode.Strict,
-                    Expires = DateTimeOffset.UtcNow.AddMinutes(60)
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.AddMinutes(60)
             });
             if (response.Success)
             {
@@ -163,16 +163,16 @@ namespace StackBook.Areas.Customer.Controllers
             Console.WriteLine(currentPassword);
             Console.WriteLine(newPassword);
             Console.WriteLine(confirmPassword);
-            if(string.IsNullOrEmpty(currentPassword) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword))
+            if (string.IsNullOrEmpty(currentPassword) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword))
             {
-                return View("Error", new ErrorViewModel { ErrorMessage = "Email is required." }); 
+                return View("Error", new ErrorViewModel { ErrorMessage = "Email is required." });
             }
-             var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userIdValue = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userIdValue == null)
                 return View("Error", new ErrorViewModel { ErrorMessage = "User ID not found." });
             Guid userId = Guid.Parse(userIdValue);
             Console.WriteLine(userId);
-            if(!newPassword.Equals(confirmPassword))
+            if (!newPassword.Equals(confirmPassword))
                 return View("Error", new ErrorViewModel { ErrorMessage = "Not Map" });
             var response = await _userService.UpdatePassword(userId, currentPassword, newPassword);
             if (response.Success)
@@ -198,9 +198,9 @@ namespace StackBook.Areas.Customer.Controllers
 
             ////
             var user = _userService.GetUserById(userId);
-            if(user == null)
-                  return RedirectToAction("Login", "Account");
-             ViewBag.SidebarUser = user.Result.Data;
+            if (user == null)
+                return RedirectToAction("Login", "Account");
+            ViewBag.SidebarUser = user.Result.Data;
 
             ViewBag.UnreadNotificationCount = await _notificationService.GetUnreadCountAsync(userId);
 
@@ -310,9 +310,9 @@ namespace StackBook.Areas.Customer.Controllers
 
             ////
             var user = _userService.GetUserById(userId);
-            if(user == null)
-                  return RedirectToAction("Login", "Account");
-             ViewBag.SidebarUser = user.Result.Data;
+            if (user == null)
+                return RedirectToAction("Login", "Account");
+            ViewBag.SidebarUser = user.Result.Data;
             // Lấy tất cả mã giảm giá từ dịch vụ check ngày hệ thống
             var discounts = await _discountService.GetActiveDiscounts(DateTime.Now);
             // Kiểm tra nếu không có mã giảm giá nào

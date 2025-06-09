@@ -20,8 +20,7 @@
                     @foreach (var discount in Model)
                     {
                         <div class="col-sm-6 mb-4">
-                            <div
-                                class="coupon bg-white rounded mb-3 d-flex justify-content-between @(DateTime.Now > discount.EndDate ? "expired" : "")">
+                            <div class="coupon bg-white rounded mb-3 d-flex justify-content-between @(DateTime.Now > discount.EndDate ? "expired" : "")">
                                 <div class="kiri p-3">
                                     <div class="icon-container">
                                         <div class="icon-container_box">
@@ -31,9 +30,10 @@
                                 </div>
                                 <div class="tengah py-3 d-flex w-100 justify-content-start">
                                     <div>
-                                        <span
-                                            class="time font-weight-light d-block fst-italic">@discount.StartDate.ToString("dd/MM/yyyy")
-                                            - @discount.EndDate.ToString("dd/MM/yyyy")</span>
+                                        <span class="time font-weight-light d-block fst-italic">
+                                            @discount.StartDate.ToString("dd/MM/yyyy")
+                                            - @discount.EndDate.ToString("dd/MM/yyyy")
+                                        </span>
 
                                         <h3 class="lead">@discount.DiscountName</h3>
                                         <small class="description text-muted mb-1">@discount.Description</small>
@@ -46,8 +46,7 @@
                                     <div class="info m-3 ">
                                         <div class="w-100">
                                             @* COI LẠI LOGIC CHECK VALID Ở ĐÂY THEO SỐ LƯỢT DÙNG, CHỖ NI ĐANG CHECK THEO DATE THÔI *@
-                                            <span
-                                                class="badge @(DateTime.Now > discount.EndDate ? "bg-secondary" : "bg-success")">
+                                            <span class="badge @(DateTime.Now > discount.EndDate ? "bg-secondary" : "bg-success")">
                                                 @(DateTime.Now > discount.EndDate ? "Unvalid" : "Valid")
                                             </span>
 
@@ -92,7 +91,6 @@
         line-height: 1.5em;
         /* Standard line height */
         margin-bottom: 0.5rem;
-
         display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
@@ -105,11 +103,11 @@
         padding-left: 10px;
     }
 
-    /* Adjust layout for better text display */
-    .tengah>div {
-        width: 100%;
-        padding-right: 10px;
-    }
+        /* Adjust layout for better text display */
+        .tengah > div {
+            width: 100%;
+            padding-right: 10px;
+        }
 
     .discount-price {
         background: #ffeaea;
@@ -130,45 +128,45 @@
         height: 100%;
     }
 
-    .coupon:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
+        .coupon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
 
-    .coupon.expired {
-        opacity: 0.7;
-        background-color: #f8f9fa;
-    }
+        .coupon.expired {
+            opacity: 0.7;
+            background-color: #f8f9fa;
+        }
 
-    .coupon .kanan {
-        border-left: 1px dashed #ddd;
-        width: 40% !important;
-        position: relative;
-    }
+        .coupon .kanan {
+            border-left: 1px dashed #ddd;
+            width: 40% !important;
+            position: relative;
+        }
 
-    .coupon .kanan .info::after,
-    .coupon .kanan .info::before {
-        content: '';
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        background: #dfdfe6;
-        border-radius: 100%;
-    }
+            .coupon .kanan .info::after,
+            .coupon .kanan .info::before {
+                content: '';
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                background: #dfdfe6;
+                border-radius: 100%;
+            }
 
-    .coupon .kanan .info::before {
-        top: -10px;
-        left: -10px;
-    }
+            .coupon .kanan .info::before {
+                top: -10px;
+                left: -10px;
+            }
 
-    .coupon .kanan .info::after {
-        bottom: -10px;
-        left: -10px;
-    }
+            .coupon .kanan .info::after {
+                bottom: -10px;
+                left: -10px;
+            }
 
-    .coupon .time {
-        font-size: 1rem;
-    }
+        .coupon .time {
+            font-size: 1rem;
+        }
 
     .lead {
         font-size: 1.1rem;
@@ -192,8 +190,8 @@
         border-color: #dc3545;
     }
 
-    .btn-outline-danger:hover {
-        color: white;
-        background-color: #dc3545;
-    }
+        .btn-outline-danger:hover {
+            color: white;
+            background-color: #dc3545;
+        }
 </style>

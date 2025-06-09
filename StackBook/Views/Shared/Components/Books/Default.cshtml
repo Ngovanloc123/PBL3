@@ -24,16 +24,16 @@
                 {
                     <li class="swiper-slide col-4">
                         <a asp-area="Customer" asp-controller="Category" asp-action="BookDetail"
-                            asp-route-bookId="@bookRating?.Book.BookId"
-                            class="text-decoration-none text-black d-flex gap-4 h-100">
+                           asp-route-bookId="@bookRating?.Book.BookId"
+                           class="text-decoration-none text-black d-flex gap-4 h-100">
 
                             <div class="slider-image postion-relative col-5">
                                 <img src="@bookRating?.Book.ImageURL" alt="@bookRating?.Book.BookTitle"
-                                    class="w-100 h-100 object-fit-cover" />
+                                     class="w-100 h-100 object-fit-cover" />
                             </div>
 
                             <div class="col-6">
-                                <div class="d-flex flex-column h-100 justify-content-between pt-4">
+                                <div class="d-flex flex-column h-100 pt-4">
                                     <h3 class="book-slide-title fw-semibold">@bookRating?.Book.BookTitle</h3>
 
                                     <div class="book-rating text-warning mb-1">
@@ -98,6 +98,12 @@
     .swiper-slide {
         height: auto;
     } *@
+    .book-slide-title {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
 
     .swiper-button-prev,
     .swiper-button-next {
@@ -125,10 +131,10 @@
         right: 10px;
     }
 
-    .swiper-button-prev::after,
-    .swiper-button-next::after {
-        display: none;
-    }
+        .swiper-button-prev::after,
+        .swiper-button-next::after {
+            display: none;
+        }
 </style>
 @* 
 <script>

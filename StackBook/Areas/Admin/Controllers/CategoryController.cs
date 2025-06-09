@@ -34,14 +34,10 @@ namespace StackBook.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Category obj)
         {
-            if (ModelState.IsValid)
-            {
-                await _unitOfWork.Category.AddAsync(obj);
-                await _unitOfWork.SaveAsync();
-                TempData["success"] = "Category created successfully";
-                return RedirectToAction("Index");
-            }
-            return View();
+            await _unitOfWork.Category.AddAsync(obj);
+            await _unitOfWork.SaveAsync();
+            TempData["success"] = "Category created successfully";
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Edit(Guid? CategoryId)

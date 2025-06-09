@@ -70,7 +70,6 @@ namespace StackBook.Areas.Customer.Controllers
             }
         }
 
-        //[HttpPost]
         public async Task<IActionResult> Checkout(List<SelectedBookVM> selectedBookVMs)
         {
             List<SelectedBookVM> selected;
@@ -126,15 +125,18 @@ namespace StackBook.Areas.Customer.Controllers
 
             // Parse session thành CheckoutRequest
             var checkoutRequest = JsonConvert.DeserializeObject<CheckoutRequest>(sessionData);
+
+            var userIdGuid = Guid.Parse(userId);
+            var address = await _UnitOfWork.ShippingAddress.GetListAsync(ad => ad.UserId == userIdGuid);
             // Lấy lại user cùng với address để cập nhật lại address
-            checkoutRequest.User = await _UnitOfWork.User.GetAsync(u => u.UserId == Guid.Parse(userId), "ShippingAddresses");
+
+            // Fix for the problematic line in the Checkout method  
+            checkoutRequest.shippingAddressDefault = address?.FirstOrDefault();
+
+            // Fix for CS0266: Explicitly convert IEnumerable to ICollection  
+            checkoutRequest.User.ShippingAddresses = address.ToList();
 
             return View("Checkout", checkoutRequest);
-            
-
-            // Handle the case where no books are selected
-            //TempData["error"] = "No books selected for checkout.";
-            //return RedirectToAction("Index");
         }
 
 

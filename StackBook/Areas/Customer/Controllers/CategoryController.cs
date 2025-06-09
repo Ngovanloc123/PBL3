@@ -384,6 +384,10 @@ namespace StackBook.Areas.Customer.Controllers
             return View(booksSearch);
         }
 
+        //public async Task<IActionResult> BuyNow(Guid bookId)
+        //{
+
+        //}
 
     }
 }

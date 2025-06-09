@@ -26,9 +26,9 @@
                                 <input type="hidden" name="status" value="@ViewBag.Status" />
                             </form>
                         }
-                        
-                            
-                        
+
+
+
                         else if (order.Status == 4 ) // Delivered
                         {
                             Dictionary<Guid,bool> canReturn = ViewData["OrderStatusChangeTimes"] as Dictionary<Guid, bool>;
@@ -147,7 +147,7 @@
                                                 </a>
                                             </h6>
                                             <p class="mb-0 text-muted">$@item.Book.Price.ToString("0.00") × @item.Quantity</p>
-                                            
+
                                             @{
                                                 Dictionary<Guid, Dictionary<Guid, bool>> orderReviews = ViewData["OrderReviews"] as Dictionary<Guid, Dictionary<Guid, bool>>;
                                                 bool unReviewed = false;
@@ -204,14 +204,14 @@
                                         else
                                         {
                                             canReturnOrder = false;
-                                        } 
+                                        }
                                         if (canReturnOrder)
                                         {
                                             <form asp-action="Return" asp-route-orderId="@order.OrderId" method="post" class="me-2">
                                                 <button type="submit" class="btn btn-outline-warning btn-sm">Return</button>
                                                 <input type="hidden" name="status" value="@ViewBag.Status" />
                                             </form>
-                                        }                           
+                                        }
                                     }
                                 </div>
                                 <div>
@@ -262,163 +262,163 @@
                 </form>
             </div> *@
             <div class="modal-body">
-    <div id="orderInfo" class="order-info-container">
-        <!-- Order info will be inserted here -->
-    </div>
-    <form id="reviewForm" method="post" asp-action="SubmitReview">
-        <input type="hidden" id="OrderId" name="orderId" />
-        <input type="hidden" id="BookId" name="bookId" />
+                <div id="orderInfo" class="order-info-container">
+                    <!-- Order info will be inserted here -->
+                </div>
+                <form id="reviewForm" method="post" asp-action="SubmitReview">
+                    <input type="hidden" id="OrderId" name="orderId" />
+                    <input type="hidden" id="BookId" name="bookId" />
 
-        <div class="rating mb-3 fs-3 text-center rating-stars">
-            <i class="fa-regular fa-star star" data-value="1"></i>
-            <i class="fa-regular fa-star star" data-value="2"></i>
-            <i class="fa-regular fa-star star" data-value="3"></i>
-            <i class="fa-regular fa-star star" data-value="4"></i>
-            <i class="fa-regular fa-star star" data-value="5"></i>
-        </div>
-        <input type="hidden" id="Rating" name="rating">
+                    <div class="rating mb-3 fs-3 text-center rating-stars">
+                        <i class="fa-regular fa-star star" data-value="1"></i>
+                        <i class="fa-regular fa-star star" data-value="2"></i>
+                        <i class="fa-regular fa-star star" data-value="3"></i>
+                        <i class="fa-regular fa-star star" data-value="4"></i>
+                        <i class="fa-regular fa-star star" data-value="5"></i>
+                    </div>
+                    <input type="hidden" id="Rating" name="rating">
 
-        <div class="mb-3">
-            <label for="Comment" class="form-label fw-medium">Review</label>
-            <textarea class="form-control" id="Comment" name="comment" rows="4" placeholder="Share your experience with this product..."></textarea>
-        </div>
+                    <div class="mb-3">
+                        <label for="Comment" class="form-label fw-medium">Review</label>
+                        <textarea class="form-control" id="Comment" name="comment" rows="4" placeholder="Share your experience with this product..."></textarea>
+                    </div>
 
-        <button type="submit" class="btn btn-primary w-100 py-2">Submit Review</button>
-    </form>
-</div>
+                    <button type="submit" class="btn btn-primary w-100 py-2">Submit Review</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
-    const reviewModal = document.getElementById('reviewModal');
-    const ratingInput = document.getElementById('Rating');
-    const orderInfo = document.getElementById('orderInfo');
-    const reviewForm = document.getElementById('reviewForm');
-    const stars = reviewModal?.querySelectorAll('.star');
+    document.addEventListener('DOMContentLoaded', function() {
+        // DOM Elements
+        const reviewModal = document.getElementById('reviewModal');
+        const ratingInput = document.getElementById('Rating');
+        const orderInfo = document.getElementById('orderInfo');
+        const reviewForm = document.getElementById('reviewForm');
+        const stars = reviewModal?.querySelectorAll('.star');
 
-    // Show review modal function
-     window.showReviewModal = function(orderId, bookId, bookTitle, price, quantity, imageUrl) {
-        document.getElementById('OrderId').value = orderId;
-        document.getElementById('BookId').value = bookId;
-        ratingInput.value = '';
-        document.getElementById('Comment').value = '';
+        // Show review modal function
+         window.showReviewModal = function(orderId, bookId, bookTitle, price, quantity, imageUrl) {
+            document.getElementById('OrderId').value = orderId;
+            document.getElementById('BookId').value = bookId;
+            ratingInput.value = '';
+            document.getElementById('Comment').value = '';
 
-        // Reset star icons
-        if (stars) {
-            stars.forEach(star => {
-                star.classList.remove('fa-solid');
-                star.classList.add('fa-regular');
-                star.style.color = '#ddd';
-            });
-        }
+            // Reset star icons
+            if (stars) {
+                stars.forEach(star => {
+                    star.classList.remove('fa-solid');
+                    star.classList.add('fa-regular');
+                    star.style.color = '#ddd';
+                });
+            }
 
-        // Format and display order info
-        const total = (parseFloat(price) * parseInt(quantity)).toFixed(2);
-        orderInfo.innerHTML = `
-        <div class="product-info-wrapper">
-            <div class="product-image-container">
-                <img src="${imageUrl || 'https://via.placeholder.com/100x120'}" 
-                     alt="${bookTitle}" 
-                     class="product-image" 
-                     onerror="this.src='https://via.placeholder.com/100x120'">
-            </div>
-            <div class="product-details">
-                <h6 class="product-title">${bookTitle}</h6>
-                <div class="order-meta">
-                    <span class="price">$${parseFloat(price).toFixed(2)}</span>
-                    <span class="separator">×</span>
-                    <span class="quantity">${quantity}</span>
-                    <span class="separator">|</span>
-                    <span class="order-id">Order #${orderId.substring(0, 8)}</span>
+            // Format and display order info
+            const total = (parseFloat(price) * parseInt(quantity)).toFixed(2);
+            orderInfo.innerHTML = `
+            <div class="product-info-wrapper">
+                <div class="product-image-container">
+                    <img src="${imageUrl || 'https://via.placeholder.com/100x120'}"
+                         alt="${bookTitle}"
+                         class="product-image"
+                         onerror="this.src='https://via.placeholder.com/100x120'">
                 </div>
-                <div class="order-total">Total: $${total}</div>
+                <div class="product-details">
+                    <h6 class="product-title">${bookTitle}</h6>
+                    <div class="order-meta">
+                        <span class="price">$${parseFloat(price).toFixed(2)}</span>
+                        <span class="separator">×</span>
+                        <span class="quantity">${quantity}</span>
+                        <span class="separator">|</span>
+                        <span class="order-id">Order #${orderId.substring(0, 8)}</span>
+                    </div>
+                    <div class="order-total">Total: $${total}</div>
+                </div>
             </div>
-        </div>
-        <hr>
-        <div class="rating-prompt">
-            <medium>How would you rate this product?</small>
-        </div>
-    `;
+            <hr>
+            <div class="rating-prompt">
+                <medium>How would you rate this product?</small>
+            </div>
+        `;
 
 
-        // Show modal
-        if (reviewModal) {
-            new bootstrap.Modal(reviewModal).show();
-        }
-    }; 
-    // Cập nhật hàm showReviewModal để hiển thị thông tin đẹp hơn
+            // Show modal
+            if (reviewModal) {
+                new bootstrap.Modal(reviewModal).show();
+            }
+        };
+        // Cập nhật hàm showReviewModal để hiển thị thông tin đẹp hơn
 
-    // Star rating functionality
-    if (stars && reviewModal) {
-        // Click handler for stars
-        stars.forEach(star => {
-            star.addEventListener('click', function() {
-                const value = this.dataset.value;
-                ratingInput.value = value;
-                
-                updateStars(value);
+        // Star rating functionality
+        if (stars && reviewModal) {
+            // Click handler for stars
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const value = this.dataset.value;
+                    ratingInput.value = value;
+
+                    updateStars(value);
+                });
+
+                // Hover effects
+                star.addEventListener('mouseenter', function() {
+                    const hoverValue = this.dataset.value;
+                    updateStars(hoverValue, true);
+                });
             });
 
-            // Hover effects
-            star.addEventListener('mouseenter', function() {
-                const hoverValue = this.dataset.value;
-                updateStars(hoverValue, true);
+            // Reset stars when mouse leaves rating container
+            reviewModal.querySelector('.rating').addEventListener('mouseleave', function() {
+                const currentRating = ratingInput.value || 0;
+                updateStars(currentRating);
             });
-        });
-
-        // Reset stars when mouse leaves rating container
-        reviewModal.querySelector('.rating').addEventListener('mouseleave', function() {
-            const currentRating = ratingInput.value || 0;
-            updateStars(currentRating);
-        });
-    }
-
-    // Form submission handler
-    if (reviewForm) {
-        reviewForm.addEventListener('submit', function(e) {
-            if (!ratingInput.value) {
-                e.preventDefault();
-                alert('Please select a rating!');
-            }
-        });
-    }
-
-    // Helper function to update star appearance
-    function updateStars(value, isHover = false) {
-        stars.forEach(star => {
-            const starValue = star.dataset.value;
-            if (starValue <= value) {
-                star.classList.remove('fa-regular');
-                star.classList.add('fa-solid');
-                star.style.color = isHover ? '#ffd700' : '#ffc107';
-            } else {
-                star.classList.remove('fa-solid');
-                star.classList.add('fa-regular');
-                star.style.color = '#ddd';
-            }
-        });
-    }
-
-    // Activate tab based on URL hash
-    const hash = window.location.hash;
-    if (hash) {
-        const tabTrigger = document.querySelector(`.nav-tabs button[data-bs-target="${hash}"]`);
-        if (tabTrigger) {
-            new bootstrap.Tab(tabTrigger).show();
         }
-    }
-});
+
+        // Form submission handler
+        if (reviewForm) {
+            reviewForm.addEventListener('submit', function(e) {
+                if (!ratingInput.value) {
+                    e.preventDefault();
+                    alert('Please select a rating!');
+                }
+            });
+        }
+
+        // Helper function to update star appearance
+        function updateStars(value, isHover = false) {
+            stars.forEach(star => {
+                const starValue = star.dataset.value;
+                if (starValue <= value) {
+                    star.classList.remove('fa-regular');
+                    star.classList.add('fa-solid');
+                    star.style.color = isHover ? '#ffd700' : '#ffc107';
+                } else {
+                    star.classList.remove('fa-solid');
+                    star.classList.add('fa-regular');
+                    star.style.color = '#ddd';
+                }
+            });
+        }
+
+        // Activate tab based on URL hash
+        const hash = window.location.hash;
+        if (hash) {
+            const tabTrigger = document.querySelector(`.nav-tabs button[data-bs-target="${hash}"]`);
+            if (tabTrigger) {
+                new bootstrap.Tab(tabTrigger).show();
+            }
+        }
+    });
 </script>
 
 
-    <style>
-        .rating-stars {
-            font-size: 2rem;
-            cursor: pointer;
-        }
+<style>
+    .rating-stars {
+        font-size: 2rem;
+        cursor: pointer;
+    }
 
         /* Màu mặc định cho sao chưa chọn */
         .rating-stars .far {
@@ -438,120 +438,121 @@ document.addEventListener('DOMContentLoaded', function() {
             transition: transform 0.2s;
         }
 
-        .modal-backdrop {
-            opacity: 0.5 !important;
-            background-color: #6c757d !important;
-        }
+    .modal-backdrop {
+        opacity: 0.5 !important;
+        background-color: #6c757d !important;
+    }
 
-        .order-info-container {
-    padding: 0.5rem;
-}
-.order-info-container {
-    max-width: 100%;
-    overflow: hidden;
-}
+    .order-info-container {
+        padding: 0.5rem;
+    }
 
-.product-display {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-}
+    .order-info-container {
+        max-width: 100%;
+        overflow: hidden;
+    }
 
-.product-info-wrapper {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-}
+    .product-display {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
 
-.product-image-container {
-    width: 100px;
-    height: 120px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
+    .product-info-wrapper {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
 
-.product-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
+    .product-image-container {
+        width: 100px;
+        height: 120px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .product-image {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
 
 
 
-.product-details {
-    flex: 1;
-    min-width: 0; /* Quan trọng: fix overflow text */
-}
+    .product-details {
+        flex: 1;
+        min-width: 0; /* Quan trọng: fix overflow text */
+    }
 
-.product-title {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+    .product-title {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
-.order-meta {
-    font-size: 13px;
-    color: #6c757d;
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    align-items: center;
-}
+    .order-meta {
+        font-size: 13px;
+        color: #6c757d;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
 
-.order-total {
-    font-weight: 600;
-    font-size: 14px;
-    margin-top: 5px;
-}
+    .order-total {
+        font-weight: 600;
+        font-size: 14px;
+        margin-top: 5px;
+    }
 
-.rating-prompt {
-    text-align: center;
-    color: #6c757d;
-    font-size: 13px;
-    margin: 10px 0;
-}
+    .rating-prompt {
+        text-align: center;
+        color: #6c757d;
+        font-size: 13px;
+        margin: 10px 0;
+    }
 
-.form-control::placeholder {
-    color: #6c757d;
-    opacity: 1; 
-    font-style: italic; 
-    font-size: 16px;
-}
+    .form-control::placeholder {
+        color: #6c757d;
+        opacity: 1;
+        font-style: italic;
+        font-size: 16px;
+    }
 
-  .badge-pending {
+    .badge-pending {
         background-color: #fff3cd;
         color: #856404;
     }
-    
+
     .badge-shipped {
         background-color: #cce5ff;
         color: #004085;
     }
-    
+
     .badge-delivered {
         background-color: #d4edda;
         color: #155724;
     }
-    
+
     .badge-cancelled {
         background-color: #f8d7da;
         color: #721c24;
     }
-    
+
     .badge-returned {
         background-color: #e2e3e5;
         color: #383d41;
     }
 
-    </style>
-    
+</style>
+
 @functions {
     private string GetStatusText(int status)
     {

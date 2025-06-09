@@ -150,7 +150,7 @@ namespace StackBook.Areas.Customer.Controllers
             {
                 orders = await _orderService.GetOrdersByUserIdAndStatusAsync(Guid.Parse(userIdValue), statusInt);
             }
-                        //Lấy danh sách đơn hàng có status = 4 và trong đó các orderDetails có đánh giá hay chưa
+            //Lấy danh sách đơn hàng có status = 4 và trong đó các orderDetails có đánh giá hay chưa
             Dictionary<Guid, Dictionary<Guid, bool>> orderReviews = new Dictionary<Guid, Dictionary<Guid, bool>>();
             foreach (var order in orders)
             {
@@ -205,7 +205,7 @@ namespace StackBook.Areas.Customer.Controllers
                 {
                     hasOrderReturn[order.OrderId] = false; // Không có lịch sử cập nhật trạng thái 4
                 }
-            }                                                                                                                                                                                                                              
+            }
             ViewData["OrderStatusChangeTimes"] = hasOrderReturn;
             return View(orders);
         }
@@ -338,7 +338,7 @@ namespace StackBook.Areas.Customer.Controllers
                 Console.WriteLine($"Checking for existing review for UserId: {userId}, BookId: {bookId}, OrderId: {orderId}");
                 var existingReview = await _reviewService.GetReviewByUserIdBookIdOrderIdAsync(userId, bookId, orderId);
                 if (!existingReview)
-                { 
+                {
                     Console.WriteLine($"Existing Review found for UserId: {userId}, BookId: {bookId}, OrderId: {orderId}");
                     return View("Error", new ErrorViewModel { ErrorMessage = "Existing Review for book in order", StatusCode = 404 });
                 }

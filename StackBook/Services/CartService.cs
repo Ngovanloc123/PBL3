@@ -144,7 +144,6 @@ namespace StackBook.Services
             {
                 var cart = await _unitOfWork.Cart.GetAsync(c => c.UserId == userId, "CartDetails.Book.Authors");
                 
-                // var cart = await _cartRepository.GetByUserIdAsync(userId);
                 if (cart == null)
                 {
                     cart = new Cart

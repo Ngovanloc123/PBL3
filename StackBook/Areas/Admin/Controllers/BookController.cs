@@ -114,7 +114,7 @@ namespace StackBook.Areas.Admin.Controllers
             {
                 if (user.Role == false)
                 {
-                    await _notificationService.SendNotificationAsync(user.UserId, $"Book Name: {book.BookTitle} - https://localhost:7170/Customer/Category/BookDetail?bookId={book.BookId}");
+                    await _notificationService.SendNotificationAsync(user.UserId, $"New Book Name: {book.BookTitle} - https://localhost:7170/Customer/Category/BookDetail?bookId={book.BookId}");
                 }
             }
             TempData["success"] = "Book created successfully.";

@@ -40,6 +40,8 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IShippingAddressService, ShippingAddressService>();
+//builder.Services.AddScoped<IVnPayService, VnPayService>();
+
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
@@ -115,9 +117,8 @@ builder.Services.AddSingleton<CloudinaryUtils>();
 
 
 builder.Services.AddHttpContextAccessor();
-
-
-
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IVnpayService, VnpayService>();
 
 var app = builder.Build();
 

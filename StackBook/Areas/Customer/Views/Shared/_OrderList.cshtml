@@ -1,7 +1,7 @@
 @model List<StackBook.Models.Order>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 
-<div class="container mt-4">
+@* <div class="container mt-4">
 
     <div class="tab-content" id="orderTabsContent">
         <!-- All Orders Tab -->
@@ -26,19 +26,28 @@
                                 <input type="hidden" name="status" value="@ViewBag.Status" />
                             </form>
                         }
-                        else if (order.Status == 4) // Delivered
+
+
+
+                        else if (order.Status == 4 ) // Delivered
                         {
-                            <form asp-action="Return" asp-route-orderId="@order.OrderId" method="post">
-                                <button type="submit" class="btn btn-outline-warning">Return</button>
-                                <input type="hidden" name="status" value="@ViewBag.Status" />
-                            </form>
-                            @* @foreach (var item in order.OrderDetails)
-                                {
-                                    <button type="button" class="btn btn-outline-primary btn-sm mt-1" 
-                                            onclick="showReviewModal('@order.OrderId', '@item.Book.BookId', '@item.Book.BookTitle', '@item.Book.Price', '@item.Quantity')">
-                                        Add Review
-                                    </button>
-                                } *@
+                            Dictionary<Guid,bool> canReturn = ViewData["OrderStatusChangeTimes"] as Dictionary<Guid, bool>;
+                            bool canReturnOrder = false;
+                            if (canReturn != null && canReturn.ContainsKey(order.OrderId))
+                            {
+                                canReturnOrder = canReturn[order.OrderId];
+                            }
+                            else
+                            {
+                                canReturnOrder = false;
+                            } 
+                            if (canReturnOrder)
+                            {
+                                <form asp-action="Return" asp-route-orderId="@order.OrderId" method="post">
+                                    <button type="submit" class="btn btn-outline-warning">Return</button>
+                                    <input type="hidden" name="status" value="@ViewBag.Status" />
+                                </form>
+                            }                           
                         }
 
                     </div>
@@ -48,7 +57,7 @@
                         {
                             <div class="d-flex align-items-center mb-3">
                                 <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@item.Book.BookId">
-                                    <img src="@item.Book.ImageURL" class="img-thumbnail me-3" alt="Book" width="80">
+                                    <img src="@item.Book.ImageURL" class=" me-3" alt="Book" width="80">
                                 </a>
                                 <div class="flex-grow-1">
                                     <h6 class="mb-1">
@@ -78,7 +87,7 @@
                             if (order.Status == 4 && unReviewed) // Only show "Add Review" button if order is delivered and not reviewed
                             {
                                 <button type="button" class="btn btn-outline-primary btn-sm mt-1"
-                                    onclick="showReviewModal('@order.OrderId', '@item.Book.BookId', '@item.Book.BookTitle', '@item.Book.Price', '@item.Quantity')">
+                                    onclick="showReviewModal('@order.OrderId', '@item.Book.BookId', '@item.Book.BookTitle', '@item.Book.Price', '@item.Quantity', '@item.Book.ImageURL')">
                                     Add Review
                                 </button>
                             }
@@ -98,17 +107,134 @@
         }
     </div>
 
+</div> *@
+<div class="container mt-4">
+    <div class="tab-content" id="orderTabsContent">
+        <!-- All Orders Tab -->
+        <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info">You don't have any orders yet.</div>
+            }
+            else
+            {
+                @foreach (var order in Model)
+                {
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-white border-bottom-0 d-flex justify-content-between align-items-center p-3">
+                            <div class="d-flex align-items-center">
+                                <span class="badge bg-light text-dark rounded-pill me-2">Order #@order.OrderId.ToString().Substring(0, 8)</span>
+                                <span class="badge @GetStatusBadgeClass(order.Status) rounded-pill">
+                                    @GetStatusText(order.Status)
+                                </span>
+                            </div>
+                            <small class="text-muted">@order.CreatedAt.ToString("dd/MM/yyyy - HH:mm")</small>
+                        </div>
+
+                        <div class="card-body p-0">
+                            @foreach (var item in order.OrderDetails)
+                            {
+                                <div class="p-3 border-bottom">
+                                    <div class="d-flex align-items-center">
+                                        <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@item.Book.BookId">
+                                            <img src="@item.Book.ImageURL" class="me-3 rounded" alt="Book" width="80">
+                                        </a>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">
+                                                <a asp-controller="Category" asp-action="BookDetail"
+                                                   asp-route-bookId="@item.Book.BookId" class="text-decoration-none text-dark">
+                                                    @item.Book.BookTitle
+                                                </a>
+                                            </h6>
+                                            <p class="mb-0 text-muted">$@item.Book.Price.ToString("0.00") × @item.Quantity</p>
+
+                                            @{
+                                                Dictionary<Guid, Dictionary<Guid, bool>> orderReviews = ViewData["OrderReviews"] as Dictionary<Guid, Dictionary<Guid, bool>>;
+                                                bool unReviewed = false;
+                                                if (orderReviews != null && orderReviews.ContainsKey(order.OrderId) && orderReviews[order.OrderId].ContainsKey(item.Book.BookId))
+                                                {
+                                                    unReviewed = orderReviews[order.OrderId][item.Book.BookId];
+                                                    if (!unReviewed)
+                                                    {
+                                                        <span class="badge bg-success mt-2">Reviewed</span>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    unReviewed = true;
+                                                }
+
+                                                if (order.Status == 4 && unReviewed)
+                                                {
+                                                    <button type="button" class="btn btn-outline-primary btn-sm mt-2"
+                                                            onclick="showReviewModal('@order.OrderId', '@item.Book.BookId', '@item.Book.BookTitle', '@item.Book.Price', '@item.Quantity', '@item.Book.ImageURL')">
+                                                        Add Review
+                                                    </button>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="p-3 d-flex justify-content-between align-items-center border-top">
+                                <div class="d-flex">
+                                    @if (order.Status == 1) // Pending
+                                    {
+                                        <form asp-action="Cancel" asp-route-orderId="@order.OrderId" method="post" class="me-2">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">Cancel</button>
+                                            <input type="hidden" name="status" value="@ViewBag.Status" />
+                                        </form>
+                                    }
+                                    else if (order.Status == 2) // Shipped
+                                    {
+                                        <form asp-action="Received" asp-route-orderId="@order.OrderId" method="post" class="me-2">
+                                            <button type="submit" class="btn btn-outline-success btn-sm">Received</button>
+                                            <input type="hidden" name="status" value="@ViewBag.Status" />
+                                        </form>
+                                    }
+                                    else if (order.Status == 4) // Delivered
+                                    {
+                                        Dictionary<Guid, bool> canReturn = ViewData["OrderStatusChangeTimes"] as Dictionary<Guid, bool>;
+                                        bool canReturnOrder = false;
+                                        if (canReturn != null && canReturn.ContainsKey(order.OrderId))
+                                        {
+                                            canReturnOrder = canReturn[order.OrderId];
+                                        }
+                                        else
+                                        {
+                                            canReturnOrder = false;
+                                        }
+                                        if (canReturnOrder)
+                                        {
+                                            <form asp-action="Return" asp-route-orderId="@order.OrderId" method="post" class="me-2">
+                                                <button type="submit" class="btn btn-outline-warning btn-sm">Return</button>
+                                                <input type="hidden" name="status" value="@ViewBag.Status" />
+                                            </form>
+                                        }
+                                    }
+                                </div>
+                                <div>
+                                    <strong>Total: $@order.TotalPrice.ToString("0.00")</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
 </div>
 
 <!-- Review Modal -->
-<div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="reviewModal" style="background-color: #80808040;" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="border-radius: 10px;">
             <div class="modal-header">
                 <h5 class="modal-title">Add a Review for</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            @* <div class="modal-body">
                 <div id="orderInfo">
                     <!-- Order info will be inserted here -->
                 </div>
@@ -134,120 +260,165 @@
 
                     <button type="submit" class="btn btn-primary">Submit Review</button>
                 </form>
+            </div> *@
+            <div class="modal-body">
+                <div id="orderInfo" class="order-info-container">
+                    <!-- Order info will be inserted here -->
+                </div>
+                <form id="reviewForm" method="post" asp-action="SubmitReview">
+                    <input type="hidden" id="OrderId" name="orderId" />
+                    <input type="hidden" id="BookId" name="bookId" />
+
+                    <div class="rating mb-3 fs-3 text-center rating-stars">
+                        <i class="fa-regular fa-star star" data-value="1"></i>
+                        <i class="fa-regular fa-star star" data-value="2"></i>
+                        <i class="fa-regular fa-star star" data-value="3"></i>
+                        <i class="fa-regular fa-star star" data-value="4"></i>
+                        <i class="fa-regular fa-star star" data-value="5"></i>
+                    </div>
+                    <input type="hidden" id="Rating" name="rating">
+
+                    <div class="mb-3">
+                        <label for="Comment" class="form-label fw-medium">Review</label>
+                        <textarea class="form-control" id="Comment" name="comment" rows="4" placeholder="Share your experience with this product..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2">Submit Review</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
-    const reviewModal = document.getElementById('reviewModal');
-    const ratingInput = document.getElementById('Rating');
-    const orderInfo = document.getElementById('orderInfo');
-    const reviewForm = document.getElementById('reviewForm');
-    const stars = reviewModal?.querySelectorAll('.star');
+    document.addEventListener('DOMContentLoaded', function() {
+        // DOM Elements
+        const reviewModal = document.getElementById('reviewModal');
+        const ratingInput = document.getElementById('Rating');
+        const orderInfo = document.getElementById('orderInfo');
+        const reviewForm = document.getElementById('reviewForm');
+        const stars = reviewModal?.querySelectorAll('.star');
 
-    // Show review modal function
-    window.showReviewModal = function(orderId, bookId, bookTitle, price, quantity) {
-        document.getElementById('OrderId').value = orderId;
-        document.getElementById('BookId').value = bookId;
-        ratingInput.value = '';
-        document.getElementById('Comment').value = '';
+        // Show review modal function
+         window.showReviewModal = function(orderId, bookId, bookTitle, price, quantity, imageUrl) {
+            document.getElementById('OrderId').value = orderId;
+            document.getElementById('BookId').value = bookId;
+            ratingInput.value = '';
+            document.getElementById('Comment').value = '';
 
-        // Reset star icons
-        if (stars) {
-            stars.forEach(star => {
-                star.classList.remove('fa-solid');
-                star.classList.add('fa-regular');
-                star.style.color = '#ddd';
-            });
-        }
+            // Reset star icons
+            if (stars) {
+                stars.forEach(star => {
+                    star.classList.remove('fa-solid');
+                    star.classList.add('fa-regular');
+                    star.style.color = '#ddd';
+                });
+            }
 
-        // Format and display order info
-        const total = (parseFloat(price) * parseInt(quantity)).toFixed(2);
-        orderInfo.innerHTML = `
-            <p>Order #${orderId.substring(0, 8)}</p>
-            <p>${bookTitle}</p>
-            <p>$${parseFloat(price).toFixed(2)} x ${quantity}</p>
-            <p><strong>Total: $${total}</strong></p>
+            // Format and display order info
+            const total = (parseFloat(price) * parseInt(quantity)).toFixed(2);
+            orderInfo.innerHTML = `
+            <div class="product-info-wrapper">
+                <div class="product-image-container">
+                    <img src="${imageUrl || 'https://via.placeholder.com/100x120'}"
+                         alt="${bookTitle}"
+                         class="product-image"
+                         onerror="this.src='https://via.placeholder.com/100x120'">
+                </div>
+                <div class="product-details">
+                    <h6 class="product-title">${bookTitle}</h6>
+                    <div class="order-meta">
+                        <span class="price">$${parseFloat(price).toFixed(2)}</span>
+                        <span class="separator">×</span>
+                        <span class="quantity">${quantity}</span>
+                        <span class="separator">|</span>
+                        <span class="order-id">Order #${orderId.substring(0, 8)}</span>
+                    </div>
+                    <div class="order-total">Total: $${total}</div>
+                </div>
+            </div>
+            <hr>
+            <div class="rating-prompt">
+                <medium>How would you rate this product?</small>
+            </div>
         `;
 
-        // Show modal
-        if (reviewModal) {
-            new bootstrap.Modal(reviewModal).show();
-        }
-    };
 
-    // Star rating functionality
-    if (stars && reviewModal) {
-        // Click handler for stars
-        stars.forEach(star => {
-            star.addEventListener('click', function() {
-                const value = this.dataset.value;
-                ratingInput.value = value;
-                
-                updateStars(value);
+            // Show modal
+            if (reviewModal) {
+                new bootstrap.Modal(reviewModal).show();
+            }
+        };
+        // Cập nhật hàm showReviewModal để hiển thị thông tin đẹp hơn
+
+        // Star rating functionality
+        if (stars && reviewModal) {
+            // Click handler for stars
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const value = this.dataset.value;
+                    ratingInput.value = value;
+
+                    updateStars(value);
+                });
+
+                // Hover effects
+                star.addEventListener('mouseenter', function() {
+                    const hoverValue = this.dataset.value;
+                    updateStars(hoverValue, true);
+                });
             });
 
-            // Hover effects
-            star.addEventListener('mouseenter', function() {
-                const hoverValue = this.dataset.value;
-                updateStars(hoverValue, true);
+            // Reset stars when mouse leaves rating container
+            reviewModal.querySelector('.rating').addEventListener('mouseleave', function() {
+                const currentRating = ratingInput.value || 0;
+                updateStars(currentRating);
             });
-        });
-
-        // Reset stars when mouse leaves rating container
-        reviewModal.querySelector('.rating').addEventListener('mouseleave', function() {
-            const currentRating = ratingInput.value || 0;
-            updateStars(currentRating);
-        });
-    }
-
-    // Form submission handler
-    if (reviewForm) {
-        reviewForm.addEventListener('submit', function(e) {
-            if (!ratingInput.value) {
-                e.preventDefault();
-                alert('Please select a rating!');
-            }
-        });
-    }
-
-    // Helper function to update star appearance
-    function updateStars(value, isHover = false) {
-        stars.forEach(star => {
-            const starValue = star.dataset.value;
-            if (starValue <= value) {
-                star.classList.remove('fa-regular');
-                star.classList.add('fa-solid');
-                star.style.color = isHover ? '#ffd700' : '#ffc107';
-            } else {
-                star.classList.remove('fa-solid');
-                star.classList.add('fa-regular');
-                star.style.color = '#ddd';
-            }
-        });
-    }
-
-    // Activate tab based on URL hash
-    const hash = window.location.hash;
-    if (hash) {
-        const tabTrigger = document.querySelector(`.nav-tabs button[data-bs-target="${hash}"]`);
-        if (tabTrigger) {
-            new bootstrap.Tab(tabTrigger).show();
         }
-    }
-});
+
+        // Form submission handler
+        if (reviewForm) {
+            reviewForm.addEventListener('submit', function(e) {
+                if (!ratingInput.value) {
+                    e.preventDefault();
+                    alert('Please select a rating!');
+                }
+            });
+        }
+
+        // Helper function to update star appearance
+        function updateStars(value, isHover = false) {
+            stars.forEach(star => {
+                const starValue = star.dataset.value;
+                if (starValue <= value) {
+                    star.classList.remove('fa-regular');
+                    star.classList.add('fa-solid');
+                    star.style.color = isHover ? '#ffd700' : '#ffc107';
+                } else {
+                    star.classList.remove('fa-solid');
+                    star.classList.add('fa-regular');
+                    star.style.color = '#ddd';
+                }
+            });
+        }
+
+        // Activate tab based on URL hash
+        const hash = window.location.hash;
+        if (hash) {
+            const tabTrigger = document.querySelector(`.nav-tabs button[data-bs-target="${hash}"]`);
+            if (tabTrigger) {
+                new bootstrap.Tab(tabTrigger).show();
+            }
+        }
+    });
 </script>
 
 
-@section Styles {
-    <style>
-        .rating-stars {
-            font-size: 2rem;
-            cursor: pointer;
-        }
+<style>
+    .rating-stars {
+        font-size: 2rem;
+        cursor: pointer;
+    }
 
         /* Màu mặc định cho sao chưa chọn */
         .rating-stars .far {
@@ -267,9 +438,145 @@ document.addEventListener('DOMContentLoaded', function() {
             transition: transform 0.2s;
         }
 
-        .modal-backdrop {
-            opacity: 0.5 !important;
-            background-color: #6c757d !important;
-        }
-    </style>
+    .modal-backdrop {
+        opacity: 0.5 !important;
+        background-color: #6c757d !important;
+    }
+
+    .order-info-container {
+        padding: 0.5rem;
+    }
+
+    .order-info-container {
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .product-display {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .product-info-wrapper {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    .product-image-container {
+        width: 100px;
+        height: 120px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .product-image {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+
+
+    .product-details {
+        flex: 1;
+        min-width: 0; /* Quan trọng: fix overflow text */
+    }
+
+    .product-title {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .order-meta {
+        font-size: 13px;
+        color: #6c757d;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .order-total {
+        font-weight: 600;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .rating-prompt {
+        text-align: center;
+        color: #6c757d;
+        font-size: 13px;
+        margin: 10px 0;
+    }
+
+    .form-control::placeholder {
+        color: #6c757d;
+        opacity: 1;
+        font-style: italic;
+        font-size: 16px;
+    }
+
+    .badge-pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .badge-shipped {
+        background-color: #cce5ff;
+        color: #004085;
+    }
+
+    .badge-delivered {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .badge-cancelled {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .badge-returned {
+        background-color: #e2e3e5;
+        color: #383d41;
+    }
+
+</style>
+
+@functions {
+    private string GetStatusText(int status)
+    {
+        return status switch
+        {
+            1 => "Pending",
+            2 => "Shipped",
+            3 => "Cancelled",
+            4 => "Delivered",
+            5 => "Returned",
+            _ => "Unknown"
+        };
+    }
+
+    private string GetStatusBadgeClass(int status)
+    {
+        return status switch
+        {
+            1 => "badge-pending",
+            2 => "badge-shipped",
+            3 => "badge-cancelled",
+            4 => "badge-delivered",
+            5 => "badge-returned",
+            _ => "badge-secondary"
+        };
+    }
 }

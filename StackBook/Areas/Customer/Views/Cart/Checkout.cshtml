@@ -1,4 +1,4 @@
-@model StackBook.ViewModels.CheckoutRequest
+﻿@model StackBook.ViewModels.CheckoutRequest
 
 @{
     ViewData["Title"] = "Checkout";
@@ -150,53 +150,27 @@
                             </label>
                         </div>
 
-                        <!-- VNPay Section (Hidden by default) -->
-                        <div id="vnpaySection" class="mt-3" style="display: none;">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <img src="https://vnpay.vn/s1/statics.vnpay.vn/2023/9/06ncktiwd6dc1694418196384.png" alt="VNPay" class="mb-3" style="height: 40px;">
-                                    <p class="mb-3">Select your bank:</p>
-                                    <div class="row g-2">
-                                        <div class="col-4">
-                                            <button type="button" class="btn btn-outline-secondary w-100 bank-btn" data-bank="VIETCOMBANK">
-                                                <img src="https://api.vietqr.io/img/VIETCOMBANK.png" alt="Vietcombank" class="bank-logo">
-                                                <small class="d-block">Vietcombank</small>
-                                            </button>
-                                        </div>
-                                        <div class="col-4">
-                                            <button type="button" class="btn btn-outline-secondary w-100 bank-btn" data-bank="TECHCOMBANK">
-                                                <img src="https://api.vietqr.io/img/TECHCOMBANK.png" alt="Techcombank" class="bank-logo">
-                                                <small class="d-block">Techcombank</small>
-                                            </button>
-                                        </div>
-                                        <div class="col-4">
-                                            <button type="button" class="btn btn-outline-secondary w-100 bank-btn" data-bank="BIDV">
-                                                <img src="https://api.vietqr.io/img/BIDV.png" alt="BIDV" class="bank-logo">
-                                                <small class="d-block">BIDV</small>
-                                            </button>
-                                        </div>
-                                        <div class="col-4">
-                                            <button type="button" class="btn btn-outline-secondary w-100 bank-btn" data-bank="AGRIBANK">
-                                                <img src="https://api.vietqr.io/img/AGRIBANK.png" alt="Agribank" class="bank-logo">
-                                                <small class="d-block">Agribank</small>
-                                            </button>
-                                        </div>
-                                        <div class="col-4">
-                                            <button type="button" class="btn btn-outline-secondary w-100 bank-btn" data-bank="SACOMBANK">
-                                                <img src="https://api.vietqr.io/img/SACOMBANK.png" alt="Sacombank" class="bank-logo">
-                                                <small class="d-block">Sacombank</small>
-                                            </button>
-                                        </div>
-                                        <div class="col-4">
-                                            <button type="button" class="btn btn-outline-secondary w-100 bank-btn" data-bank="ACB">
-                                                <img src="https://api.vietqr.io/img/ACB.png" alt="ACB" class="bank-logo">
-                                                <small class="d-block">ACB</small>
-                                            </button>
-                                        </div>
-                                    </div>
+                        <div id="vnpaySection" class="mt-4" style="display: none;">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-body text-start">
+                                    <form method="post" asp-controller="Payment" asp-action="CreateOrder">
+                                        <!-- hidden inputs để truyền PaymentInformationModel -->
+                                        <input type="hidden" name="amount" value="100" />
+                                        <input type="hidden" name="orderInfo" value="Thanh toan don hang StackBook" />
+                                        @* <input type="hidden" name="OrderType" value="other" /> <!-- THÊM --> *@
+                                        @* <input type="hidden" name="Name" value="Nguyen Van A" /> *@
+
+                                        <button type="submit" class="btn btn-light border rounded-2 px-4 py-2">
+                                            <img src="https://vnpay.vn/s1/statics.vnpay.vn/2023/9/06ncktiwd6dc1694418196384.png"
+                                                 alt="VNPay Logo"
+                                                 style="height: 40px;">
+                                        </button>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -216,23 +190,8 @@
                     <button type="submit" class="btn btn-success btn-lg w-100">Place Order</button>
                 </form>
 
-                <!-- VNPay Payment Form -->
-                <form id="vnpayForm" method="post" asp-action="ProcessVNPayPayment" style="display: none;">
-                    <!-- Hidden inputs for selected books -->
-                    @for (int i = 0; i < Model.SelectedBooks.Count; i++)
-                    {
-                        <input type="hidden" name="SelectedBooks[@i].Book.BookId" value="@Model.SelectedBooks[i].Book.BookId" />
-                        <input type="hidden" name="SelectedBooks[@i].Quantity" value="@Model.SelectedBooks[i].Quantity" />
-                    }
-                    <input type="hidden" name="User.UserId" value="@Model.User?.UserId" />
-                    <input type="hidden" name="shippingAddressDefault.ShippingAddressId" value="@defaultAddress?.ShippingAddressId" />
-                    <input type="hidden" name="PaymentMethod" value="CreditCard" />
-                    <input type="hidden" name="BankCode" id="selectedBankCode" value="" />
-                    <input type="hidden" name="DiscountId" id="vnpayDiscountId" value="" />
-                    <button type="submit" class="btn btn-primary btn-lg w-100" disabled id="vnpaySubmitBtn">
-                        <i class="bi bi-credit-card me-2"></i>Pay with VNPay
-                    </button>
-                </form>
+                
+
             </div>
         </div>
     }

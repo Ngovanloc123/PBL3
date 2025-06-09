@@ -25,14 +25,18 @@ body {
     /* margin-bottom: 60px; */
 }
 
+.container p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
 /*=========== ACTIVE NAVBAR ==========*/
 .btn-nav {
     color: #1c6ec2 !important;
 }
 
-.btn-nav:hover {
-    color: #c6cfcc !important;
-}
+    .btn-nav:hover {
+        color: #c6cfcc !important;
+    }
 
 /* ========== ICON FOOTER ==========*/
 footer a .bi-facebook {
@@ -83,69 +87,70 @@ footer .icon-footer {
     list-style: none;
 }
 
-.card-list .card-item .headline {
-    padding: 16px 16px;
-}
+    .card-list .card-item .headline {
+        padding: 16px 16px;
+    }
 
-.card-list .card-item .content {
-    margin-top: 66px;
-}
+    .card-list .card-item .content {
+        margin-top: 66px;
+    }
 
-.card-list .card-item .content h3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;  
-    overflow: hidden;
-}
+        .card-list .card-item .content h3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
 
-.card-list .card-item .card-link {
-    text-decoration: none;
-    user-select: none;
-    display: block;
-    background: #9747FF;
-    border-radius: 12px;
-    min-height: 300px;
-    overflow: hidden;
-}
+    .card-list .card-item .card-link {
+        text-decoration: none;
+        user-select: none;
+        display: block;
+        background: #9747FF;
+        border-radius: 12px;
+        min-height: 300px;
+        overflow: hidden;
+    }
 
-.card-list .card-item .content button {
-    font-size: 16px;
-    padding: 12px 20px;
-    border-radius: 8px;
-    background-color: #fff;
-    outline: none!important;
-    border: none!important;
-}
-.card-list .card-item .content .author,
-.card-list .card-item .content .category,
-.card-list .card-item .content .price {
-    font-size: 14px;
-}
+    .card-list .card-item .content button {
+        font-size: 16px;
+        padding: 12px 20px;
+        border-radius: 8px;
+        background-color: #fff;
+        outline: none !important;
+        border: none !important;
+    }
+
+    .card-list .card-item .content .author,
+    .card-list .card-item .content .category,
+    .card-list .card-item .content .price {
+        font-size: 14px;
+    }
 
 /*================= BOOK LIST =============*/
 .container-books {
     position: relative;
 }
 
-.container-books .card-button {
-    position: absolute;
-    top: 50%;
-    height: 50px;
-    width: 50px;
-    color: #808080;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    font-size: 2.2rem;
-    cursor: pointer;
-    border-radius: 50%;
-    transform: translateY(-50%);
-    transition: .3s ease;
-}
+    .container-books .card-button {
+        position: absolute;
+        top: 50%;
+        height: 50px;
+        width: 50px;
+        color: #808080;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        font-size: 2.2rem;
+        cursor: pointer;
+        border-radius: 50%;
+        transform: translateY(-50%);
+        transition: .3s ease;
+    }
 
-.container-books .card-button:hover {
-    background: #ffe4b3;
-}
+        .container-books .card-button:hover {
+            background: #ffe4b3;
+        }
 
 .card-button#prev-card {
     /*    left: -20px;*/
@@ -163,10 +168,10 @@ footer .icon-footer {
 }
 
 
-.book-list::-webkit-scrollbar {
-    display: none;
-    scroll-behavior: smooth;
-}
+    .book-list::-webkit-scrollbar {
+        display: none;
+        scroll-behavior: smooth;
+    }
 
 .book-card {
     flex: 0 0 auto;
@@ -270,9 +275,9 @@ footer .icon-footer {
     border-bottom: 1px solid #eee;
 }
 
-.notification-dropdown .notification-item.unread {
-    background-color: #f8f9fa;
-}
+    .notification-dropdown .notification-item.unread {
+        background-color: #f8f9fa;
+    }
 
 .notification-dropdown .notification-message {
     font-size: 14px;
@@ -328,9 +333,9 @@ footer .icon-footer {
     position: relative;
 }
 
-.notification-item:hover {
-    background-color: #f5f6f7;
-}
+    .notification-item:hover {
+        background-color: #f5f6f7;
+    }
 
 .notification-avatar {
     width: 40px;
@@ -355,10 +360,10 @@ footer .icon-footer {
     color: #050505;
 }
 
-.notification-message strong {
-    font-weight: 600;
-    color: #050505;
-}
+    .notification-message strong {
+        font-weight: 600;
+        color: #050505;
+    }
 
 .notification-time {
     font-size: 13px;
@@ -372,23 +377,23 @@ footer .icon-footer {
     top: 16px;
 }
 
-.notification-actions .btn-mark-read {
-    background: none;
-    border: none;
-    color: #65676b;
-    cursor: pointer;
-    padding: 5px;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    .notification-actions .btn-mark-read {
+        background: none;
+        border: none;
+        color: #65676b;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.notification-actions .btn-mark-read:hover {
-    background-color: #e4e6eb;
-}
+        .notification-actions .btn-mark-read:hover {
+            background-color: #e4e6eb;
+        }
 
 .notification-footer {
     padding: 12px 16px;
@@ -396,11 +401,11 @@ footer .icon-footer {
     border-top: 1px solid #e4e6eb;
 }
 
-.notification-footer a {
-    color: #1877f2;
-    font-weight: 600;
-    text-decoration: none;
-}
+    .notification-footer a {
+        color: #1877f2;
+        font-weight: 600;
+        text-decoration: none;
+    }
 
 /* Badge cho số thông báo chưa đọc */
 .notification-badge {

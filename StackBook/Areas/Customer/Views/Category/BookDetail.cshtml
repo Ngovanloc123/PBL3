@@ -22,11 +22,11 @@
                     <img src="@Model.ImageURL" class="card-img-top rounded-2 position-absolute w-100 h-100 top-0 left-0 object-fit-cover" alt="@Model.BookTitle" />
                 </div>
                 @* <img class="card-img-top rounded-2 mb-3" src="@Model.ImageURL" alt="@Model.BookTitle" /> *@
-                
+
                 <!-- Stock and Quantity -->
                 <form class="w-100 mt-5" asp-action="AddToCart" asp-controller="Cart" method="post">
                     <input type="hidden" name="bookId" value="@Model.BookId" />
-                    
+
                     <div>
                         <h6 class="@((Model.Stock > 0) ? "text-success" : "text-danger") mb-3">
                             @((Model.Stock > 0) ? "In Stock" : "Out of Stock")
@@ -43,10 +43,10 @@
                                 <button type="submit" class="btn btn-primary rounded-2 py-2 text-uppercase fw-bold">
                                     <i class="fa-solid fa-cart-shopping"></i> Add to Cart
                                 </button>
-                                <a asp-controller="Order" asp-action="BuyNow" asp-route-bookId="@Model.BookId" 
-                                   class="btn btn-dark rounded-2 py-2 text-uppercase fw-bold">
-                                    <i class="bi bi-bag-check"></i> Buy Now
-                                </a>
+                                @* <a asp-controller="Order" asp-action="BuyNow" asp-route-bookId="@Model.BookId" *@
+                                @*    class="btn btn-dark rounded-2 py-2 text-uppercase fw-bold"> *@
+                                @*     <i class="bi bi-bag-check"></i> Buy Now *@
+                                @* </a> *@
                             </div>
                         }
                     </div>
@@ -62,7 +62,7 @@
                 <p class="text-muted mb-3">
                     <span class="fw-medium">by</span> @string.Join(", ", @Model.Authors.Select(a => a.AuthorName))
                 </p>
-                
+
                 <!-- Rating -->
                 <div class="d-flex align-items-center mb-3">
                     <span class="me-1 fw-semibold">@ViewData["AverageRatingBook"]</span>
@@ -74,15 +74,18 @@
                     }
 
                     <span class="text-warning me-2">
-                        @for (int i = 0; i < fullStars; i++) {
+                        @for (int i = 0; i < fullStars; i++)
+                        {
                             <i class="fas fa-star"></i> <!-- Full star -->
                         }
-                        
-                        @if (hasHalfStar) {
+
+                        @if (hasHalfStar)
+                        {
                             <i class="fas fa-star-half-alt"></i> <!-- Half star -->
                         }
-                        
-                        @for (int i = 0; i < 5 - fullStars - (hasHalfStar ? 1 : 0); i++) {
+
+                        @for (int i = 0; i < 5 - fullStars - (hasHalfStar ? 1 : 0); i++)
+                        {
                             <i class="far fa-star"></i> <!-- Empty star -->
                         }
                     </span>
@@ -103,13 +106,15 @@
                     <span class="text-decoration-line-through text-muted me-2">@originalPrice.ToString("C")</span>
                     <span class="badge bg-danger">-@discountPercent%</span>
                 </div>
-                
+
                 <!-- Stock Info -->
-                <div style="flex:1;margin-right:16px; cursor:pointer;" 
-                    class="product_view_bookstore_desktop product_view_msg_bookstore num_bookstore_have_stock" 
-                    onclick="bookstore_have_stock.showPopUpBookstoresHaveStock()">@Model.Stock bookstores have stock</div>
+                <div style="flex:1;margin-right:16px; cursor:pointer;"
+                     class="product_view_bookstore_desktop product_view_msg_bookstore num_bookstore_have_stock"
+                     onclick="bookstore_have_stock.showPopUpBookstoresHaveStock()">
+                    @Model.Stock bookstores have stock
+                </div>
             </div>
-                
+
             <!-- Bottom Section - Book Details -->
             <div class="card shadow-sm rounded-3 p-3">
                 <h4 class="fw-bold mb-3">Product Details</h4>
@@ -119,7 +124,7 @@
                         <p class="mb-2"><span class="fw-medium">Category:</span> @ViewData["CategoriesBook"]</p>
                     </div>
                 </div>
-                
+
                 <!-- Description -->
                 <div class="mt-4">
                     <h5>Description</h5>
@@ -142,20 +147,20 @@
             <div class="d-flex justify-content-between align-items-center mt-5 pb-2">
                 <h2>Books in the same Category</h2>
                 <a asp-area="Customer" asp-controller="Category" asp-action="Index"
-                asp-route-CategoryId="@Model.Categories.First().CategoryId" 
-                class="view-all text-decoration-none text-muted">View all ></a>
+                   asp-route-CategoryId="@Model.Categories.First().CategoryId"
+                   class="view-all text-decoration-none text-muted">View all ></a>
             </div>
             <div class="container-books">
                 <div class="d-flex flex-wrap">
                     @foreach (var book in sameCategoryBooks)
                     {
                         <a asp-controller="Category" asp-action="BookDetail" asp-route-bookId="@book.BookId"
-                        class="text-decoration-none text-black col-3 block p-4">
+                           class="text-decoration-none text-black col-3 block p-4">
                             <div class="h-100 w-100 border border-1 rounded-3 border-solid hover-book"
-                                style="padding: 1.5rem 3rem;">
+                                 style="padding: 1.5rem 3rem;">
                                 <div class="position-relative" style="padding-top: 150%;">
                                     <img class="object-fit-cover w-100 h-100 position-absolute top-0 left-0"
-                                        src="@book.ImageURL" alt="@book.BookTitle">
+                                         src="@book.ImageURL" alt="@book.BookTitle">
                                 </div>
                                 <div class="text-center mt-4">
                                     <div class="fw-bold title">@book.BookTitle</div>
@@ -169,21 +174,24 @@
                                     <div class="book-rating">
                                         @{
                                             var averageRatingDictionary = ViewData["BookRatingForId"] as Dictionary<Guid, double>;
-                                            double averageRating = averageRatingDictionary != null && averageRatingDictionary.ContainsKey(book.BookId) 
-                                                ? averageRatingDictionary[book.BookId] 
-                                                : 0;
+                                            double averageRating = averageRatingDictionary != null && averageRatingDictionary.ContainsKey(book.BookId)
+                                            ? averageRatingDictionary[book.BookId]
+                                            : 0;
                                             System.Console.WriteLine($"Average Rating for {book.BookTitle}: {averageRating}");
                                             int fullStars = (int)Math.Floor(averageRating);
                                             bool hasHalfStar = averageRating - fullStars >= 0.5;
                                         }
                                         <span class="text-warning">
-                                            @for (int i = 0; i < fullStars; i++) { 
+                                            @for (int i = 0; i < fullStars; i++)
+                                            {
                                                 <i class="fas fa-star"></i> <!-- Full star -->
                                             }
-                                            @if (hasHalfStar) { 
+                                            @if (hasHalfStar)
+                                            {
                                                 <i class="fas fa-star-half-alt"></i> <!-- Half star -->
                                             }
-                                            @for (int i = 0; i < 5 - fullStars - (hasHalfStar ? 1 : 0); i++) { 
+                                            @for (int i = 0; i < 5 - fullStars - (hasHalfStar ? 1 : 0); i++)
+                                            {
                                                 <i class="far fa-star"></i> <!-- Empty star -->
                                             }
                                         </span>
@@ -198,7 +206,7 @@
     }
 
 
-        <!-- User Reviews Section -->
+    <!-- User Reviews Section -->
     @{
         var reviews = ViewData["Reviews"] as IEnumerable<Review>;
     }
@@ -207,7 +215,7 @@
     {
         <section class="mt-5">
             <h2 class="mb-4">Customer Reviews</h2>
-            
+
             @foreach (var review in reviews)
             {
                 <div class="card mb-4 border-0 rounded-3 review-hover">
@@ -217,23 +225,23 @@
                             <div class="col-md-3">
                                 <div class="d-flex align-items-center gap-2">
                                     @{
-                                            var avtForUsers = ViewData["AvtForUsers"] as Dictionary<Guid, string>;
-                                            string userAvatar = avtForUsers != null && avtForUsers.ContainsKey(review.UserId) 
-                                                ? avtForUsers[review.UserId] 
-                                                : "default-avatar.png"; // Fallback avatar
-                                        }
-                                    <img class="rounded-circle" src="@userAvatar" alt="User Avatar" 
-                                        style="width: 50px; height: 50px; object-fit: cover;"></img>
+                                        var avtForUsers = ViewData["AvtForUsers"] as Dictionary<Guid, string>;
+                                        string userAvatar = avtForUsers != null && avtForUsers.ContainsKey(review.UserId)
+                                        ? avtForUsers[review.UserId]
+                                        : "default-avatar.png"; // Fallback avatar
+                                    }
+                                    <img class="rounded-circle" src="@userAvatar" alt="User Avatar"
+                                         style="width: 50px; height: 50px; object-fit: cover;"></img>
                                     <h5 class="fw-bold mb-2">
                                         @{
                                             var userDictionary = ViewData["UserNames"] as Dictionary<Guid, string>;
-                                            string userName = userDictionary != null && userDictionary.ContainsKey(review.UserId) 
-                                                ? userDictionary[review.UserId] 
-                                                : "Unknown User";
+                                            string userName = userDictionary != null && userDictionary.ContainsKey(review.UserId)
+                                            ? userDictionary[review.UserId]
+                                            : "Unknown User";
                                         } @userName
                                     </h5>
-                                    
-                                    
+
+
                                     @*                                     
                                     <!-- Review Date -->
                                     <div class="text-muted small">
@@ -241,43 +249,39 @@
                                     </div> *@
                                 </div>
                             </div>
-                            
+
                             <!-- Right Column - Review Content -->
                             <div class="col-md-9">
                                 <!-- Rating Stars -->
-                                    <div class="mb-2">
-                                        @{
-                                            int rating = review.Rating;
+                                <div class="mb-2">
+                                    @{
+                                        int rating = review.Rating;
+                                    }
+                                    <span class="text-warning">
+                                        @for (int i = 0; i < rating; i++)
+                                        {
+                                            <i class="fas fa-star"></i>
                                         }
-                                        <span class="text-warning">
-                                            @for (int i = 0; i < rating; i++)
-                                            {
-                                                <i class="fas fa-star"></i>
-                                            }
-                                            @for (int i = rating; i < 5; i++)
-                                            {
-                                                <i class="far fa-star"></i>
-                                            }
-                                        </span>
-                                    </div>
-                                    
-                                    <!-- Purchase Status -->
-                                    <div class="small mb-2">
-                                        <span class="text-success">
-                                            <i class="fas fa-check-circle"></i> Bought this book
-                                        </span>
-                                    </div>
+                                        @for (int i = rating; i < 5; i++)
+                                        {
+                                            <i class="far fa-star"></i>
+                                        }
+                                    </span>
+                                </div>
+
+                                <!-- Purchase Status -->
+                                <div class="small mb-2">
+                                    <span class="text-success">
+                                        <i class="fas fa-check-circle"></i> Bought this book
+                                    </span>
+                                </div>
                                 <div class="review-content">
                                     <p class="mb-3">@review.Comment</p>
-                                    
-                                    @* <!-- Review Metadata -->
+
+                                    <!-- Review Metadata -->
                                     <div class="text-muted small">
-                                        <span>Đánh giá vào @review.CreatedDate.ToString("dd/MM/yyyy")</span>
-                                        @if (review.OrderId != null)
-                                        {
-                                            <span> - Đã dùng @(DateTime.Now.Subtract(review.CreatedDate).Days/30) tháng</span>
-                                        } 
-                                    </div>*@
+                                        <span>Review at @review.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -286,12 +290,12 @@
             }
         </section>
     }
-else
-{
-    <div class="alert alert-info mt-5">
-        No reviews yet. Be the first to review this book!
-    </div>
-}
+    else
+    {
+        <div class="alert alert-info mt-5">
+            No reviews yet. Be the first to review this book!
+        </div>
+    }
 </div>
 
 <script>
@@ -315,9 +319,10 @@ else
 </script>
 
 <style>
-    .container p{
+    .container p {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
     }
+
     .author {
         font-size: 1rem;
     }
@@ -329,7 +334,7 @@ else
     .title {
         display: -webkit-box;
         -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;  
+        -webkit-box-orient: vertical;
         overflow: hidden;
     }
 
@@ -343,13 +348,14 @@ else
         margin-bottom: 16px;
     }
 
-    .review-hover{
+    .review-hover {
         transition: all 0.3s ease-in-out;
         border-color: #adb5bd1a !important;
     }
-    .review-hover:hover {
-        border-color: #dbdedfb8 !important;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        transition: all 0.3s ease-in-out;
-    }
+
+        .review-hover:hover {
+            border-color: #dbdedfb8 !important;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            transition: all 0.3s ease-in-out;
+        }
 </style>

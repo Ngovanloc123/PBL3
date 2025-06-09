@@ -1,0 +1,27 @@
+﻿@model List<StackBook.ViewModels.BookRatingViewModel>
+@{
+    ViewBag.Title = "Book suggestions";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Book suggestions</h2>
+
+    <!-- Form nhập truy vấn -->
+    <form asp-action="Index" method="post">
+        <div class="input-group input-group-lg mb-3">
+            <input type="text" name="query" class="form-control" placeholder="Enter your desired description to find the right book..." required />
+            <button type="submit" class="btn btn-primary">OK</button>
+        </div>
+    </form>
+
+    <!-- Kết quả -->
+    @if (Model != null && Model.Any())
+    {
+        <h4>Kết quả gợi ý:</h4>
+        @await Component.InvokeAsync("Books", new { books = Model, page = 1 })
+    }
+    else if (Model != null)
+    {
+        <p class="text-muted">No results.</p>
+    }
+</div>

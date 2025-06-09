@@ -6,12 +6,6 @@
     string action = ViewBag.ActionName as string;
 }
 
-@* <!-- Add to head -->
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
-<!-- Add before closing body -->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> *@
-
 
 <div class="row swiper">
     @if (Model != null && Model.Any())
@@ -30,17 +24,37 @@
                 {
                     <li class="swiper-slide col-4">
                         <a asp-area="Customer" asp-controller="Category" asp-action="BookDetail"
-                            asp-route-bookId="@bookRating?.Book.BookId"
-                            class="text-decoration-none text-black d-flex gap-4 h-100">
+                           asp-route-bookId="@bookRating?.Book.BookId"
+                           class="text-decoration-none text-black d-flex gap-4 h-100">
 
                             <div class="slider-image postion-relative col-5">
                                 <img src="@bookRating?.Book.ImageURL" alt="@bookRating?.Book.BookTitle"
-                                    class="w-100 h-100 object-fit-cover" />
+                                     class="w-100 h-100 object-fit-cover" />
                             </div>
 
                             <div class="col-6">
-                                <div class="d-flex flex-column h-100 justify-content-between pt-4">
+                                <div class="d-flex flex-column h-100 pt-4">
                                     <h3 class="book-slide-title fw-semibold">@bookRating?.Book.BookTitle</h3>
+
+                                    <div class="book-rating text-warning mb-1">
+                                        <small class="text-warning">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= Math.Floor(bookRating.AverageRating))
+                                                {
+                                                    <i class="fas fa-star"></i>
+                                                }
+                                                else if (i - 0.5 <= bookRating.AverageRating)
+                                                {
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="far fa-star"></i>
+                                                }
+                                            }
+                                        </small>
+                                    </div>
 
                                     <div class="fs-8 text-muted">
                                         @if (bookRating?.Book!.Authors != null && bookRating.Book.Authors.Any())
@@ -52,16 +66,18 @@
                                         }
                                     </div>
 
+
+
                                     <div class="book-price text-danger fw-semibold">
                                         $@bookRating?.Book?.Price
                                     </div>
 
-                                    <form class="w-100" method="post" action="/add">
+                                    @* <form class="w-100" method="post" action="/add">
                                         <input type="hidden" name="bookId" value="34780479-6493-46df-ba28-10c14c4711d6">
                                         <button type="submit" class="btn btn-primary rounded-2 py-2 text-uppercase fw-bold">
                                             <i class="fa-solid fa-cart-shopping"></i> Add to Cart
                                         </button>
-                                    </form>
+                                    </form> *@
                                 </div>
                             </div>
                         </a>
@@ -82,6 +98,12 @@
     .swiper-slide {
         height: auto;
     } *@
+    .book-slide-title {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
 
     .swiper-button-prev,
     .swiper-button-next {
@@ -109,10 +131,10 @@
         right: 10px;
     }
 
-    .swiper-button-prev::after,
-    .swiper-button-next::after {
-        display: none;
-    }
+        .swiper-button-prev::after,
+        .swiper-button-next::after {
+            display: none;
+        }
 </style>
 @* 
 <script>

@@ -10,39 +10,39 @@
     <div class="row">
         <div class="col-12 flex">
             <div class="row">
-    <div class="col-7 d-flex flex-column justify-content-center">
-        <div>
-            <h2 class="fw-bold">New Releases This Week</h2>
-            <p>It's time to update your reading list with some of the latest and greatest releases in the literary world. From heart-pumping thrillers to captivating memoirs, this week's new releases offer something for everyone.</p>
-            <button class="btn btn-primary rounded-2 py-2 fw-semibold w-fit">
-                Subscribe
-            </button>
-        </div>
-    </div>
-
-    <div class="col-4">
-        <div class="position-relative" style="height: 400px; width: 250px;">
-            @for (var i = 0; i < 3; i++)
-            {
-                var zIndex = 3 - i;
-                var scale = 1 - (i * 0.1);
-                var left = i * 30;
-                var top = i * 0;
-
-                <div class="book-frame position-absolute"
-                    style="top:@(top)px; left:@(left)%; transform: scale(@(scale)); z-index:@(zIndex);">
-                    <a asp-area="Customer" asp-controller="Category" asp-action="BookDetail"
-                                    asp-route-bookId="@(Model.NewReleaseBooks.ElementAtOrDefault(i)?.Book?.BookId)">
-                        <img src="@(Model.NewReleaseBooks.ElementAtOrDefault(i)?.Book?.ImageURL ?? "default-image-url.jpg")"
-                        alt="New Release Image @(i)"
-                        class="book-image" />
-                    </a>
+                <div class="col-7 d-flex flex-column justify-content-center">
+                    <div>
+                        <h2 class="fw-bold">New Releases This Week</h2>
+                        <p>It's time to update your reading list with some of the latest and greatest releases in the literary world. From heart-pumping thrillers to captivating memoirs, this week's new releases offer something for everyone.</p>
+                        <button class="btn btn-primary rounded-2 py-2 fw-semibold w-fit">
+                            Subscribe
+                        </button>
+                    </div>
                 </div>
-            }
-</div>
 
-    </div>
-</div>
+                <div class="col-4">
+                    <div class="position-relative" style="height: 400px; width: 250px;">
+                        @for (var i = 0; i < 3; i++)
+                        {
+                            var zIndex = 3 - i;
+                            var scale = 1 - (i * 0.1);
+                            var left = i * 30;
+                            var top = i * 0;
+
+                            <div class="book-frame position-absolute"
+                                 style="top:@(top)px; left:@(left)%; transform: scale(@(scale)); z-index:@(zIndex);">
+                                <a asp-area="Customer" asp-controller="Category" asp-action="BookDetail"
+                                   asp-route-bookId="@(Model.NewReleaseBooks.ElementAtOrDefault(i)?.Book?.BookId)">
+                                    <img src="@(Model.NewReleaseBooks.ElementAtOrDefault(i)?.Book?.ImageURL ?? "default-image-url.jpg")"
+                                         alt="New Release Image @(i)"
+                                         class="book-image" />
+                                </a>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
 
         </div>
     </div>
@@ -56,20 +56,20 @@
                 {
                     <div class="discover-item col-3 p-3 d-flex justify-content-center align-items-center">
                         <a asp-area="Customer" asp-controller="Category" asp-action="Index"
-                            asp-route-CategoryId="@category.CategoryId" class="text-decoration-none text-dark d-flex gap-2 flex-column w-50 h-100">
+                           asp-route-CategoryId="@category.CategoryId" class="text-decoration-none text-dark d-flex gap-2 flex-column w-50 h-100">
                             <div class="category-image rounded-circle position-relative overflow-hidden flex-1">
                                 @{
                                     Dictionary<Guid, Book> firstBooksByCategory = ViewData["FirstBooksByCategory"] as Dictionary<Guid, Book>;
                                     var imageUrl = firstBooksByCategory != null && firstBooksByCategory.TryGetValue(category.CategoryId, out var book)
-                                        ? book.ImageURL
-                                        : null;
+                                    ? book.ImageURL
+                                    : null;
                                     @* var imageUrl = category.Books.FirstOrDefault()?.ImageURL; *@
                                     @* imageUrl = "https://blog-cdn.reedsy.com/directories/gallery/248/large_65b0ae90317f7596d6f95bfdd6131398.jpg"; *@
                                 }
                                 @if (imageUrl != null)
                                 {
                                     <img class="img-fluid position-absolute top-0 left-0 object-fit-contain w-100" src="@imageUrl"
-                                        alt="@category.CategoryName" />
+                                         alt="@category.CategoryName" />
                                 }
                             </div>
                             <div class="text-center fw-semibold">
@@ -96,42 +96,42 @@
         </div>
     </div>
 
-    <div class="row mb-5">
+    @* <div class="row mb-5">
         <div class="col-12">
             <h3 class="mb-4">New Release</h3>
             @await Component.InvokeAsync("Books", new { books = Model.NewReleaseBooks, page = Model.Page })
         </div>
-    </div>
+    </div> *@
 </div>
 
 <style>
 
 
-.book-frame {
-    width: 220px;
-    height: 330px;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: all 0.4s ease-in-out;
-    cursor: pointer;
-}
+    .book-frame {
+        width: 220px;
+        height: 330px;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: all 0.4s ease-in-out;
+        cursor: pointer;
+    }
 
-.book-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+    .book-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-/* Hover vào từng ảnh thì trượt sang phải */
-.book-frame:hover {
-    transform: translateX(75px) scale(1.05) !important;
+    /* Hover vào từng ảnh thì trượt sang phải */
+    .book-frame:hover {
+        transform: translateX(75px) scale(1.05) !important;
     @* z-index: 5 !important; *@
     box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-}
+    }
 
-/* Khi hover vào container thì cho tất cả ảnh dịch nhẹ */
-.container-hover:hover .book-frame {
-    transform: translateX(4rem);
-}
+    /* Khi hover vào container thì cho tất cả ảnh dịch nhẹ */
+    .container-hover:hover .book-frame {
+        transform: translateX(4rem);
+    }
 </style>

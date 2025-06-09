@@ -15,7 +15,7 @@ namespace StackBook.DAL.Repository
     {
         private readonly ApplicationDbContext _db;
 
-        public OrderRepository(ApplicationDbContext db) : base(db) 
+        public OrderRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
@@ -102,7 +102,7 @@ namespace StackBook.DAL.Repository
             var order = await FindOrderByIdAsync(orderId);
             if (order != null)
             {
-                if(order.ShippingAddress != null)
+                if (order.ShippingAddress != null)
                 {
                     order.ShippingAddress.Address = address;
                 }
@@ -126,6 +126,10 @@ namespace StackBook.DAL.Repository
         public async Task SaveChangesAsync()
         {
             await _db.SaveChangesAsync();
+        }
+        public async Task<Order?> GetOrderByDiscountId(Guid discountId)
+        {
+            return await _db.Orders.FirstOrDefaultAsync(o => o.DiscountId == discountId);
         }
     }
 }

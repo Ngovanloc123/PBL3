@@ -19,10 +19,16 @@ namespace StackBook.Areas.Admin.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
+        private readonly INotificationService _notificationService;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserService _userService;
 
-        public OrderController(IOrderService orderService, IUnitOfWork unitOfWork)
+        public OrderController(IOrderService orderService, IUnitOfWork unitOfWork, INotificationService notificationService, IUserService userService)
         {
             _orderService = orderService;
+            _notificationService = notificationService;
+            _unitOfWork = unitOfWork;
+            _userService = userService;
         }
 
         public async Task<IActionResult> Index(int? page, int status)
@@ -80,7 +86,9 @@ namespace StackBook.Areas.Admin.Controllers
                 await _orderService.CancelOrderAsync(orderId);
                 await _orderService.CreateOrderHistoryAsync(orderId, 3);
                 TempData["Success"] = "Order canceled successfully.";
-                
+                var order = await _orderService.GetOrderByIdAsync(orderId);
+                // Create a notification for the user
+                await _notificationService.SendNotificationAsync(order.UserId, "Order Canceled" + $"Your order with ID {orderId} has been canceled.");
                 return RedirectToAction("Index", "Order");
             }
             catch (Exception ex)
@@ -98,8 +106,10 @@ namespace StackBook.Areas.Admin.Controllers
 
                 // Pending  -> Delivering
                 await _orderService.UpdateOrderStatusAsync(orderId, 2);
-
                 TempData["Success"] = "Order Confirmation Successfully.";
+                var order = await _orderService.GetOrderByIdAsync(orderId);
+                // Create a notification for the user
+                await _notificationService.SendNotificationAsync(order.UserId, "Order Confirmed" + $"Your order with ID {orderId} has been confirmed and is now being processed.");
                 return RedirectToAction("Detail", "Order", new { id = orderId });
 
             }

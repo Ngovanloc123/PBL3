@@ -20,5 +20,6 @@ namespace StackBook.Interfaces
         Task<List<OrderDetail>> GetOrderDetailsAsync(Guid orderId);
         Task<List<OrderHistory>> GetOrderHistoryAsync(Guid orderId);
         Task<OrderHistory> CreateOrderHistoryAsync(Guid orderId, int status);
+        Task<Order?> GetOrderByDiscountIdAsync(Guid discountId);
     }
 }

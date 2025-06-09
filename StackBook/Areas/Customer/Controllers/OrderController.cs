@@ -18,6 +18,7 @@ namespace StackBook.Areas.Customer.Controllers
 
     [Area("Customer")]
     [Authorize]
+    [Authorize(Roles = "User")]
     public class OrderController : Controller
     {
 
@@ -29,8 +30,9 @@ namespace StackBook.Areas.Customer.Controllers
         private readonly IOrderService _orderService;
         private readonly IUserService _userService;
         private readonly IReviewService _reviewService;
+        private readonly INotificationService _notificationService;
 
-        public OrderController(IUnitOfWork unitOfWork, ICartService cartService, IHttpContextAccessor httpContextAccessor, JwtUtils jwtUtils, IBookService bookService, IOrderService orderService, IUserService userService, IReviewService reviewService)
+        public OrderController(IUnitOfWork unitOfWork, ICartService cartService, IHttpContextAccessor httpContextAccessor, JwtUtils jwtUtils, IBookService bookService, IOrderService orderService, IUserService userService, IReviewService reviewService, INotificationService notificationService)
         {
             _unitOfWork = unitOfWork;
             _cartService = cartService;
@@ -40,6 +42,7 @@ namespace StackBook.Areas.Customer.Controllers
             _orderService = orderService;
             _userService = userService;
             _reviewService = reviewService;
+            _notificationService = notificationService;
         }
 
         //[Authorize(Roles = "Customer")]
@@ -233,9 +236,11 @@ namespace StackBook.Areas.Customer.Controllers
                 await _orderService.CancelOrderAsync(orderId);
                 // Tạo History
                 await _orderService.CreateOrderHistoryAsync(orderId, 3);
-
+                var order = await _orderService.GetOrderByIdAsync(orderId);
 
                 TempData["Success"] = "Order canceled successfully.";
+                // Create a notification for the user
+                await _notificationService.SendNotificationAsync(order.UserId, "Order Canceled " + $"Your order with ID {orderId} has been canceled.");
                 return RedirectToAction("Index", new { status = status });
             }
             catch (Exception ex)
@@ -270,6 +275,10 @@ namespace StackBook.Areas.Customer.Controllers
                 await _orderService.CreateOrderHistoryAsync(orderId, 4);
 
                 TempData["Success"] = "Order canceled successfully.";
+                var order = await _orderService.GetOrderByIdAsync(orderId);
+                // Create a notification for the user
+                await _notificationService.SendNotificationAsync(order.UserId, "Order Received " + $"Your order with ID {orderId} has been received.");
+                // Redirect to the index with the current status
                 return RedirectToAction("Index", new { status = status });
             }
             catch (Exception ex)
@@ -305,6 +314,10 @@ namespace StackBook.Areas.Customer.Controllers
                 await _orderService.CreateOrderHistoryAsync(orderId, 5);
 
                 TempData["Success"] = "Order canceled successfully.";
+                var order = await _orderService.GetOrderByIdAsync(orderId);
+                // Create a notification for the user
+                await _notificationService.SendNotificationAsync(order.UserId, "Order Returned " + $"Your order with ID {orderId} has been returned.");
+                // Redirect to the index with the current status
                 return RedirectToAction("Index", new { status = status });
             }
             catch (Exception ex)
@@ -355,6 +368,13 @@ namespace StackBook.Areas.Customer.Controllers
                     return View("Error", new ErrorViewModel { ErrorMessage = "Created Review unsucessfull", StatusCode = 404 });
                 }
                 // Return the created review
+                var review = await _reviewService.GetReviewByIdAsync(createdReview.ReviewId);
+                if (review == null)
+                {
+                    return View("Error", new ErrorViewModel { ErrorMessage = "Review not found after creation.", StatusCode = 404 });
+                }
+                // Create a notification for the user
+                await _notificationService.SendNotificationAsync(review.UserId, "Review Submitted " + $"Your review for book with ID {bookId} in order {orderId} has been submitted.");
                 return RedirectToAction("Index", "Order", new { status = 4 }); // Redirect to delivered orders
             }
             catch (Exception ex)

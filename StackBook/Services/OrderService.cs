@@ -156,7 +156,7 @@ namespace StackBook.Services
                 //    Status = 1, // Pending
                 //    createdStatus = DateTime.Now
                 // };
-                var orderHistory =  await CreateOrderHistoryAsync(order.OrderId, 1); // status = 1. Pending
+                var orderHistory = await CreateOrderHistoryAsync(order.OrderId, 1); // status = 1. Pending
 
                 //await _unitOfWork.OrderHistory.AddAsync(orderHistory);
 
@@ -375,6 +375,12 @@ namespace StackBook.Services
             await _unitOfWork.OrderHistory.AddAsync(orderHistory);
             await _unitOfWork.SaveAsync();
             return orderHistory;
+        }
+        //lay order tu discountId
+        public async Task<Order?> GetOrderByDiscountIdAsync(Guid discountId)
+        {
+            var order = await _orderRepository.GetOrderByDiscountId(discountId);
+            return order;
         }
     }
 }

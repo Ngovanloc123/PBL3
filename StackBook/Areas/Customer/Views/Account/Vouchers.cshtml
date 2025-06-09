@@ -47,7 +47,19 @@
                                         <div class="w-100">
                                             @* COI LẠI LOGIC CHECK VALID Ở ĐÂY THEO SỐ LƯỢT DÙNG, CHỖ NI ĐANG CHECK THEO DATE THÔI *@
                                             <span class="badge @(DateTime.Now > discount.EndDate ? "bg-secondary" : "bg-success")">
-                                                @(DateTime.Now > discount.EndDate ? "Unvalid" : "Valid")
+                                                @{
+                                                    var checkDiscount = string.Empty;
+                                                    Dictionary<Guid, bool> discountValid = ViewData["DiscountActive"] as Dictionary<Guid, bool> ?? new Dictionary<Guid, bool>();
+                                                    bool isValid = discountValid.ContainsKey(discount.DiscountId) && discountValid[discount.DiscountId];
+                                                    if (isValid)
+                                                    {
+                                                        checkDiscount = "Valid";
+                                                    }
+                                                    else
+                                                    {
+                                                        checkDiscount = "Invalid";
+                                                    }
+                                                } @checkDiscount
                                             </span>
 
                                             <div class="discount-price text-center py-2 px-1 rounded">

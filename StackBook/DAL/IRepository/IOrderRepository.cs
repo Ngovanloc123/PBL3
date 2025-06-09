@@ -20,5 +20,6 @@ namespace StackBook.DAL.IRepository
         Task DeleteOrderAsync(Guid orderId);
         Task<IDbContextTransaction> BeginTransactionAsync();
         Task SaveChangesAsync();
+        Task<Order?> GetOrderByDiscountId(Guid discountId);
     }
 }

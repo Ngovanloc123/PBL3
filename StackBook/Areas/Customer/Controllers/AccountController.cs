@@ -22,8 +22,9 @@ namespace StackBook.Areas.Customer.Controllers
         private readonly CloudinaryUtils _cloudinaryUtils;
         private readonly IDiscountService _discountService;
         private readonly INotificationService _notificationService;
+        private readonly IOrderService _orderService;
 
-        public AccountController(IUserService userService, IAuthService authService, IDiscountService discountService, INotificationService notificationService, IHttpContextAccessor httpContextAccessor, JwtUtils jwtUtils, CloudinaryUtils cloudinaryUtils)
+        public AccountController(IUserService userService, IAuthService authService, IDiscountService discountService, INotificationService notificationService, IHttpContextAccessor httpContextAccessor, JwtUtils jwtUtils, CloudinaryUtils cloudinaryUtils, IOrderService orderService)
         {
             _userService = userService;
             _authService = authService;
@@ -32,6 +33,7 @@ namespace StackBook.Areas.Customer.Controllers
             _httpContextAccessor = httpContextAccessor;
             _jwtUtils = jwtUtils;
             _cloudinaryUtils = cloudinaryUtils;
+            _orderService = orderService;
         }
         [HttpGet("Profile")]
         [Authorize(Roles = "User")]
@@ -322,6 +324,22 @@ namespace StackBook.Areas.Customer.Controllers
                 ViewBag.Message = "Hiện tại không có mã giảm giá nào.";
                 return View(new List<Discount>());
             }
+            //tim kiem discountId da duoc dung trong order voi orderId thi khong cho dung
+            Dictionary<Guid, bool> discountActive = new Dictionary<Guid, bool>();
+            foreach (var discount in discounts)
+            {
+                // Kiểm tra xem mã giảm giá đã được sử dụng trong đơn hàng nào chưa
+                var order = await _orderService.GetOrderByDiscountIdAsync(discount.DiscountId);
+                if (order != null)
+                {
+                    discountActive[discount.DiscountId] = true;
+                }
+                else
+                {
+                    discountActive[discount.DiscountId] = false;
+                }
+            }
+            ViewData["DiscountActive"] = discountActive;
             return View(discounts);
         }
     }

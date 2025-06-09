@@ -8,6 +8,8 @@ using StackBook.ViewModels;
 using X.PagedList;
 using X.PagedList.Extensions;
 using StackBook.Interfaces;
+using CloudinaryDotNet;
+using StackBook.Utils;
 
 namespace StackBook.Areas.Admin.Controllers
 {
@@ -19,12 +21,16 @@ namespace StackBook.Areas.Admin.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly INotificationService _notificationService;
+        private readonly IUserService _userService;
+        private readonly CloudinaryUtils _cloudinaryUtils;
 
-        public BookController(IUnitOfWork unitOfWork, INotificationService notificationService, IWebHostEnvironment webHostEnvironment)
+        public BookController(IUnitOfWork unitOfWork, INotificationService notificationService, IWebHostEnvironment webHostEnvironment, IUserService userService, CloudinaryUtils cloudinary)
         {
             _unitOfWork = unitOfWork;
             _notificationService = notificationService;
             _webHostEnvironment = webHostEnvironment;
+            _userService = userService;
+            _cloudinaryUtils = cloudinary;
         }
 
         // [GET] Admin/Book
@@ -91,11 +97,26 @@ namespace StackBook.Areas.Admin.Controllers
 
             if (file != null)
             {
-                book.ImageURL = await SaveFileAsync(file);
+                book.ImageURL = await _cloudinaryUtils.UploadImageAsync(file);
+                Console.WriteLine($"Image URL: {book.ImageURL}");
             }
 
             await _unitOfWork.Book.AddAsync(book);
             await _unitOfWork.SaveAsync();
+            var usersResponse = await _userService.GetAllUsers();
+            var users = usersResponse.Data;
+            if (users == null || !users.Any())
+            {
+                TempData["error"] = "No users found to send notifications.";
+                return RedirectToAction("Index");
+            }
+            foreach (var user in users)
+            {
+                if (user.Role == false)
+                {
+                    await _notificationService.SendNotificationAsync(user.UserId, $"New Book Name: {book.BookTitle} - https://localhost:7170/Customer/Category/BookDetail?bookId={book.BookId}");
+                }
+            }
             TempData["success"] = "Book created successfully.";
             return RedirectToAction("Index");
         }
@@ -229,7 +250,15 @@ namespace StackBook.Areas.Admin.Controllers
         private async Task<string> SaveFileAsync(IFormFile file)
         {
             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images/Books", fileName);
+            string folderPath = Path.Combine(_webHostEnvironment.WebRootPath, "images/Books");
+
+            // 🔥 Nếu thư mục chưa tồn tại, tạo mới
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            string filePath = Path.Combine(folderPath, fileName);
 
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
@@ -238,6 +267,7 @@ namespace StackBook.Areas.Admin.Controllers
 
             return $"/images/Books/{fileName}";
         }
+
 
         // Helper method to delete file
         private void DeleteFile(string filePath)

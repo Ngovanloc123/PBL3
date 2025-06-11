@@ -298,58 +298,77 @@
 
                         @{
                             var book = category.Books.FirstOrDefault();
+                            if(book == null)
+                            {
+                                <h2>
+                                     No book
+                                </h2>
+                            }
+                            else
+                            {
+                                <div class="content position-relative z-index-1 d-flex gap-3 align-items-start justify-content-center">
+                                    <div class="col-3">
+                                        <div class="position-relative" style="padding-top: 120%;">
+                                            <img src="@book?.ImageURL"
+                                                 class="position-absolute top-0 left-0 w-100 h-100 object-fit-cover rounded-2" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <h3 class="text-white mb-2">@book?.BookTitle</h3>
+
+                                        <div class="author mb-2">
+                                            @if (book?.Authors != null && book.Authors.Any())
+                                            {
+                                                foreach (var author in book.Authors)
+                                                {
+                                                    <div>@author.AuthorName</div>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <div>Unknown Author</div>
+                                            }
+                                        </div>
+
+                                        <div class="price mb-2">
+                                            $@book?.Price
+                                        </div>
+
+                                        <div class="book-rating mb-2">
+                                            @if (book?.Reviews != null && book.Reviews.Any())
+                                            {
+                                                @("review here")
+                                            }
+                                            else
+                                            {
+                                                @("⭐⭐⭐⭐⭐")
+                                            }
+                                        </div>
+
+                                        <div class="category mb-2">
+                                            @if (book?.Categories != null && book.Categories.Any())
+                                            {
+                                                @foreach (var bookCategory in book.Categories)
+                                                {
+                                                    <span>@bookCategory.CategoryName</span>
+                                                }
+                                            }
+                                        </div>
+
+                                        <a asp-controller="Category" asp-action="BuyNow"
+                                           asp-route-bookId="@book.BookId"
+                                           asp-route-quantity="1"
+                                           class="btn btn-success rounded-2 py-2 text-uppercase fw-bold"
+                                           onclick="event.stopPropagation();">
+                                            <i class="bi bi-bag-check"></i> Buy Now
+                                        </a>
+                                    </div>
+                                </div>
+                            }
                         }
 
-                        <div class="content position-relative z-index-1 d-flex gap-3 align-items-start justify-content-center">
-                            <div class="col-3">
-                                <div class="position-relative" style="padding-top: 120%;">
-                                    <img src="@book?.ImageURL"
-                                         class="position-absolute top-0 left-0 w-100 h-100 object-fit-cover rounded-2" />
-                                </div>
-                            </div>
-
-                            <div class="col-4">
-                                <h3 class="text-white mb-2">@book?.BookTitle</h3>
-
-                                <div class="author mb-2">
-                                    @if (book?.Authors != null && book.Authors.Any()) {
-                                        foreach (var author in book.Authors) {
-                                            <div>@author.AuthorName</div>
-                                        }
-                                    } else {
-                                        <div>Unknown Author</div>
-                                    }
-                                </div>
-
-                                <div class="price mb-2">
-                                    $@book?.Price
-                                </div>
-
-                                <div class="book-rating mb-2">
-                                    @if (book?.Reviews != null && book.Reviews.Any()) {
-                                        @("review here")
-                                    } else {
-                                        @("⭐⭐⭐⭐⭐")
-                                    }
-                                </div>
-
-                                <div class="category mb-2">
-                                    @if (book?.Categories != null && book.Categories.Any()) {
-                                        @foreach (var bookCategory in book.Categories) {
-                                            <span>@bookCategory.CategoryName</span>
-                                        }
-                                    }
-                                </div>
-
-                                <a asp-controller="Category" asp-action="BuyNow"
-                                   asp-route-bookId="@book.BookId"
-                                   asp-route-quantity="1"
-                                   class="btn btn-success rounded-2 py-2 text-uppercase fw-bold"
-                                   onclick="event.stopPropagation();">
-                                    <i class="bi bi-bag-check"></i> Buy Now
-                                </a>
-                            </div>
-                        </div>
+                        
                     </div>
                 </li>
 

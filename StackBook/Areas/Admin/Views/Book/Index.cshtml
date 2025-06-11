@@ -7,10 +7,23 @@
 
 <div class="container">
 	<div class="row pt-4 pb-4">
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<h1 class="text-primary">Books</h1>
 		</div>
-		<div class="col-md-6 text-md-end text-center">
+
+		<div class="col-md-4">
+
+			<form class="d-flex me-3" method="get" asp-area="Admin" asp-controller="Book" asp-action="Search">
+				<div class="input-group custom-search-group">
+					<input type="text" class="form-control custom-search-input" placeholder="Search books..." name="s" />
+					<button class="btn custom-search-btn" type="submit">
+						<i class="fa-solid fa-magnifying-glass"></i>
+					</button>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-md-4 text-md-end text-center">
 			<a  asp-action="Create" class="btn btn-primary">
 				<i class="fa-solid fa-plus"></i> Create New Book
 			</a>
@@ -59,7 +72,7 @@
 						</td>
 						<td class="d-none d-lg-table-cell">$@obj.Price</td>
 						<td>@obj.Stock</td>
-						<td class="d-none d-xl-table-cell">@obj.CreatedBook.ToString("dd-MM-yyyy")</td>
+						<td class="d-none d-xl-table-cell">@obj.CreatedBook.ToString("MM-dd-yyyy")</td>
 						<td class="d-none d-md-table-cell">
 							<ul class="list-unstyled mb-0">
 								@foreach (var category in obj.Categories)
@@ -89,7 +102,7 @@
 							<a style="width: 70px;" data-bs-id=@obj.BookId class="btn btn-danger btn-sm mb-2" data-bs-toggle="modal"
 								   data-bs-target="#delete-book-modal">
 									<i class="fa-solid fa-trash"></i> Delete
-								</a>
+							</a>
 						</td>
 					</tr>
 					index++;

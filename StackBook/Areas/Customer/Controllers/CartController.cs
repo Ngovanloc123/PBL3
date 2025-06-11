@@ -174,8 +174,7 @@ namespace StackBook.Areas.Customer.Controllers
             // Lấy lại user cùng với address để cập nhật lại address
 
             //checkoutRequest.shippingAddressDefault = address?.FirstOrDefault();
-
-            // Fix for CS0266: Explicitly convert IEnumerable to ICollection  
+ 
             checkoutRequest.User.ShippingAddresses = address.ToList();
 
             return View(checkoutRequest);

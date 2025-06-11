@@ -219,7 +219,7 @@ namespace StackBook.Services
                 try
                 {
                     // Handle book quantity changes based on status transitions
-                    if (status == 4) // Hủy đơn hàng
+                    if (status == 3) // Hủy đơn hàng
                     {
                         await RestoreBookQuantities(orderId); // Trả lại số lượng sách
                     }
@@ -267,7 +267,7 @@ namespace StackBook.Services
             if (order.Status != 1)
                 throw new AppException("Chỉ có thể huỷ đơn hàng khi ở trạng thái chờ xử lý.");
 
-            await UpdateOrderStatusAsync(orderId, 3); // Canceled status
+            await UpdateOrderStatusAsync(orderId, 3)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ; // Canceled status
         }
 
         private async Task RestoreBookQuantities(Guid orderId)

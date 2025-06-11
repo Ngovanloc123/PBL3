@@ -10,6 +10,8 @@ using X.PagedList.Extensions;
 using StackBook.Interfaces;
 using CloudinaryDotNet;
 using StackBook.Utils;
+using StackBook.Services;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace StackBook.Areas.Admin.Controllers
 {
@@ -22,15 +24,17 @@ namespace StackBook.Areas.Admin.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly INotificationService _notificationService;
         private readonly IUserService _userService;
+        private readonly ISearchService _searchService;
         private readonly CloudinaryUtils _cloudinaryUtils;
 
-        public BookController(IUnitOfWork unitOfWork, INotificationService notificationService, IWebHostEnvironment webHostEnvironment, IUserService userService, CloudinaryUtils cloudinary)
+        public BookController(IUnitOfWork unitOfWork, INotificationService notificationService, IWebHostEnvironment webHostEnvironment, IUserService userService, CloudinaryUtils cloudinary, ISearchService searchService)
         {
             _unitOfWork = unitOfWork;
             _notificationService = notificationService;
             _webHostEnvironment = webHostEnvironment;
             _userService = userService;
             _cloudinaryUtils = cloudinary;
+            _searchService = searchService;
         }
 
         // [GET] Admin/Book
@@ -45,6 +49,18 @@ namespace StackBook.Areas.Admin.Controllers
 
 
             return View(pagedBooks);
+        }
+
+        public async Task<IActionResult> Search(int? page, string? s)
+        {
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+            ViewBag.Query = s;
+            var booksSearch = await _searchService.SearchBooksAdminAsync(s);
+
+            var pagedBooks = booksSearch.ToPagedList(pageNumber, pageSize);
+            return View("Index", pagedBooks);
         }
 
         // [GET] Admin/Book/Create
@@ -164,7 +180,8 @@ namespace StackBook.Areas.Admin.Controllers
             book.BookTitle = viewModel.BookTitle;
             book.Description = viewModel.Description;
             book.Price = viewModel.Price;
-            book.Stock = viewModel.Stock;
+            book.Stock = viewModel.Stock + viewModel.AddStock;
+            book.CreatedBook = viewModel.CreatedBook ?? DateTime.Now;
 
             if (file != null)
             {
@@ -186,15 +203,15 @@ namespace StackBook.Areas.Admin.Controllers
             await _unitOfWork.SaveAsync();
             TempData["success"] = "Book edited successfully.";
             //Gửi thông báo đến tất cả người dùng là có cập nhật
-            var allUsers = await _unitOfWork.User.GetAllAsync();
-            //Check quyền nếu là user thì mới gửi
-            foreach (var user in allUsers)
-            {
-                if (user.Role == false)
-                {
-                    await _notificationService.SendNotificationAsync(user.UserId, "New book added: " + viewModel.BookTitle);
-                }
-            }
+            //var allUsers = await _unitOfWork.User.GetAllAsync();
+            ////Check quyền nếu là user thì mới gửi
+            //foreach (var user in allUsers)
+            //{
+            //    if (user.Role == false)
+            //    {
+            //        await _notificationService.SendNotificationAsync(user.UserId, "Book Edited: " + viewModel.BookTitle);
+            //    }
+            //}
             return RedirectToAction("Index");
         }
 
@@ -233,6 +250,7 @@ namespace StackBook.Areas.Admin.Controllers
                 BookId = book?.BookId,
                 BookTitle = book?.BookTitle,
                 Description = book?.Description,
+                CreatedBook = book?.CreatedBook,
                 Price = book?.Price ?? 0,
                 Stock = book?.Stock ?? 0,
                 ImageURL = book?.ImageURL,

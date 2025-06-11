@@ -52,5 +52,34 @@ namespace StackBook.Services
             
             return bookSearch;
         }
+
+        public async Task<List<Book>> SearchBooksAdminAsync(string query)
+        {
+
+            var books = await _unitOfWork.Book.GetAllAsync("Authors");
+            var bookSearch = new List<Book>();
+            if (string.IsNullOrEmpty(query))
+            {
+                foreach (var book in books)
+                {
+                    bookSearch.Add(book);
+                }
+
+            }
+            else
+            {
+                bookSearch = new List<Book>();
+                foreach (var book in books)
+                {
+                    if (book.BookTitle.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                        book.Authors.Any(a => a.AuthorName.Contains(query, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        bookSearch.Add(book);
+                    }
+                }
+            }
+
+            return bookSearch;
+        }
     }
 }

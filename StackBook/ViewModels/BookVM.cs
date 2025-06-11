@@ -21,11 +21,15 @@ namespace StackBook.ViewModels
         [Range(0, int.MaxValue, ErrorMessage = "Stock quantity cannot be negative.")]
         public int Stock { get; set; }
 
+        [Range(0, int.MaxValue, ErrorMessage = "Add Stock must be a non-negative number")]
+        public int AddStock { get; set; }
+
+
         public string? ImageURL { get; set; }
 
         [Required(ErrorMessage = "Created date is required.")]
         [DataType(DataType.Date, ErrorMessage = "Invalid date format.")]
-        public DateTime CreatedBook { get; set; }
+        public DateTime? CreatedBook { get; set; }
 
         public IEnumerable<SelectListItem>? Categories { get; set; }
         public IEnumerable<SelectListItem>? Authors { get; set; }
